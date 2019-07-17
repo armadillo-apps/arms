@@ -70,6 +70,34 @@ jobs:
         - run:
             name: Ping test deployment
             command: curl --fail https://$HEROKU_APP_NAME.herokuapp.com/
+  deployDemo:
+      docker:
+         - image: circleci/node:12.6.0
+      environment:
+         HEROKU_APP_NAME: demo-armadillo-arms
+      steps:
+          - checkout
+          - run:
+              name: Deploy to demo frontend on Heroku
+              command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+          - run: sleep 10
+          - run:
+              name: Ping test deployment
+              command: curl --fail https://$HEROKU_APP_NAME.herokuapp.com/
+  deployProd:
+      docker:
+         - image: circleci/node:12.6.0
+      environment:
+          HEROKU_APP_NAME: armadilo-arms
+      steps: 
+          - checkout
+          - run: 
+              name: Deploy to production frontend on Heroku
+              command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+          - run:
+              name: Ping test deployment
+              command: curl --fail https://$HEROKU_APP_NAME.herokuapp.com/
+              
 workflows:
   version: 2
   testAndDeploy:
@@ -84,5 +112,11 @@ workflows:
       - uiTest:
           requires:
             - deployTest
+      - deployDemo:
+          requires:
+            - uiTest
+      - deployProd:
+          requires:
+            - deployDemo
 
         
