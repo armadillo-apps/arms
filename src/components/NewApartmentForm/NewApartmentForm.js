@@ -17,6 +17,7 @@ const attributes = [
 const NewApartmentForm = ({ onChange, onClick }) => {
   const formAttributes = attributes.map((attribute, index) => {
     const { name, type } = attribute;
+    const regex = /(?=[A-Z]+[^A-Z]?)/;
 
     return (
       <div key={index} className={`apartmentForm__${name.toLowerCase()}`}>
@@ -24,7 +25,7 @@ const NewApartmentForm = ({ onChange, onClick }) => {
           htmlFor={`apartmentForm${name}`}
           className="apartmentForm__label"
         >
-          {name}
+          {name.split(regex).join(' ')}
         </label>
         <input
           type={type}
