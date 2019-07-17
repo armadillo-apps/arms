@@ -12,9 +12,9 @@
   --red-color: #fa575a;
   --font: Varela Round;
   --main-h1-font-size: 3.6rem;
-  --sidebar-font-size: 1.8rem;
+  --sidebar-font-size: 2rem;
   --searchbar-font-size: 1.1rem;
-  --main-h2-font-size: 1.1rem;
+  --main-h2-font-size: 1.6rem;
   --main-row-font-size: 1.4rem;
   --form-font-size: 1.8rem;
   font-size: 62.5%;
@@ -24,7 +24,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Varela Round";
+  font-family: var(--font);
   font-style: normal;
   font-weight: normal;
 }
