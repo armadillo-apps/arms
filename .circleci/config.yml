@@ -60,7 +60,7 @@ jobs:
       docker:
         - image: circleci/node:12.6.0
       environment:
-        HEROKU_APP_NAME: test-armadilo-arms
+        HEROKU_APP_NAME: test-armadillo-arms
       steps:
         - checkout
         - run:
@@ -88,7 +88,7 @@ jobs:
       docker:
          - image: circleci/node:12.6.0
       environment:
-          HEROKU_APP_NAME: armadilo-arms
+          HEROKU_APP_NAME: armadillo-arms
       steps: 
           - checkout
           - run: 
