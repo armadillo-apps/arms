@@ -18,7 +18,7 @@ describe("Input form", () => {
 
   it("should have input area for employee ID", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
-    expect(getByLabelText("EmployeeId")).toBeInTheDocument();
+    expect(getByLabelText("Employee Id")).toBeInTheDocument();
   });
 
   it("should have input button to submit new occupant attributes", () => {
@@ -31,14 +31,14 @@ describe("Input form", () => {
     const nameInput = getByLabelText("Name");
 
     fireEvent.change(nameInput, { target: { value: "Tim" } });
-    
+
     expect(nameInput).toHaveAttribute("type", "text");
     expect(nameInput).toHaveValue("Tim");
   });
 
   it("should detect input for employeeID field", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
-    const nameInput = getByLabelText("EmployeeId");
+    const nameInput = getByLabelText("Employee Id");
 
     fireEvent.change(nameInput, { target: { value: "sd123123123" } });
 
