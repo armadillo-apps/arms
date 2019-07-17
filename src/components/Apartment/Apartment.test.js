@@ -8,7 +8,12 @@ import * as data from "../../service/data";
 const mockFetch = jest.spyOn(data, "fetchApartments");
 
 afterEach(() => {
-  jest.resetAllMocks();
+  jest.clearAllMocks();
+});
+
+it("renders search bar", () => {
+  const { getByPlaceholderText } = render(<Apartment />);
+  expect(getByPlaceholderText(/apartment/i)).toBeInTheDocument();
 });
 
 it("renders apartments heading and table headers", () => {
