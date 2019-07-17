@@ -31,6 +31,7 @@ describe("Input form", () => {
     const nameInput = getByLabelText("Name");
 
     fireEvent.change(nameInput, { target: { value: "Tim" } });
+    
     expect(nameInput).toHaveAttribute("type", "text");
     expect(nameInput).toHaveValue("Tim");
   });
@@ -40,6 +41,7 @@ describe("Input form", () => {
     const nameInput = getByLabelText("EmployeeId");
 
     fireEvent.change(nameInput, { target: { value: "sd123123123" } });
+
     expect(nameInput).toHaveAttribute("type", "text");
     expect(nameInput).toHaveValue("sd123123123");
   });
@@ -61,5 +63,5 @@ describe("Input form", () => {
 
     expect(createButton).toBeInTheDocument();
   });
-  
+
 });
