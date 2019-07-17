@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
+import { addApartment } from "../../service/data";
+import { createNewOccupant } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
 import Occupant from "../Occupant/Occupant";
 import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
 import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
-import { addApartment } from "../../service/data";
-import { createNewOccupant } from "../../api/api";
 
 class App extends Component {
   constructor(props) {
@@ -22,30 +22,29 @@ class App extends Component {
   };
 
   onOccupantFormSubmit = async () => {
-    const response = await createNewOccupant(
+    await createNewOccupant(
       this.state.occupantFormName,
       this.state.occupantFormEmployeeId,
       this.state.occupantFormRemarks
     );
-    console.log(response);
     this.setState({
       occupantFormName: "",
       occupantFormEmployeeId: "",
-      remarks: ""
+      occupantFormRemarks: ""
     });
   };
 
   onApartmentFormSubmit = async () => {
-    const filtered = Object.keys(this.state).filter(key =>
+    const apartmentFormInputs = Object.keys(this.state).filter(key =>
       key.includes("apartmentForm")
     );
-    const newApartment = filtered.reduce((obj, key) => {
+    const newApartment = apartmentFormInputs.reduce((obj, key) => {
       obj[key] = this.state[key];
       return obj;
     }, {});
     const addedApartment = await addApartment(newApartment);
     console.log(addedApartment);
-    filtered.map(element => this.setState({ [element]: "" }));
+    apartmentFormInputs.map(inputField => this.setState({ [inputField]: "" }));
   };
 
   render() {
@@ -60,7 +59,7 @@ class App extends Component {
               render={() => (
                 <NewOccupantForm
                   onChange={this.onChange}
-                  onClick={this.onOccupantFormSubmit}
+                  onSubmit={this.onOccupantFormSubmit}
                 />
               )}
               exact
@@ -70,7 +69,7 @@ class App extends Component {
               render={() => (
                 <NewApartmentForm
                   onChange={this.onChange}
-                  onClick={this.onApartmentFormSubmit}
+                  onSubmit={this.onApartmentFormSubmit}
                 />
               )}
               exact

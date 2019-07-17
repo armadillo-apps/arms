@@ -15,7 +15,7 @@ const attributes = [
   { name: 'LandlordEmail', type: 'text' }
 ];
 
-const NewApartmentForm = ({ onChange, onClick }) => {
+const NewApartmentForm = ({ onChange, onSubmit }) => {
   const formAttributes = attributes.map((attribute, index) => {
     const { name, type } = attribute;
     const regex = /(?=[A-Z]+[^A-Z]?)/;
@@ -42,7 +42,7 @@ const NewApartmentForm = ({ onChange, onClick }) => {
     <div className="apartmentFormContainer">
       <h1 className="apartmentForm__heading">Create New Apartment</h1>
       <div className="apartmentFor">{formAttributes}</div>
-      <button className="apartmentForm__createButton" onClick={onClick}>
+      <button className="apartmentForm__createButton" onClick={onSubmit}>
         Create
       </button>
     </div>

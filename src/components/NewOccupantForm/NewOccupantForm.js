@@ -2,11 +2,14 @@ import React from "react";
 
 const attributes = ["Name", "EmployeeId", "Remarks"];
 
-const NewOccupantForm = ({ onChange, onClick }) => {
+const NewOccupantForm = ({ onChange, onSubmit }) => {
   const formAttributes = attributes.map((attribute, index) => {
     return (
       <div key={index} className={`occupantForm__${attribute.toLowerCase()}`}>
-        <label htmlFor={`occupantForm${attribute}`} className="occupantForm__label">
+        <label
+          htmlFor={`occupantForm${attribute}`}
+          className="occupantForm__label"
+        >
           {attribute}
         </label>
         <input
@@ -22,7 +25,9 @@ const NewOccupantForm = ({ onChange, onClick }) => {
   return (
     <div className="occupantFormContainer">
       <div className="occupantForm">{formAttributes}</div>
-      <button className="occupantForm__createButton" onClick={onClick} >Create</button>
+      <button className="occupantForm__createButton" onClick={onSubmit}>
+        Create
+      </button>
     </div>
   );
 };
