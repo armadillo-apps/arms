@@ -1,12 +1,12 @@
-.apartment {
-  background: #e5e5e5;
+.occupants {
+  background-color: var(--main-bg-color);
 }
 
-.apartment__div {
+.occupants__div {
   margin-left: 2rem;
 }
 
-.apartment__heading {
+.occupants__heading {
   font-size: 3.6rem;
   line-height: 43px;
   font-style: normal;
