@@ -21,6 +21,7 @@ const NewOccupantForm = () => {
   return (
     <div className="occupantFormContainer">
       <div className="occupantForm">{formAttributes}</div>
+      <button className="occupantForm__createButton">Create</button>
     </div>
   );
 };

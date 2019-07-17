@@ -20,4 +20,9 @@ describe("Input form", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
     expect(getByLabelText("Employee ID")).toBeInTheDocument();
   });
+
+  it("should have input button to submit new occupant attributes", () => {
+    const { getByText } = render(<NewOccupantForm />);
+    expect(getByText("Create")).toBeInTheDocument();
+  });
 });
