@@ -1,27 +1,27 @@
 import React from "react";
 import "./Sidebar.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
   return (
     <div className="sideBar__container" data-testid="sideBar">
       <div className="sideBar__headerContainer">
-        <Link className="sideBar__heading" to="/">
+        <NavLink className="sideBar__heading" exact to="/" activeClassName="active">
           <svg className="apartmentIcon" />
           APARTMENTS
-        </Link>
-        <Link className="sideBar__heading" to="/occupants">
+        </NavLink>
+        <NavLink className="sideBar__heading" to="/occupants" activeClassName="active">
           <svg className="occupantsIcon" />
           OCCUPANTS
-        </Link>
-        <Link className="sideBar__heading" to="/newApartment">
+        </NavLink>
+        <NavLink className="sideBar__heading" to="/newApartment" activeClassName="active">
           <svg className="addIcon" />
           NEW APARTMENT
-        </Link>
-        <Link className="sideBar__heading" to="/newOccupant">
+        </NavLink>
+        <NavLink className="sideBar__heading" to="/newOccupant" activeClassName="active">
           <svg className="addIcon" />
           NEW OCCUPANT
-        </Link>
+        </NavLink>
       </div>
     </div>
   );
