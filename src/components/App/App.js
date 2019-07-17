@@ -10,8 +10,8 @@ function App() {
   return (
     <section className="app">
       <BrowserRouter>
+        <SideBar />
         <Switch>
-          <SideBar />
           <Route component={Apartment} exact path="/" />
           <Route component={Occupant} exact path="/occupants" />
         </Switch>
