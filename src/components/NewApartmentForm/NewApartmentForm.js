@@ -18,7 +18,7 @@ const attributes = [
 const NewApartmentForm = ({ onChange, onSubmit }) => {
   const formAttributes = attributes.map((attribute, index) => {
     const { name, type } = attribute;
-    const regex = /(?=[A-Z]+[^A-Z]?)/;
+    const regex = /(?=[A-Z][a-z])/;
 
     return (
       <div key={index} className={`apartmentForm__${name.toLowerCase()}`}>
