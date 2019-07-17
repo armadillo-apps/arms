@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import OccupantDetail from '../OccupantDetail/OccupantDetail';
-import SearchBar from '../SearchBar/SearchBar';
-import api from '../../api/api';
-import './Occupant.css';
+import React, { Component } from "react";
+import OccupantDetail from "../OccupantDetail/OccupantDetail";
+import SearchBar from "../SearchBar/SearchBar";
+import api from "../../api/api";
+import "./Occupant.css";
 
 class Occupant extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Occupant extends Component {
 
   componentDidMount = async () => {
     try {
-      const response = await api.get('/occupants');
+      const response = await api.get("/occupants");
       this.setState({ occupants: response.data }, () => {
         console.log(this.state);
       });
@@ -25,7 +25,7 @@ class Occupant extends Component {
 
   render() {
     return (
-      <div className="apartment">
+      <div className="apartment" data-testid="occupant">
         <div className="apartment__div">
           <h1 className="apartment__heading">Occupants</h1>
           <SearchBar placeholder="Occupant" />
