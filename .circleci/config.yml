@@ -103,12 +103,8 @@ workflows:
   testAndDeploy:
     jobs:
       - build
-      - unitTest:
-          requires:
-            - build
-      - deployTest:
-          requires:
-            - unitTest
+      - unitTest
+      - deployTest
       - uiTest:
           requires:
             - deployTest
