@@ -107,6 +107,7 @@ workflows:
       - deployTest:
           requires:
             - build
+            - unitTest
       - uiTest:
           requires:
             - deployTest
