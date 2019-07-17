@@ -1,6 +1,7 @@
 .sideBar__container {
   background: var(--sidebar-bg-color);
 }
+
 .sideBar__headerContainer {
   display: flex;
   flex-direction: column;
@@ -8,7 +9,7 @@
 }
 
 .sideBar__headerContainer svg {
-  width: 16px; 
+  width: 16px;
   height: 16px;
   background-size: cover;
   margin: 3px 10px 0 0;
@@ -16,23 +17,28 @@
 }
 
 .sideBar__heading {
-  display:flex;
+  display: flex;
   text-align: left;
   font-size: var(--sidebar-font-size);
-  color: var(--sidebar-font-color);
+  color: var(--sidebar-font-color-inactive);
   cursor: pointer;
   margin: 25px 20%;
   text-decoration: none;
 }
 
 .apartmentIcon {
-  background: url('../../assets/apartments.svg') no-repeat;
+  background: url("../../assets/apartments.svg") no-repeat;
 }
 
 .occupantsIcon {
-  background: url('../../assets/occupants.svg') no-repeat;
+  background: url("../../assets/occupants.svg") no-repeat;
 }
 
 .addIcon {
-  background: url('../../assets/add.svg') no-repeat;
+  background: url("../../assets/add.svg") no-repeat;
+}
+
+.active {
+  color: var(--sidebar-font-color-active);
+  transition: 0.8s;
 }
