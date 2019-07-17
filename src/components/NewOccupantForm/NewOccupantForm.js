@@ -2,17 +2,18 @@ import React from "react";
 
 const attributes = ["Name", "Employee ID", "Remarks"];
 
-const NewOccupantForm = () => {
+const NewOccupantForm = ({ onChange }) => {
   const formAttributes = attributes.map((occupant, idx) => {
     return (
       <div key={idx} className={`occupantForm__${occupant}`}>
-        <label htmlFor={occupant.toLowerCase()} className="occupantForm__label">
+        <label htmlFor={`occupantForm${occupant}`} className="occupantForm__label">
           {occupant}
         </label>
         <input
           type="text"
-          id={occupant.toLowerCase()}
+          id={`occupantForm${occupant}`}
           className="occupantForm__input"
+          onChange={onChange}
         />
       </div>
     );
