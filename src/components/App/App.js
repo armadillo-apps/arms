@@ -19,6 +19,14 @@ class App extends Component {
     });
   };
 
+  onOccupantFormSubmit = () => {
+    this.setState({
+      occupantFormName: "",
+      occupantFormEmployeeId: "",
+      remarks: ""
+    })
+  }
+
   render() {
     return (
       <section className="app">
@@ -28,7 +36,7 @@ class App extends Component {
             <Route component={Apartment} exact path="/" />
             <Route component={Occupant} exact path="/occupants" />
             <Route
-              render={() => <NewOccupantForm onChange={this.onChange} />}
+              render={() => <NewOccupantForm onChange={this.onChange} onClick={this.onOccupantFormSubmit} />}
               exact
               path="/newOccupant"
             />
