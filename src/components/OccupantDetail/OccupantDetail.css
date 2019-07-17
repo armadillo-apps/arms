@@ -1,0 +1,13 @@
+.occupantDetails {
+  min-width: 550px;
+  background: white;
+  text-align: center;
+}
+
+.occupantDetails__td {
+  font-size: 1.4rem;
+  line-height: 17px;
+  margin: 0;
+  padding: 1rem;
+  border: 0px;
+}

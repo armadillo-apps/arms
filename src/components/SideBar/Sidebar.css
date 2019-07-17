@@ -1,0 +1,39 @@
+.sideBar__container {
+  background: var(--sidebar-bg-color);
+}
+.sideBar__headerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin-top: 120px;
+}
+
+.sideBar__headerContainer svg {
+  width: 16px; 
+  height: 16px;
+  background-size: cover;
+  margin: 2px 10px 0 0;
+  overflow: visible;
+}
+
+.sideBar__heading {
+  display:flex;
+  text-align: left;
+  font-size: var(--sidebar-font-size);
+  color: var(--sidebar-font-color);
+  cursor: pointer;
+  margin: 25px 25%;
+  text-decoration: none;
+}
+
+.apartmentIcon {
+  background: url('../../assets/apartments.svg') no-repeat;
+}
+
+.occupantsIcon {
+  background: url('../../assets/occupants.svg') no-repeat;
+}
+
+.addIcon {
+  background: url('../../assets/add.svg') no-repeat;
+}

@@ -1,0 +1,19 @@
+.searchInput {
+  width: 177px;
+  height: 26px;
+  outline: none;
+  border: 1px solid var(--main-row-border-color);
+  border-radius: 30px;
+  position: relative;
+  background-image: url("../../assets/search.svg");
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.searchInput::placeholder {
+  padding: 1rem;
+}
+
+.searchInput:focus {
+  padding-left: 1rem;
+}

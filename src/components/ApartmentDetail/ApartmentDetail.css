@@ -1,0 +1,22 @@
+.apartmentDetails {
+  min-width: 550px;
+  background: var(--main-row-bg-color);
+  text-align: center;
+}
+
+.apartmentDetails__td {
+  font-size: var(--main-row-font-size);
+  color: var(--main-row-color);
+  line-height: 17px;
+  margin: 0;
+  padding: var(--main-row-font-size);
+  border: 0;
+}
+
+.inverted {
+  color: var(--red-color);
+}
+
+.positive {
+  color: var(--green-color);
+}

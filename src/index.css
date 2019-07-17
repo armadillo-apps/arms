@@ -1,0 +1,30 @@
+:root {
+  --main-bg-color: #f7f8fc;
+  --main-h1-color: #3d3d3d;
+  --main-h2-color: #000000;
+  --main-row-color: #212121;
+  --main-row-bg-color: #ffffff;
+  --main-row-border-color: #f7f8fc;
+  --search-bar-placeholder-color: #b1b9cc;
+  --sidebar-bg-color: #f1f4fb;
+  --sidebar-font-color: #212121;
+  --green-color: #4acd89;
+  --red-color: #fa575a;
+  --font: Varela Round;
+  --main-h1-font-size: 3.6rem;
+  --sidebar-font-size: 1.8rem;
+  --searchbar-font-size: 1.1rem;
+  --main-h2-font-size: 1.1rem;
+  --main-row-font-size: 1.4rem;
+  --form-font-size: 1.8rem;
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Varela Round";
+  font-style: normal;
+  font-weight: normal;
+}
