@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
-import "./App.css";
-import SideBar from "../SideBar/SideBar";
-import Apartment from "../Apartment/Apartment";
-import Occupant from "../Occupant/Occupant";
-import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
+import React, { Component } from 'react';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import './App.css';
+import SideBar from '../SideBar/SideBar';
+import Apartment from '../Apartment/Apartment';
+import Occupant from '../Occupant/Occupant';
+import NewOccupantForm from '../NewOccupantForm/NewOccupantForm';
+import NewApartmentForm from '../NewApartmentForm/NewApartmentForm';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   onChange = event => {
@@ -21,11 +21,15 @@ class App extends Component {
 
   onOccupantFormSubmit = () => {
     this.setState({
-      occupantFormName: "",
-      occupantFormEmployeeId: "",
-      remarks: ""
-    })
-  }
+      occupantFormName: '',
+      occupantFormEmployeeId: '',
+      remarks: ''
+    });
+  };
+
+  onApartmentFormSubmit = () => {
+    this.setState({});
+  };
 
   render() {
     return (
@@ -36,9 +40,24 @@ class App extends Component {
             <Route component={Apartment} exact path="/" />
             <Route component={Occupant} exact path="/occupants" />
             <Route
-              render={() => <NewOccupantForm onChange={this.onChange} onClick={this.onOccupantFormSubmit} />}
+              render={() => (
+                <NewOccupantForm
+                  onChange={this.onChange}
+                  onClick={this.onOccupantFormSubmit}
+                />
+              )}
               exact
               path="/newOccupant"
+            />
+            <Route
+              render={() => (
+                <NewApartmentForm
+                  onChange={this.onChange}
+                  onClick={this.onApartmentFormSubmit}
+                />
+              )}
+              exact
+              path="/newApartment"
             />
           </Switch>
         </Router>
