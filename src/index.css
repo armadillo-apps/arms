@@ -7,7 +7,8 @@
   --main-row-border-color: #f7f8fc;
   --search-bar-placeholder-color: #b1b9cc;
   --sidebar-bg-color: #f1f4fb;
-  --sidebar-font-color: #212121;
+  --sidebar-font-color-active: #212121;
+  --sidebar-font-color-inactive: #B1B9CC;
   --green-color: #4acd89;
   --red-color: #fa575a;
   --font: Varela Round;
