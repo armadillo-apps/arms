@@ -3,6 +3,7 @@ import api from "../../api/api";
 import React, { Component } from "react";
 import "./Apartment.css";
 import SearchBar from "../SearchBar/SearchBar";
+import { fetchApartments } from "../../service/data";
 
 class Apartment extends Component {
   constructor(props) {
@@ -13,15 +14,10 @@ class Apartment extends Component {
   }
 
   componentDidMount = async () => {
-    const response = await api.get("/apartments");
-    this.setState(
-      {
-        apartments: response.data
-      },
-      () => {
-        console.log(this.state.apartments);
-      }
-    );
+    const apartments = await fetchApartments();
+    this.setState({ apartments }, () => {
+      console.log(this.state.apartments);
+    });
   };
 
   tableDetails() {
@@ -29,7 +25,7 @@ class Apartment extends Component {
       <table className="fields" cellSpacing="0" cellPadding="0">
         <thead className="fields__th">
           <tr>
-            <th>Capacity</th>
+            <th>Vacancy</th>
             <th>Apartment Name</th>
             <th>Lease Start</th>
             <th>Lease End</th>
