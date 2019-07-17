@@ -1,12 +1,11 @@
-import React, { Component } from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
-import "./App.css";
-import SideBar from "../SideBar/SideBar";
-import Apartment from "../Apartment/Apartment";
-import Occupant from "../Occupant/Occupant";
-import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
-import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
-import { postApartment } from "../../service/data";
+import React, { Component } from 'react';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import './App.css';
+import SideBar from '../SideBar/SideBar';
+import Apartment from '../Apartment/Apartment';
+import Occupant from '../Occupant/Occupant';
+import NewOccupantForm from '../NewOccupantForm/NewOccupantForm';
+import NewApartmentForm from '../NewApartmentForm/NewApartmentForm';
 
 class App extends Component {
   constructor(props) {
@@ -22,22 +21,22 @@ class App extends Component {
 
   onOccupantFormSubmit = () => {
     this.setState({
-      occupantFormName: "",
-      occupantFormEmployeeId: "",
-      remarks: ""
+      occupantFormName: '',
+      occupantFormEmployeeId: '',
+      remarks: ''
     });
   };
 
   onApartmentFormSubmit = async () => {
     const filtered = Object.keys(this.state).filter(key =>
-      key.includes("apartmentForm")
+      key.includes('apartmentForm')
     );
     const newApartment = filtered.reduce((obj, key) => {
       obj[key] = this.state[key];
       return obj;
     }, {});
     console.log(newApartment);
-    filtered.map(element => this.setState({ [element]: "" }));
+    filtered.map(element => this.setState({ [element]: '' }));
   };
 
   render() {
