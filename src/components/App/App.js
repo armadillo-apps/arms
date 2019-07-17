@@ -6,6 +6,7 @@ import Apartment from '../Apartment/Apartment';
 import Occupant from '../Occupant/Occupant';
 import NewOccupantForm from '../NewOccupantForm/NewOccupantForm';
 import NewApartmentForm from '../NewApartmentForm/NewApartmentForm';
+import { createNewOccupant } from "../../api/api";
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +20,13 @@ class App extends Component {
     });
   };
 
-  onOccupantFormSubmit = () => {
+  onOccupantFormSubmit = async () => {
+    const response = await createNewOccupant(
+      this.state.occupantFormName,
+      this.state.occupantFormEmployeeId,
+      this.state.occupantFormRemarks
+    );
+    console.log(response);
     this.setState({
       occupantFormName: '',
       occupantFormEmployeeId: '',
