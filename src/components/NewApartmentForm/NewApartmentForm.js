@@ -1,4 +1,5 @@
 import React from 'react';
+import './NewApartmentForm.css';
 
 const attributes = [
   { name: 'Name', type: 'text' },
@@ -39,6 +40,7 @@ const NewApartmentForm = ({ onChange, onClick }) => {
 
   return (
     <div className="apartmentFormContainer">
+      <h1 className="apartmentForm__heading">Create New Apartment</h1>
       <div className="apartmentFor">{formAttributes}</div>
       <button className="apartmentForm__createButton" onClick={onClick}>
         Create
