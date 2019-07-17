@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "https://my-json-server.typicode.com/armadillo-apps/api"
+  baseURL: process.env.REACT_APP_URL
 });
 
 export const createNewOccupant = async (name, employeeId, remarks) => {
