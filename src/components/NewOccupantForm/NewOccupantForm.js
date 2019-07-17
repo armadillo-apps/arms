@@ -1,16 +1,17 @@
 import React from "react";
-
+import "./NewOccupantForm.css";
 const attributes = ["Name", "EmployeeId", "Remarks"];
 
 const NewOccupantForm = ({ onChange, onSubmit }) => {
   const formAttributes = attributes.map((attribute, index) => {
+    const regex = /(?=[A-Z][a-z])/;
     return (
       <div key={index} className={`occupantForm__${attribute.toLowerCase()}`}>
         <label
           htmlFor={`occupantForm${attribute}`}
           className="occupantForm__label"
         >
-          {attribute}
+          {attribute.split(regex).join(" ")}
         </label>
         <input
           type="text"
@@ -24,6 +25,7 @@ const NewOccupantForm = ({ onChange, onSubmit }) => {
 
   return (
     <div className="occupantFormContainer">
+      <h1 className="occupantForm__heading">Create New Occupant</h1>
       <div className="occupantForm">{formAttributes}</div>
       <button className="occupantForm__createButton" onClick={onSubmit}>
         Create
