@@ -38,9 +38,9 @@ const NewApartmentForm = ({ onChange, onClick }) => {
   });
 
   return (
-    <div className="occupantFormContainer">
-      <div className="occupantForm">{formAttributes}</div>
-      <button className="occupantForm__createButton" onClick={onClick}>
+    <div className="apartmentFormContainer">
+      <div className="apartmentFor">{formAttributes}</div>
+      <button className="apartmentForm__createButton" onClick={onClick}>
         Create
       </button>
     </div>
