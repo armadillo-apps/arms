@@ -8,7 +8,7 @@ import { fireEvent } from "@testing-library/react/dist";
 describe("New apartment form", () => {
   it("should have input areas for name, address, bedrooms, capacity, lease, and landlord", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
-    expect(getByLabelText(/name/i)).toBeInTheDocument();
+    expect(getByLabelText("Name")).toBeInTheDocument();
     expect(getByLabelText(/address/i)).toBeInTheDocument();
     expect(getByLabelText(/bedrooms/i)).toBeInTheDocument();
     expect(getByLabelText(/capacity/i)).toBeInTheDocument();
@@ -33,6 +33,6 @@ describe("New apartment form", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
     const capacityInput = getByLabelText(/capacity/i);
     fireEvent.change(capacityInput, { target: { value: "GARBAGE!" } });
-    expect(capacityInput).toHaveValue("");
+    expect(capacityInput).toHaveValue(null);
   });
 });
