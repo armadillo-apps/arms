@@ -5,6 +5,7 @@ import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
 import Occupant from "../Occupant/Occupant";
 import { BrowserRouter } from "react-router-dom";
+import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Switch>
           <Route component={Apartment} exact path="/" />
           <Route component={Occupant} exact path="/occupants" />
+          <Route component={NewOccupantForm} exact path="/newOccupant" />
         </Switch>
       </BrowserRouter>
     </section>
