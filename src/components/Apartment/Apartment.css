@@ -1,5 +1,5 @@
 .apartment {
-  background: var(--main-bg-color);
+  background-color: var(--main-bg-color);
 }
 
 .apartment__div {
@@ -20,31 +20,6 @@
 .formSearch {
   display: flex;
 }
-
-/* .formSearch__logo {
-  border: none;
-  background: var(--main-row-bg-color);
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
-  margin-left: -4px;
-  margin-top: 1px;
-} */
-
-/* .formSearch__searchInput {
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-  width: 177px;
-  height: 26px;
-  outline: none;
-  border: 1px solid var(--main-row-border-color);
-} */
-
-/* .formSearch__searchInput::placeholder {
-  padding: 1rem;
-}
-.formSearch__searchInput:focus {
-  padding-left: 1rem;
-} */
 
 .fields {
   margin-top: 2.2rem;
