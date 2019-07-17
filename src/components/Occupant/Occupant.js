@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import OccupantDetail from "../OccupantDetail/OccupantDetail";
-import SearchBar from "../SearchBar/SearchBar";
-import api from "../../api/api";
-import "./Occupant.css";
+import React, { Component } from 'react';
+import OccupantDetail from '../OccupantDetail/OccupantDetail';
+import SearchBar from '../SearchBar/SearchBar';
+import { fetchOccupants } from '../../service/data';
+import './Occupant.css';
 
 class Occupant extends Component {
   constructor(props) {
@@ -14,8 +14,8 @@ class Occupant extends Component {
 
   componentDidMount = async () => {
     try {
-      const response = await api.get("/occupants");
-      this.setState({ occupants: response.data }, () => {
+      const occupants = await fetchOccupants();
+      this.setState({ occupants }, () => {
         console.log(this.state);
       });
     } catch (err) {
@@ -36,7 +36,7 @@ class Occupant extends Component {
                 <th>Employee ID</th>
               </tr>
             </thead>
-            <tbody data-testid="occupant-detail">
+            <tbody>
               {this.state.occupants.map(occupant => {
                 return (
                   <OccupantDetail
