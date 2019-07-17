@@ -1,5 +1,4 @@
 import ApartmentDetail from "../ApartmentDetail/ApartmentDetail";
-import api from "../../api/api";
 import React, { Component } from "react";
 import "./Apartment.css";
 import SearchBar from "../SearchBar/SearchBar";
