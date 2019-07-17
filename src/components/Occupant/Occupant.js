@@ -25,28 +25,30 @@ class Occupant extends Component {
 
   render() {
     return (
-      <div>
-        <h1 className="apartment__heading">Occupants</h1>
-        <SearchBar placeholder="Occupant" />
-        <table className="fields" cellSpacing="0" cellPadding="0">
-          <thead className="fields__th">
-            <tr>
-              <th>Name</th>
-              <th>Employee ID</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.occupants.map(occupant => {
-              return (
-                <OccupantDetail
-                  key={occupant.employeeId}
-                  name={occupant.name}
-                  employeeId={occupant.employeeId}
-                />
-              );
-            })}
-          </tbody>
-        </table>
+      <div className="apartment">
+        <div className="apartment__div">
+          <h1 className="apartment__heading">Occupants</h1>
+          <SearchBar placeholder="Occupant" />
+          <table className="fields" cellSpacing="0" cellPadding="0">
+            <thead className="fields__th">
+              <tr>
+                <th>Name</th>
+                <th>Employee ID</th>
+              </tr>
+            </thead>
+            <tbody data-testid="occupant-detail">
+              {this.state.occupants.map(occupant => {
+                return (
+                  <OccupantDetail
+                    key={occupant.employeeId}
+                    name={occupant.name}
+                    employeeId={occupant.employeeId}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
