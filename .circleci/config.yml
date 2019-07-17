@@ -2,15 +2,87 @@ version: 2
 jobs:
   build:
     docker:
-      - image: debian:stretch
+      - image: circleci/node:12.6.0-browsers
 
     steps:
       - checkout
-
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+      - run: 
+          name: Install dependencies
+          command: npm install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules  
       - run:
-          name: Greeting
-          command: echo Hello, world.
-
+          name: run the build
+          command: npm run build
+  unitTest:
+    docker:
+      - image: circleci/node:12.6.0-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+      - run: 
+          name: Install dependencies
+          command: npm install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules  
+      - run: 
+          name: Run unit tests
+          command: npm run test
+  uiTest:
+    docker:
+      - image: cypress/base:10
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - cache-{{ checksum "package.json" }}
       - run:
-          name: Print the Current Time
-          command: date
+          name: Install dependencies
+          command: npm ci
+      - run: npm run cy:verify
+      - save_cache:
+          key: cache-{{ checksum "package.json" }}
+          paths:
+            - ~/.npm
+            - ~/.cache
+      - run:
+          command: npm run cy:run
+  deployTest:
+      docker:
+        - image: circleci/node:12.6.0
+      environment:
+        HEROKU_APP_NAME: test-armadillo-legs
+      steps:
+        - checkout
+        - run:
+            name: Deploy to test backend on Heroku
+            command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+        - run: sleep 10
+        - run:
+            name: Ping test deployment
+            command: curl --fail https://$HEROKU_APP_NAME.herokuapp.com/
+workflows:
+  version: 2
+  testAndDeploy:
+    jobs:
+      - build
+      - unitTest:
+          requires:
+            - build
+      - deployTest:
+          requires:
+            - unitTest
+      - uiTest:
+          requires:
+            - deployTest
+
+        
