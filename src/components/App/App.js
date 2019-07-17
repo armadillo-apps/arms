@@ -16,7 +16,6 @@ function App() {
           <Route component={Occupant} exact path="/occupants" />
         </Switch>
       </BrowserRouter>
-      ,
     </section>
   );
 }
