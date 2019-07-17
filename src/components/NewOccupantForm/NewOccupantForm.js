@@ -1,17 +1,17 @@
 import React from "react";
 
-const attributes = ["Name", "Employee ID", "Remarks"];
+const attributes = ["Name", "EmployeeId", "Remarks"];
 
-const NewOccupantForm = ({ onChange }) => {
-  const formAttributes = attributes.map((occupant, idx) => {
+const NewOccupantForm = ({ onChange, onClick }) => {
+  const formAttributes = attributes.map((attribute, index) => {
     return (
-      <div key={idx} className={`occupantForm__${occupant}`}>
-        <label htmlFor={`occupantForm${occupant}`} className="occupantForm__label">
-          {occupant}
+      <div key={index} className={`occupantForm__${attribute.toLowerCase()}`}>
+        <label htmlFor={`occupantForm${attribute}`} className="occupantForm__label">
+          {attribute}
         </label>
         <input
           type="text"
-          id={`occupantForm${occupant}`}
+          id={`occupantForm${attribute}`}
           className="occupantForm__input"
           onChange={onChange}
         />
@@ -22,7 +22,7 @@ const NewOccupantForm = ({ onChange }) => {
   return (
     <div className="occupantFormContainer">
       <div className="occupantForm">{formAttributes}</div>
-      <button className="occupantForm__createButton">Create</button>
+      <button className="occupantForm__createButton" onClick={onClick} >Create</button>
     </div>
   );
 };
