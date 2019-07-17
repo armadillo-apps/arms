@@ -15,9 +15,7 @@ class Occupant extends Component {
   componentDidMount = async () => {
     try {
       const occupants = await fetchOccupants();
-      this.setState({ occupants }, () => {
-        console.log(this.state);
-      });
+      this.setState({ occupants });
     } catch (err) {
       console.log(err);
     }
@@ -25,9 +23,9 @@ class Occupant extends Component {
 
   render() {
     return (
-      <div className="apartment" data-testid="occupant">
-        <div className="apartment__div">
-          <h1 className="apartment__heading">Occupants</h1>
+      <div className="occupants" data-testid="occupants">
+        <div className="occupants__div">
+          <h1 className="occupants__heading">Occupants</h1>
           <SearchBar placeholder="Occupant" />
           <table className="fields" cellSpacing="0" cellPadding="0">
             <thead className="fields__th">
