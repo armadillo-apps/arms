@@ -104,7 +104,9 @@ workflows:
     jobs:
       - build
       - unitTest
-      - deployTest
+      - deployTest:
+          requires:
+            - build
       - uiTest:
           requires:
             - deployTest
