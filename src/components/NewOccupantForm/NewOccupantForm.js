@@ -1,14 +1,26 @@
 import React from "react";
 
+const attributes = ["Name", "Employee ID", "Remarks"];
+
 const NewOccupantForm = () => {
+  const formAttributes = attributes.map((occupant, idx) => {
+    return (
+      <div key={idx} className={`occupantForm__${occupant}`}>
+        <label htmlFor={occupant.toLowerCase()} className="occupantForm__label">
+          {occupant}
+        </label>
+        <input
+          type="text"
+          id={occupant.toLowerCase()}
+          className="occupantForm__input"
+        />
+      </div>
+    );
+  });
+
   return (
     <div className="occupantFormContainer">
-      <div className="occupantForm">
-        <label htmlFor="name" className="occupantForm__label">
-          Name
-        </label>
-        <input type="text" id="name" className="occupantForm__input" />
-      </div>
+      <div className="occupantForm">{formAttributes}</div>
     </div>
   );
 };

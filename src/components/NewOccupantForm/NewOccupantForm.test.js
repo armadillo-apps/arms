@@ -8,12 +8,16 @@ import {
   getByLabelText
 } from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
-// import { Toggle } from "./toggle";
 import NewOccupantForm from "./NewOccupantForm";
 
 describe("Input form", () => {
   it("should have input area for name", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
     expect(getByLabelText("Name")).toBeInTheDocument();
+  });
+
+  it("should have input area for employee ID", () => {
+    const { getByLabelText } = render(<NewOccupantForm />);
+    expect(getByLabelText("Employee ID")).toBeInTheDocument();
   });
 });
