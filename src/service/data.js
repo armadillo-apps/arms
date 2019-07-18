@@ -33,3 +33,13 @@ export const addApartment = async input => {
   const response = await api.post("/apartments", inputForBackend);
   return response.data;
 };
+
+export const createNewOccupant = async (name, employeeId, remarks) => {
+  const requestBody = {
+    name: name,
+    employeeId: employeeId,
+    remarks: remarks
+  };
+  const response = await api.post("/occupants", requestBody);
+  return response;
+};
