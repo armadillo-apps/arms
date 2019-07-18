@@ -1,37 +1,37 @@
-import React, { Component } from 'react';
-import Input from '../Input/Input';
-import api from '../../api/api';
+import React, { Component } from "react";
+import Input from "../Input/Input";
+import api from "../../api/api";
 
 export class NewApartmentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      address: '',
-      bedrooms: '',
-      capacity: '',
-      leaseStart: '',
-      leaseEnd: '',
-      rent: '',
-      landLordName: '',
-      landLordAccount: '',
-      landLordMobile: '',
-      landLordEmail: ''
+      name: "",
+      address: "",
+      bedrooms: "",
+      capacity: "",
+      leaseStart: "",
+      leaseEnd: "",
+      rent: "",
+      landLordName: "",
+      landLordAccount: "",
+      landLordMobile: "",
+      landLordEmail: ""
     };
   }
 
-  onFormChange = (event) => {
+  onFormChange = event => {
     const { name, value } = event.target;
-    const newName = name.split('')[0].toLowerCase() + name.substring(1);
+    const newName = name.split("")[0].toLowerCase() + name.substring(1);
     this.setState({
       [newName]: value
     });
   };
 
-  onFormSubmit = async (event) => {
+  onFormSubmit = async event => {
     event.preventDefault();
     try {
-      const response = await api.post('/apartments', {
+      await api.post("/apartments", {
         name: this.state.name,
         address: this.state.address,
         bedrooms: this.state.bedrooms,
@@ -51,7 +51,7 @@ export class NewApartmentForm extends Component {
         }
       });
     } catch (err) {
-        return err
+      return err;
     }
   };
 
@@ -59,7 +59,7 @@ export class NewApartmentForm extends Component {
     return (
       <form
         onSubmit={this.onFormSubmit}
-        style={{ display: 'flex', flexDirection: 'column' }}
+        style={{ display: "flex", flexDirection: "column" }}
       >
         <h1>Create New Apartment</h1>
         <Input
