@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import OccupantDetail from '../OccupantDetail/OccupantDetail';
-import SearchBar from '../SearchBar/SearchBar';
-import { fetchOccupants } from '../../service/data';
-import './Occupant.css';
+import React, { Component } from "react";
+import OccupantDetail from "../OccupantDetail/OccupantDetail";
+import SearchBar from "../SearchBar/SearchBar";
+import { fetchOccupants } from "../../service/data";
+import "./Occupant.css";
 
 class Occupant extends Component {
   constructor(props) {
@@ -19,10 +19,6 @@ class Occupant extends Component {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  findOccupant = (employeeId, history) => {
-    history.push(`/occupants/${employeeId}`);
   };
 
   render() {
@@ -45,7 +41,6 @@ class Occupant extends Component {
                     key={occupant.employeeId}
                     name={occupant.name}
                     employeeId={occupant.employeeId}
-                    findOccupant={this.findOccupant}
                     history={this.props.history}
                   />
                 );

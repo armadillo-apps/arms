@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
-import './App.css';
-import { addApartment } from '../../service/data';
-import { createNewOccupant } from '../../api/api';
-import SideBar from '../SideBar/SideBar';
-import Apartment from '../Apartment/Apartment';
-import Occupant from '../Occupant/Occupant';
-import NewOccupantForm from '../NewOccupantForm/NewOccupantForm';
-import NewApartmentForm from '../NewApartmentForm/NewApartmentForm';
-import OccupantProfile from '../OccupantProfile/OccupantProfile';
-import ApartmentProfile from "../ApartmentProfile/ApartmentProfile"
-import { fetchApartments } from "../../service/data"
+import React, { Component } from "react";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import "./App.css";
+import { addApartment, fetchOccupants } from "../../service/data";
+import { createNewOccupant } from "../../api/api";
+import SideBar from "../SideBar/SideBar";
+import Apartment from "../Apartment/Apartment";
+import Occupant from "../Occupant/Occupant";
+import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
+import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
+import OccupantProfile from "../OccupantProfile/OccupantProfile";
+import ApartmentProfile from "../ApartmentProfile/ApartmentProfile";
+import { fetchApartments } from "../../service/data";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      apartments: []
+      apartments: [],
+      occupants: []
     };
   }
 
@@ -29,9 +30,10 @@ class App extends Component {
   componentDidMount = async () => {
     try {
       const apartments = await fetchApartments();
-      this.setState({ apartments })
+      const occupants = await fetchOccupants();
+      this.setState({ apartments, occupants });
     } catch (err) {
-      return err.message
+      return err.message;
     }
   };
 
@@ -42,15 +44,15 @@ class App extends Component {
       this.state.occupantFormRemarks
     );
     this.setState({
-      occupantFormName: '',
-      occupantFormEmployeeId: '',
-      occupantFormRemarks: ''
+      occupantFormName: "",
+      occupantFormEmployeeId: "",
+      occupantFormRemarks: ""
     });
   };
 
   onApartmentFormSubmit = async () => {
     const apartmentFormInputs = Object.keys(this.state).filter(key =>
-      key.includes('apartmentForm')
+      key.includes("apartmentForm")
     );
     const newApartment = apartmentFormInputs.reduce((obj, key) => {
       obj[key] = this.state[key];
@@ -58,10 +60,8 @@ class App extends Component {
     }, {});
     const addedApartment = await addApartment(newApartment);
     console.log(addedApartment);
-    apartmentFormInputs.map(inputField => this.setState({ [inputField]: '' }));
+    apartmentFormInputs.map(inputField => this.setState({ [inputField]: "" }));
   };
-
-  
 
   render() {
     return (
@@ -70,10 +70,34 @@ class App extends Component {
           <SideBar />
           <Switch>
             <Route component={Apartment} exact path="/" />
+            <Route component={Occupant} exact path="/occupants" />
             <Route
-              render={props => <Occupant {...props} />}
+              key="apartmentProfile"
+              path="/apartments/:apartmentId"
+              render={props => (
+                <ApartmentProfile
+                  apartments={this.state.apartments}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              key="occupantProfile"
+              path="/occupants/:occupantId"
+              render={props => (
+                <OccupantProfile occupants={this.state.occupants} {...props} />
+              )}
+            />
+            <Route component={OccupantProfile} path="/occupants" />
+            <Route
+              render={() => (
+                <NewApartmentForm
+                  onChange={this.onChange}
+                  onSubmit={this.onApartmentFormSubmit}
+                />
+              )}
               exact
-              path="/occupants"
+              path="/newApartment"
             />
             <Route
               render={() => (
@@ -84,38 +108,6 @@ class App extends Component {
               )}
               exact
               path="/newOccupant"
-            />
-            <Route
-              render={() => (
-                <NewApartmentForm
-                  onChange={this.onChange}
-                  onSubmit={this.onApartmentFormSubmit}
-                />
-              )}
-              exact
-              path="/newApartment"
-            />
-            <Route component={OccupantProfile} path="/occupants" />
-            <Route
-              key="apartmentProfile"
-              path="/apartments/:apartmentId"
-              render={(props) => (<ApartmentProfile apartments={this.state.apartments} {...props}/>)} />
-            />
-            <Route
-              render={() => (
-                <NewApartmentForm
-                  onChange={this.onChange}
-                  onSubmit={this.onApartmentFormSubmit}
-                />
-              )}
-              exact
-              path="/newApartment"
-            />
-            <Route component={OccupantProfile} path="/occupants" />
-            <Route
-              key="apartmentProfile"
-              path="/apartments/:apartmentId"
-              render={(props) => (<ApartmentProfile apartments={this.state.apartments} {...props}/>)} />
             />
           </Switch>
         </Router>

@@ -1,11 +1,11 @@
-import React from 'react';
-import './OccupantDetail.css';
+import React from "react";
+import "./OccupantDetail.css";
 
-const OccupantDetail = ({ name, employeeId, findOccupant, history }) => {
+const OccupantDetail = ({ name, employeeId, history }) => {
   return (
     <tr
       className="occupantDetails"
-      onClick={() => findOccupant(employeeId, history)}
+      onClick={() => history.push(`occupants/${employeeId}`)}
     >
       <td className="occupantDetails__td">{name}</td>
       <td className="occupantDetails__td">{employeeId}</td>
