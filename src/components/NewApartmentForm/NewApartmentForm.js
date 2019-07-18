@@ -40,7 +40,7 @@ export class NewApartmentForm extends Component {
           {
             leaseStart: this.state.leaseStart,
             leaseEnd: this.state.leaseEnd,
-            monthlyRent: this.state.monthlyRent
+            monthlyRent: this.state.rent
           }
         ],
         landlord: {
