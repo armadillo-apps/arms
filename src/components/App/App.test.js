@@ -17,7 +17,3 @@ it("renders sidebar and apartment page on load", () => {
   expect(getByTestId("apartment")).toBeInTheDocument();
   expect(queryByTestId("occupant")).not.toBeInTheDocument();
 });
-
-// NOTE: Occasionally shows "Warning: Can't perform a React state update on an unmounted component.
-// This is a no-op, but it indicates a memory leak in your application.
-// To fix, cancel all subscriptions and asynchronous tasks in the componentWillUnmount method."

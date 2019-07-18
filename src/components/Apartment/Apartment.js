@@ -17,7 +17,7 @@ class Apartment extends Component {
     const apartments = await fetchApartments();
     this.setState({ apartments })
     } catch (err){
-      return
+      return err
     }
   };
 
