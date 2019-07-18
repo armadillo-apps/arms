@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import './input.css';
+import React from 'react';
+import './Input.css';
 
 const Input = ({ label, name, width, value, ...otherProps }) => {
   return (
