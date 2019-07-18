@@ -1,0 +1,10 @@
+.fields {
+  margin-top: 2.2rem;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1rem;
+}
+
+.fields__th {
+  font-size: var(--main-h2-font-size);
+}
