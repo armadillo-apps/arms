@@ -3,10 +3,10 @@ import './Input.css';
 
 const Input = ({ label, name, width, value, ...otherProps }) => {
   return (
-    <section className="inputSection">
-      <label className="inputSection__label">{label}:</label>
+    <section className="input">
+      <label className="input__label">{label}:</label>
       <input
-        className="input"
+        className="input__text"
         style={{ width }}
         name={name}
         {...otherProps}

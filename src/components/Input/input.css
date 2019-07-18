@@ -1,4 +1,16 @@
 .input {
+  display: flex;
+  flex-direction: column;
+}
+
+.input__label {
+  font-size: var(--main-h2-font-size);
+  display: block;
+  margin-top: 30px;
+  margin-bottom: 7px;
+}
+
+.input__text {
   height: 40px;
   width: 510px;
   border-radius: 10px;
@@ -9,16 +21,4 @@
   font-family: var(--font);
   margin-bottom: 2rem;
   padding: 5px 30px;
-} 
-
- .inputSection {
-  display: flex;
-  flex-direction: column;
-}
-
-.inputSection__label {
-  font-size: var(--main-h2-font-size);
-  display: block;
-  margin-top: 30px;
-  margin-bottom: 7px;
 }
