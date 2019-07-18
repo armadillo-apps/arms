@@ -1,5 +1,5 @@
 {
   "env": {
-    "baseUrl": "http://localhost:3000"
+    "baseUrl": "https://test-armadillo-arms.herokuapp.com"
   }
 }
