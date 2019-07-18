@@ -113,6 +113,7 @@ export class NewApartmentForm extends Component {
               value={this.state.landLordMobile}
               type="text"
               required
+              width="141px"
             />
           </div>
           <div className="formDivide">
@@ -165,7 +166,7 @@ export class NewApartmentForm extends Component {
             />
           </div>
           <input
-            className="apartmentForm__create"
+            className="apartmentForm__createButton"
             value="Create"
             type="Submit"
           />
