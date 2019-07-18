@@ -1,37 +1,38 @@
-import React, { Component } from "react";
-import Input from "../Input/Input";
-import api from "../../api/api";
+import React, { Component } from 'react';
+import Input from '../Input/Input';
+import api from '../../api/api';
+import './NewApartmentForm.css';
 
 export class NewApartmentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      address: "",
-      bedrooms: "",
-      capacity: "",
-      leaseStart: "",
-      leaseEnd: "",
-      rent: "",
-      landLordName: "",
-      landLordAccount: "",
-      landLordMobile: "",
-      landLordEmail: ""
+      name: '',
+      address: '',
+      bedrooms: '',
+      capacity: '',
+      leaseStart: '',
+      leaseEnd: '',
+      rent: '',
+      landLordName: '',
+      landLordAccount: '',
+      landLordMobile: '',
+      landLordEmail: ''
     };
   }
 
-  onFormChange = event => {
+  onFormChange = (event) => {
     const { name, value } = event.target;
-    const newName = name.split("")[0].toLowerCase() + name.substring(1);
+    const newName = name.split('')[0].toLowerCase() + name.substring(1);
     this.setState({
       [newName]: value
     });
   };
 
-  onFormSubmit = async event => {
+  onFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      await api.post("/apartments", {
+      await api.post('/apartments', {
         name: this.state.name,
         address: this.state.address,
         bedrooms: this.state.bedrooms,
@@ -57,89 +58,116 @@ export class NewApartmentForm extends Component {
 
   render() {
     return (
-      <form
-        onSubmit={this.onFormSubmit}
-        style={{ display: "flex", flexDirection: "column" }}
-      >
-        <h1>Create New Apartment</h1>
-        <Input
-          name="Name"
-          onChange={this.onFormChange}
-          value={this.state.name}
-          type="text"
-          required
-        />
-        <Input
-          name="Address"
-          onChange={this.onFormChange}
-          value={this.state.address}
-          type="text"
-          required
-        />
-        <Input
-          name="Bedrooms"
-          onChange={this.onFormChange}
-          value={this.state.bedrooms}
-          type="number"
-          required
-        />
-        <Input
-          name="Capacity"
-          onChange={this.onFormChange}
-          value={this.state.capacity}
-          type="number"
-          required
-        />
-        <Input
-          name="LeaseStart"
-          onChange={this.onFormChange}
-          value={this.state.leaseStart}
-          type="date"
-          required
-        />
-        <Input
-          name="LeaseEnd"
-          onChange={this.onFormChange}
-          value={this.state.leaseEnd}
-          type="date"
-          required
-        />
-        <Input
-          name="Rent"
-          onChange={this.onFormChange}
-          value={this.state.rent}
-          type="number"
-          required
-        />
-        <Input
-          name="LandLordName"
-          onChange={this.onFormChange}
-          value={this.state.landLordName}
-          type="text"
-          required
-        />
-        <Input
-          name="LandLordAccount"
-          onChange={this.onFormChange}
-          value={this.state.landLordAccount}
-          type="text"
-          required
-        />
-        <Input
-          name="LandLordMobile"
-          onChange={this.onFormChange}
-          value={this.state.landLordMobile}
-          type="text"
-          required
-        />
-        <Input
-          name="LandLordEmail"
-          onChange={this.onFormChange}
-          value={this.state.landLordEmail}
-          type="text"
-          required
-        />
-        <Input type="Submit" />
+      <form onSubmit={this.onFormSubmit} className="apartmentForm">
+        <div className="apartmentForm__div">
+          <h1 className="apartmentForm__heading">Create New Apartment</h1>
+          <Input
+            label="Apartment name"
+            name="Name"
+            onChange={this.onFormChange}
+            value={this.state.name}
+            type="text"
+            required
+          />
+          <Input
+            label="Address"
+            name="Address"
+            onChange={this.onFormChange}
+            value={this.state.address}
+            type="text"
+            required
+          />
+          <div className="formDivide">
+            <Input
+              label="LandLord name"
+              name="LandLordName"
+              onChange={this.onFormChange}
+              value={this.state.landLordName}
+              type="text"
+              required
+            />
+            <Input
+              label="Landlord A/C No"
+              name="LandLordAccount"
+              onChange={this.onFormChange}
+              value={this.state.landLordAccount}
+              type="text"
+              width="196px"
+              required
+            />
+          </div>
+          <div className="formDivide">
+            <Input
+              label="LandLord Email"
+              name="LandLordEmail"
+              onChange={this.onFormChange}
+              value={this.state.landLordEmail}
+              type="text"
+              required
+            />
+
+            <Input
+              label="LandLord Mobile no"
+              name="LandLordMobile"
+              onChange={this.onFormChange}
+              value={this.state.landLordMobile}
+              type="text"
+              required
+            />
+          </div>
+          <div className="formDivide">
+            <Input
+              label="Lease Start"
+              name="LeaseStart"
+              onChange={this.onFormChange}
+              value={this.state.leaseStart}
+              type="date"
+              required
+              width="141px"
+            />
+
+            <Input
+              label="Lease End"
+              name="LeaseEnd"
+              onChange={this.onFormChange}
+              value={this.state.leaseEnd}
+              type="date"
+              width="141px"
+              required
+            />
+          </div>
+          <Input
+            label="Rental per month"
+            name="Rent"
+            onChange={this.onFormChange}
+            value={this.state.rent}
+            type="number"
+            required
+          />
+
+          <Input
+            label="Capacity"
+            name="Capacity"
+            onChange={this.onFormChange}
+            value={this.state.capacity}
+            type="number"
+            required
+          />
+
+          <Input
+            label="Bedrooms"
+            name="Bedrooms"
+            onChange={this.onFormChange}
+            value={this.state.bedrooms}
+            type="number"
+            required
+          />
+          <input
+            className="apartmentForm__create"
+            value="Create"
+            type="Submit"
+          />
+        </div>
       </form>
     );
   }

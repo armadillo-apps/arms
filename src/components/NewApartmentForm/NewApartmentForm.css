@@ -1,50 +1,23 @@
-.apartmentFormContainer {
+.apartmentForm {
   background: var(--main-bg-color);
 }
 
-apartmentForm {
+.apartmentForm__div {
   display: flex;
   flex-direction: column;
+  margin-left: 3rem;
   margin-left: 60px;
 }
 
 .apartmentForm__heading {
-  font-size: var(--main-h1-font-size);
-  color: var(--main-h1-color);
-  font-weight: normal;
-  margin-left: 60px;
-  margin-bottom: 40px;
+  font-size: 36px;
+  line-height: 43px;
 }
 
-.apartmentForm__label {
-  font-size: var(--main-h2-font-size);
-  display: block;
-  margin-top: 30px;
-  margin-bottom: 7px;
+.formDivide {
+  display: flex;
 }
 
-.apartmentForm__input {
-  border-radius: 10px;
-  border-color: var(--main-row-border-color);
-  border: 0;
-  outline: 0;
-  padding: 5px 30px;
-  height: 40px;
-  width: 510px;
-  font-size: 1.8rem;
-  font-family: var(--font);
-  letter-spacing: 0.1rem;
-  -webkit-appearance: none;
-}
-
-.apartmentForm__createButton {
-  background: var(--green-color);
-  font-size: var(--main-h2-font-size);
-  color: white;
-  border: none;
-  border-radius: 30px;
-  height: 30px;
-  width: 120px;
-  margin-left: 60px;
-  margin-top: 35px;
+.formDivide > section {
+  margin-right: 2rem;
 }
