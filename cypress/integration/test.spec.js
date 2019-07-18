@@ -4,7 +4,7 @@ describe('My First Test', function() {
   });
 
   it('should be able to see the sidebars correctly', () => {
-    cy.visit('https://test-armadilo-arms.herokuapp.com');
+    cy.visit('https://test-armadillo-arms.herokuapp.com');
     cy.contains('APARTMENT');
     cy.contains('OCCUPANTS');
     cy.contains('NEW APARTMENT');
