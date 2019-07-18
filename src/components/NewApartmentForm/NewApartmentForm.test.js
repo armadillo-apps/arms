@@ -6,7 +6,7 @@ import NewApartmentForm from "./NewApartmentForm";
 import { fireEvent } from "@testing-library/react/dist";
 
 describe("New apartment form", () => {
-  it("should have input areas for name, address, bedrooms, capacity, lease, and landlord", () => {
+  it.skip("should have input areas for name, address, bedrooms, capacity, lease, and landlord", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
     expect(getByLabelText("Name")).toBeInTheDocument();
     expect(getByLabelText(/address/i)).toBeInTheDocument();
@@ -21,7 +21,7 @@ describe("New apartment form", () => {
     expect(getByLabelText(/landlord email/i)).toBeInTheDocument();
   });
 
-  it("should register number changes to the capacity input", () => {
+  it.skip("should register number changes to the capacity input", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
     const capacityInput = getByLabelText(/capacity/i);
     fireEvent.change(capacityInput, { target: { value: 2 } });
@@ -29,7 +29,7 @@ describe("New apartment form", () => {
     expect(capacityInput).toHaveValue(2);
   });
 
-  it("should reject non-number changes to the capacity input", () => {
+  it.skip("should reject non-number changes to the capacity input", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
     const capacityInput = getByLabelText(/capacity/i);
     fireEvent.change(capacityInput, { target: { value: "GARBAGE!" } });
