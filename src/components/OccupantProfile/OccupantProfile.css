@@ -1,10 +1,5 @@
 .fields {
-  margin-top: 2.2rem;
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 1rem;
-  text-align: center;
-  font-size: 1.6rem;
+  width: 50%;
 }
 
 .fields__th {
@@ -12,8 +7,8 @@
 }
 
 .fields__headings {
-  margin-left: 3rem;
-  font-size: 3rem;
+  font-size: 2.5rem;
+  margin-top: 10rem;
 }
 
 .fields__textarea {
@@ -35,4 +30,38 @@
   margin-top: 3rem;
   outline: none;
   cursor: pointer;
+}
+
+.occupantProfile__backButton {
+  font-size: var(--main-h2-font-size);
+  text-decoration: none;
+  color: var(--sidebar-font-color-inactive);
+}
+
+.occupantProfileContainer {
+  background-color: var(--main-bg-color);
+}
+
+.occupantProfile {
+  margin-left: 60px;
+  margin-top: 20px;
+}
+
+.occupantProfile__heading{
+  font-weight: normal;
+  font-size: var(--main-h1-font-size);
+}
+
+.occupantProfile__employeeId h2 {
+  font-size: var(--main-h2-font-size);
+  margin:0;
+}
+
+.occupantProfile__employeeId p {
+  font-size: 3rem;
+  margin: 5px 0 50px 0;
+}
+
+.fields__remarks {
+  font-size: 1.5rem;
 }

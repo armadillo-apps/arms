@@ -27,7 +27,6 @@
 }
 
 .apartmentProfile__vacancyDetails h2 {
-  font-size: 1.3rem;
   font-size: var(--main-h2-font-size);
   font-weight: normal;
 }
@@ -36,7 +35,8 @@
   font-size: 2.5rem;
   margin: 0;
 }
-.gridContainer {
+
+.apartmentProfile__details {
   display: grid;
   grid-template-columns: 1fr 1fr 1.5fr 3fr;
   width: 80%;
@@ -70,7 +70,7 @@
   margin: 1rem;
 }
 
-.apartmentProfile__occupants h2 {
+.apartmentProfile__header2 {
   font-size: 2.5rem;
   margin-top: 10rem;
 }
@@ -89,13 +89,17 @@
 .apartmentProfile__occupants td {
   font-size: var(--main-h2-font-size);
   text-align: center;
+  background-color: white;
+}
+
+.apartmentProfile__leases {
+  border-spacing: 0;
 }
 
 .apartmentProfile__leases h2 {
   font-size: 2.5rem;
   margin-top: 10rem;
 }
-
 .apartmentProfile__leases th {
   font-size: var(--main-h2-font-size);
   margin: 1rem;
@@ -106,4 +110,5 @@
   font-size: var(--main-h2-font-size);
   text-align: center;
   height: 50px;
+  background-color: white;
 }
