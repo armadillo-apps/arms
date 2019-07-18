@@ -12,35 +12,28 @@ const OccupantProfile = props => {
     });
     return (
       <div className="occupantProfileContainer">
-        <Link className="apartmentProfile__backButton" to="/occupants">
-          &lt; Back
-        </Link>
-        <table className="fields" cellSpacing="0" cellPadding="0">
-          <thead className="fields__th">
-            <tr>
-              <th>Name</th>
-              <th>Employee ID</th>
-            </tr>
-          </thead>
-          <tbody className="fields__tb">
-            <tr>
-              <td>{filteredOccupant[0].name}</td>
-              <td>{filteredOccupant[0].employeeId}</td>
-            </tr>
-          </tbody>
-        </table>
-        <h1 className="fields__headings">Apartments</h1>
-        <table className="fields">
-          <thead className="fields__th">
-            <tr>
-              <th>Address</th>
-              <th>Check In</th>
-              <th>Check Out</th>
-            </tr>
-          </thead>
-        </table>
-        <h1 className="fields__headings">Remarks</h1>
-        <p>{filteredOccupant[0].remarks}</p>
+        <div className="occupantProfile">
+          <Link className="occupantProfile__backButton" to="/occupants">
+            &lt; Back
+          </Link>
+          <h1 className="occupantProfile__heading">{filteredOccupant[0].name}</h1>
+          <div className="occupantProfile__employeeId">
+            <h2>Employee Id</h2>
+            <p>{filteredOccupant[0].employeeId}</p>
+          </div>
+          <h1 className="fields__headings">Apartments</h1>
+          <table className="fields">
+            <thead className="fields__th">
+              <tr>
+                <th>Address</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+              </tr>
+            </thead>
+          </table>
+          <h1 className="fields__headings">Remarks</h1>
+          <p className="fields__remarks">{filteredOccupant[0].remarks}</p>
+        </div>
       </div>
     );
   }

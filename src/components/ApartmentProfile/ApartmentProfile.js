@@ -17,7 +17,7 @@ const ApartmentProfile = props => {
             &lt; Back
           </Link>
           <h1 className="apartmentProfile__heading">{filteredApartment[0].name}</h1>
-            <div className="gridContainer">
+            <div className="apartmentProfile__details">
               <div className="occupantsNumber">
                 <h2>No. of Occupants</h2>
                 <p>0</p>
@@ -34,10 +34,10 @@ const ApartmentProfile = props => {
                 <h2>Bedrooms</h2>
                 <p>{filteredApartment[0].bedrooms}</p>
               </div>
-            </div>
+          </div>
+          <h2 className="apartmentProfile__header2">Occupants</h2>
           <table className="apartmentProfile__occupants">
             <thead>
-            <h2>Occupants</h2>
               <tr>
                 <th>Name</th>
                 <th>Check-In</th>
@@ -45,9 +45,9 @@ const ApartmentProfile = props => {
               </tr>
             </thead>
           </table>
+          <h2 className="apartmentProfile__header2">Leases</h2>
           <table className="apartmentProfile__leases">
             <thead>
-              <h2>Leases</h2>
               <tr>
                 <th>Lease Start</th>
                 <th>Lease End</th>
