@@ -1,11 +1,18 @@
 import React, { Fragment } from 'react';
+import './input.css';
 
-const Input = ({ name, ...otherProps }) => {
+const Input = ({ label, name, width, value, ...otherProps }) => {
   return (
-    <Fragment>
-      <label>{name}:</label>
-      <input name={name} {...otherProps} />
-    </Fragment>
+    <section className="inputSection">
+      <label className="inputSection__label">{label}:</label>
+      <input
+        className="input"
+        style={{ width }}
+        name={name}
+        {...otherProps}
+        value={value}
+      />
+    </section>
   );
 };
 
