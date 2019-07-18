@@ -3,8 +3,36 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 1rem;
+  text-align: center;
+  font-size: 1.6rem;
 }
 
 .fields__th {
   font-size: var(--main-h2-font-size);
+}
+
+.fields__headings {
+  margin-left: 3rem;
+  font-size: 3rem;
+}
+
+.fields__textarea {
+  margin-left: 3rem;
+  outline: none;
+}
+
+.fields__button {
+  padding: 0.5rem;
+  border: none;
+  background: var(--green-color);
+  font-size: var(--main-h2-font-size);
+  color: white;
+  border-radius: 30px;
+  height: 30px;
+  width: 120px;
+  display: block;
+  margin-left: 3rem;
+  margin-top: 3rem;
+  outline: none;
+  cursor: pointer;
 }

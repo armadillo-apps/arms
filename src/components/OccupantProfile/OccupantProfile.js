@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './OccupantProfile.css';
 const OccupantProfile = ({ name, employeeId }) => {
   return (
     <div>
@@ -10,14 +10,14 @@ const OccupantProfile = ({ name, employeeId }) => {
             <th>Employee ID</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="fields__tb">
           <tr>
             <td>Bob</td>
             <td>121213a</td>
           </tr>
         </tbody>
       </table>
-      <h2>Apartments</h2>
+      <h1 className="fields__headings">Apartments</h1>
       <table className="fields">
         <thead className="fields__th">
           <tr>
@@ -27,9 +27,11 @@ const OccupantProfile = ({ name, employeeId }) => {
           </tr>
         </thead>
       </table>
-      {/* apartments */}
-      <label className="occupantProfile__label">Remarks</label>
-      <input type="text" className="occupantProfile__input" />
+      <h1 className="fields__headings">Remarks</h1>
+      <textarea rows="5" cols="50" size="19" className="fields__textarea">
+        Add Remarks Here
+      </textarea>
+      <button className="fields__button">Add Remarks</button>
     </div>
   );
 };
