@@ -1,13 +1,14 @@
-import React, { Component } from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
-import "./App.css";
-import { addApartment } from "../../service/data";
-import { createNewOccupant } from "../../api/api";
-import SideBar from "../SideBar/SideBar";
-import Apartment from "../Apartment/Apartment";
-import Occupant from "../Occupant/Occupant";
-import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
-import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
+import React, { Component } from 'react';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import './App.css';
+import { addApartment } from '../../service/data';
+import { createNewOccupant } from '../../api/api';
+import SideBar from '../SideBar/SideBar';
+import Apartment from '../Apartment/Apartment';
+import Occupant from '../Occupant/Occupant';
+import NewOccupantForm from '../NewOccupantForm/NewOccupantForm';
+import NewApartmentForm from '../NewApartmentForm/NewApartmentForm';
+import OccupantProfile from '../OccupantProfile/OccupantProfile';
 
 class App extends Component {
   constructor(props) {
@@ -28,15 +29,15 @@ class App extends Component {
       this.state.occupantFormRemarks
     );
     this.setState({
-      occupantFormName: "",
-      occupantFormEmployeeId: "",
-      occupantFormRemarks: ""
+      occupantFormName: '',
+      occupantFormEmployeeId: '',
+      occupantFormRemarks: ''
     });
   };
 
   onApartmentFormSubmit = async () => {
     const apartmentFormInputs = Object.keys(this.state).filter(key =>
-      key.includes("apartmentForm")
+      key.includes('apartmentForm')
     );
     const newApartment = apartmentFormInputs.reduce((obj, key) => {
       obj[key] = this.state[key];
@@ -44,7 +45,7 @@ class App extends Component {
     }, {});
     const addedApartment = await addApartment(newApartment);
     console.log(addedApartment);
-    apartmentFormInputs.map(inputField => this.setState({ [inputField]: "" }));
+    apartmentFormInputs.map(inputField => this.setState({ [inputField]: '' }));
   };
 
   render() {
@@ -54,7 +55,11 @@ class App extends Component {
           <SideBar />
           <Switch>
             <Route component={Apartment} exact path="/" />
-            <Route component={Occupant} exact path="/occupants" />
+            <Route
+              render={props => <Occupant {...props} />}
+              exact
+              path="/occupants"
+            />
             <Route
               render={() => (
                 <NewOccupantForm
@@ -75,6 +80,7 @@ class App extends Component {
               exact
               path="/newApartment"
             />
+            <Route component={OccupantProfile} path="/occupants" />
           </Switch>
         </Router>
       </section>

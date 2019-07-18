@@ -21,6 +21,10 @@ class Occupant extends Component {
     }
   };
 
+  findOccupant = (employeeId, history) => {
+    history.push(`/occupants/${employeeId}`);
+  };
+
   render() {
     return (
       <div className="occupants" data-testid="occupants">
@@ -41,6 +45,8 @@ class Occupant extends Component {
                     key={occupant.employeeId}
                     name={occupant.name}
                     employeeId={occupant.employeeId}
+                    findOccupant={this.findOccupant}
+                    history={this.props.history}
                   />
                 );
               })}
