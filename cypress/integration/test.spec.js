@@ -1,17 +1,18 @@
-describe('My First Test', function() {
-  it('Does not do much!', function() {
-    expect(true).to.equal(true);
-  });
-
-  it('should be able to see the sidebars correctly', () => {
-    cy.visit('https://test-armadillo-arms.herokuapp.com');
-    cy.contains('APARTMENT');
-    cy.contains('OCCUPANTS');
-    cy.contains('NEW APARTMENT');
-    cy.contains('NEW OCCUPANT');
-  })
-
-  it('should be able to visit the apartment page ', () => {
-    
+describe("Arms", function() {
+  it("should be able to create a new apartment", () => {
+    cy.visit("http://localhost:3000/newApartment");
+    cy.contains("Create New Apartment");
+    cy.get("input[name=Name]").type("Jon Snow");
+    cy.get("input[name=Address]").type("Block 123 Woodlands Drive 22");
+    cy.get("input[name=Bedrooms]").type("2");
+    cy.get("input[name=Capacity]").type("2");
+    cy.get("input[name=Rent]").type("5000");
+    cy.get("input[name=LeaseStart]").type("2019-12-22");
+    cy.get("input[name=LeaseEnd]").type("2019-12-25");
+    cy.get("input[name=LandLordName]").type("Billy");
+    cy.get("input[name=LandLordAccount]").type("123123213123");
+    cy.get("input[name=LandLordMobile]").type("93939393");
+    cy.get("input[name=LandLordEmail]").type("jon@gmail.com");
+    cy.get("input[type=Submit]").click();
   });
 });
