@@ -13,10 +13,12 @@ class Apartment extends Component {
   }
 
   componentDidMount = async () => {
+    try{
     const apartments = await fetchApartments();
-    this.setState({ apartments }, () => {
-      console.log(this.state.apartments);
-    });
+    this.setState({ apartments })
+    } catch (err){
+      return
+    }
   };
 
   tableDetails() {
