@@ -1,6 +1,8 @@
 describe("Arms", function() {
+  const baseUrl = Cypress.env("baseUrl");
+
   it("should be able to create a new apartment", () => {
-    cy.visit("http://localhost:3000/newApartment");
+    cy.visit(`${baseUrl}/newApartment`);
     cy.contains("Create New Apartment");
     cy.get("input[name=Name]").type("Jon Snow");
     cy.get("input[name=Address]").type("Block 123 Woodlands Drive 22");
