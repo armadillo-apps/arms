@@ -9,17 +9,30 @@ import Occupant from '../Occupant/Occupant';
 import NewOccupantForm from '../NewOccupantForm/NewOccupantForm';
 import NewApartmentForm from '../NewApartmentForm/NewApartmentForm';
 import OccupantProfile from '../OccupantProfile/OccupantProfile';
+import ApartmentProfile from "../ApartmentProfile/ApartmentProfile"
+import { fetchApartments } from "../../service/data"
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      apartments: []
+    };
   }
 
   onChange = event => {
     this.setState({
       [event.target.id]: event.target.value
     });
+  };
+
+  componentDidMount = async () => {
+    try {
+      const apartments = await fetchApartments();
+      this.setState({ apartments })
+    } catch (err) {
+      return err.message
+    }
   };
 
   onOccupantFormSubmit = async () => {
@@ -47,6 +60,8 @@ class App extends Component {
     console.log(addedApartment);
     apartmentFormInputs.map(inputField => this.setState({ [inputField]: '' }));
   };
+
+  
 
   render() {
     return (
@@ -81,6 +96,27 @@ class App extends Component {
               path="/newApartment"
             />
             <Route component={OccupantProfile} path="/occupants" />
+            <Route
+              key="apartmentProfile"
+              path="/apartments/:apartmentId"
+              render={(props) => (<ApartmentProfile apartments={this.state.apartments} {...props}/>)} />
+            />
+            <Route
+              render={() => (
+                <NewApartmentForm
+                  onChange={this.onChange}
+                  onSubmit={this.onApartmentFormSubmit}
+                />
+              )}
+              exact
+              path="/newApartment"
+            />
+            <Route component={OccupantProfile} path="/occupants" />
+            <Route
+              key="apartmentProfile"
+              path="/apartments/:apartmentId"
+              render={(props) => (<ApartmentProfile apartments={this.state.apartments} {...props}/>)} />
+            />
           </Switch>
         </Router>
       </section>
