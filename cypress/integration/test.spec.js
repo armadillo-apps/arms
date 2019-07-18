@@ -3,9 +3,15 @@ describe('My First Test', function() {
     expect(true).to.equal(true);
   });
 
-  it('should be able to visit the home page', () => {
+  it('should be able to see the sidebars correctly', () => {
     cy.visit('https://test-armadilo-arms.herokuapp.com');
-    const values = cy.get('.sideBar__headerContainer');
-    console.log(values);
+    cy.contains('APARTMENT');
+    cy.contains('OCCUPANTS');
+    cy.contains('NEW APARTMENT');
+    cy.contains('NEW OCCUPANT');
+  })
+
+  it('should be able to visit the apartment page ', () => {
+    
   });
 });
