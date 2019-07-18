@@ -1,0 +1,47 @@
+.apartmentProfileContainer {
+  background-color: var(--main-bg-color);
+}
+.apartmentProfile {
+  margin-left: 60px;
+}
+
+.apartmentProfile__backButton {
+  font-size: var(--main-h2-font-size);
+  text-decoration: none;
+  color: var(--sidebar-font-color-inactive)
+}
+
+.apartmentProfile__heading {
+  font-weight: normal;
+  font-size: var(--main-h1-font-size)
+}
+
+.apartmentProfile__generalDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.apartmentProfile__generalDetails h2 {
+  font-size: 1.3rem;
+  color: #3d3d3d;
+  font-weight: normal;
+}
+
+.apartmentProfile__generalDetails p {
+  font-size: 2.5rem;
+}
+
+.apartmentProfile__vacancyDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.apartmentProfile__vacancyDetails h2 {
+  font-size: 1.3rem;
+  font-size: var(--main-h2-font-size);
+  font-weight: normal;
+}
+
+.apartmentProfile__vacancyDetails p {
+  font-size: 2.5rem;
+}
