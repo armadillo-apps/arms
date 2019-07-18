@@ -144,24 +144,26 @@ export class NewApartmentForm extends Component {
             type="number"
             required
           />
-
-          <Input
-            label="Capacity"
-            name="Capacity"
-            onChange={this.onFormChange}
-            value={this.state.capacity}
-            type="number"
-            required
-          />
-
-          <Input
-            label="Bedrooms"
-            name="Bedrooms"
-            onChange={this.onFormChange}
-            value={this.state.bedrooms}
-            type="number"
-            required
-          />
+          <div className="formDivide">
+            <Input
+              label="Capacity"
+              name="Capacity"
+              onChange={this.onFormChange}
+              value={this.state.capacity}
+              type="number"
+              required
+              width="61px"
+            />
+            <Input
+              label="Bedrooms"
+              name="Bedrooms"
+              onChange={this.onFormChange}
+              value={this.state.bedrooms}
+              type="number"
+              required
+              width="61px"
+            />
+          </div>
           <input
             className="apartmentForm__create"
             value="Create"
