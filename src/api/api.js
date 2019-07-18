@@ -14,5 +14,5 @@ export const createNewOccupant = async (name, employeeId, remarks) => {
     `${process.env.REACT_APP_URL}/occupants`,
     requestBody
   );
-  return response.data;
+  return response;
 };
