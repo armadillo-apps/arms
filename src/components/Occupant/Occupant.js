@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import OccupantDetail from "../OccupantDetail/OccupantDetail";
 import SearchBar from "../SearchBar/SearchBar";
-import { fetchOccupants } from "../../service/data";
+import { fetchOccupants } from "../../api/data";
 import "./Occupant.css";
 
 class Occupant extends Component {

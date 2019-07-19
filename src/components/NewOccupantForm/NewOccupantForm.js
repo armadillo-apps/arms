@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { createNewOccupant } from "../../service/data";
+import { createNewOccupant } from "../../api/data";
 import "./NewOccupantForm.css";
 import Input from "../Input/Input";
 
