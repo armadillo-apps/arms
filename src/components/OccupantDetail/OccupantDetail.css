@@ -2,6 +2,7 @@
   min-width: 550px;
   background: white;
   text-align: center;
+  cursor: pointer;
 }
 
 .occupantDetails__td {

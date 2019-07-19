@@ -2,6 +2,7 @@
   min-width: 550px;
   background: var(--main-row-bg-color);
   text-align: center;
+  cursor: pointer;
 }
 
 .apartmentDetails__td {
