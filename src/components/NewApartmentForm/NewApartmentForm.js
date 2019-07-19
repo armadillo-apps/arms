@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Input from "../Input/Input";
-import api from "../../api/api";
+import { createNewApartment } from "../../service/data";
 import "./NewApartmentForm.css";
 
 export class NewApartmentForm extends Component {
@@ -32,7 +32,7 @@ export class NewApartmentForm extends Component {
   onFormSubmit = async event => {
     event.preventDefault();
     try {
-      await api.post("/apartments", {
+      const data = {
         name: this.state.name,
         address: this.state.address,
         bedrooms: this.state.bedrooms,
@@ -50,7 +50,8 @@ export class NewApartmentForm extends Component {
           mobile: this.state.landLordMobile,
           email: this.state.landLordEmail
         }
-      });
+      };
+      await createNewApartment(data);
     } catch (err) {
       return err;
     }
@@ -168,6 +169,7 @@ export class NewApartmentForm extends Component {
             className="apartmentForm__createButton"
             value="Create"
             type="Submit"
+            readOnly
           />
         </div>
       </form>

@@ -10,27 +10,8 @@ export const fetchOccupants = async () => {
   return response.data;
 };
 
-export const addApartment = async input => {
-  const inputForBackend = {
-    name: input.apartmentFormName,
-    address: input.apartmentFormAddress,
-    bedrooms: input.apartmentFormBedrooms,
-    capacity: input.apartmentFormCapacity,
-    leases: [
-      {
-        leaseStart: input.apartmentFormLeaseStart,
-        leaseEnd: input.apartmentFormLeaseEnd,
-        monthlyRent: input.apartmentFormRent
-      }
-    ],
-    landlord: {
-      name: input.apartmentFormLandlordName,
-      accountNumber: input.apartmentFormLandlordAccount,
-      mobile: input.apartmentFormLandlordMobile,
-      email: input.apartmentFormLandlordEmail
-    }
-  };
-  const response = await api.post("/apartments", inputForBackend);
+export const createNewApartment = async input => {
+  const response = await api.post("/apartments", input);
   return response.data;
 };
 
