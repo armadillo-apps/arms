@@ -13,16 +13,16 @@ class Apartment extends Component {
   }
 
   componentDidMount = async () => {
-    try{
-    const apartments = await fetchApartments();
-    this.setState({ apartments })
-    } catch (err){
+    try {
+      const apartments = await fetchApartments();
+      this.setState({ apartments });
+    } catch (err) {
       return err.message;
     }
   };
 
   tableDetails() {
-    const {history} = this.props;
+    const { history } = this.props;
     return (
       <table className="fields" cellSpacing="0" cellPadding="0">
         <thead className="fields__th">
@@ -36,7 +36,9 @@ class Apartment extends Component {
         </thead>
         <tbody>
           {this.state.apartments.map((apartment, index) => {
-            return <ApartmentDetail key={index} {...apartment} history={history} />;
+            return (
+              <ApartmentDetail key={index} {...apartment} history={history} />
+            );
           })}
         </tbody>
       </table>

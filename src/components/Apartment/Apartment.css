@@ -1,11 +1,11 @@
 .apartment {
   background-color: var(--main-bg-color);
+  width: 100%;
 }
 
 .apartment__div {
-  margin-left: 6rem;
-  margin-right: 6rem;
-  width:100%;
+  padding-left: 6rem;
+  padding-right: 6rem;
 }
 
 .apartment__heading {
@@ -31,5 +31,4 @@
 
 .fields__th {
   font-size: var(--main-h2-font-size);
-  
 }
