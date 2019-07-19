@@ -36,7 +36,13 @@ class App extends Component {
           <SideBar />
           <Switch>
             <Route component={Apartment} exact path="/" />
-            <Route component={Occupant} exact path="/occupants" />
+            <Route
+              exact
+              path="/occupants"
+              render={props => (
+                <Occupant occupants={this.state.occupants} {...props} />
+              )}
+            />
             <Route
               key="apartmentProfile"
               path="/apartments/:apartmentId"
