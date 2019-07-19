@@ -15,7 +15,7 @@ xdescribe("Input form", () => {
     expect(getByText(/Employee ID/i)).toBeInTheDocument();
   });
 
-  it.only("should have input button to submit new occupant attributes", () => {
+  it("should have input button to submit new occupant attributes", () => {
     const { getByText } = render(<NewOccupantForm />);
     expect(getByText(/Create/i)).toBeInTheDocument();
   });
