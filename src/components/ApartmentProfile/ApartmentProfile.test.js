@@ -5,7 +5,7 @@ import { render, fireEvent, waitForElement } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import App from "../App/App";
-import * as data from "../../service/data";
+import * as data from "../../api/api";
 
 const mockFetch = jest.spyOn(data, "fetchApartments");
 

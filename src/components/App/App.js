@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import { fetchOccupants, fetchApartments } from "../../api/data";
+import { fetchOccupants, fetchApartments } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
 import Occupant from "../Occupant/Occupant";

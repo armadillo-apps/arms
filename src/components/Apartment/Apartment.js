@@ -2,7 +2,7 @@ import ApartmentDetail from "../ApartmentDetail/ApartmentDetail";
 import React, { Component } from "react";
 import "./Apartment.css";
 import SearchBar from "../SearchBar/SearchBar";
-import { fetchApartments } from "../../api/data";
+import { fetchApartments } from "../../api/api";
 
 class Apartment extends Component {
   constructor(props) {

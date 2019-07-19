@@ -3,7 +3,7 @@ import Apartment from "./Apartment";
 import "@testing-library/react/cleanup-after-each";
 import { render, waitForElement } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import * as data from "../../service/data";
+import * as data from "../../api/api";
 
 const mockFetch = jest.spyOn(data, "fetchApartments");
 

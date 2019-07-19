@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Input from "../Input/Input";
-import { createNewApartment } from "../../api/data";
+import { createNewApartment } from "../../api/api";
 import "./NewApartmentForm.css";
 
 export class NewApartmentForm extends Component {
