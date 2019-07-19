@@ -1,5 +1,5 @@
-import React from 'react';
-import './Input.css';
+import React from "react";
+import "./Input.css";
 const Input = ({ label, name, width, value, ...otherProps }) => {
   return (
     <section className="input">

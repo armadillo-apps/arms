@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import { addApartment, fetchOccupants } from "../../service/data";
-import { createNewOccupant } from "../../api/api";
+import {
+  addApartment,
+  createNewOccupant,
+  fetchOccupants,
+  fetchApartments
+} from "../../service/data";
 import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
 import Occupant from "../Occupant/Occupant";
@@ -10,7 +14,6 @@ import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
 import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
 import OccupantProfile from "../OccupantProfile/OccupantProfile";
 import ApartmentProfile from "../ApartmentProfile/ApartmentProfile";
-import { fetchApartments } from "../../service/data";
 
 class App extends Component {
   constructor(props) {
