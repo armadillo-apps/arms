@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import {
-  addApartment,
-  createNewOccupant,
-  fetchOccupants,
-  fetchApartments
-} from "../../service/data";
+import { fetchOccupants, fetchApartments } from "../../service/data";
 import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
 import Occupant from "../Occupant/Occupant";
@@ -24,12 +19,6 @@ class App extends Component {
     };
   }
 
-  onChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  };
-
   componentDidMount = async () => {
     try {
       const apartments = await fetchApartments();
@@ -38,32 +27,6 @@ class App extends Component {
     } catch (err) {
       return err.message;
     }
-  };
-
-  onOccupantFormSubmit = async () => {
-    await createNewOccupant(
-      this.state.occupantFormName,
-      this.state.occupantFormEmployeeId,
-      this.state.occupantFormRemarks
-    );
-    this.setState({
-      occupantFormName: "",
-      occupantFormEmployeeId: "",
-      occupantFormRemarks: ""
-    });
-  };
-
-  onApartmentFormSubmit = async () => {
-    const apartmentFormInputs = Object.keys(this.state).filter(key =>
-      key.includes("apartmentForm")
-    );
-    const newApartment = apartmentFormInputs.reduce((obj, key) => {
-      obj[key] = this.state[key];
-      return obj;
-    }, {});
-    const addedApartment = await addApartment(newApartment);
-    console.log(addedApartment);
-    apartmentFormInputs.map(inputField => this.setState({ [inputField]: "" }));
   };
 
   render() {
@@ -92,26 +55,8 @@ class App extends Component {
               )}
             />
             <Route component={OccupantProfile} path="/occupants" />
-            <Route
-              render={() => (
-                <NewApartmentForm
-                  onChange={this.onChange}
-                  onSubmit={this.onApartmentFormSubmit}
-                />
-              )}
-              exact
-              path="/newApartment"
-            />
-            <Route
-              render={() => (
-                <NewOccupantForm
-                  onChange={this.onChange}
-                  onSubmit={this.onOccupantFormSubmit}
-                />
-              )}
-              exact
-              path="/newOccupant"
-            />
+            <Route component={NewApartmentForm} exact path="/newApartment" />
+            <Route component={NewOccupantForm} exact path="/newOccupant" />
           </Switch>
         </Router>
       </section>
