@@ -1,28 +1,10 @@
 import ApartmentDetail from "../ApartmentDetail/ApartmentDetail";
-import React, { Component } from "react";
+import React from "react";
 import "./Apartment.css";
 import SearchBar from "../SearchBar/SearchBar";
-import { fetchApartments } from "../../api/api";
 
-class Apartment extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      apartments: []
-    };
-  }
-
-  componentDidMount = async () => {
-    try {
-      const apartments = await fetchApartments();
-      this.setState({ apartments });
-    } catch (err) {
-      return err.message;
-    }
-  };
-
-  tableDetails() {
-    const { history } = this.props;
+const Apartment = ({ apartments, history }) => {
+  const tableDetails = () => {
     return (
       <table className="fields" cellSpacing="0" cellPadding="0">
         <thead className="fields__th">
@@ -35,27 +17,29 @@ class Apartment extends Component {
           </tr>
         </thead>
         <tbody>
-          {this.state.apartments.map((apartment, index) => {
+          {apartments.map(apartment => {
             return (
-              <ApartmentDetail key={index} {...apartment} history={history} />
+              <ApartmentDetail
+                key={apartment._id}
+                {...apartment}
+                history={history}
+              />
             );
           })}
         </tbody>
       </table>
     );
-  }
+  };
 
-  render() {
-    return (
-      <div className="apartment" data-testid="apartment">
-        <div className="apartment__div">
-          <h1 className="apartment__heading">Apartments</h1>
-          <SearchBar placeholder="Apartment" />
-          {this.tableDetails()}
-        </div>
+  return (
+    <div className="apartment" data-testid="apartment">
+      <div className="apartment__div">
+        <h1 className="apartment__heading">Apartments</h1>
+        <SearchBar placeholder="Apartment" />
+        {tableDetails()}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Apartment;
