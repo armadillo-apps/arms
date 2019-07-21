@@ -36,6 +36,7 @@
   font-size: var(--main-h2-font-size);
   text-decoration: none;
   color: var(--sidebar-font-color-inactive);
+  cursor: pointer;
 }
 
 .occupantProfileContainer {
@@ -47,14 +48,14 @@
   margin-top: 20px;
 }
 
-.occupantProfile__heading{
+.occupantProfile__heading {
   font-weight: normal;
   font-size: var(--main-h1-font-size);
 }
 
 .occupantProfile__employeeId h2 {
   font-size: var(--main-h2-font-size);
-  margin:0;
+  margin: 0;
 }
 
 .occupantProfile__employeeId p {

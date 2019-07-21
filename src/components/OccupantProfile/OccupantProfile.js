@@ -1,25 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./OccupantProfile.css";
 
-const OccupantProfile = props => {
-  if (!props.occupants || props.occupants.length < 1) {
+const OccupantProfile = ({ occupants, history, match }) => {
+  if (!occupants || occupants.length < 1) {
     return <h1>Loading...</h1>;
   } else {
-    const occupantId = props.match.params.occupantId;
-    const filteredOccupant = props.occupants.filter(occupant => {
+    const occupantId = match.params.occupantId;
+    const occupant = occupants.find(occupant => {
       return occupant.employeeId === occupantId;
     });
+
     return (
       <div className="occupantProfileContainer">
         <div className="occupantProfile">
-          <Link className="occupantProfile__backButton" to="/occupants">
+          <div
+            className="occupantProfile__backButton"
+            onClick={() => history.goBack()}
+          >
             &lt; Back
-          </Link>
-          <h1 className="occupantProfile__heading">{filteredOccupant[0].name}</h1>
+          </div>
+          <h1 className="occupantProfile__heading">{occupant.name}</h1>
           <div className="occupantProfile__employeeId">
-            <h2>Employee Id</h2>
-            <p>{filteredOccupant[0].employeeId}</p>
+            <h2>Employee ID</h2>
+            <p>{occupant.employeeId}</p>
           </div>
           <h1 className="fields__headings">Apartments</h1>
           <table className="fields">
@@ -32,7 +35,7 @@ const OccupantProfile = props => {
             </thead>
           </table>
           <h1 className="fields__headings">Remarks</h1>
-          <p className="fields__remarks">{filteredOccupant[0].remarks}</p>
+          <p className="fields__remarks">{occupant.remarks}</p>
         </div>
       </div>
     );
