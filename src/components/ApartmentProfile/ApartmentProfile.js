@@ -1,39 +1,42 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./ApartmentProfile.css";
 
-const ApartmentProfile = props => {
-  if (!props.apartments || props.apartments.length < 1) {
+const ApartmentProfile = ({ apartments, history, match }) => {
+  if (!apartments || apartments.length < 1) {
     return <h1>Loading...</h1>;
   } else {
-    const apartmentId = props.match.params.apartmentId;
-    const filteredApartment = props.apartments.filter(apartment => {
+    const apartmentId = match.params.apartmentId;
+    const apartment = apartments.find(apartment => {
       return apartment._id === apartmentId;
     });
+
     return (
       <div className="apartmentProfileContainer">
         <div className="apartmentProfile">
-          <Link className="apartmentProfile__backButton" to="/">
+          <div
+            className="apartmentProfile__backButton"
+            onClick={() => history.goBack()}
+          >
             &lt; Back
-          </Link>
-          <h1 className="apartmentProfile__heading">{filteredApartment[0].name}</h1>
-            <div className="apartmentProfile__details">
-              <div className="occupantsNumber">
-                <h2>No. of Occupants</h2>
-                <p>0</p>
-              </div>
-              <div className="capacity">
-                <h2>Capacity</h2>
-                <p>{filteredApartment[0].capacity}</p>
-              </div>
-              <div className="address">
-                <h2>Address</h2>
-                <p>{filteredApartment[0].address}</p>
-              </div>
-              <div className="bedrooms">
-                <h2>Bedrooms</h2>
-                <p>{filteredApartment[0].bedrooms}</p>
-              </div>
+          </div>
+          <h1 className="apartmentProfile__heading">{apartment.name}</h1>
+          <div className="apartmentProfile__details">
+            <div className="occupantsNumber">
+              <h2>No. of Occupants</h2>
+              <p>0</p>
+            </div>
+            <div className="capacity">
+              <h2>Capacity</h2>
+              <p>{apartment.capacity}</p>
+            </div>
+            <div className="address">
+              <h2>Address</h2>
+              <p>{apartment.address}</p>
+            </div>
+            <div className="bedrooms">
+              <h2>Bedrooms</h2>
+              <p>{apartment.bedrooms}</p>
+            </div>
           </div>
           <h2 className="apartmentProfile__header2">Occupants</h2>
           <table className="apartmentProfile__occupants">
@@ -55,8 +58,8 @@ const ApartmentProfile = props => {
               </tr>
             </thead>
             <tbody>
-              {filteredApartment[0].leases.length > 0 ? (
-                filteredApartment[0].leases.map(lease => (
+              {apartment.leases.length > 0 ? (
+                apartment.leases.map(lease => (
                   <Lease key={lease._id} leaseInfo={lease} />
                 ))
               ) : (

@@ -10,6 +10,7 @@
   font-size: var(--main-h2-font-size);
   text-decoration: none;
   color: var(--sidebar-font-color-inactive);
+  cursor: pointer;
 }
 
 .apartmentProfile__heading {
