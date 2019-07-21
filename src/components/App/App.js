@@ -50,7 +50,6 @@ class App extends Component {
               )}
             />
             <Route
-              key="apartmentProfile"
               path="/apartments/:apartmentId"
               render={props => (
                 <ApartmentProfile
@@ -60,13 +59,11 @@ class App extends Component {
               )}
             />
             <Route
-              key="occupantProfile"
               path="/occupants/:occupantId"
               render={props => (
                 <OccupantProfile occupants={this.state.occupants} {...props} />
               )}
             />
-            <Route component={OccupantProfile} path="/occupants" />
             <Route component={NewApartmentForm} exact path="/newApartment" />
             <Route component={NewOccupantForm} exact path="/newOccupant" />
           </Switch>
