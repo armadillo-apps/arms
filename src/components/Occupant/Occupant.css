@@ -3,15 +3,20 @@
 }
 
 .occupants__div {
-  margin-left: 2rem;
+  padding-left: 6rem;
+  padding-right: 6rem;
 }
 
-.occupants__heading {
+.occupants__header1 {
   font-size: 3.6rem;
   line-height: 43px;
   font-style: normal;
   font-weight: normal;
   margin-top: 64px;
+}
+
+.occupants__header2 {
+  font-size: 1.1rem;
 }
 
 .formSearch {
@@ -39,17 +44,14 @@
 .formSearch__searchInput::placeholder {
   padding: 1rem;
 }
+
 .formSearch__searchInput:focus {
   padding-left: 1rem;
 }
 
-.fields {
+.occupants__table {
   margin-top: 2rem;
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 1rem;
-}
-
-.fields__th {
-  font-size: 1.1rem;
 }

@@ -7,10 +7,10 @@ const Occupant = ({ occupants, history }) => {
   return (
     <div className="occupants" data-testid="occupants">
       <div className="occupants__div">
-        <h1 className="occupants__heading">Occupants</h1>
+        <h1 className="occupants__header1">Occupants</h1>
         <SearchBar placeholder="Occupant" />
-        <table className="fields" cellSpacing="0" cellPadding="0">
-          <thead className="fields__th">
+        <table className="occupants__table" cellSpacing="0" cellPadding="0">
+          <thead className="occupants__header2">
             <tr>
               <th>Name</th>
               <th>Employee ID</th>
