@@ -1,9 +1,16 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render } from "@testing-library/react";
+import { render, waitForElement } from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 import NewApartmentForm from "./NewApartmentForm";
 import { fireEvent } from "@testing-library/react/dist";
+import * as data from "../../api/api";
+
+const mockPost = jest.spyOn(data, "createNewApartment");
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 describe("New apartment form", () => {
   it("should have correct title on page", () => {
@@ -83,5 +90,50 @@ describe("New apartment form", () => {
     fireEvent.change(capacityInput, { target: { value: "Not a valid input" } });
 
     expect(capacityInput).toHaveValue(null);
+  });
+});
+
+describe("apartment form confirmation message", () => {
+  it("should clear form after hitting submit", async () => {
+    mockPost.mockImplementation(
+      () => "Successfully added new apartment: Garden Shack"
+    );
+    const { getByLabelText, getByText } = render(<NewApartmentForm />);
+    const nameInput = getByLabelText(/apartment name/i);
+    const button = getByText("Create", { selector: "button" });
+    fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
+    fireEvent.click(button);
+    await waitForElement(() => getByLabelText(/apartment name/i));
+    expect(nameInput.value).toEqual("");
+  });
+
+  it("should display confirmation message on creation", async () => {
+    mockPost.mockImplementation(
+      () => "Successfully added new apartment: Garden Shack"
+    );
+    const { getByLabelText, getByText } = render(<NewApartmentForm />);
+    const nameInput = getByLabelText(/apartment name/i);
+    const button = getByText("Create", { selector: "button" });
+    fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
+    fireEvent.click(button);
+    const successMessage = await waitForElement(() =>
+      getByText("Successfully added new apartment: Garden Shack")
+    );
+    expect(successMessage).toBeInTheDocument();
+  });
+
+  it("should display failure message when there is an error", async () => {
+    mockPost.mockImplementation(() => {
+      throw new Error("Failure!");
+    });
+    const { getByLabelText, getByText } = render(<NewApartmentForm />);
+    const nameInput = getByLabelText(/apartment name/i);
+    const button = getByText("Create", { selector: "button" });
+    fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
+    fireEvent.click(button);
+    const failureMessage = await waitForElement(() =>
+      getByText("Unable to create new apartment :(")
+    );
+    expect(failureMessage).toBeInTheDocument();
   });
 });

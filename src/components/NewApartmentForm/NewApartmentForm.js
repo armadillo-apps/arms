@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Input from "../Input/Input";
 import { createNewApartment } from "../../api/api";
 import "./NewApartmentForm.css";
+import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 
 export class NewApartmentForm extends Component {
   constructor(props) {
@@ -17,7 +18,10 @@ export class NewApartmentForm extends Component {
       landLordName: "",
       landLordAccount: "",
       landLordMobile: "",
-      landLordEmail: ""
+      landLordEmail: "",
+      success: false,
+      message: "",
+      submitted: false
     };
   }
 
@@ -51,8 +55,29 @@ export class NewApartmentForm extends Component {
           email: this.state.landLordEmail
         }
       };
-      await createNewApartment(data);
+      const output = await createNewApartment(data);
+      this.setState({
+        name: "",
+        address: "",
+        bedrooms: "",
+        capacity: "",
+        leaseStart: "",
+        leaseEnd: "",
+        rent: "",
+        landLordName: "",
+        landLordAccount: "",
+        landLordMobile: "",
+        landLordEmail: "",
+        success: true,
+        message: output,
+        submitted: true
+      });
     } catch (err) {
+      this.setState({
+        success: false,
+        message: "Unable to create new apartment :(",
+        submitted: true
+      });
       return err;
     }
   };
@@ -176,12 +201,20 @@ export class NewApartmentForm extends Component {
               width="61px"
             />
           </div>
-          <input
+          <button
             className="apartmentForm__createButton"
-            value="Create"
-            type="Submit"
-            readOnly
-          />
+            onClick={this.onFormSubmit}
+          >
+            Create
+          </button>
+          {this.state.submitted ? (
+            <ConfirmationMessage
+              message={this.state.message}
+              success={this.state.success}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </form>
     );

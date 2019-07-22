@@ -5,7 +5,13 @@ import "@testing-library/react/cleanup-after-each";
 import NewOccupantForm from "./NewOccupantForm";
 import * as api from "../../api/api";
 
-jest.spyOn(api, "createNewOccupant").mockResolvedValue(() => {});
+const mockPost = jest.spyOn(api, "createNewOccupant");
+
+mockPost.mockResolvedValue(() => "Success!");
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 describe("Input form", () => {
   it("should contain correct title", () => {
@@ -51,8 +57,13 @@ describe("Input form", () => {
     expect(employeeId.value).toBe("123");
     expect(remarks.value).toBe("testing");
   });
+});
 
+describe("Confirmation message", () => {
   it("should clear input text when submit button is clicked", async () => {
+    mockPost.mockImplementation(
+      () => "Successfully added new occupant: James Corden"
+    );
     const { getByText, getByLabelText } = render(<NewOccupantForm />);
 
     const name = getByLabelText("Name");
@@ -72,5 +83,48 @@ describe("Input form", () => {
     expect(name.value).toBe("");
     expect(employeeId.value).toBe("");
     expect(remarks.value).toBe("");
+  });
+
+  it("should clear form after hitting submit", async () => {
+    mockPost.mockImplementation(
+      () => "Successfully added new occupant: James Corden"
+    );
+    const { getByLabelText, getByText } = render(<NewOccupantForm />);
+    const nameInput = getByLabelText(/name/i);
+    const button = getByText("Create", { selector: "button" });
+    fireEvent.change(nameInput, { target: { value: "James Corden" } });
+    fireEvent.click(button);
+    await waitForElement(() => getByLabelText(/name/i));
+    expect(nameInput.value).toEqual("");
+  });
+
+  it("should display confirmation message on creation", async () => {
+    mockPost.mockImplementation(
+      () => "Successfully added new occupant: James Corden"
+    );
+    const { getByLabelText, getByText } = render(<NewOccupantForm />);
+    const nameInput = getByLabelText(/name/i);
+    const button = getByText("Create", { selector: "button" });
+    fireEvent.change(nameInput, { target: { value: "James Corden" } });
+    fireEvent.click(button);
+    const successMessage = await waitForElement(() =>
+      getByText("Successfully added new occupant: James Corden")
+    );
+    expect(successMessage).toBeInTheDocument();
+  });
+
+  it("should display failure message when there is an error", async () => {
+    mockPost.mockImplementation(() => {
+      throw new Error("Failure!");
+    });
+    const { getByLabelText, getByText } = render(<NewOccupantForm />);
+    const nameInput = getByLabelText(/name/i);
+    const button = getByText("Create", { selector: "button" });
+    fireEvent.change(nameInput, { target: { value: "James Corden" } });
+    fireEvent.click(button);
+    const failureMessage = await waitForElement(() =>
+      getByText("Unable to create new occupant :(")
+    );
+    expect(failureMessage).toBeInTheDocument();
   });
 });

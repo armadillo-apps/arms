@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { createNewOccupant } from "../../api/api";
 import "./NewOccupantForm.css";
 import Input from "../Input/Input";
+import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 
 class NewOccupantForm extends Component {
   constructor(props) {
@@ -9,7 +10,10 @@ class NewOccupantForm extends Component {
     this.state = {
       name: "",
       employeeId: "",
-      remarks: ""
+      remarks: "",
+      success: false,
+      message: "",
+      submitted: false
     };
   }
 
@@ -21,17 +25,27 @@ class NewOccupantForm extends Component {
   };
 
   onFormSubmit = async () => {
-    await createNewOccupant(
-      this.state.name,
-      this.state.employeeId,
-      this.state.remarks
-    );
-
-    this.setState({
-      name: "",
-      employeeId: "",
-      remarks: ""
-    });
+    try {
+      const output = await createNewOccupant(
+        this.state.name,
+        this.state.employeeId,
+        this.state.remarks
+      );
+      this.setState({
+        name: "",
+        employeeId: "",
+        remarks: "",
+        success: true,
+        message: output,
+        submitted: true
+      });
+    } catch (err) {
+      this.setState({
+        success: false,
+        message: "Unable to create new occupant :(",
+        submitted: true
+      });
+    }
   };
 
   render() {
@@ -73,6 +87,14 @@ class NewOccupantForm extends Component {
         >
           Create
         </button>
+        {this.state.submitted ? (
+          <ConfirmationMessage
+            success={this.state.success}
+            message={this.state.message}
+          />
+        ) : (
+          ""
+        )}
       </div>
     );
   }
