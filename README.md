@@ -5,6 +5,16 @@
 
 Apartments and Residential Managements System
 
+## Files you need to create
+
+Create a `cypress.env.json` and add the `baseUrl`.
+
+```json
+{
+  "baseUrl": "http://localhost:3000"
+}
+```
+
 ## Getting started
 
 To start development
