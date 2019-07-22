@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "ARMS",
+  "name": "Apartments and Residential Management System",
   "icons": [
     {
       "src": "favicon.ico",
