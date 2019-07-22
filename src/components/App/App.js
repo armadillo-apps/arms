@@ -22,8 +22,9 @@ class App extends Component {
   componentDidMount = async () => {
     try {
       const apartments = await fetchApartments();
+      this.setState({ apartments });
       const occupants = await fetchOccupants();
-      this.setState({ apartments, occupants });
+      this.setState({ occupants });
     } catch (err) {
       return err.message;
     }
