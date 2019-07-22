@@ -40,6 +40,7 @@ class NewOccupantForm extends Component {
         <h1 className="occupantForm__heading">Create New Occupant</h1>
         <div className="occupantForm">
           <Input
+            id="name"
             label="Name"
             name="name"
             onChange={this.onFormChange}
@@ -48,6 +49,7 @@ class NewOccupantForm extends Component {
             required
           />
           <Input
+            id="employee-id"
             label="Employee ID"
             name="employeeId"
             onChange={this.onFormChange}
@@ -56,6 +58,7 @@ class NewOccupantForm extends Component {
             required
           />
           <Input
+            id="remarks"
             label="Remarks"
             name="remarks"
             onChange={this.onFormChange}

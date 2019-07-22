@@ -1,60 +1,76 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, waitForElement } from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 import NewOccupantForm from "./NewOccupantForm";
+import * as api from "../../api/api";
 
-xdescribe("Input form", () => {
-  it("should have input area for name", () => {
+jest.spyOn(api, "createNewOccupant").mockResolvedValue(() => {});
+
+describe("Input form", () => {
+  it("should contain correct title", () => {
     const { getByText } = render(<NewOccupantForm />);
-    expect(getByText(/Name/i)).toBeInTheDocument();
+    expect(getByText("Create New Occupant")).toBeInTheDocument();
   });
 
-  it("should have input area for employee ID", () => {
-    const { getByText } = render(<NewOccupantForm />);
-    expect(getByText(/Employee ID/i)).toBeInTheDocument();
-  });
-
-  it("should have input button to submit new occupant attributes", () => {
-    const { getByText } = render(<NewOccupantForm />);
-    expect(getByText(/Create/i)).toBeInTheDocument();
-  });
-
-  it("should detect input for name", () => {
+  it("should have input text for name", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
-    const nameInput = getByLabelText("Name");
-
-    fireEvent.change(nameInput, { target: { value: "Tim" } });
-
-    expect(nameInput).toHaveAttribute("type", "text");
-    expect(nameInput).toHaveValue("Tim");
+    expect(getByLabelText("Name")).toBeInTheDocument();
   });
 
-  it("should detect input for employeeID field", () => {
+  it("should have input text for employee id", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
-    const nameInput = getByLabelText("Employee Id");
-
-    fireEvent.change(nameInput, { target: { value: "sd123123123" } });
-
-    expect(nameInput).toHaveAttribute("type", "text");
-    expect(nameInput).toHaveValue("sd123123123");
+    expect(getByLabelText("Employee ID")).toBeInTheDocument();
   });
 
-  it("should detect input for remarks field", () => {
+  it("should have input text for remarks", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
-    const nameInput = getByLabelText("Remarks");
-
-    fireEvent.change(nameInput, {
-      target: { value: "He might need to extend stay by 2 months" }
-    });
-    expect(nameInput).toHaveAttribute("type", "text");
-    expect(nameInput).toHaveValue("He might need to extend stay by 2 months");
+    expect(getByLabelText("Remarks")).toBeInTheDocument();
   });
 
-  it("should render a create button", () => {
-    const { getByText } = render(<NewOccupantForm />);
-    const createButton = getByText("Create");
+  it("should have text", () => {
+    const { getByDisplayValue, getByLabelText } = render(<NewOccupantForm />);
+    const name = getByLabelText("Name");
+    fireEvent.change(name, { target: { value: "Bob" } });
+    expect(getByDisplayValue("Bob")).toBeInTheDocument();
+  });
 
-    expect(createButton).toBeInTheDocument();
+  it("should fill up input text fields", () => {
+    const { getByText, getByLabelText } = render(<NewOccupantForm />);
+
+    const name = getByLabelText("Name");
+    fireEvent.change(name, { target: { value: "Bob" } });
+
+    const employeeId = getByLabelText("Employee ID");
+    fireEvent.change(employeeId, { target: { value: "123" } });
+
+    const remarks = getByLabelText("Remarks");
+    fireEvent.change(remarks, { target: { value: "testing" } });
+
+    expect(name.value).toBe("Bob");
+    expect(employeeId.value).toBe("123");
+    expect(remarks.value).toBe("testing");
+  });
+
+  it.only("should clear input text when submit button is clicked", async () => {
+    const { getByText, getByLabelText } = render(<NewOccupantForm />);
+
+    const name = getByLabelText("Name");
+    fireEvent.change(name, { target: { value: "Bob" } });
+
+    const employeeId = getByLabelText("Employee ID");
+    fireEvent.change(employeeId, { target: { value: "123" } });
+
+    const remarks = getByLabelText("Remarks");
+    fireEvent.change(remarks, { target: { value: "testing" } });
+
+    const submitButton = getByText("Create");
+    expect(submitButton).toBeInTheDocument();
+    fireEvent.click(submitButton);
+
+    await waitForElement(() => getByLabelText("Name"));
+    expect(name.value).toBe("");
+    expect(employeeId.value).toBe("");
+    expect(remarks.value).toBe("");
   });
 });
