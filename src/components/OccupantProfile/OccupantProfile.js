@@ -19,14 +19,14 @@ const OccupantProfile = ({ occupants, history, match }) => {
           >
             &lt; Back
           </div>
-          <h1 className="occupantProfile__heading">{occupant.name}</h1>
+          <h1 className="occupantProfile__header1">{occupant.name}</h1>
           <div className="occupantProfile__employeeId">
-            <h2>Employee ID</h2>
+            <h2 className="occupantProfile__header2">Employee ID</h2>
             <p>{occupant.employeeId}</p>
           </div>
-          <h1 className="fields__headings">Apartments</h1>
-          <table className="fields">
-            <thead className="fields__th">
+          <h1 className="occupantProfile__header2">Stay History</h1>
+          <table className="stayHistory__table">
+            <thead className="stayHistory__headers">
               <tr>
                 <th>Address</th>
                 <th>Check In</th>
@@ -34,8 +34,8 @@ const OccupantProfile = ({ occupants, history, match }) => {
               </tr>
             </thead>
           </table>
-          <h1 className="fields__headings">Remarks</h1>
-          <p className="fields__remarks">{occupant.remarks}</p>
+          <h1 className="occupantProfile__header2">Remarks</h1>
+          <p className="remarks__body">{occupant.remarks}</p>
         </div>
       </div>
     );
