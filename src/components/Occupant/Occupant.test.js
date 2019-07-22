@@ -1,29 +1,26 @@
 import React from "react";
 import Occupant from "./Occupant";
-import { render, waitForElement } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
-import * as data from "../../api/api";
 
-jest.spyOn(data, "fetchOccupants").mockImplementation(() => {
-  return [
-    {
-      name: "Jesstern",
-      employeeId: "1234561b"
-    },
-    {
-      name: "Elson",
-      employeeId: "1234562b"
-    }
-  ];
-});
+const occupants = [
+  {
+    name: "Bob",
+    employeeId: "1234561b"
+  }
+];
 
-// test fails because Occupant does not contain state anymore, it receives occupants state from App
-xdescribe("Occupant", () => {
-  it("/occupants should GET a list of occupants", async () => {
-    const { getByText } = render(<Occupant />);
-    await waitForElement(() => getByText("Jesstern"));
-    expect(getByText("Jesstern")).toBeInTheDocument();
-    expect(getByText("Elson")).toBeInTheDocument();
+describe("Occupant", () => {
+  it("renders the name of occupant", () => {
+    const { getByText } = render(<Occupant occupants={occupants} />);
+    expect(getByText("Name")).toBeInTheDocument();
+    expect(getByText("Bob")).toBeInTheDocument();
+  });
+
+  it("renders the employee ID of occupant", () => {
+    const { getByText } = render(<Occupant occupants={occupants} />);
+    expect(getByText("Employee ID")).toBeInTheDocument();
+    expect(getByText("1234561b")).toBeInTheDocument();
   });
 });
