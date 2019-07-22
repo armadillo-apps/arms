@@ -5,4 +5,4 @@ const ConfirmationMessage = ({ message, success }) => {
   return <p className={success ? "positive" : "inverted"}>{message}</p>;
 };
 
-module.exports = ConfirmationMessage;
+export default ConfirmationMessage;
