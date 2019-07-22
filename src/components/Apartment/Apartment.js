@@ -4,7 +4,7 @@ import "./Apartment.css";
 import SearchBar from "../SearchBar/SearchBar";
 
 const Apartment = ({ apartments, history }) => {
-  const tableDetails = () => {
+  const renderTable = () => {
     return (
       <table className="fields" cellSpacing="0" cellPadding="0">
         <thead className="fields__th">
@@ -36,7 +36,7 @@ const Apartment = ({ apartments, history }) => {
       <div className="apartment__div">
         <h1 className="apartment__heading">Apartments</h1>
         <SearchBar placeholder="Apartment" />
-        {tableDetails()}
+        {renderTable()}
       </div>
     </div>
   );
