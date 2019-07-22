@@ -1,15 +1,18 @@
 import React from "react";
 import "./Input.css";
-const Input = ({ label, name, width, value, ...otherProps }) => {
+const Input = ({ id, label, name, width, value, ...otherProps }) => {
   return (
     <section className="input">
-      <label className="input__label">{label}:</label>
+      <label className="input__label" htmlFor={id}>
+        {label}
+      </label>
       <input
+        id={id}
         className="input__text"
         style={{ width }}
         name={name}
-        {...otherProps}
         value={value}
+        {...otherProps}
       />
     </section>
   );

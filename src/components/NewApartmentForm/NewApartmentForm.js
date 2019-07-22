@@ -63,6 +63,7 @@ export class NewApartmentForm extends Component {
         <div className="apartmentForm__div">
           <h1 className="apartmentForm__heading">Create New Apartment</h1>
           <Input
+            id="apartment-name"
             label="Apartment name"
             name="Name"
             onChange={this.onFormChange}
@@ -71,6 +72,7 @@ export class NewApartmentForm extends Component {
             required
           />
           <Input
+            id="address"
             label="Address"
             name="Address"
             onChange={this.onFormChange}
@@ -80,6 +82,7 @@ export class NewApartmentForm extends Component {
           />
           <div className="formDivide">
             <Input
+              id="landlord-name"
               label="LandLord name"
               name="LandLordName"
               onChange={this.onFormChange}
@@ -88,6 +91,7 @@ export class NewApartmentForm extends Component {
               required
             />
             <Input
+              id="landlord-account-number"
               label="Landlord A/C No"
               name="LandLordAccount"
               onChange={this.onFormChange}
@@ -99,6 +103,7 @@ export class NewApartmentForm extends Component {
           </div>
           <div className="formDivide">
             <Input
+              id="landlord-email"
               label="LandLord Email"
               name="LandLordEmail"
               onChange={this.onFormChange}
@@ -108,6 +113,7 @@ export class NewApartmentForm extends Component {
             />
 
             <Input
+              id="landlord-mobile-number"
               label="LandLord Mobile no"
               name="LandLordMobile"
               onChange={this.onFormChange}
@@ -119,6 +125,7 @@ export class NewApartmentForm extends Component {
           </div>
           <div className="formDivide">
             <Input
+              id="lease-start"
               label="Lease Start"
               name="LeaseStart"
               onChange={this.onFormChange}
@@ -128,6 +135,7 @@ export class NewApartmentForm extends Component {
               width="141px"
             />
             <Input
+              id="lease-end"
               label="Lease End"
               name="LeaseEnd"
               onChange={this.onFormChange}
@@ -138,6 +146,7 @@ export class NewApartmentForm extends Component {
             />
           </div>
           <Input
+            id="rental-per-month"
             label="Rental per month"
             name="Rent"
             onChange={this.onFormChange}
@@ -147,6 +156,7 @@ export class NewApartmentForm extends Component {
           />
           <div className="formDivide">
             <Input
+              id="capacity"
               label="Capacity"
               name="Capacity"
               onChange={this.onFormChange}
@@ -156,6 +166,7 @@ export class NewApartmentForm extends Component {
               width="61px"
             />
             <Input
+              id="bedrooms"
               label="Bedrooms"
               name="Bedrooms"
               onChange={this.onFormChange}
