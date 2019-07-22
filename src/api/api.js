@@ -22,5 +22,5 @@ export const createNewOccupant = async (name, employeeId, remarks) => {
     remarks: remarks
   };
   const response = await axios.post("/occupants", requestBody);
-  return response;
+  return response.data;
 };
