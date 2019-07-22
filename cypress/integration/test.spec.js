@@ -56,7 +56,7 @@ describe("ARMS website Sprint1 tests", () => {
     cy.get("input[name=LandLordAccount]").type("456456456");
     cy.get("input[name=LandLordMobile]").type("84848484");
     cy.get("input[name=LandLordEmail]").type("jon@hotmail.com");
-    cy.get("input[type=Submit]").click();
+    cy.get("button").click();
   });
 
   it("should be able to see the newly created apartment", async () => {
