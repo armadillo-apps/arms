@@ -9,7 +9,7 @@ describe("ARMS website Sprint1 tests", () => {
     cy.contains("NEW OCCUPANT");
   });
 
-  it("should be able to visit the occupants page ", () => {
+  it.skip("should be able to visit the occupants page ", () => {
     cy.visit(`${baseUrl}`);
     cy.contains("OCCUPANTS").click();
     cy.url().should("include", "/occupants");
@@ -17,7 +17,7 @@ describe("ARMS website Sprint1 tests", () => {
     cy.contains("Sir Williamson Von Barkshire");
   });
 
-  it("should be able to visit the apartments page", () => {
+  it.skip("should be able to visit the apartments page", () => {
     cy.visit(`${baseUrl}`);
     cy.contains("APARTMENT").click();
     cy.contains("Apartment Name");
@@ -80,7 +80,7 @@ describe("ARMS website Sprint1 tests", () => {
     cy.contains("g00001g");
   });
 
-  it("should be able to open an apartment profile", () => {
+  it.skip("should be able to open an apartment profile", () => {
     cy.visit(`${baseUrl}`);
     cy.get("table")
       .contains("td", "Fancy Penthouse")
@@ -94,7 +94,7 @@ describe("ARMS website Sprint1 tests", () => {
     cy.get("table").contains("td", "5000");
   });
 
-  it("should be able to open an occupant profile", () => {
+  it.skip("should be able to open an occupant profile", () => {
     cy.visit(`${baseUrl}/occupants`);
     cy.get("table")
       .contains("td", "Williamson")
