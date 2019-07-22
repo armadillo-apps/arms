@@ -9,13 +9,13 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
-      - run: 
+      - run:
           name: Install dependencies
           command: npm install
       - save_cache:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
-            - node_modules  
+            - node_modules
       - run:
           name: run the build
           command: npm run build
@@ -27,14 +27,14 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
-      - run: 
+      - run:
           name: Install dependencies
           command: npm install
       - save_cache:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
-            - node_modules  
-      - run: 
+            - node_modules
+      - run:
           name: Run unit tests
           command: npm run test
   uiTest:
@@ -48,13 +48,16 @@ jobs:
       - run:
           name: Install dependencies
           command: npm ci
-      - run: npm run cy:verify
+      - run:
+          name: Verify Cypress
+          command: npm run cy:verify
       - save_cache:
           key: cache-{{ checksum "package.json" }}
           paths:
             - ~/.npm
             - ~/.cache
       - run:
+          name: Run Cypress
           command: npm run cy:run
   deployTest:
       docker:
@@ -89,15 +92,15 @@ jobs:
          - image: circleci/node:12.6.0
       environment:
           HEROKU_APP_NAME: armadillo-arms
-      steps: 
+      steps:
           - checkout
-          - run: 
+          - run:
               name: Deploy to production frontend on Heroku
               command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
           - run:
               name: Ping test deployment
               command: curl --fail https://$HEROKU_APP_NAME.herokuapp.com/
-              
+
 workflows:
   version: 2
   testAndDeploy:
@@ -118,4 +121,4 @@ workflows:
           requires:
             - deployDemo
 
-        
+
