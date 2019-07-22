@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { createNewOccupant } from "../../api/api";
 import "./NewOccupantForm.css";
 import Input from "../Input/Input";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
@@ -26,11 +25,13 @@ class NewOccupantForm extends Component {
 
   onFormSubmit = async () => {
     try {
-      const output = await createNewOccupant(
-        this.state.name,
-        this.state.employeeId,
-        this.state.remarks
-      );
+      const { name, employeeId, remarks } = this.state;
+      const output = await this.props.addNewOccupant({
+        name,
+        employeeId,
+        remarks
+      });
+
       this.setState({
         name: "",
         employeeId: "",

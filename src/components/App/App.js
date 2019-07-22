@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import { fetchOccupants, fetchApartments } from "../../api/api";
+import {
+  fetchOccupants,
+  fetchApartments,
+  createNewOccupant
+} from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
 import Occupant from "../Occupant/Occupant";
@@ -23,6 +27,16 @@ class App extends Component {
     try {
       const apartments = await fetchApartments();
       this.setState({ apartments });
+      const occupants = await fetchOccupants();
+      this.setState({ occupants });
+    } catch (err) {
+      return err.message;
+    }
+  };
+
+  addNewOccupant = async ({ name, employeeId, remarks }) => {
+    try {
+      await createNewOccupant(name, employeeId, remarks);
       const occupants = await fetchOccupants();
       this.setState({ occupants });
     } catch (err) {
@@ -66,7 +80,16 @@ class App extends Component {
               )}
             />
             <Route component={NewApartmentForm} exact path="/newApartment" />
-            <Route component={NewOccupantForm} exact path="/newOccupant" />
+            <Route
+              exact
+              path="/newOccupant"
+              render={props => (
+                <NewOccupantForm
+                  addNewOccupant={this.addNewOccupant}
+                  {...props}
+                />
+              )}
+            />
           </Switch>
         </Router>
       </section>
