@@ -52,7 +52,7 @@ describe("Input form", () => {
     expect(remarks.value).toBe("testing");
   });
 
-  it.only("should clear input text when submit button is clicked", async () => {
+  it("should clear input text when submit button is clicked", async () => {
     const { getByText, getByLabelText } = render(<NewOccupantForm />);
 
     const name = getByLabelText("Name");
