@@ -1,5 +1,6 @@
 import React from "react";
 import "./ApartmentProfile.css";
+import Lease from "../Lease/Lease";
 
 const ApartmentProfile = ({ apartments, history, match }) => {
   if (!apartments || apartments.length < 1) {
@@ -73,14 +74,5 @@ const ApartmentProfile = ({ apartments, history, match }) => {
   }
 };
 
-const Lease = ({ leaseInfo }) => {
-  return (
-    <tr>
-      <td>{leaseInfo.leaseStart.split("T")[0]}</td>
-      <td>{leaseInfo.leaseEnd.split("T")[0]}</td>
-      <td>{leaseInfo.monthlyRent}</td>
-    </tr>
-  );
-};
 
 export default ApartmentProfile;
