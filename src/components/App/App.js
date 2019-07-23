@@ -36,11 +36,12 @@ class App extends Component {
 
   addNewOccupant = async ({ name, employeeId, remarks }) => {
     try {
-      await createNewOccupant(name, employeeId, remarks);
+      const response = await createNewOccupant(name, employeeId, remarks);
       const occupants = await fetchOccupants();
       this.setState({ occupants });
+      return response;
     } catch (err) {
-      return err.message;
+      throw err;
     }
   };
 
