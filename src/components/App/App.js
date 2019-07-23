@@ -4,7 +4,8 @@ import "./App.css";
 import {
   fetchOccupants,
   fetchApartments,
-  createNewOccupant
+  createNewOccupant,
+  createNewStay
 } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
@@ -20,7 +21,14 @@ class App extends Component {
     this.state = {
       apartments: [],
       occupants: [],
-      occupantAssignValue: ""
+      occupantToAssign: "",
+      occupantId: "",
+      apartmentId: "",
+      checkInDate: "",
+      checkOutDate: "",
+      success: false,
+      message: "",
+      dropdown: true
     };
   }
 
@@ -50,8 +58,53 @@ class App extends Component {
     this.setState({ [event.target.id]: event.target.value });
   };
 
-  filter = (array, text) => {
-    return array.filter(element => {});
+  handleClick = (apartmentId, occupantId, occupantName, flag) => {
+    this.setState({
+      apartmentId,
+      occupantId,
+      occupantToAssign: occupantName,
+      dropdown: flag,
+      checkInDate: "",
+      checkOutDate: ""
+    });
+  };
+
+  addNewStay = async () => {
+    try {
+      const response = await createNewStay(
+        this.state.occupantId,
+        this.state.apartmentId,
+        this.state.checkInDate,
+        this.state.checkOutDate
+      );
+      this.setState({
+        apartmentId: "",
+        occupantId: "",
+        occupantToAssign: "",
+        dropdown: true,
+        success: true,
+        message: response,
+        checkInDate: "",
+        checkOutDate: ""
+      });
+      console.log(response);
+    } catch (err) {
+      this.setState({
+        success: false,
+        message: err.message
+      });
+      console.log(err.message);
+    }
+  };
+
+  filterByText = (field, id) => {
+    if (this.state[id]) {
+      return this.state[field].filter(element =>
+        element.name.toLowerCase().includes(this.state[id].toLowerCase())
+      );
+    } else {
+      return [];
+    }
   };
 
   render() {
@@ -79,10 +132,15 @@ class App extends Component {
               render={props => (
                 <ApartmentProfile
                   apartments={this.state.apartments}
-                  occupants={this.state.occupants}
                   {...props}
                   handleChange={this.handleChange}
-                  filter={this.filter}
+                  handleClick={this.handleClick}
+                  filterByText={this.filterByText}
+                  dropdown={this.state.dropdown}
+                  addNewStay={this.addNewStay}
+                  occupantToAssign={this.state.occupantToAssign}
+                  success={this.state.success}
+                  message={this.state.message}
                 />
               )}
             />

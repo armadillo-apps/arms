@@ -24,3 +24,23 @@ export const createNewOccupant = async (name, employeeId, remarks) => {
   const response = await axios.post("/occupants", requestBody);
   return response.data;
 };
+
+export const createNewStay = async (
+  occupantId,
+  apartmentId,
+  checkInDate,
+  checkOutDate
+) => {
+  const requestBody = {
+    occupantId: occupantId,
+    apartmentId: apartmentId,
+    checkInDate: checkInDate,
+    checkOutDate: checkOutDate
+  };
+  try {
+    const response = await axios.post("/stays", requestBody);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};

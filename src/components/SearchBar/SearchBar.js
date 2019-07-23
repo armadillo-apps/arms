@@ -1,7 +1,7 @@
 import React from "react";
 import "./SearchBar.css";
 
-const SearchBar = ({ id, placeholder, handleChange }) => {
+const SearchBar = ({ id, placeholder, handleChange, value }) => {
   return (
     <React.Fragment>
       <input
@@ -10,6 +10,7 @@ const SearchBar = ({ id, placeholder, handleChange }) => {
         className="searchInput"
         placeholder={`Search ${placeholder}`}
         onChange={handleChange}
+        value={value}
       />
     </React.Fragment>
   );

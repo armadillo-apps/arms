@@ -7,9 +7,14 @@ const ApartmentProfile = ({
   apartments,
   history,
   match,
-  occupants,
   handleChange,
-  filter
+  filterByText,
+  handleClick,
+  dropdown,
+  addNewStay,
+  occupantToAssign,
+  success,
+  message
 }) => {
   if (!apartments || apartments.length < 1) {
     return <h1>Loading...</h1>;
@@ -49,9 +54,15 @@ const ApartmentProfile = ({
           </div>
           <h2 className="apartmentProfile__header2">Occupants</h2>
           <OccupantAssign
-            occupants={occupants}
             handleChange={handleChange}
-            filter={filter}
+            filterByText={filterByText}
+            apartmentId={apartmentId}
+            handleClick={handleClick}
+            dropdown={dropdown}
+            addNewStay={addNewStay}
+            occupantToAssign={occupantToAssign}
+            success={success}
+            message={message}
           />
           <table className="apartmentProfile__occupants">
             <thead>
