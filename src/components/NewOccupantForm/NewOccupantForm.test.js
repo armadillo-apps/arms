@@ -8,15 +8,6 @@ import {
 } from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 import NewOccupantForm from "./NewOccupantForm";
-import * as api from "../../api/api";
-
-const mockPost = jest.spyOn(api, "createNewOccupant");
-
-mockPost.mockResolvedValue(() => "Success!");
-
-afterEach(() => {
-  jest.clearAllMocks();
-});
 
 describe("Input form", () => {
   it("should contain correct title", () => {
