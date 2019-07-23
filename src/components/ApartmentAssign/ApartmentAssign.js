@@ -55,12 +55,14 @@ const OccupantAssign = ({
         </div>
       ) : (
         <div>
+          Check-in:
           <input
             placeholder="Check-in"
             id="checkInDate"
             type="date"
             onChange={handleChange}
           />
+          Check-out:
           <input
             placeholder="Check-out"
             id="checkOutDate"

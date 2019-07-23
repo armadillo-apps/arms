@@ -87,13 +87,11 @@ class App extends Component {
         checkInDate: "",
         checkOutDate: ""
       });
-      console.log(response);
     } catch (err) {
       this.setState({
         success: false,
-        message: err.message
+        message: "Unable to assign occupant to apartment"
       });
-      console.log(err.message);
     }
   };
 
