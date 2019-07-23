@@ -1,6 +1,11 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, fireEvent, waitForElement } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  waitForElement,
+  wait
+} from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 import NewOccupantForm from "./NewOccupantForm";
 import * as api from "../../api/api";
@@ -42,7 +47,7 @@ describe("Input form", () => {
   });
 
   it("should fill up input text fields", () => {
-    const { getByText, getByLabelText } = render(<NewOccupantForm />);
+    const { getByLabelText } = render(<NewOccupantForm />);
 
     const name = getByLabelText("Name");
     fireEvent.change(name, { target: { value: "Bob" } });
@@ -61,10 +66,11 @@ describe("Input form", () => {
 
 describe("Confirmation message", () => {
   it("should clear input text when submit button is clicked", async () => {
-    mockPost.mockImplementation(
-      () => "Successfully added new occupant: James Corden"
+    const addNewOccupant = () => Promise.resolve();
+
+    const { getByText, getByLabelText } = render(
+      <NewOccupantForm addNewOccupant={addNewOccupant} />
     );
-    const { getByText, getByLabelText } = render(<NewOccupantForm />);
 
     const name = getByLabelText("Name");
     fireEvent.change(name, { target: { value: "Bob" } });
@@ -79,34 +85,45 @@ describe("Confirmation message", () => {
     expect(submitButton).toBeInTheDocument();
     fireEvent.click(submitButton);
 
-    await waitForElement(() => getByLabelText("Name"));
-    expect(name.value).toBe("");
-    expect(employeeId.value).toBe("");
-    expect(remarks.value).toBe("");
+    await wait(() => {
+      expect(name.value).toBe("");
+      expect(employeeId.value).toBe("");
+      expect(remarks.value).toBe("");
+    });
   });
 
   it("should clear form after hitting submit", async () => {
-    mockPost.mockImplementation(
-      () => "Successfully added new occupant: James Corden"
+    const addNewOccupant = () => Promise.resolve();
+
+    const { getByLabelText, getByText } = render(
+      <NewOccupantForm addNewOccupant={addNewOccupant} />
     );
-    const { getByLabelText, getByText } = render(<NewOccupantForm />);
+
     const nameInput = getByLabelText(/name/i);
     const button = getByText("Create", { selector: "button" });
+
     fireEvent.change(nameInput, { target: { value: "James Corden" } });
     fireEvent.click(button);
-    await waitForElement(() => getByLabelText(/name/i));
-    expect(nameInput.value).toEqual("");
+
+    await wait(() => {
+      expect(nameInput.value).toEqual("");
+    });
   });
 
   it("should display confirmation message on creation", async () => {
-    mockPost.mockImplementation(
-      () => "Successfully added new occupant: James Corden"
+    const addNewOccupant = () =>
+      Promise.resolve("Successfully added new occupant: James Corden");
+
+    const { getByLabelText, getByText } = render(
+      <NewOccupantForm addNewOccupant={addNewOccupant} />
     );
-    const { getByLabelText, getByText } = render(<NewOccupantForm />);
+
     const nameInput = getByLabelText(/name/i);
     const button = getByText("Create", { selector: "button" });
+
     fireEvent.change(nameInput, { target: { value: "James Corden" } });
     fireEvent.click(button);
+
     const successMessage = await waitForElement(() =>
       getByText("Successfully added new occupant: James Corden")
     );
@@ -114,17 +131,22 @@ describe("Confirmation message", () => {
   });
 
   it("should display failure message when there is an error", async () => {
-    mockPost.mockImplementation(() => {
-      throw new Error("Failure!");
-    });
-    const { getByLabelText, getByText } = render(<NewOccupantForm />);
+    const addNewOccupant = () => Promise.reject();
+
+    const { getByLabelText, getByText } = render(
+      <NewOccupantForm addNewOccupant={addNewOccupant} />
+    );
+
     const nameInput = getByLabelText(/name/i);
     const button = getByText("Create", { selector: "button" });
+
     fireEvent.change(nameInput, { target: { value: "James Corden" } });
     fireEvent.click(button);
+
     const failureMessage = await waitForElement(() =>
       getByText("Unable to create new occupant :(")
     );
+
     expect(failureMessage).toBeInTheDocument();
   });
 });
