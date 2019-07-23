@@ -11,34 +11,44 @@ import NewOccupantForm from "./NewOccupantForm";
 
 describe("Input form", () => {
   it("should contain correct title", () => {
-    const { getByText } = render(<NewOccupantForm />);
+    const { getByText } = render(<NewOccupantForm addNewOccupant={() => {}} />);
     expect(getByText("Create New Occupant")).toBeInTheDocument();
   });
 
   it("should have input text for name", () => {
-    const { getByLabelText } = render(<NewOccupantForm />);
+    const { getByLabelText } = render(
+      <NewOccupantForm addNewOccupant={() => {}} />
+    );
     expect(getByLabelText("Name")).toBeInTheDocument();
   });
 
   it("should have input text for employee id", () => {
-    const { getByLabelText } = render(<NewOccupantForm />);
+    const { getByLabelText } = render(
+      <NewOccupantForm addNewOccupant={() => {}} />
+    );
     expect(getByLabelText("Employee ID")).toBeInTheDocument();
   });
 
   it("should have input text for remarks", () => {
-    const { getByLabelText } = render(<NewOccupantForm />);
+    const { getByLabelText } = render(
+      <NewOccupantForm addNewOccupant={() => {}} />
+    );
     expect(getByLabelText("Remarks")).toBeInTheDocument();
   });
 
   it("should have text", () => {
-    const { getByDisplayValue, getByLabelText } = render(<NewOccupantForm />);
+    const { getByDisplayValue, getByLabelText } = render(
+      <NewOccupantForm addNewOccupant={() => {}} />
+    );
     const name = getByLabelText("Name");
     fireEvent.change(name, { target: { value: "Bob" } });
     expect(getByDisplayValue("Bob")).toBeInTheDocument();
   });
 
   it("should fill up input text fields", () => {
-    const { getByLabelText } = render(<NewOccupantForm />);
+    const { getByLabelText } = render(
+      <NewOccupantForm addNewOccupant={() => {}} />
+    );
 
     const name = getByLabelText("Name");
     fireEvent.change(name, { target: { value: "Bob" } });

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import "./NewOccupantForm.css";
 import Input from "../Input/Input";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
@@ -100,5 +101,9 @@ class NewOccupantForm extends Component {
     );
   }
 }
+
+NewOccupantForm.propTypes = {
+  addNewOccupant: PropTypes.func.isRequired
+};
 
 export default NewOccupantForm;
