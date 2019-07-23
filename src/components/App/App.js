@@ -19,7 +19,8 @@ class App extends Component {
     super(props);
     this.state = {
       apartments: [],
-      occupants: []
+      occupants: [],
+      occupantAssignValue: ""
     };
   }
 
@@ -43,6 +44,14 @@ class App extends Component {
     } catch (err) {
       throw err;
     }
+  };
+
+  handleChange = event => {
+    this.setState({ [event.target.id]: event.target.value });
+  };
+
+  filter = (array, text) => {
+    return array.filter(element => {});
   };
 
   render() {
@@ -72,6 +81,8 @@ class App extends Component {
                   apartments={this.state.apartments}
                   occupants={this.state.occupants}
                   {...props}
+                  handleChange={this.handleChange}
+                  filter={this.filter}
                 />
               )}
             />

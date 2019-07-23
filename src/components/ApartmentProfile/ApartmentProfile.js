@@ -3,7 +3,14 @@ import "./ApartmentProfile.css";
 import Lease from "../Lease/Lease";
 import OccupantAssign from "../OccupantAssign/OccupantAssign";
 
-const ApartmentProfile = ({ apartments, history, match, occupants }) => {
+const ApartmentProfile = ({
+  apartments,
+  history,
+  match,
+  occupants,
+  handleChange,
+  filter
+}) => {
   if (!apartments || apartments.length < 1) {
     return <h1>Loading...</h1>;
   } else {
@@ -41,7 +48,11 @@ const ApartmentProfile = ({ apartments, history, match, occupants }) => {
             </div>
           </div>
           <h2 className="apartmentProfile__header2">Occupants</h2>
-          <OccupantAssign occupants={this.props.occupants} />
+          <OccupantAssign
+            occupants={occupants}
+            handleChange={handleChange}
+            filter={filter}
+          />
           <table className="apartmentProfile__occupants">
             <thead>
               <tr>
