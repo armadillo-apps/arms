@@ -1,7 +1,7 @@
 import React from "react";
 import "./ApartmentProfile.css";
 import Lease from "../Lease/Lease";
-import OccupantAssign from "../OccupantAssign/OccupantAssign";
+import ApartmentAssign from "../ApartmentAssign/ApartmentAssign";
 
 const ApartmentProfile = ({
   apartments,
@@ -53,7 +53,7 @@ const ApartmentProfile = ({
             </div>
           </div>
           <h2 className="apartmentProfile__header2">Occupants</h2>
-          <OccupantAssign
+          <ApartmentAssign
             handleChange={handleChange}
             filterByText={filterByText}
             apartmentId={apartmentId}
