@@ -7,7 +7,7 @@ const OccupantProfile = ({ occupants, history, match }) => {
   } else {
     const occupantId = match.params.occupantId;
     const occupant = occupants.find(occupant => {
-      return occupant.employeeId === occupantId;
+      return occupant._id === occupantId;
     });
 
     return (

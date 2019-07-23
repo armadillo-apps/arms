@@ -20,8 +20,9 @@ const Occupant = ({ occupants, history }) => {
             {occupants.map(occupant => {
               return (
                 <OccupantDetail
-                  key={occupant.employeeId}
+                  key={occupant._id}
                   name={occupant.name}
+                  occupantId={occupant._id}
                   employeeId={occupant.employeeId}
                   history={history}
                 />
