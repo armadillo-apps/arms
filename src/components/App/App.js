@@ -70,6 +70,7 @@ class App extends Component {
               render={props => (
                 <ApartmentProfile
                   apartments={this.state.apartments}
+                  occupants={this.state.occupants}
                   {...props}
                 />
               )}

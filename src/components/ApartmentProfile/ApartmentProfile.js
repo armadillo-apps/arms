@@ -1,8 +1,9 @@
 import React from "react";
 import "./ApartmentProfile.css";
 import Lease from "../Lease/Lease";
+import OccupantAssign from "../OccupantAssign/OccupantAssign";
 
-const ApartmentProfile = ({ apartments, history, match }) => {
+const ApartmentProfile = ({ apartments, history, match, occupants }) => {
   if (!apartments || apartments.length < 1) {
     return <h1>Loading...</h1>;
   } else {
@@ -40,6 +41,7 @@ const ApartmentProfile = ({ apartments, history, match }) => {
             </div>
           </div>
           <h2 className="apartmentProfile__header2">Occupants</h2>
+          <OccupantAssign occupants={this.props.occupants} />
           <table className="apartmentProfile__occupants">
             <thead>
               <tr>
@@ -73,6 +75,5 @@ const ApartmentProfile = ({ apartments, history, match }) => {
     );
   }
 };
-
 
 export default ApartmentProfile;
