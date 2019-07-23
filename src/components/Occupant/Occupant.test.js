@@ -6,8 +6,13 @@ import "@testing-library/jest-dom/extend-expect";
 
 const occupants = [
   {
+    _id: "5d36b4ade2a0d50eff851283",
     name: "Bob",
     employeeId: "1234561b"
+  },
+  {
+    _id: "5d36b4ade2a0d50eff851284",
+    name: "Jason"
   }
 ];
 
@@ -22,5 +27,10 @@ describe("Occupant", () => {
     const { getByText } = render(<Occupant occupants={occupants} />);
     expect(getByText("Employee ID")).toBeInTheDocument();
     expect(getByText("1234561b")).toBeInTheDocument();
+  });
+
+  it("render row when employeeId", () => {
+    const { getByText } = render(<Occupant occupants={occupants} />);
+    expect(getByText("Jason")).toBeInTheDocument();
   });
 });
