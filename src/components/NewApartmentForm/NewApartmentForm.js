@@ -157,7 +157,7 @@ export class NewApartmentForm extends Component {
               value={this.state.leaseStart}
               type="date"
               required
-              width="141px"
+              width="170px"
             />
             <Input
               id="lease-end"
@@ -166,7 +166,7 @@ export class NewApartmentForm extends Component {
               onChange={this.onFormChange}
               value={this.state.leaseEnd}
               type="date"
-              width="141px"
+              width="170px"
               required
             />
           </div>
