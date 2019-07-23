@@ -3,7 +3,7 @@ import faker from "faker";
 describe("Apartments", () => {
   const baseUrl = Cypress.env("baseUrl");
 
-  it("should create a new apartment and show apartment profile", () => {
+  xit("should create a new apartment and show apartment profile", () => {
     const apartmentName = faker.company.companyName();
     const landlordName = faker.name.firstName();
     const address = faker.address.streetAddress();
