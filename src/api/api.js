@@ -10,6 +10,11 @@ export const fetchOccupants = async () => {
   return response.data;
 };
 
+export const getApartmentProfileHistory = async (apartmentId) => {
+  const response = await axios.get(`/stays/apartmentProfileHistory/${apartmentId}`)
+  return response.data;
+}
+
 export const createNewApartment = async input => {
   const response = await axios.post("/apartments", input);
   return response.data;
@@ -44,3 +49,5 @@ export const createNewStay = async (
     throw err;
   }
 };
+
+
