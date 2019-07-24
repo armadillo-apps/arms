@@ -57,7 +57,7 @@ describe("Apartment Profile", () => {
 
   afterEach(cleanup);
 
-  it("should render field labels", async () => {
+  it("should render field labels", () => {
     const { getByText } = render(
       <ApartmentProfile apartments={mockData} match={match} />
     );
@@ -76,7 +76,7 @@ describe("Apartment Profile", () => {
     expect(getByText("Monthly Rent")).toBeInTheDocument();
   });
 
-  it("should render the apartments details", async () => {
+  it("should render the apartments details", () => {
     const { getByText } = render(
       <ApartmentProfile apartments={mockData} match={match} />
     );
@@ -91,7 +91,7 @@ describe("Apartment Profile", () => {
     expect(getByText(/2000/i)).toBeInTheDocument();
   });
 
-  it("should render a Back button", async () => {
+  it("should render a Back button", () => {
     const { getByText } = render(
       <ApartmentProfile apartments={mockData} match={match} />
     );

@@ -1,7 +1,7 @@
 import React from "react";
 import ApartmentAssign from "./ApartmentAssign";
 import "@testing-library/react/cleanup-after-each";
-import { render, fireEvent, waitForElement } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 it("should render a search bar", () => {
