@@ -1,8 +1,9 @@
 import faker from "faker";
 
-describe("Occupants", () => {
+xdescribe("Occupants", () => {
   const baseUrl = Cypress.env("baseUrl");
 
+  //Placeholder for OccupantsAssign.js cypress tests.
   it("should create a new occupant and show occupant profile", () => {
     const name = faker.name.firstName();
     const employeeId = faker.random.uuid();
