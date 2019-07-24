@@ -5,7 +5,8 @@ import {
   fetchOccupants,
   fetchApartments,
   createNewOccupant,
-  createNewStay
+  createNewStay,
+  createNewApartment
 } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
@@ -48,6 +49,17 @@ class App extends Component {
       const response = await createNewOccupant(name, employeeId, remarks);
       const occupants = await fetchOccupants();
       this.setState({ occupants });
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  addNewApartment = async data => {
+    try {
+      const response = await createNewApartment(data);
+      const apartments = await fetchApartments();
+      this.setState({ apartments });
       return response;
     } catch (err) {
       throw err;
@@ -148,7 +160,16 @@ class App extends Component {
                 <OccupantProfile occupants={this.state.occupants} {...props} />
               )}
             />
-            <Route component={NewApartmentForm} exact path="/newApartment" />
+            <Route
+              exact
+              path="/newApartment"
+              render={props => (
+                <NewApartmentForm
+                  addNewApartment={this.addNewApartment}
+                  {...props}
+                />
+              )}
+            />
             <Route
               exact
               path="/newOccupant"

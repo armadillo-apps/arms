@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import Input from "../Input/Input";
-import { createNewApartment } from "../../api/api";
 import "./NewApartmentForm.css";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 
-export class NewApartmentForm extends Component {
+class NewApartmentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,8 +32,7 @@ export class NewApartmentForm extends Component {
     });
   };
 
-  onFormSubmit = async event => {
-    event.preventDefault();
+  onFormSubmit = async () => {
     try {
       const data = {
         name: this.state.name,
@@ -55,7 +53,8 @@ export class NewApartmentForm extends Component {
           email: this.state.landLordEmail
         }
       };
-      const output = await createNewApartment(data);
+      const output = await this.props.addNewApartment(data);
+
       this.setState({
         name: "",
         address: "",
@@ -78,13 +77,12 @@ export class NewApartmentForm extends Component {
         message: "Unable to create new apartment :(",
         submitted: true
       });
-      return err;
     }
   };
 
   render() {
     return (
-      <form onSubmit={this.onFormSubmit} className="apartmentForm">
+      <div className="apartmentForm">
         <div className="apartmentForm__div">
           <h1 className="apartmentForm__heading">Create New Apartment</h1>
           <Input
@@ -216,7 +214,7 @@ export class NewApartmentForm extends Component {
             ""
           )}
         </div>
-      </form>
+      </div>
     );
   }
 }
