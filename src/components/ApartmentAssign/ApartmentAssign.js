@@ -4,14 +4,14 @@ import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 
 const ApartmentAssign = ({
   handleChange,
-  filterByText,
+  filterList,
   handleClick,
   dropdown,
   addNewStay,
   apartmentId,
   occupantToAssign,
   message,
-  success
+  success,
 }) => {
   return (
     <React.Fragment>
@@ -25,7 +25,7 @@ const ApartmentAssign = ({
         <div>
           <table>
             <tbody>
-              {filterByText("occupants", "occupantToAssign").map(
+              {filterList("occupants", "occupantToAssign").map(
                 (person, index) => {
                   return (
                     <tr key={index}>
@@ -69,8 +69,18 @@ const ApartmentAssign = ({
             type="date"
             onChange={handleChange}
           />
-          <button onClick={addNewStay}>Add</button>
-          <button onClick={() => handleClick("", "", "", true)}>Cancel</button>
+          <button
+            onClick={() => {addNewStay()}}
+          >
+            Add
+          </button>
+          <button
+            onClick={() => {
+              handleClick("", "", "", true);
+            }}
+          >
+            Cancel
+          </button>
         </div>
       )}
       {message ? (

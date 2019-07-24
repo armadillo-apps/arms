@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import { fetchOccupants, fetchApartments, createNewStay } from "../../api/api";
+import { fetchOccupants, fetchApartments } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
 import Occupant from "../Occupant/Occupant";
@@ -16,14 +16,6 @@ class App extends Component {
     this.state = {
       apartments: [],
       occupants: [],
-      occupantToAssign: "",
-      occupantId: "",
-      apartmentId: "",
-      checkInDate: "",
-      checkOutDate: "",
-      success: false,
-      message: "",
-      dropdown: true,
       renderToggle: false
     };
   }
@@ -60,57 +52,6 @@ class App extends Component {
     });
   };
 
-  handleChange = event => {
-    this.setState({ [event.target.id]: event.target.value });
-  };
-
-  handleClick = (apartmentId, occupantId, occupantName, flag) => {
-    this.setState({
-      apartmentId,
-      occupantId,
-      occupantToAssign: occupantName,
-      dropdown: flag,
-      checkInDate: "",
-      checkOutDate: ""
-    });
-  };
-
-  addNewStay = async () => {
-    try {
-      const response = await createNewStay(
-        this.state.occupantId,
-        this.state.apartmentId,
-        this.state.checkInDate,
-        this.state.checkOutDate
-      );
-      this.setState({
-        apartmentId: "",
-        occupantId: "",
-        occupantToAssign: "",
-        dropdown: true,
-        success: true,
-        message: response,
-        checkInDate: "",
-        checkOutDate: ""
-      });
-    } catch (err) {
-      this.setState({
-        success: false,
-        message: "Unable to assign occupant to apartment"
-      });
-    }
-  };
-
-  filterByText = (field, id) => {
-    if (this.state[id]) {
-      return this.state[field].filter(element =>
-        element.name.toLowerCase().includes(this.state[id].toLowerCase())
-      );
-    } else {
-      return [];
-    }
-  };
-
   render() {
     return (
       <section className="app">
@@ -136,15 +77,8 @@ class App extends Component {
               render={props => (
                 <ApartmentProfile
                   apartments={this.state.apartments}
+                  occupants={this.state.occupants}
                   {...props}
-                  handleChange={this.handleChange}
-                  handleClick={this.handleClick}
-                  filterByText={this.filterByText}
-                  dropdown={this.state.dropdown}
-                  addNewStay={this.addNewStay}
-                  occupantToAssign={this.state.occupantToAssign}
-                  success={this.state.success}
-                  message={this.state.message}
                 />
               )}
             />

@@ -2,21 +2,109 @@ import React, { Component } from "react";
 import "./ApartmentProfile.css";
 import Lease from "../Lease/Lease";
 import ApartmentAssign from "../ApartmentAssign/ApartmentAssign";
-import { getApartmentProfileHistory } from "../../api/api";
-import extractDate from "../../utils/ExtractDate"
+import { getApartmentProfileHistory, createNewStay } from "../../api/api";
+import extractDate from "../../utils/ExtractDate";
 
 class ApartmentProfile extends Component {
   constructor(props) {
     super(props);
     this.apartmentId = this.props.match.params.apartmentId;
     this.state = {
+      renderToggle: false,
+      occupantToAssign: "",
+      occupantId: "",
+      apartmentId: "",
+      checkInDate: "",
+      checkOutDate: "",
+      success: false,
+      message: "",
+      dropdown: true,
       occupantHistory: []
     };
   }
 
   componentDidMount = async () => {
-    const occupantHistory = await getApartmentProfileHistory(this.apartmentId);
-    this.setState({ occupantHistory });
+    try {
+      const occupantHistory = await getApartmentProfileHistory(
+        this.apartmentId
+      );
+      this.setState({ occupantHistory });
+    } catch (err) {
+      return err.message;
+    }
+  };
+
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (this.state.renderToggle !== prevState.renderToggle) {
+      try {
+        const occupantHistory = await getApartmentProfileHistory(
+          this.apartmentId
+        );
+        this.setState({ occupantHistory });
+      } catch (err) {
+        return err.message;
+      }
+    }
+  };
+
+  triggerRender = () => {
+    this.setState(prev => {
+      return {
+        renderToggle: !prev.renderToggle
+      };
+    });
+  };
+
+  addNewStay = async () => {
+    try {
+      const response = await createNewStay(
+        this.state.occupantId,
+        this.state.apartmentId,
+        this.state.checkInDate,
+        this.state.checkOutDate
+      );
+      this.setState({
+        apartmentId: "",
+        occupantId: "",
+        occupantToAssign: "",
+        dropdown: true,
+        success: true,
+        message: response,
+        checkInDate: "",
+        checkOutDate: ""
+      });
+      this.triggerRender();
+    } catch (err) {
+      this.setState({
+        success: false,
+        message: "Unable to assign occupant to apartment"
+      });
+    }
+  };
+
+  filterList = (list, item) => {
+    if (this.state[item]) {
+      return this.props[list].filter(element =>
+        element.name.toLowerCase().includes(this.state[item].toLowerCase())
+      );
+    } else {
+      return [];
+    }
+  };
+  
+  handleChange = event => {
+    this.setState({ [event.target.id]: event.target.value });
+  };
+
+  handleClick = (apartmentId, occupantId, occupantName, flag) => {
+    this.setState({
+      apartmentId,
+      occupantId,
+      occupantToAssign: occupantName,
+      dropdown: flag,
+      checkInDate: "",
+      checkOutDate: ""
+    });
   };
 
   render() {
@@ -57,15 +145,16 @@ class ApartmentProfile extends Component {
             </div>
             <h2 className="apartmentProfile__header2">Occupants</h2>
             <ApartmentAssign
-              handleChange={this.props.handleChange}
-              filterByText={this.props.filterByText}
+              handleChange={this.handleChange}
+              filterList={this.filterList}
               apartmentId={apartmentId}
-              handleClick={this.props.handleClick}
-              dropdown={this.props.dropdown}
-              addNewStay={this.props.addNewStay}
-              occupantToAssign={this.props.occupantToAssign}
-              success={this.props.success}
-              message={this.props.message}
+              handleClick={this.handleClick}
+              addNewStay={this.addNewStay}
+              occupantToAssign={this.state.occupantToAssign}
+              dropdown={this.state.dropdown}
+              success={this.state.success}
+              message={this.state.message}
+              triggerRender={this.triggerRender}
             />
             <table className="apartmentProfile__occupants">
               <thead>
@@ -78,7 +167,12 @@ class ApartmentProfile extends Component {
               <tbody>
                 {this.state.occupantHistory.length > 0 ? (
                   this.state.occupantHistory.map(occupant => {
-                    const { _id, occupantName, checkInDate, checkOutDate } = occupant;
+                    const {
+                      _id,
+                      occupantName,
+                      checkInDate,
+                      checkOutDate
+                    } = occupant;
                     return (
                       <tr key={_id}>
                         <td>{occupantName}</td>
@@ -89,9 +183,7 @@ class ApartmentProfile extends Component {
                   })
                 ) : (
                   <tr>
-                    <td>
-                      No occupants yet!
-                    </td>
+                    <td>No occupants yet!</td>
                   </tr>
                 )}
               </tbody>

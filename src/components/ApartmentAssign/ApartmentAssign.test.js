@@ -13,7 +13,7 @@ it("should show a list of results with buttons", () => {
   const { getByPlaceholderText, getByText } = render(
     <ApartmentAssign
       dropdown={true}
-      filterByText={() => [
+      filterList={() => [
         { name: "Natalie", employeeId: "12345ABC", remarks: "Loves Twisties" }
       ]}
     />
