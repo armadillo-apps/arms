@@ -65,17 +65,6 @@ class App extends Component {
     });
   };
 
-  addNewApartment = async data => {
-    try {
-      const response = await createNewApartment(data);
-      const apartments = await fetchApartments();
-      this.setState({ apartments });
-      return response;
-    } catch (err) {
-      throw err;
-    }
-  };
-
   handleChange = event => {
     this.setState({ [event.target.id]: event.target.value });
   };
@@ -175,7 +164,7 @@ class App extends Component {
               path="/newApartment"
               render={props => (
                 <NewApartmentForm
-                  addNewApartment={this.addNewApartment}
+                  triggerRender={this.triggerRender}
                   {...props}
                 />
               )}
@@ -185,7 +174,6 @@ class App extends Component {
               path="/newOccupant"
               render={props => (
                 <NewOccupantForm
-                  addNewOccupant={this.addNewOccupant}
                   triggerRender={this.triggerRender}
                   {...props}
                 />

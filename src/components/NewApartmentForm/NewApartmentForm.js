@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Input from "../Input/Input";
 import "./NewApartmentForm.css";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
+import { createNewApartment } from "../../api/api";
 
 class NewApartmentForm extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class NewApartmentForm extends Component {
           email: this.state.landLordEmail
         }
       };
-      const output = await this.props.addNewApartment(data);
+      const output = await createNewApartment(data);
 
       this.setState({
         name: "",
@@ -71,6 +72,7 @@ class NewApartmentForm extends Component {
         message: output,
         submitted: true
       });
+      this.props.triggerRender();
     } catch (err) {
       this.setState({
         success: false,

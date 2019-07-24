@@ -4,6 +4,9 @@ import { render, waitForElement, wait } from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 import NewApartmentForm from "./NewApartmentForm";
 import { fireEvent } from "@testing-library/react/dist";
+import * as data from "../../api/api";
+
+const mockPost = jest.spyOn(data, "createNewApartment");
 
 describe("New apartment form", () => {
   it("should have correct title on page", () => {
@@ -88,11 +91,9 @@ describe("New apartment form", () => {
 
 describe("apartment form confirmation message", () => {
   it("should clear form after hitting submit", async () => {
-    const addNewApartment = () => Promise.resolve();
+    mockPost.mockReturnValueOnce("");
 
-    const { getByLabelText, getByText } = render(
-      <NewApartmentForm addNewApartment={addNewApartment} />
-    );
+    const { getByLabelText, getByText } = render(<NewApartmentForm />);
 
     const nameInput = getByLabelText(/apartment name/i);
     const button = getByText("Create", { selector: "button" });
@@ -104,11 +105,13 @@ describe("apartment form confirmation message", () => {
   });
 
   it("should display confirmation message on creation", async () => {
-    const addNewApartment = () =>
-      Promise.resolve("Successfully added new apartment: Garden Shack");
+    mockPost.mockReturnValueOnce(
+      "Successfully added new apartment: Garden Shack"
+    );
 
+    const triggerRender = () => {};
     const { getByLabelText, getByText } = render(
-      <NewApartmentForm addNewApartment={addNewApartment} />
+      <NewApartmentForm triggerRender={triggerRender} />
     );
 
     const nameInput = getByLabelText(/apartment name/i);
@@ -124,11 +127,7 @@ describe("apartment form confirmation message", () => {
   });
 
   it("should display failure message when there is an error", async () => {
-    const addNewApartment = () => Promise.reject("Failure!");
-
-    const { getByLabelText, getByText } = render(
-      <NewApartmentForm addNewApartment={addNewApartment} />
-    );
+    const { getByLabelText, getByText } = render(<NewApartmentForm />);
 
     const nameInput = getByLabelText(/apartment name/i);
     const button = getByText("Create", { selector: "button" });
