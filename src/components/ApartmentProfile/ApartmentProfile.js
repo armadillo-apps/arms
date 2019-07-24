@@ -88,7 +88,11 @@ class ApartmentProfile extends Component {
                     );
                   })
                 ) : (
-                  <tr>No occupants yet!</tr>
+                  <tr>
+                    <td>
+                      No occupants yet!
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>
