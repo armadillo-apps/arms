@@ -65,17 +65,6 @@ class App extends Component {
     this.setState({ modalIsOpen: false });
   };
 
-  // addNewOccupant = async ({ name, employeeId, remarks }) => {
-  //   try {
-  //     const response = await createNewOccupant(name, employeeId, remarks);
-  //     const occupants = await fetchOccupants();
-  //     this.setState({ occupants });
-  //     return response;
-  //   } catch (err) {
-  //     throw err;
-  //   }
-  // };
-
   triggerRender = () => {
     this.setState(prev => {
       return {

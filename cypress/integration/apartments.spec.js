@@ -61,6 +61,9 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   it("be able to assign an occupant to apartment", () => {
     cy.visit(`${baseUrl}`);
     cy.contains(apartmentName).click();
+    cy.get("button")
+      .contains("Assign new occupant")
+      .click();
     cy.get("input[id=occupantToAssign]").type(name);
     cy.contains("+").click();
     cy.get("input[id=checkInDate]").type("2015-05-01");
@@ -74,6 +77,9 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   it("be able to cancel the assign operation", () => {
     cy.visit(`${baseUrl}`);
     cy.contains(apartmentName).click();
+    cy.get("button")
+      .contains("Assign new occupant")
+      .click();
     cy.get("input[id=occupantToAssign]").type(name[0] + name[1]);
     cy.contains("+").click();
     cy.get("input[id=checkInDate]").type("2016-05-01");
@@ -81,7 +87,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("button")
       .contains("Cancel")
       .click();
-    cy.get("input[id=occupantToAssign]").should(
+    cy.get("input").should(
       "have.attr",
       "placeholder",
       "Search occupants here..."
