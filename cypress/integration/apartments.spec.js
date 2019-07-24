@@ -81,6 +81,10 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("button")
       .contains("Cancel")
       .click();
-    cy.get("input[id=occupantToAssign]").should("have.attr", "placeholder", "Search occupants here...");
+    cy.get("input[id=occupantToAssign]").should(
+      "have.attr",
+      "placeholder",
+      "Search occupants here..."
+    );
   });
 });

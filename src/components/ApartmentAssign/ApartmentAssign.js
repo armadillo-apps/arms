@@ -2,7 +2,7 @@ import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 
-const OccupantAssign = ({
+const ApartmentAssign = ({
   handleChange,
   filterByText,
   handleClick,
@@ -82,4 +82,4 @@ const OccupantAssign = ({
   );
 };
 
-export default OccupantAssign;
+export default ApartmentAssign;
