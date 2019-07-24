@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./NewOccupantForm.css";
 import Input from "../Input/Input";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
+import { createNewOccupant } from "../../api/api";
 
 class NewOccupantForm extends Component {
   constructor(props) {
@@ -27,20 +28,16 @@ class NewOccupantForm extends Component {
   onFormSubmit = async () => {
     try {
       const { name, employeeId, remarks } = this.state;
-      const output = await this.props.addNewOccupant({
-        name,
-        employeeId,
-        remarks
-      });
-
+      const response = await createNewOccupant(name, employeeId, remarks);
       this.setState({
         name: "",
         employeeId: "",
         remarks: "",
         success: true,
-        message: output,
+        message: response,
         submitted: true
       });
+      this.props.triggerRender()
     } catch (err) {
       this.setState({
         success: false,
@@ -101,9 +98,5 @@ class NewOccupantForm extends Component {
     );
   }
 }
-
-NewOccupantForm.propTypes = {
-  addNewOccupant: PropTypes.func.isRequired
-};
 
 export default NewOccupantForm;

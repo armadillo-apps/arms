@@ -29,7 +29,8 @@ class App extends Component {
       checkOutDate: "",
       success: false,
       message: "",
-      dropdown: true
+      dropdown: true,
+      renderToggle: false
     };
   }
 
@@ -44,15 +45,25 @@ class App extends Component {
     }
   };
 
-  addNewOccupant = async ({ name, employeeId, remarks }) => {
-    try {
-      const response = await createNewOccupant(name, employeeId, remarks);
-      const occupants = await fetchOccupants();
-      this.setState({ occupants });
-      return response;
-    } catch (err) {
-      throw err;
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (this.state.renderToggle !== prevState.renderToggle) {
+      try {
+        const apartments = await fetchApartments();
+        this.setState({ apartments });
+        const occupants = await fetchOccupants();
+        this.setState({ occupants });
+      } catch (err) {
+        return err.message;
+      }
     }
+  };
+
+  triggerRender = () => {
+    this.setState(prev => {
+      return {
+        renderToggle: !prev.renderToggle
+      };
+    });
   };
 
   addNewApartment = async data => {
@@ -176,6 +187,7 @@ class App extends Component {
               render={props => (
                 <NewOccupantForm
                   addNewOccupant={this.addNewOccupant}
+                  triggerRender={this.triggerRender}
                   {...props}
                 />
               )}
