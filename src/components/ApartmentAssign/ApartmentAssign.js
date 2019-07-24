@@ -1,6 +1,7 @@
 import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
+import "./ApartmentAssign.css";
 
 const ApartmentAssign = ({
   handleChange,
@@ -20,15 +21,16 @@ const ApartmentAssign = ({
         id="occupantToAssign"
         handleChange={handleChange}
         value={occupantToAssign}
+        width="325px"
       />
       {dropdown ? (
         <div>
-          <table>
+          <table className="apartmentAssignTable" cellSpacing="0" cellPadding="0">
             <tbody>
               {filterList("occupants", "occupantToAssign").map(
                 (person, index) => {
                   return (
-                    <tr key={index}>
+                    <tr key={index} className="apartmentAssignTable__row">
                       <td>{person.name}</td>
                       <td>{person.employeeId}</td>
                       <td>{person.remarks}</td>

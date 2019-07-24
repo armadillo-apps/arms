@@ -4,11 +4,12 @@ import Lease from "../Lease/Lease";
 import ApartmentAssign from "../ApartmentAssign/ApartmentAssign";
 import { getApartmentProfileHistory, createNewStay } from "../../api/api";
 import extractDate from "../../utils/ExtractDate";
+import ApartmentAssignModal from "../Modal/ApartmentAssignModal";
 
 class ApartmentProfile extends Component {
   constructor(props) {
     super(props);
-    this.apartmentId = this.props.match.params.apartmentId;
+    this.apartmentId = this.props.match.params.apagirtmentId;
     this.state = {
       renderToggle: false,
       occupantToAssign: "",
@@ -91,7 +92,7 @@ class ApartmentProfile extends Component {
       return [];
     }
   };
-  
+
   handleChange = event => {
     this.setState({ [event.target.id]: event.target.value });
   };
@@ -144,18 +145,30 @@ class ApartmentProfile extends Component {
               </div>
             </div>
             <h2 className="apartmentProfile__header2">Occupants</h2>
-            <ApartmentAssign
-              handleChange={this.handleChange}
-              filterList={this.filterList}
-              apartmentId={apartmentId}
-              handleClick={this.handleClick}
-              addNewStay={this.addNewStay}
-              occupantToAssign={this.state.occupantToAssign}
-              dropdown={this.state.dropdown}
-              success={this.state.success}
-              message={this.state.message}
-              triggerRender={this.triggerRender}
-            />
+
+            <div>
+              <button onClick={this.props.openModal}>
+                Assign new occupant
+              </button>
+              <ApartmentAssignModal
+                modalIsOpen={this.props.modalIsOpen}
+                contentLabel="Example Modal"
+              >
+                <ApartmentAssign
+                  handleChange={this.handleChange}
+                  filterList={this.filterList}
+                  apartmentId={apartmentId}
+                  handleClick={this.handleClick}
+                  addNewStay={this.addNewStay}
+                  occupantToAssign={this.state.occupantToAssign}
+                  dropdown={this.state.dropdown}
+                  success={this.state.success}
+                  message={this.state.message}
+                  triggerRender={this.triggerRender}
+                />
+                <button onClick={this.props.closeModal}>Close</button>
+              </ApartmentAssignModal>
+            </div>
             <table className="apartmentProfile__occupants">
               <thead>
                 <tr>
