@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import "./NewOccupantForm.css";
 import Input from "../Input/Input";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
@@ -37,7 +36,7 @@ class NewOccupantForm extends Component {
         message: response,
         submitted: true
       });
-      this.props.triggerRender()
+      this.props.triggerRender();
     } catch (err) {
       this.setState({
         success: false,

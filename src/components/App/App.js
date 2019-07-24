@@ -4,7 +4,6 @@ import "./App.css";
 import {
   fetchOccupants,
   fetchApartments,
-  createNewOccupant,
   createNewStay,
   createNewApartment
 } from "../../api/api";
