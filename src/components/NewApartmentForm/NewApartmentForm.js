@@ -17,8 +17,6 @@ class NewApartmentForm extends Component {
       rent: "",
       landLordName: "",
       landLordAccount: "",
-      landLordMobile: "",
-      landLordEmail: "",
       success: false,
       message: "",
       submitted: false
@@ -66,8 +64,6 @@ class NewApartmentForm extends Component {
         rent: "",
         landLordName: "",
         landLordAccount: "",
-        landLordMobile: "",
-        landLordEmail: "",
         success: true,
         message: output,
         submitted: true
@@ -124,28 +120,6 @@ class NewApartmentForm extends Component {
               type="text"
               width="196px"
               required
-            />
-          </div>
-          <div className="formDivide">
-            <Input
-              id="landlord-email"
-              label="LandLord Email"
-              name="LandLordEmail"
-              onChange={this.onFormChange}
-              value={this.state.landLordEmail}
-              type="text"
-              required
-            />
-
-            <Input
-              id="landlord-mobile-number"
-              label="LandLord Mobile no"
-              name="LandLordMobile"
-              onChange={this.onFormChange}
-              value={this.state.landLordMobile}
-              type="text"
-              required
-              width="141px"
             />
           </div>
           <div className="formDivide">

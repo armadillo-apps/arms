@@ -34,16 +34,6 @@ describe("New apartment form", () => {
     expect(getByLabelText("Landlord A/C No")).toBeInTheDocument();
   });
 
-  it("should have input text for landlord email on page", () => {
-    const { getByLabelText } = render(<NewApartmentForm />);
-    expect(getByLabelText("LandLord Email")).toBeInTheDocument();
-  });
-
-  it("should have input text for landlord mobile number on page", () => {
-    const { getByLabelText } = render(<NewApartmentForm />);
-    expect(getByLabelText("LandLord Mobile no")).toBeInTheDocument();
-  });
-
   it("should have input text for lease start on page", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
     expect(getByLabelText("Lease Start")).toBeInTheDocument();
