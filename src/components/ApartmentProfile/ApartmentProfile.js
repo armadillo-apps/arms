@@ -144,12 +144,14 @@ class ApartmentProfile extends Component {
                 <p>{apartment.bedrooms}</p>
               </div>
             </div>
-            <h2 className="apartmentProfile__header2">Occupants</h2>
+            <div className="apartmentProfile__headerContainer">
+              <h2 className="apartmentProfile__header2">Occupants</h2>
+              <button className="modalAddButton" onClick={this.props.openModal}>
+                +
+              </button>
+            </div>
 
             <div>
-              <button onClick={this.props.openModal}>
-                Assign new occupant
-              </button>
               <ApartmentAssignModal
                 modalIsOpen={this.props.modalIsOpen}
                 closeModal={this.props.closeModal}

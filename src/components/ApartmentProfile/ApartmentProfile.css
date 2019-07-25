@@ -73,7 +73,6 @@
 
 .apartmentProfile__header2 {
   font-size: 2.5rem;
-  margin-top: 10rem;
 }
 
 .apartmentProfile__occupants th {
@@ -112,4 +111,23 @@
   text-align: center;
   height: 50px;
   background-color: white;
+}
+
+.apartmentProfile__headerContainer {
+  display:flex;
+  height: 70px;
+  align-content: center;
+}
+
+.modalAddButton {
+  text-decoration: none;
+  border:none;
+  border-radius: 20px;
+  margin: auto 10px;
+  background-color: var(--green-color);
+  color:white;
+  font-size: 1.5rem;
+  vertical-align: middle;
+  cursor:pointer;
+  outline:none
 }

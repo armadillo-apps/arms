@@ -26,14 +26,21 @@ const ApartmentAssign = ({
       {dropdown ? (
         <div>
           <table className="apartmentAssignTable" cellSpacing="0" cellPadding="0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Remarks</th>
+                <th>Employee Id</th>
+              </tr>
+            </thead>
             <tbody>
               {filterList("occupants", "occupantToAssign").map(
                 (person, index) => {
                   return (
                     <tr key={index} className="apartmentAssignTable__row">
                       <td>{person.name}</td>
-                      <td>{person.employeeId}</td>
                       <td>{person.remarks}</td>
+                      <td>{person.employeeId}</td>
                       <td>
                         <button
                           onClick={() =>
