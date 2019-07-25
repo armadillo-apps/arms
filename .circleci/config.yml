@@ -112,14 +112,23 @@ jobs:
           - image: circleci/node:12.6.0-browsers
         steps:
           - run:
-              name: Ping test server
+              name: Ping arms test server
               command: curl --silent https://test-armadillo-arms.herokuapp.com/
           - run:
-              name: Ping demo server
+              name: Ping arms demo server
               command: curl --silent https://demo-armadillo-arms.herokuapp.com/
           - run:
-              name: Ping production server
+              name: Ping arms production server
               command: curl --silent https://armadillo-arms.herokuapp.com/
+          - run:
+              name: Ping legs test server
+              command: curl --silent https://test-armadillo-legs.herokuapp.com/
+          - run:
+              name: Ping legs demo server
+              command: curl --silent https://demo-armadillo-legs.herokuapp.com/
+          - run:
+              name: Ping legs production server
+              command: curl --silent https://armadillo-legs.herokuapp.com/
 
 workflows:
   version: 2
