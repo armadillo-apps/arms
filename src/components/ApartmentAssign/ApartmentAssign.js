@@ -28,7 +28,7 @@ const ApartmentAssign = ({
             className="apartmentAssignTable"
           >
             <thead>
-              <tr className={!occupantToAssign && "hidden"}>
+              <tr className={occupantToAssign ? "visible" : "hidden"}>
                 <th>Name</th>
                 <th>Remarks</th>
                 <th>Employee Id</th>
