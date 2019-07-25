@@ -37,6 +37,13 @@ jobs:
       - run:
           name: Run unit tests
           command: npm run test
+  dropDb:
+    docker:
+      - image: circleci/mongo:3.6.12
+    steps:
+      - run:
+          name: Drop test database
+          command: mongo $HEROKU_TEST_DB -u $HEROKU_TEST_DB_USER -p $HEROKU_TEST_DB_PASSWORD --eval "db.dropDatabase()"
   uiTest:
     docker:
       - image: cypress/base:10
@@ -124,9 +131,12 @@ workflows:
           requires:
             - build
             - unitTest
-      - uiTest:
+      - dropDb:
           requires:
             - deployTest
+      - uiTest:
+          requires:
+            - dropDb
       - deployDemo:
           requires:
             - uiTest
