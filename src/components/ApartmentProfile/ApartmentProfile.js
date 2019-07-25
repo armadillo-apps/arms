@@ -169,7 +169,12 @@ class ApartmentProfile extends Component {
                   message={this.state.message}
                   triggerRender={this.triggerRender}
                 />
-                <button onClick={this.props.closeModal}>Close</button>
+                <button
+                  className="modalCloseButton"
+                  onClick={this.props.closeModal}
+                >
+                  X
+                </button>
               </ApartmentAssignModal>
             </div>
             <table className="apartmentProfile__occupants">
@@ -178,6 +183,7 @@ class ApartmentProfile extends Component {
                   <th>Name</th>
                   <th>Check-In</th>
                   <th>Check-Out</th>
+                  <th>Remarks</th>
                 </tr>
               </thead>
               <tbody>
@@ -187,7 +193,8 @@ class ApartmentProfile extends Component {
                       _id,
                       occupantName,
                       checkInDate,
-                      checkOutDate
+                      checkOutDate,
+                      occupantRemarks
                     } = occupant;
 
                     return (
@@ -199,6 +206,7 @@ class ApartmentProfile extends Component {
                         <td>
                           {moment(new Date(checkOutDate)).format("D MMM YY")}
                         </td>
+                        <td>{occupantRemarks}</td>
                       </tr>
                     );
                   })

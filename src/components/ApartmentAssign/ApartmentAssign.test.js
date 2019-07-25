@@ -25,7 +25,7 @@ describe("ApartmentAssign", () => {
     expect(getByText("Natalie")).toBeInTheDocument();
     expect(getByText("12345ABC")).toBeInTheDocument();
     expect(getByText("Loves Twisties")).toBeInTheDocument();
-    expect(getByText("+")).toBeInTheDocument();
+    expect(getByText("Select")).toBeInTheDocument();
   });
 
   it("should show check-in and check-out input fields and two buttons when dropdown is set to false", () => {
@@ -34,7 +34,7 @@ describe("ApartmentAssign", () => {
     );
     expect(getByPlaceholderText(/check-in/i)).toBeInTheDocument();
     expect(getByPlaceholderText(/check-out/i)).toBeInTheDocument();
-    expect(getByText(/Add/i)).toBeInTheDocument();
+    expect(getByText(/Assign/i)).toBeInTheDocument();
     expect(getByText(/Cancel/i)).toBeInTheDocument();
   });
 

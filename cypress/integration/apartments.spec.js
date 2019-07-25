@@ -62,14 +62,14 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.visit(`${baseUrl}`);
     cy.contains(apartmentName).click();
     cy.get("button")
-      .contains("Assign new occupant")
+      .contains("+")
       .click();
     cy.get("input[id=occupantToAssign]").type(name);
-    cy.contains("+").click();
+    cy.contains("Select").click();
     cy.get("input[id=checkInDate]").type("2015-05-01");
     cy.get("input[id=checkOutDate]").type("2015-10-01");
     cy.get("button")
-      .contains("Add")
+      .contains("Assign")
       .click();
     cy.contains(`Successfully assigned ${name} to ${apartmentName}`);
   });
@@ -78,10 +78,10 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.visit(`${baseUrl}`);
     cy.contains(apartmentName).click();
     cy.get("button")
-      .contains("Assign new occupant")
+      .contains("+")
       .click();
-    cy.get("input[id=occupantToAssign]").type(name[0] + name[1]);
-    cy.contains("+").click();
+    cy.get("input[id=occupantToAssign]").type(name);
+    cy.contains("Select").click();
     cy.get("input[id=checkInDate]").type("2016-05-01");
     cy.get("input[id=checkOutDate]").type("2016-10-01");
     cy.get("button")
@@ -92,5 +92,9 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       "placeholder",
       "Search occupants here..."
     );
+    cy.get("button")
+      .contains("X")
+      .click();
+    cy.contains("Occupant");
   });
 });

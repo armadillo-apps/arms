@@ -9,14 +9,16 @@ const ApartmentAssignModal = ({ modalIsOpen, closeModal, children }) => {
       right: "auto",
       bottom: "auto",
       marginRight: "-50%",
-      backgroundColor: "rgb(224,224,224,0.8)",
+      backgroundColor: "rgb(255,255,255)",
       transform: "translate(-50%, -50%)",
       width: "500px",
-      height: "300px",
+      height: "500px",
       display: "flex",
       justifyContent: "flex-start",
       flexDirection: "column",
-      alignItems: "center"
+      alignItems: "center",
+      borderRadius: "15px",
+      boxShadow: "0px 4px 4px rgba(150, 150, 150, 0.25)",
     }
   };
 

@@ -1,0 +1,8 @@
+.inverted {
+  color: var(--red-color);
+}
+
+.positive {
+  color: var(--green-color);
+  font-size: 1.4rem;
+}

@@ -12,7 +12,7 @@ const ApartmentAssign = ({
   apartmentId,
   occupantToAssign,
   message,
-  success,
+  success
 }) => {
   return (
     <React.Fragment>
@@ -21,13 +21,14 @@ const ApartmentAssign = ({
         id="occupantToAssign"
         handleChange={handleChange}
         value={occupantToAssign}
-        width="325px"
       />
       {dropdown ? (
         <div>
-          <table className="apartmentAssignTable" cellSpacing="0" cellPadding="0">
+          <table
+            className="apartmentAssignTable"
+          >
             <thead>
-              <tr>
+              <tr className={!occupantToAssign && "hidden"}>
                 <th>Name</th>
                 <th>Remarks</th>
                 <th>Employee Id</th>
@@ -52,7 +53,7 @@ const ApartmentAssign = ({
                             )
                           }
                         >
-                          +
+                          Select
                         </button>
                       </td>
                     </tr>
@@ -63,33 +64,39 @@ const ApartmentAssign = ({
           </table>
         </div>
       ) : (
-        <div>
-          Check-in:
+        <div className="dateContainer">
+          <h2>Check-in</h2>
           <input
             placeholder="Check-in"
             id="checkInDate"
             type="date"
             onChange={handleChange}
           />
-          Check-out:
+            <h2>Check-out</h2>
           <input
             placeholder="Check-out"
             id="checkOutDate"
             type="date"
             onChange={handleChange}
           />
-          <button
-            onClick={() => {addNewStay()}}
-          >
-            Add
-          </button>
-          <button
-            onClick={() => {
-              handleClick("", "", "", true);
-            }}
-          >
-            Cancel
-          </button>
+          <div className="dateContainer__buttons">
+            <button
+              className="modalAssignButton"
+              onClick={() => {
+                addNewStay();
+              }}
+            >
+              Assign
+            </button>
+            <button
+              className="modalCancelButton"
+              onClick={() => {
+                handleClick("", "", "", true);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       )}
       {message ? (
