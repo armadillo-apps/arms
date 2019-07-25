@@ -10,7 +10,6 @@ import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
 import OccupantProfile from "../OccupantProfile/OccupantProfile";
 import ApartmentProfile from "../ApartmentProfile/ApartmentProfile";
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -18,14 +17,6 @@ class App extends Component {
       apartments: [],
       occupants: [],
       renderToggle: false,
-      occupantToAssign: "",
-      occupantId: "",
-      apartmentId: "",
-      checkInDate: "",
-      checkOutDate: "",
-      success: false,
-      message: "",
-      dropdown: true,
       modalIsOpen: false
     };
   }
@@ -52,13 +43,9 @@ class App extends Component {
         return err.message;
       }
     }
-  }
+  };
   openModal = () => {
     this.setState({ modalIsOpen: true });
-  };
-
-  afterOpenModal = () => {
-    this.subtitle.style.color = "#f00";
   };
 
   closeModal = () => {
@@ -100,16 +87,7 @@ class App extends Component {
                   apartments={this.state.apartments}
                   occupants={this.state.occupants}
                   {...props}
-                  handleChange={this.handleChange}
-                  handleClick={this.handleClick}
-                  filterByText={this.filterByText}
-                  dropdown={this.state.dropdown}
-                  addNewStay={this.addNewStay}
-                  occupantToAssign={this.state.occupantToAssign}
-                  success={this.state.success}
-                  message={this.state.message}
                   openModal={this.openModal}
-                  afterOpenModal={this.afterOpenModal}
                   closeModal={this.closeModal}
                   modalIsOpen={this.state.modalIsOpen}
                 />

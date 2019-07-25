@@ -9,7 +9,7 @@ import ApartmentAssignModal from "../Modal/ApartmentAssignModal";
 class ApartmentProfile extends Component {
   constructor(props) {
     super(props);
-    this.apartmentId = this.props.match.params.apagirtmentId;
+    this.apartmentId = this.props.match.params.apartmentId;
     this.state = {
       renderToggle: false,
       occupantToAssign: "",
@@ -152,7 +152,8 @@ class ApartmentProfile extends Component {
               </button>
               <ApartmentAssignModal
                 modalIsOpen={this.props.modalIsOpen}
-                contentLabel="Example Modal"
+                closeModal={this.props.closeModal}
+                contentLabel="apartmentAssignModal"
               >
                 <ApartmentAssign
                   handleChange={this.handleChange}

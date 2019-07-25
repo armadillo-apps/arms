@@ -24,6 +24,7 @@ const ApartmentAssignModal = ({ modalIsOpen, closeModal, children }) => {
     <Modal
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
+      shouldCloseOnOverlayClick={true}
       style={customStyles}
       contentLabel="apartmentAssignModal"
     >
