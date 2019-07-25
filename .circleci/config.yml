@@ -107,24 +107,25 @@ jobs:
           - run:
               name: Ping test deployment
               command: curl --fail https://$HEROKU_APP_NAME.herokuapp.com/
-  pingAll:
+  pingAllDeploymentServers:
         docker:
           - image: circleci/node:12.6.0-browsers
         steps:
           - run:
               name: Ping test server
-              command: curl -s https://test-armadillo-arms.herokuapp.com/
+              command: curl --silent https://test-armadillo-arms.herokuapp.com/
           - run:
               name: Ping demo server
-              command: curl -s https://demo-armadillo-arms.herokuapp.com/
+              command: curl --silent https://demo-armadillo-arms.herokuapp.com/
           - run:
               name: Ping production server
-              command: curl -s https://armadillo-arms.herokuapp.com/
+              command: curl --silent https://armadillo-arms.herokuapp.com/
+
 workflows:
   version: 2
   testAndDeploy:
     jobs:
-      - pingAll
+      - pingAllDeploymentServers
       - build
       - unitTest
       - deployTest:
