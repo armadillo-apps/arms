@@ -3,8 +3,8 @@ import "./ApartmentProfile.css";
 import Lease from "../Lease/Lease";
 import ApartmentAssign from "../ApartmentAssign/ApartmentAssign";
 import { getApartmentProfileHistory, createNewStay } from "../../api/api";
-import extractDate from "../../utils/ExtractDate";
 import ApartmentAssignModal from "../Modal/ApartmentAssignModal";
+import moment from "moment";
 
 class ApartmentProfile extends Component {
   constructor(props) {
@@ -180,18 +180,23 @@ class ApartmentProfile extends Component {
               </thead>
               <tbody>
                 {this.state.occupantHistory.length > 0 ? (
-                  this.state.occupantHistory.map(occupant => {
+                  this.state.occupantHistory.map((occupant, index) => {
                     const {
                       _id,
                       occupantName,
                       checkInDate,
                       checkOutDate
                     } = occupant;
+
                     return (
                       <tr key={_id}>
                         <td>{occupantName}</td>
-                        <td>{extractDate(checkInDate)}</td>
-                        <td>{extractDate(checkOutDate)}</td>
+                        <td>
+                          {moment(new Date(checkInDate)).format("D MMM YY")}
+                        </td>
+                        <td>
+                          {moment(new Date(checkOutDate)).format("D MMM YY")}
+                        </td>
                       </tr>
                     );
                   })

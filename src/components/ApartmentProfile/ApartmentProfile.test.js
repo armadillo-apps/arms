@@ -1,11 +1,17 @@
 import React from "react";
 import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
-import { render, cleanup, waitForElement } from "@testing-library/react";
+import {
+  render,
+  cleanup,
+  waitForElement,
+  fireEvent
+} from "@testing-library/react";
 import ApartmentProfile from "./ApartmentProfile";
 import * as data from "../../api/api";
+import moment from "moment";
 
-const mockData = [
+const apartmentDetails = [
   {
     _id: "12345abc",
     name: "Fancy Penthouse",
@@ -44,13 +50,13 @@ const mockData = [
   }
 ];
 
-const mockStaysWithName = [
+const stayingHistory = [
   {
     _id: "67890123",
     apartmentId: "12345abc",
     occupantId: "5d2ef34111ead80017be83df",
-    checkInDate: "2019-02-01T00:00:00.000Z",
-    checkOutDate: "2019-03-01T00:00:00.000Z",
+    checkInDate: "1 Feb 19",
+    checkOutDate: "1 Mar 19",
     leaseId: "e83724nht8",
     occupantName: "John"
   },
@@ -58,14 +64,33 @@ const mockStaysWithName = [
     _id: "67890124",
     apartmentId: "12345abc",
     occupantId: "5d2ef34111ead80017be1234",
-    checkInDate: "2019-04-01T00:00:00.000Z",
-    checkOutDate: "2019-05-01T00:00:00.000Z",
+    checkInDate: "1 Apr 19",
+    checkOutDate: "1 May 19",
     leaseId: "e83724nht8",
     occupantName: "Tim"
+  },
+  {
+    _id: "67890125",
+    apartmentId: "12345abc",
+    occupantId: "5d2ef34111ead80016be1324",
+    checkInDate: "1 Apr 19",
+    checkOutDate: moment(Date.now()).format("D-MMM-YY"),
+    leaseId: "e83724nht8",
+    occupantName: "Kai"
   }
 ];
 
-const mockFetchHistory = jest.spyOn(data, "getApartmentProfileHistory");
+const occupants = [
+  {
+    _id: "67890123",
+    name: "John"
+  }
+];
+
+const getApartmentProfileHistory = jest.spyOn(
+  data,
+  "getApartmentProfileHistory"
+);
 
 describe("Apartment Profile", () => {
   let match;
@@ -83,7 +108,7 @@ describe("Apartment Profile", () => {
 
   it("should render field labels", () => {
     const { getByText } = render(
-      <ApartmentProfile apartments={mockData} match={match} />
+      <ApartmentProfile apartments={apartmentDetails} match={match} />
     );
 
     expect(getByText("Address")).toBeInTheDocument();
@@ -102,7 +127,7 @@ describe("Apartment Profile", () => {
 
   it("should render the apartments details", () => {
     const { getByText } = render(
-      <ApartmentProfile apartments={mockData} match={match} />
+      <ApartmentProfile apartments={apartmentDetails} match={match} />
     );
 
     expect(getByText(/fancy penthouse/i)).toBeInTheDocument();
@@ -117,21 +142,21 @@ describe("Apartment Profile", () => {
 
   it("should render a Back button", () => {
     const { getByText } = render(
-      <ApartmentProfile apartments={mockData} match={match} />
+      <ApartmentProfile apartments={apartmentDetails} match={match} />
     );
 
     expect(getByText("< Back")).toBeInTheDocument();
   });
 
   it("should render occupant history", async () => {
-    mockFetchHistory.mockReturnValueOnce(mockStaysWithName);
+    getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
     const { getByText } = render(
-      <ApartmentProfile apartments={mockData} match={match} />
+      <ApartmentProfile apartments={apartmentDetails} match={match} />
     );
     const occupantName1 = await waitForElement(() => getByText("John"));
     const occupantName2 = await waitForElement(() => getByText("Tim"));
-    const checkInDate1 = await waitForElement(() => getByText("2019-02-01"));
-    const checkOutDate2 = await waitForElement(() => getByText("2019-05-01"));
+    const checkInDate1 = await waitForElement(() => getByText("1 Feb 19"));
+    const checkOutDate2 = await waitForElement(() => getByText("1 May 19"));
 
     expect(occupantName1).toBeInTheDocument();
     expect(occupantName2).toBeInTheDocument();
@@ -140,9 +165,9 @@ describe("Apartment Profile", () => {
   });
 
   it("should render message when occupant history is empty", async () => {
-    mockFetchHistory.mockReturnValueOnce([]);
+    getApartmentProfileHistory.mockReturnValueOnce([]);
     const { getByText } = render(
-      <ApartmentProfile apartments={mockData} match={match} />
+      <ApartmentProfile apartments={apartmentDetails} match={match} />
     );
     const message = await waitForElement(() => getByText("No occupants yet!"));
 
