@@ -8,7 +8,8 @@ const occupants = [
   {
     _id: "5d36b4ade2a0d50eff851283",
     name: "Bob",
-    employeeId: "1234561b"
+    employeeId: "1234561b",
+    remarks: "testing for Bob"
   },
   {
     _id: "5d36b4ade2a0d50eff851284",
@@ -27,6 +28,12 @@ describe("Occupant", () => {
     const { getByText } = render(<Occupant occupants={occupants} />);
     expect(getByText("Employee ID")).toBeInTheDocument();
     expect(getByText("1234561b")).toBeInTheDocument();
+  });
+
+  it("renders the remarks of occupant", () => {
+    const { getByText } = render(<Occupant occupants={occupants} />);
+    expect(getByText("Remarks")).toBeInTheDocument();
+    expect(getByText("testing for Bob")).toBeInTheDocument();
   });
 
   it("render row when employeeId", () => {
