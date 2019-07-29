@@ -14,7 +14,7 @@ const OccupantDetail = ({
       className="occupantDetails"
       onClick={() => history.push(`occupants/${occupantId}`)}
     >
-      <td className="occupantDetails__td">{status}</td>
+      <td className={`occupantDetails__td ${status}`}>{status}</td>
       <td className="occupantDetails__td">{name}</td>
       <td className="occupantDetails__td">{remarks}</td>
       <td className="occupantDetails__td">{employeeId}</td>

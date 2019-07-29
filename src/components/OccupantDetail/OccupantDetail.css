@@ -13,3 +13,13 @@
   border: 0px;
   text-transform: capitalize;
 }
+
+.allocated {
+  color: var(--green-color)
+}
+.unallocated {
+  color: var(--red-color)
+}
+.inactive {
+  color: #B1B9CC;
+}
