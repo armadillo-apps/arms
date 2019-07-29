@@ -7,8 +7,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   const landlordName = faker.name.firstName();
   const address = faker.address.streetAddress();
   const accountNumber = faker.finance.account();
-  const email = faker.internet.email();
-  const mobile = faker.phone.phoneNumber();
   const monthlyRent = faker.random.number();
 
   const name = faker.name.firstName();
@@ -19,8 +17,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     address,
     landlordName,
     accountNumber,
-    email,
-    mobile,
     leaseStart: "2019-07-01",
     leaseEnd: "2019-07-10",
     monthlyRent,
@@ -33,8 +29,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     address,
     landlordName,
     accountNumber,
-    email,
-    mobile,
     leaseStart: "2019-07-01",
     leaseEnd: "2019-07-10",
     monthlyRent,
@@ -47,8 +41,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     address,
     landlordName,
     accountNumber,
-    email,
-    mobile,
     leaseStart,
     leaseEnd,
     monthlyRent,
@@ -59,8 +51,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("input[name=Address]").type(address);
     cy.get("input[name=LandLordName]").type(landlordName);
     cy.get("input[name=LandLordAccount]").type(accountNumber);
-    cy.get("input[name=LandLordEmail]").type(email);
-    cy.get("input[name=LandLordMobile]").type(mobile);
     cy.get("input[name=LeaseStart]").type(leaseStart);
     cy.get("input[name=LeaseEnd]").type(leaseEnd);
     cy.get("input[name=Rent]").type(monthlyRent);
