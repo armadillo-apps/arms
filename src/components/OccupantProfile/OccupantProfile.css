@@ -65,3 +65,15 @@
   padding: 1rem;
   background-color: white;
 }
+
+.allocated {
+  color: var(--green-color);
+}
+
+.unallocated {
+  color: var(--red-color);
+}
+
+.inactive {
+  color: #b1b9cc;
+}

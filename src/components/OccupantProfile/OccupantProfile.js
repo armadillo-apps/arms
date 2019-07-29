@@ -21,7 +21,7 @@ const OccupantProfile = ({ occupants, history, match }) => {
           </div>
           <div className="occupantProfile__header1Container">
             <h1 className="occupantProfile__header1">{occupant.name}</h1>
-            <span>{occupant.status}</span>
+            <span className={occupant.status}>{occupant.status}</span>
           </div>
           <div className="occupantProfile__employeeId">
             <h2 className="occupantProfile__header2">Employee ID</h2>
