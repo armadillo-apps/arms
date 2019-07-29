@@ -56,4 +56,19 @@ describe("Occupant", () => {
     const { getByText } = render(<Occupant occupants={occupants} />);
     expect(getByText("Jason")).toBeInTheDocument();
   });
+
+  it("should attach allocated class to status ", () => {
+    const { getByText } = render(<Occupant occupants={occupants} />);
+    expect(getByText("allocated")).toHaveClass("allocated");
+  });
+
+  it("should attach unallocated class to status", () => {
+    const { getByText } = render(<Occupant occupants={occupants} />);
+    expect(getByText("unallocated")).toHaveClass("unallocated");
+  });
+
+  it("should attach inactive class to status", () => {
+    const { getByText } = render(<Occupant occupants={occupants} />);
+    expect(getByText("inactive")).toHaveClass("inactive");
+  });
 });
