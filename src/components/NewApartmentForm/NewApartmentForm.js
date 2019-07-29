@@ -31,8 +31,9 @@ class NewApartmentForm extends Component {
     });
   };
 
-  onFormSubmit = async () => {
+  onFormSubmit = async event => {
     try {
+      event.preventDefault();
       const data = {
         name: this.state.name,
         address: this.state.address,
@@ -80,7 +81,7 @@ class NewApartmentForm extends Component {
 
   render() {
     return (
-      <div className="apartmentForm">
+      <form className="apartmentForm" onSubmit={this.onFormSubmit}>
         <div className="apartmentForm__div">
           <h1 className="apartmentForm__heading">Create New Apartment</h1>
           <Input
@@ -130,8 +131,8 @@ class NewApartmentForm extends Component {
               onChange={this.onFormChange}
               value={this.state.leaseStart}
               type="date"
-              required
               width="170px"
+              required
             />
             <Input
               id="lease-end"
@@ -151,6 +152,7 @@ class NewApartmentForm extends Component {
             onChange={this.onFormChange}
             value={this.state.rent}
             type="number"
+            min="0"
             required
           />
           <div className="formDivide">
@@ -161,8 +163,9 @@ class NewApartmentForm extends Component {
               onChange={this.onFormChange}
               value={this.state.capacity}
               type="number"
-              required
+              min="0"
               width="61px"
+              required
             />
             <Input
               id="bedrooms"
@@ -171,16 +174,16 @@ class NewApartmentForm extends Component {
               onChange={this.onFormChange}
               value={this.state.bedrooms}
               type="number"
-              required
+              min="0"
               width="61px"
+              required
             />
           </div>
-          <button
+          <input
             className="apartmentForm__createButton"
-            onClick={this.onFormSubmit}
-          >
-            Create
-          </button>
+            value="Create"
+            type="submit"
+          />
           {this.state.submitted ? (
             <ConfirmationMessage
               message={this.state.message}
@@ -190,7 +193,7 @@ class NewApartmentForm extends Component {
             ""
           )}
         </div>
-      </div>
+      </form>
     );
   }
 }

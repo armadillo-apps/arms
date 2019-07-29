@@ -86,7 +86,7 @@ describe("apartment form confirmation message", () => {
     const { getByLabelText, getByText } = render(<NewApartmentForm />);
 
     const nameInput = getByLabelText(/apartment name/i);
-    const button = getByText("Create", { selector: "button" });
+    const button = getByText("Create", { selector: "input[type=submit]" });
 
     fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
     fireEvent.click(button);
@@ -105,7 +105,7 @@ describe("apartment form confirmation message", () => {
     );
 
     const nameInput = getByLabelText(/apartment name/i);
-    const button = getByText("Create", { selector: "button" });
+    const button = getByText("Create", { selector: "input[type=submit]" });
 
     fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
     fireEvent.click(button);
@@ -120,7 +120,7 @@ describe("apartment form confirmation message", () => {
     const { getByLabelText, getByText } = render(<NewApartmentForm />);
 
     const nameInput = getByLabelText(/apartment name/i);
-    const button = getByText("Create", { selector: "button" });
+    const button = getByText("Create", { selector: "input[type=submit]" });
 
     fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
     fireEvent.click(button);

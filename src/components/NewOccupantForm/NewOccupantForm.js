@@ -24,8 +24,9 @@ class NewOccupantForm extends Component {
     });
   };
 
-  onFormSubmit = async () => {
+  onFormSubmit = async event => {
     try {
+      event.preventDefault();
       const { name, employeeId, remarks } = this.state;
       const response = await createNewOccupant(name, employeeId, remarks);
       this.setState({
@@ -48,7 +49,7 @@ class NewOccupantForm extends Component {
 
   render() {
     return (
-      <div className="occupantFormContainer">
+      <form className="occupantFormContainer" onSubmit={this.onFormSubmit}>
         <h1 className="occupantForm__heading">Create New Occupant</h1>
         <div className="occupantForm">
           <Input
@@ -79,12 +80,11 @@ class NewOccupantForm extends Component {
             required
           />
         </div>
-        <button
+        <input
           className="occupantForm__createButton"
-          onClick={this.onFormSubmit}
-        >
-          Create
-        </button>
+          value="Create"
+          type="submit"
+        />
         {this.state.submitted ? (
           <ConfirmationMessage
             success={this.state.success}
@@ -93,7 +93,7 @@ class NewOccupantForm extends Component {
         ) : (
           ""
         )}
-      </div>
+      </form>
     );
   }
 }

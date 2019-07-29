@@ -72,7 +72,9 @@ describe("Confirmation message", () => {
     const remarks = getByLabelText("Remarks");
     fireEvent.change(remarks, { target: { value: "testing" } });
 
-    const submitButton = getByText("Create");
+    const submitButton = getByText("Create", {
+      selector: "input[type=submit]"
+    });
     expect(submitButton).toBeInTheDocument();
     fireEvent.click(submitButton);
 
@@ -88,7 +90,7 @@ describe("Confirmation message", () => {
     const { getByLabelText, getByText } = render(<NewOccupantForm />);
 
     const nameInput = getByLabelText(/name/i);
-    const button = getByText("Create", { selector: "button" });
+    const button = getByText("Create", { selector: "input[type=submit]" });
 
     fireEvent.change(nameInput, { target: { value: "James Corden" } });
     fireEvent.click(button);
@@ -108,7 +110,9 @@ describe("Confirmation message", () => {
     );
 
     const nameInput = getByLabelText(/name/i);
-    const createButton = getByText("Create", { selector: "button" });
+    const createButton = getByText("Create", {
+      selector: "input[type=submit]"
+    });
 
     fireEvent.change(nameInput, { target: { value: "James Corden" } });
     fireEvent.click(createButton);
@@ -123,7 +127,7 @@ describe("Confirmation message", () => {
     const { getByLabelText, getByText } = render(<NewOccupantForm />);
 
     const nameInput = getByLabelText(/name/i);
-    const button = getByText("Create", { selector: "button" });
+    const button = getByText("Create", { selector: "input[type=submit]" });
 
     fireEvent.change(nameInput, { target: { value: "James Corden" } });
     fireEvent.click(button);

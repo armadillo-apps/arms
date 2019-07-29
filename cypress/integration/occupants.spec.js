@@ -13,7 +13,7 @@ xdescribe("Occupants", () => {
     cy.get("input[name=name]").type(name);
     cy.get("input[name=employeeId]").type(employeeId);
     cy.get("input[name=remarks]").type("testing");
-    cy.get("button").click();
+    cy.get("input[type=submit]").click();
     cy.get("a")
       .contains("OCCUPANTS")
       .click();
