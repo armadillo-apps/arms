@@ -10,6 +10,7 @@ class NewOccupantForm extends Component {
     this.state = {
       name: "",
       employeeId: "",
+      gender: "",
       remarks: "",
       country: "",
       status: "",
@@ -40,6 +41,7 @@ class NewOccupantForm extends Component {
       this.setState({
         name: "",
         employeeId: "",
+        gender: "",
         remarks: "",
         country: "",
         status: "",
@@ -78,7 +80,14 @@ class NewOccupantForm extends Component {
             onChange={this.onFormChange}
             value={this.state.employeeId}
             type="text"
-            required
+          />
+          <Input
+            id="gender"
+            label="Gender"
+            name="gender"
+            onChange={this.onFormChange}
+            value={this.state.gender}
+            type="text"
           />
           <Input
             id="remarks"
@@ -87,7 +96,6 @@ class NewOccupantForm extends Component {
             onChange={this.onFormChange}
             value={this.state.remarks}
             type="text"
-            required
           />
           <Input
             id="country"
@@ -99,7 +107,7 @@ class NewOccupantForm extends Component {
             required
           />
           <section>
-            <label htmlFor="status">Occupant Status: </label>
+            <label htmlFor="status" className="occupantForm__statusLabel">Occupant Status: </label>
             <select
               id="status"
               name="status"

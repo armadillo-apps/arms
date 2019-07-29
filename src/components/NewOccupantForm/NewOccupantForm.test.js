@@ -27,6 +27,11 @@ describe("Input form", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
     expect(getByLabelText("Employee ID")).toBeInTheDocument();
   });
+  
+  it("should have input text for gender", () => {
+    const { getByLabelText } = render(<NewOccupantForm />);
+    expect(getByLabelText("Gender")).toBeInTheDocument();
+  });
 
   it("should have input text for remarks", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
@@ -59,6 +64,9 @@ describe("Input form", () => {
     const employeeId = getByLabelText("Employee ID");
     fireEvent.change(employeeId, { target: { value: "123" } });
 
+    const gender = getByLabelText("Gender");
+    fireEvent.change(gender, { target: { value: "male" } });
+
     const remarks = getByLabelText("Remarks");
     fireEvent.change(remarks, { target: { value: "testing" } });
 
@@ -70,6 +78,7 @@ describe("Input form", () => {
 
     expect(name.value).toBe("Bob");
     expect(employeeId.value).toBe("123");
+    expect(gender.value).toBe("male");
     expect(remarks.value).toBe("testing");
     expect(country.value).toBe("Singapore");
     expect(status.value).toBe("allocated");
@@ -87,6 +96,9 @@ describe("Confirmation message", () => {
     const employeeId = getByLabelText("Employee ID");
     fireEvent.change(employeeId, { target: { value: "123" } });
 
+    const gender = getByLabelText("Gender");
+    fireEvent.change(gender, { target: { value: "male" } });
+
     const remarks = getByLabelText("Remarks");
     fireEvent.change(remarks, { target: { value: "testing" } });
 
@@ -99,13 +111,14 @@ describe("Confirmation message", () => {
     const submitButton = getByText("Create", {
       selector: "input[type=submit]"
     });
-    
+
     expect(submitButton).toBeInTheDocument();
     fireEvent.click(submitButton);
 
     await wait(() => {
       expect(name.value).toBe("");
       expect(employeeId.value).toBe("");
+      expect(gender.value).toBe("");
       expect(remarks.value).toBe("");
       expect(country.value).toBe("");
       expect(status.value).toBe("");
