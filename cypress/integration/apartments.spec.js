@@ -59,7 +59,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   };
 
   it("should create a new occupant and show occupant profile", () => {
-    const status = 'allocated';
+    const status = "allocated";
 
     cy.visit(`${baseUrl}/newOccupant`);
     cy.get("h1").contains("Create New Occupant");
@@ -78,7 +78,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("h1").contains(name);
     cy.get("h2").contains("Employee ID");
     cy.get("p").contains(employeeId);
-    cy.get('span').contains(status)
+    cy.get("span").contains(status);
   });
 
   it("should be unable to create a new apartment and show apartment profile", () => {
@@ -148,7 +148,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       "placeholder",
       "Search occupants here..."
     );
-    cy.get("button")
+    cy.get("button[class=modalCloseButton]")
       .contains("X")
       .click();
     cy.contains("Occupant");
