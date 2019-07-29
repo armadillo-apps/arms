@@ -1,12 +1,12 @@
-import React from "react";
-import "./OccupantProfile.css";
+import React from 'react';
+import './OccupantProfile.css';
 
 const OccupantProfile = ({ occupants, history, match }) => {
   if (!occupants || occupants.length < 1) {
     return <h1>Loading...</h1>;
   } else {
     const occupantId = match.params.occupantId;
-    const occupant = occupants.find(occupant => {
+    const occupant = occupants.find((occupant) => {
       return occupant._id === occupantId;
     });
 
@@ -28,9 +28,10 @@ const OccupantProfile = ({ occupants, history, match }) => {
           <table className="stayHistory__table">
             <thead className="stayHistory__headers">
               <tr>
-                <th>Address</th>
-                <th>Check In</th>
+                <th>Apartment Name </th>
+                <th>Check In </th>
                 <th>Check Out</th>
+                <th>Monthly Rental</th>
               </tr>
             </thead>
           </table>
