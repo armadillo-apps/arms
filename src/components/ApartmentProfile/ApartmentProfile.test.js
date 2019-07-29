@@ -4,8 +4,7 @@ import "@testing-library/jest-dom/extend-expect";
 import {
   render,
   cleanup,
-  waitForElement,
-  fireEvent
+  waitForElement
 } from "@testing-library/react";
 import ApartmentProfile from "./ApartmentProfile";
 import * as data from "../../api/api";
@@ -80,12 +79,6 @@ const stayingHistory = [
   }
 ];
 
-const occupants = [
-  {
-    _id: "67890123",
-    name: "John"
-  }
-];
 
 const getApartmentProfileHistory = jest.spyOn(
   data,
