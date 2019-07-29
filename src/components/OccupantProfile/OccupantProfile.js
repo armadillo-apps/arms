@@ -1,12 +1,12 @@
-import React from 'react';
-import './OccupantProfile.css';
+import React from "react";
+import "./OccupantProfile.css";
 
 const OccupantProfile = ({ occupants, history, match }) => {
   if (!occupants || occupants.length < 1) {
     return <h1>Loading...</h1>;
   } else {
     const occupantId = match.params.occupantId;
-    const occupant = occupants.find((occupant) => {
+    const occupant = occupants.find(occupant => {
       return occupant._id === occupantId;
     });
 
@@ -19,7 +19,10 @@ const OccupantProfile = ({ occupants, history, match }) => {
           >
             &lt; Back
           </div>
-          <h1 className="occupantProfile__header1">{occupant.name}</h1>
+          <div className="occupantProfile__header1Container">
+            <h1 className="occupantProfile__header1">{occupant.name}</h1>
+            <span>{occupant.status}</span>
+          </div>
           <div className="occupantProfile__employeeId">
             <h2 className="occupantProfile__header2">Employee ID</h2>
             <p>{occupant.employeeId}</p>

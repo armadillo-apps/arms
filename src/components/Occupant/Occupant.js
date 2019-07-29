@@ -12,6 +12,7 @@ const Occupant = ({ occupants, history }) => {
         <table className="occupants__table" cellSpacing="0" cellPadding="0">
           <thead className="occupants__header2">
             <tr>
+              <th>Status</th>
               <th>Name</th>
               <th>Remarks</th>
               <th>Employee ID</th>
@@ -26,6 +27,7 @@ const Occupant = ({ occupants, history }) => {
                   occupantId={occupant._id}
                   employeeId={occupant.employeeId}
                   remarks={occupant.remarks}
+                  status={occupant.status}
                   history={history}
                 />
               );

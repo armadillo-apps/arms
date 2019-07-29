@@ -59,13 +59,15 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   };
 
   it("should create a new occupant and show occupant profile", () => {
+    const status = 'allocated';
+
     cy.visit(`${baseUrl}/newOccupant`);
     cy.get("h1").contains("Create New Occupant");
     cy.get("input[name=name]").type(name);
     cy.get("input[name=employeeId]").type(employeeId);
     cy.get("input[name=remarks]").type("testing");
     cy.get("input[name=country]").type("Singapore");
-    cy.get("select[name=status]").select("allocated");
+    cy.get("select[name=status]").select(status);
     cy.get("input[type=submit]").click();
     cy.get("a")
       .contains("OCCUPANTS")
@@ -76,6 +78,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("h1").contains(name);
     cy.get("h2").contains("Employee ID");
     cy.get("p").contains(employeeId);
+    cy.get('span').contains(status)
   });
 
   it("should be unable to create a new apartment and show apartment profile", () => {
