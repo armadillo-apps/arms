@@ -17,7 +17,6 @@ class App extends Component {
       apartments: [],
       occupants: [],
       renderToggle: false,
-      modalIsOpen: false
     };
   }
 
@@ -43,13 +42,6 @@ class App extends Component {
         return err.message;
       }
     }
-  };
-  openModal = () => {
-    this.setState({ modalIsOpen: true });
-  };
-
-  closeModal = () => {
-    this.setState({ modalIsOpen: false });
   };
 
   triggerRender = () => {
@@ -89,7 +81,8 @@ class App extends Component {
                   {...props}
                   openModal={this.openModal}
                   closeModal={this.closeModal}
-                  modalIsOpen={this.state.modalIsOpen}
+                  apartmentAssignModal={this.state.apartmentAssignModal}
+                  confirmationModal={this.state.confirmationModal}
                 />
               )}
             />
@@ -119,11 +112,16 @@ class App extends Component {
                 />
               )}
             />
+            <Route component={NoMatchPage} />
           </Switch>
         </Router>
       </section>
     );
   }
 }
+
+const NoMatchPage = () => {
+  return <h1>Path does not exist!</h1>;
+};
 
 export default App;

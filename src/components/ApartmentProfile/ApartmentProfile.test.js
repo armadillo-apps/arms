@@ -166,4 +166,18 @@ describe("Apartment Profile", () => {
 
     expect(message).toBeInTheDocument();
   });
+
+  xit("should render an alert when x is pressed", async () => {
+    getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
+    const { getByText, getByLabelText } = render(
+      <ApartmentProfile apartments={apartmentDetails} match={match} />
+    );
+    // const { getByText } = render(<ConfirmationModal />);
+    const occupantName1 = await waitForElement(() => getByText("John"));
+    const button = await waitForElement(() => getByLabelText("cross"));
+    fireEvent.click(button);
+    expect(
+      getByText("Are you sure you want to delete this stay?")
+    ).toBeInTheDocument();
+  });
 });

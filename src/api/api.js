@@ -10,10 +10,12 @@ export const fetchOccupants = async () => {
   return response.data;
 };
 
-export const getApartmentProfileHistory = async (apartmentId) => {
-  const response = await axios.get(`/stays/apartmentProfileHistory/${apartmentId}`)
+export const getApartmentProfileHistory = async apartmentId => {
+  const response = await axios.get(
+    `/stays/apartmentProfileHistory/${apartmentId}`
+  );
   return response.data;
-}
+};
 
 export const createNewApartment = async input => {
   const response = await axios.post("/apartments", input);
@@ -52,4 +54,11 @@ export const createNewStay = async (
   }
 };
 
-
+export const deleteStay = async stayId => {
+  try {
+    const response = await axios.delete(`/stays/${stayId}`);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};

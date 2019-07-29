@@ -2,8 +2,13 @@ import React, { Component } from "react";
 import "./ApartmentProfile.css";
 import Lease from "../Lease/Lease";
 import ApartmentAssign from "../ApartmentAssign/ApartmentAssign";
-import { getApartmentProfileHistory, createNewStay } from "../../api/api";
+import {
+  getApartmentProfileHistory,
+  createNewStay,
+  deleteStay
+} from "../../api/api";
 import ApartmentAssignModal from "../Modal/ApartmentAssignModal";
+import ConfirmationModal from "../Modal/ConfirmationModal";
 import moment from "moment";
 
 class ApartmentProfile extends Component {
@@ -20,8 +25,13 @@ class ApartmentProfile extends Component {
       success: false,
       message: "",
       dropdown: true,
-      occupantHistory: []
+      occupantHistory: [],
+      stayToDelete: "",
+      apartmentAssignModal: false,
+      confirmationModal: false
     };
+    this.apartmentAssignModal = "apartmentAssignModal";
+    this.confirmationModal = "confirmationModal";
   }
 
   componentDidMount = async () => {
@@ -83,6 +93,19 @@ class ApartmentProfile extends Component {
     }
   };
 
+  deleteStayFromHistory = async () => {
+    try {
+      const response = await deleteStay(this.state.stayToDelete);
+      this.setState({ stayToDelete: "", success: true, message: response });
+      this.triggerRender();
+    } catch (err) {
+      this.setState({
+        success: false,
+        message: "Unable to delete stay from history"
+      });
+    }
+  };
+
   filterList = (list, item) => {
     if (this.state[item]) {
       return this.props[list].filter(element =>
@@ -106,6 +129,14 @@ class ApartmentProfile extends Component {
       checkInDate: "",
       checkOutDate: ""
     });
+  };
+
+  openModal = event => {
+    this.setState({ [event.target.id]: true });
+  };
+
+  closeModal = id => {
+    this.setState({ [id]: false, message: "" });
   };
 
   render() {
@@ -146,16 +177,20 @@ class ApartmentProfile extends Component {
             </div>
             <div className="apartmentProfile__headerContainer">
               <h2 className="apartmentProfile__header2">Occupants</h2>
-              <button className="modalAddButton" onClick={this.props.openModal}>
+              <button
+                className="modalAddButton"
+                id={this.apartmentAssignModal}
+                onClick={this.openModal}
+              >
                 +
               </button>
             </div>
 
             <div>
               <ApartmentAssignModal
-                modalIsOpen={this.props.modalIsOpen}
-                closeModal={this.props.closeModal}
-                contentLabel="apartmentAssignModal"
+                modalIsOpen={this.state.apartmentAssignModal}
+                closeModal={() => this.closeModal(this.apartmentAssignModal)}
+                contentLabel={this.apartmentAssignModal}
               >
                 <ApartmentAssign
                   handleChange={this.handleChange}
@@ -171,12 +206,23 @@ class ApartmentProfile extends Component {
                 />
                 <button
                   className="modalCloseButton"
-                  onClick={this.props.closeModal}
+                  onClick={() => this.closeModal(this.apartmentAssignModal)}
                 >
                   X
                 </button>
               </ApartmentAssignModal>
             </div>
+            <div>
+              <ConfirmationModal
+                modalIsOpen={this.state.confirmationModal}
+                closeModal={() => this.closeModal(this.confirmationModal)}
+                deleteStayFromHistory={this.deleteStayFromHistory}
+                contentLabel={this.confirmationModal}
+                success={this.state.success}
+                message={this.state.message}
+              />
+            </div>
+
             <table className="apartmentProfile__occupants">
               <thead>
                 <tr>
@@ -207,6 +253,17 @@ class ApartmentProfile extends Component {
                           {moment(new Date(checkOutDate)).format("D MMM YY")}
                         </td>
                         <td>{occupantRemarks}</td>
+                        <td>
+                          <button
+                            onClick={event => {
+                              this.openModal(event);
+                              this.setState({ stayToDelete: _id });
+                            }}
+                            id={this.confirmationModal}
+                          >
+                            X
+                          </button>
+                        </td>
                       </tr>
                     );
                   })
