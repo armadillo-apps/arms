@@ -76,7 +76,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("p").contains(employeeId);
   });
 
-  xit("should be unable to create a new apartment and show apartment profile", () => {
+  it("should be unable to create a new apartment and show apartment profile", () => {
     cy.visit(`${baseUrl}/newApartment`);
     cy.get("h1").contains("Create New Apartment");
 
@@ -88,9 +88,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("a")
       .contains("APARTMENTS")
       .click();
-    cy.get("td")
-      .contains(apartmentName)
-      .should("not.exist");
+    cy.contains(apartmentName).should("not.exist");
   });
 
   it("should create a new apartment and show apartment profile", () => {
