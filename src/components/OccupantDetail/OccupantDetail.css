@@ -15,11 +15,13 @@
 }
 
 .allocated {
-  color: var(--green-color)
+  color: var(--green-color);
 }
+
 .unallocated {
-  color: var(--red-color)
+  color: var(--red-color);
 }
+
 .inactive {
-  color: #B1B9CC;
+  color: #b1b9cc;
 }
