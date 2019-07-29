@@ -10,8 +10,8 @@
 }
 
 .occupantProfile {
-  margin-left: 60px;
-  margin-top: 20px;
+  margin-left: 6rem;
+  margin-top: 2rem;
 }
 
 .occupantProfile__header1Container {
@@ -34,6 +34,14 @@
 .occupantProfile__header1 {
   font-weight: normal;
   font-size: var(--main-h1-font-size);
+  margin: 3rem 0 0 0;
+}
+
+.occupantProfile__details {
+  font-weight: normal;
+  font-size: 1rem;
+  color: #767B86;
+  margin: 1rem 0;
 }
 
 .occupantProfile__header2 {
@@ -43,14 +51,6 @@
 
 .occupantProfile__employeeId {
   width: 20%;
-}
-
-.occupantProfile__employeeId p {
-  font-size: var(--main-h2-font-size);
-  margin: 5px 0 50px 0;
-  padding: 1rem;
-  width: 100%;
-  background-color: white;
 }
 
 .stayHistory__headers th {
@@ -64,6 +64,12 @@
   height: 50px;
   padding: 1rem;
   background-color: white;
+  width:50%;
+  border-radius: 10px;
+}
+
+.occupantProfile__status {
+  margin-top: 3rem;
 }
 
 .allocated {
@@ -76,4 +82,18 @@
 
 .inactive {
   color: #b1b9cc;
+}
+
+.occupantProfile__editDetailsButton {
+  margin-top: 3rem;
+  margin-left: 1rem;
+  min-width: 50px;
+  text-align: center;
+  border:none;
+  outline:none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background-color: #fff;
+  height: auto;
+  cursor: pointer;
 }

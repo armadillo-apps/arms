@@ -10,7 +10,8 @@ const occupantDetails = [
     name: "Tom",
     employeeId: "1234567a",
     remarks: "might extend stay",
-    country: "Thailand",
+    country: "thailand",
+    gender: "male",
     status: "unallocated"
   }
 ];
@@ -47,14 +48,6 @@ describe("Occupant profile", () => {
     expect(getByText("< Back")).toBeInTheDocument();
   });
 
-  it("should render stay history", () => {
-    const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} />
-    );
-
-    expect(getByText("Stay History")).toBeInTheDocument();
-  });
-
   it("should render occupant name as header", () => {
     const { getByText } = render(
       <OccupantProfile occupants={occupantDetails} match={match} />
@@ -69,6 +62,32 @@ describe("Occupant profile", () => {
     );
 
     expect(getByText("1234567a")).toBeInTheDocument();
+  });
+
+  it("should render occupant gender", () => {
+    const { getByText } = render(
+      <OccupantProfile occupants={occupantDetails} match={match} />
+    );
+
+    expect(getByText(/gender/i)).toBeInTheDocument();
+    expect(getByText(/male/i)).toBeInTheDocument();
+  });
+
+  it("should render occupant country", () => {
+    const { getByText } = render(
+      <OccupantProfile occupants={occupantDetails} match={match} />
+    );
+
+    expect(getByText(/country/i)).toBeInTheDocument();
+    expect(getByText(/thailand/i)).toBeInTheDocument();
+  });
+
+  it("should render stay history", () => {
+    const { getByText } = render(
+      <OccupantProfile occupants={occupantDetails} match={match} />
+    );
+
+    expect(getByText("Stay History")).toBeInTheDocument();
   });
 
   it("should render occupant remarks", () => {

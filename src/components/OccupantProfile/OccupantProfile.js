@@ -21,11 +21,13 @@ const OccupantProfile = ({ occupants, history, match }) => {
           </div>
           <div className="occupantProfile__header1Container">
             <h1 className="occupantProfile__header1">{occupant.name}</h1>
-            <span className={occupant.status}>{occupant.status}</span>
+            <span className={`occupantProfile__status ${occupant.status}`}>{occupant.status}</span>
+            <button className="occupantProfile__editDetailsButton">Edit</button>
           </div>
-          <div className="occupantProfile__employeeId">
-            <h2 className="occupantProfile__header2">Employee ID</h2>
-            <p>{occupant.employeeId}</p>
+          <div className="occupantProfile__detailsContainer">
+            <h2 className="occupantProfile__details">{occupant.employeeId}</h2>
+            <h2 className="occupantProfile__details">Gender: {occupant.gender}</h2>
+            <h2 className="occupantProfile__details">Country: {occupant.country}</h2>
           </div>
           <h1 className="occupantProfile__header2">Stay History</h1>
           <table className="stayHistory__table">
