@@ -62,3 +62,19 @@ export const deleteStay = async stayId => {
     throw err;
   }
 };
+
+export const updateOccupant = async(occupantId, name, employeeId, gender, remarks, country, status) =>  {
+  const requestBody = {
+    name,
+    employeeId,
+    gender,
+    remarks,
+    country,
+    status
+  };
+
+  const response = await axios.put(`/occupants/${occupantId}`, requestBody);
+  return response.data;
+}
+
+
