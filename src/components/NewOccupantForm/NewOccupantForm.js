@@ -28,8 +28,15 @@ class NewOccupantForm extends Component {
 
   onFormSubmit = async event => {
     try {
-      const { name, employeeId, remarks, country, status} = this.state;
-      const response = await createNewOccupant(name, employeeId, remarks, country, status);
+      event.preventDefault();
+      const { name, employeeId, remarks, country, status } = this.state;
+      const response = await createNewOccupant(
+        name,
+        employeeId,
+        remarks,
+        country,
+        status
+      );
       this.setState({
         name: "",
         employeeId: "",
@@ -93,7 +100,12 @@ class NewOccupantForm extends Component {
           />
           <section>
             <label htmlFor="status">Occupant Status: </label>
-            <select id="status" name='status' value={this.state.status} onChange={this.onFormChange}>
+            <select
+              id="status"
+              name="status"
+              value={this.state.status}
+              onChange={this.onFormChange}
+            >
               <option value="">Select...</option>
               <option value="allocated">Allocated</option>
               <option value="unallocated">Unallocated</option>
