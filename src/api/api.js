@@ -20,11 +20,13 @@ export const createNewApartment = async input => {
   return response.data;
 };
 
-export const createNewOccupant = async (name, employeeId, remarks) => {
+export const createNewOccupant = async (name, employeeId, remarks, country, status) => {
   const requestBody = {
-    name: name,
-    employeeId: employeeId,
-    remarks: remarks
+    name,
+    employeeId,
+    remarks,
+    country,
+    status
   };
   const response = await axios.post("/occupants", requestBody);
   return response.data;

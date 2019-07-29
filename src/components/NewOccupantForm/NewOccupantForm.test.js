@@ -33,6 +33,16 @@ describe("Input form", () => {
     expect(getByLabelText("Remarks")).toBeInTheDocument();
   });
 
+  it("should have input text for country", () => {
+    const { getByLabelText } = render(<NewOccupantForm />);
+    expect(getByLabelText("Country")).toBeInTheDocument();
+  });
+
+  it("should have dropdown for status", () => {
+    const { getByLabelText } = render(<NewOccupantForm />);
+    expect(getByLabelText("Occupant Status:")).toBeInTheDocument();
+  });
+
   it("should have text", () => {
     const { getByDisplayValue, getByLabelText } = render(<NewOccupantForm />);
     const name = getByLabelText("Name");
@@ -52,9 +62,17 @@ describe("Input form", () => {
     const remarks = getByLabelText("Remarks");
     fireEvent.change(remarks, { target: { value: "testing" } });
 
+    const country = getByLabelText("Country");
+    fireEvent.change(country, { target: { value: "Singapore" } });
+    
+    const status = getByLabelText("Occupant Status:");
+    fireEvent.change(status, { target: { value: "allocated" } });
+
     expect(name.value).toBe("Bob");
     expect(employeeId.value).toBe("123");
     expect(remarks.value).toBe("testing");
+    expect(country.value).toBe("Singapore");
+    expect(status.value).toBe("allocated");
   });
 });
 
@@ -72,9 +90,16 @@ describe("Confirmation message", () => {
     const remarks = getByLabelText("Remarks");
     fireEvent.change(remarks, { target: { value: "testing" } });
 
+    const country = getByLabelText("Country");
+    fireEvent.change(country, { target: { value: "Singapore" } });
+
+    const status = getByLabelText("Occupant Status:");
+    fireEvent.change(status, { target: { value: "unallocated" } });
+
     const submitButton = getByText("Create", {
       selector: "input[type=submit]"
     });
+    
     expect(submitButton).toBeInTheDocument();
     fireEvent.click(submitButton);
 
@@ -82,6 +107,8 @@ describe("Confirmation message", () => {
       expect(name.value).toBe("");
       expect(employeeId.value).toBe("");
       expect(remarks.value).toBe("");
+      expect(country.value).toBe("");
+      expect(status.value).toBe("");
     });
   });
 

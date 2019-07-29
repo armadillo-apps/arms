@@ -64,6 +64,8 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("input[name=name]").type(name);
     cy.get("input[name=employeeId]").type(employeeId);
     cy.get("input[name=remarks]").type("testing");
+    cy.get("input[name=country]").type("Singapore");
+    cy.get("select[name=status]").select("allocated");
     cy.get("input[type=submit]").click();
     cy.get("a")
       .contains("OCCUPANTS")
