@@ -9,7 +9,14 @@ const OccupantProfile = ({ occupants, history, match }) => {
     const occupant = occupants.find(occupant => {
       return occupant._id === occupantId;
     });
-
+    if (!occupant) {
+      return (
+        <div className="occupantProfileContainer">
+          <div className="occupantProfile" />
+          <h1 className="occupantProfile__header1">Could not find occupant</h1>
+        </div>
+      );
+    }
     return (
       <div className="occupantProfileContainer">
         <div className="occupantProfile">

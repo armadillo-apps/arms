@@ -143,9 +143,19 @@ class ApartmentProfile extends Component {
     if (!this.props.apartments || this.props.apartments.length < 1) {
       return <h1>Loading...</h1>;
     } else {
-      const apartment = this.props.apartments.find(apartment => {
+      let apartment = this.props.apartments.find(apartment => {
         return apartment._id === this.apartmentId;
       });
+      if (!apartment) {
+        return (
+          <div className="apartmentProfileContainer">
+            <div className="apartmentProfile" />
+            <h1 className="apartmentProfile__heading">
+              Could not find apartment
+            </h1>
+          </div>
+        );
+      }
       return (
         <div className="apartmentProfileContainer">
           <div className="apartmentProfile">
