@@ -1,6 +1,7 @@
 import Modal from "react-modal";
 import React from "react";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
+import "./ConfirmationModal.css";
 
 const ConfirmationModal = ({
   modalIsOpen,
@@ -37,24 +38,31 @@ const ConfirmationModal = ({
       style={customStyles}
       contentLabel="confirmationModal"
     >
-      <p>Are you sure you want to delete this entry?</p>
-      <button onClick={closeModal} className="cancelDelete__Modal">
-        Cancel
-      </button>
-      <button
-        onClick={() => {
-          deleteStay();
-          setTimeout(() => closeModal(), 1000);
-        }}
-        className="confirmDelete__Modal"
-      >
-        Delete
-      </button>
-      {message ? (
-        <ConfirmationMessage success={success} message={message} />
-      ) : (
-        ""
-      )}
+      <div className="confirmationModal">
+        <p className="confirmation__Modal">
+          Are you sure you want to delete this entry?
+        </p>
+        <div className="button__Modal">
+          <button onClick={closeModal} className="cancelDelete__Modal">
+            Cancel
+          </button>
+          <button
+            onClick={() => {
+              deleteStay();
+              setTimeout(() => closeModal(), 1000);
+            }}
+            className="confirmDelete__Modal"
+          >
+            Delete
+          </button>
+        </div>
+
+        {message ? (
+          <ConfirmationMessage success={success} message={message} />
+        ) : (
+          ""
+        )}
+      </div>
     </Modal>
   );
 };
