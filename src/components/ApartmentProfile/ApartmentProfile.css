@@ -1,0 +1,149 @@
+.apartmentProfileContainer {
+  background-color: var(--main-bg-color);
+}
+.apartmentProfile {
+  margin-left: 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.apartmentProfile__backButton {
+  font-size: var(--main-h2-font-size);
+  text-decoration: none;
+  color: var(--sidebar-font-color-inactive);
+  cursor: pointer;
+}
+
+.apartmentProfile__heading {
+  font-weight: normal;
+  font-size: var(--main-h1-font-size);
+}
+
+.gridContainer {
+  display: grid;
+}
+
+.apartmentProfile__vacancyDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.apartmentProfile__vacancyDetails h2 {
+  font-size: var(--main-h2-font-size);
+  font-weight: normal;
+}
+
+.apartmentProfile__vacancyDetails p {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.apartmentProfile__details {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.5fr 3fr;
+  width: 80%;
+}
+
+.occupantsNumber p {
+  font-size: 3rem;
+  margin: 1rem;
+}
+
+.bedrooms {
+  grid-column: 4/5;
+}
+
+.bedrooms p {
+  font-size: 2.5rem;
+  margin: 1rem 0;
+}
+
+.address {
+  grid-column: 4/5;
+}
+
+.address p {
+  font-size: 2.5rem;
+  margin: 1rem 0;
+}
+
+.capacity p {
+  font-size: 3rem;
+  margin: 1rem;
+}
+
+.apartmentProfile__header2 {
+  font-size: 2.5rem;
+}
+
+.apartmentProfile__occupants th {
+  font-size: var(--main-h2-font-size);
+  margin: 1rem;
+}
+
+.apartmentProfile__occupants th {
+  font-size: var(--main-h2-font-size);
+  margin: 1rem;
+  width: 200px;
+}
+
+.apartmentProfile__occupants td {
+  font-size: var(--main-h2-font-size);
+  text-align: center;
+  background-color: white;
+}
+
+.apartmentProfile__leases {
+  border-spacing: 0;
+}
+
+.apartmentProfile__leases h2 {
+  font-size: 2.5rem;
+  margin-top: 10rem;
+}
+.apartmentProfile__leases th {
+  font-size: var(--main-h2-font-size);
+  margin: 1rem;
+  width: 200px;
+}
+
+.apartmentProfile__leases td {
+  font-size: var(--main-h2-font-size);
+  text-align: center;
+  height: 50px;
+  background-color: white;
+}
+
+.apartmentProfile__headerContainer {
+  display: flex;
+  height: 70px;
+  align-content: center;
+}
+
+.modalAddButton {
+  text-decoration: none;
+  border: none;
+  border-radius: 20px;
+  margin: auto 10px;
+  background-color: var(--green-color);
+  color: white;
+  font-size: 1.5rem;
+  vertical-align: middle;
+  cursor: pointer;
+  outline: none;
+}
+
+.modalCloseButton {
+  text-decoration: none;
+  border: none;
+  position: absolute;
+  top: 15px;
+  right: 12px;
+  font-size: 1.8rem;
+  background-color: white;
+  cursor: pointer;
+}
+
+#confirmationModal {
+  cursor: pointer;
+}
