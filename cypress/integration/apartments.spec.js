@@ -65,8 +65,9 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("h1").contains("Create New Occupant");
     cy.get("input[name=name]").type(name);
     cy.get("input[name=employeeId]").type(employeeId);
+    cy.get("input[name=gender]").type("male");
     cy.get("input[name=remarks]").type("testing");
-    cy.get("input[name=country]").type("Singapore");
+    cy.get("input[name=country]").type("singapore");
     cy.get("select[name=status]").select(status);
     cy.get("input[type=submit]").click();
     cy.get("a")
@@ -76,9 +77,10 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       .contains(employeeId)
       .click();
     cy.get("h1").contains(name);
-    cy.get("h2").contains("Employee ID");
-    cy.get("p").contains(employeeId);
-    cy.get("span").contains(status);
+    cy.get("h2").contains(employeeId);
+    cy.get("h2").contains(/Gender: Male/i);
+    cy.get("h2").contains(/Country: Singapore/i);
+    cy.get('span').contains(status)
   });
 
   it("should be unable to create a new apartment and show apartment profile", () => {
