@@ -67,6 +67,14 @@
   margin: 1rem 0;
 }
 
+.country {
+  grid-column: 1/4;
+}
+
+.country p {
+  font-size: 2.5rem;
+}
+
 .capacity p {
   font-size: 3rem;
   margin: 1rem;

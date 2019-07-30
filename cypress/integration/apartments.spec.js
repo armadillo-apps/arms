@@ -68,7 +68,8 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("input[name=Rent]").type(monthlyRent);
     cy.get("input[name=Capacity]").type(capacity);
     cy.get("input[name=Bedrooms]").type(bedrooms);
-    cy.get("textarea[name=remarks]").type("testing!!!");
+    cy.get("input[name=Country").type("THIS IS HOME, TRULY");
+    cy.get("textarea[name=Remarks]").type("testing!!!");
   };
 
   it("should create a new occupant and show occupant profile", () => {

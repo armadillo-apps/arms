@@ -179,6 +179,10 @@ class ApartmentProfile extends Component {
                 <h2>Address</h2>
                 <p>{apartment.address}</p>
               </div>
+              <div className="country">
+                <h2>Country</h2>
+                <p>{apartment.country}</p>
+              </div>
               <div className="bedrooms">
                 <h2>Bedrooms</h2>
                 <p>{apartment.bedrooms}</p>

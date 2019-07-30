@@ -18,6 +18,7 @@ class NewApartmentForm extends Component {
       rent: "",
       landLordName: "",
       landLordAccount: "",
+      country: "",
       remarks: "",
       success: false,
       message: "",
@@ -54,6 +55,7 @@ class NewApartmentForm extends Component {
           mobile: this.state.landLordMobile,
           email: this.state.landLordEmail
         },
+        country: this.state.country,
         remarks: this.state.remarks
       };
       const output = await createNewApartment(data);
@@ -68,6 +70,7 @@ class NewApartmentForm extends Component {
         rent: "",
         landLordName: "",
         landLordAccount: "",
+        country: "",
         remarks: "",
         success: true,
         message: output,
@@ -184,10 +187,18 @@ class NewApartmentForm extends Component {
               required
             />
           </div>
+          <Input
+            id="country"
+            label="Country"
+            name="Country"
+            onChange={this.onFormChange}
+            value={this.state.country}
+            type="text"
+          />
           <TextArea
             id="remarks"
             label="Remarks"
-            name="remarks"
+            name="Remarks"
             onChange={this.onFormChange}
             value={this.state.remarks}
             type="text"
