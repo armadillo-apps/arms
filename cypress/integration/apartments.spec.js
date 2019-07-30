@@ -80,7 +80,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("h2").contains(employeeId);
     cy.get("h2").contains(/Gender: Male/i);
     cy.get("h2").contains(/Country: Singapore/i);
-    cy.get('span').contains(status)
+    cy.get("span").contains(status);
   });
 
   it("should be unable to create a new apartment and show apartment profile", () => {
@@ -177,7 +177,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("button")
       .contains("Delete")
       .click();
-    cy.get("p").contains("Successfully removed stay entry");
     cy.contains(name).should("not.exist");
     cy.contains("No occupants yet!");
   });
