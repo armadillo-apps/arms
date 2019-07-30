@@ -2,8 +2,21 @@ import React, { useState, useEffect } from "react";
 import "./OccupantProfile.css";
 import { fetchStays } from "../../api/api";
 import { formatDate } from "../../utils/date";
+import EditOccupantModal from "../Modal/EditOccupantModal";
+import EditOccupantForm from "../EditOccupantForm/EditOccupantForm";
+import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 
-const OccupantProfile = ({ occupants, history, match }) => {
+const OccupantProfile = ({
+  occupants,
+  history,
+  match,
+  onSubmit,
+  onChange,
+  openModal,
+  isModalOpen,
+  closeModal,
+  modalStates
+}) => {
   const [stays, setStays] = useState([]);
 
   useEffect(() => {
@@ -46,7 +59,15 @@ const OccupantProfile = ({ occupants, history, match }) => {
             <span className={`occupantProfile__status ${occupant.status}`}>
               {occupant.status}
             </span>
-            <button className="occupantProfile__editDetailsButton">Edit</button>
+            <button
+              id="editOccupantModal"
+              className="occupantProfile__editDetailsButton"
+              onClick={() => {
+                openModal("editOccupantModal", occupant);
+              }}
+            >
+              Edit
+            </button>
           </div>
           <div className="occupantProfile__detailsContainer">
             <h2 className="occupantProfile__details">{occupant.employeeId}</h2>
@@ -84,6 +105,29 @@ const OccupantProfile = ({ occupants, history, match }) => {
           <h1 className="occupantProfile__header2">Remarks</h1>
           <p className="remarks__body">{occupant.remarks}</p>
         </div>
+        <EditOccupantModal
+          isModalOpen={isModalOpen}
+          closeModal={() => closeModal("editOccupantModal")}
+        >
+          {modalStates.success ? (
+            <div>
+              <ConfirmationMessage
+                success={modalStates.success}
+                message={modalStates.message}
+              />
+              <button onClick={() => closeModal("editOccupantModal")}>
+                Close
+              </button>
+            </div>
+          ) : (
+            <EditOccupantForm
+              onSubmit={onSubmit}
+              onChange={onChange}
+              occupant={occupant}
+              {...modalStates}
+            />
+          )}
+        </EditOccupantModal>
       </div>
     );
   }

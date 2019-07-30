@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import { fetchOccupants, fetchApartments } from "../../api/api";
+import { fetchOccupants, fetchApartments, updateOccupant } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
 import Occupant from "../Occupant/Occupant";
@@ -16,7 +16,18 @@ class App extends Component {
     this.state = {
       apartments: [],
       occupants: [],
-      renderToggle: false,
+      editOccupantModal: {
+        isModalOpen: false,
+        name: "",
+        employeeId: "",
+        gender: "",
+        remarks: "",
+        country: "",
+        status: "",
+        message: "",
+        success: false
+      },
+      renderToggle: false
     };
   }
 
@@ -52,6 +63,95 @@ class App extends Component {
     });
   };
 
+  openModal = (id, occupant) => {
+    const {
+      _id,
+      name,
+      employeeId,
+      gender,
+      country,
+      remarks,
+      status
+    } = occupant;
+    this.setState({
+      [id]: {
+        _id,
+        name,
+        employeeId,
+        gender,
+        country,
+        remarks,
+        status,
+        isModalOpen: true
+      }
+    });
+  };
+
+  closeModal = id => {
+    this.setState({
+      [id]: {
+        isModalOpen: false,
+        message: ""
+      }
+    });
+  };
+
+  onEditOccupantFormChange = event => {
+    this.setState({
+      editOccupantModal: {
+        ...this.state.editOccupantModal,
+        [event.target.id]: event.target.value
+      }
+    });
+  };
+
+  onEditOccupantFormSubmit = async event => {
+    try {
+      event.preventDefault();
+      const {
+        _id,
+        name,
+        employeeId,
+        gender,
+        remarks,
+        country,
+        status
+      } = this.state.editOccupantModal;
+      const response = await updateOccupant(
+        _id,
+        name,
+        employeeId,
+        gender,
+        remarks,
+        country,
+        status
+      );
+      const occupants = await fetchOccupants();
+      this.setState({
+        occupants,
+        editOccupantModal: {
+          ...this.state.editOccupantModal,
+          name: "",
+          employeeId: "",
+          gender: "",
+          remarks: "",
+          country: "",
+          status: "",
+          message: response,
+          success: true
+        }
+      });
+    } catch (err) {
+      this.setState({
+        editOccupantModal: {
+          isModalOpen: true,
+          success: false,
+          message: "Unable to update occupant"
+        }
+      });
+    }
+  };
+
   render() {
     return (
       <section className="app">
@@ -79,8 +179,6 @@ class App extends Component {
                   apartments={this.state.apartments}
                   occupants={this.state.occupants}
                   {...props}
-                  openModal={this.openModal}
-                  closeModal={this.closeModal}
                   apartmentAssignModal={this.state.apartmentAssignModal}
                   confirmationModal={this.state.confirmationModal}
                 />
@@ -91,6 +189,13 @@ class App extends Component {
               render={props => (
                 <OccupantProfile
                   occupants={this.state.occupants}
+                  updateOccupantDetails={this.updateOccupantDetails}
+                  onSubmit={this.onEditOccupantFormSubmit}
+                  openModal={this.openModal}
+                  closeModal={this.closeModal}
+                  isModalOpen={this.state.editOccupantModal.isModalOpen}
+                  onChange={this.onEditOccupantFormChange}
+                  modalStates={this.state.editOccupantModal}
                   {...props}
                 />
               )}

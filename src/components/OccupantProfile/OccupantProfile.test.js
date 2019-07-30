@@ -32,7 +32,7 @@ const stayingHistory = [
 ];
 
 describe("Occupant profile", () => {
-  let match;
+  let match, modalStates;
 
   beforeEach(() => {
     match = {
@@ -41,11 +41,15 @@ describe("Occupant profile", () => {
       path: "",
       url: ""
     };
+    modalStates = {
+      success: true,
+      message: "success"
+    };
   });
 
   it("should render a back button", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} />
+      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates}/>
     );
 
     expect(getByText("< Back")).toBeInTheDocument();
@@ -53,7 +57,7 @@ describe("Occupant profile", () => {
 
   it("should render occupant name as header", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} />
+      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
     );
 
     expect(getByText("Tom")).toBeInTheDocument();
@@ -61,7 +65,7 @@ describe("Occupant profile", () => {
 
   it("should render occupant employeeId", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} />
+      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
     );
 
     expect(getByText("1234567a")).toBeInTheDocument();
@@ -69,7 +73,7 @@ describe("Occupant profile", () => {
 
   it("should render occupant gender", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} />
+      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
     );
 
     expect(getByText(/gender/i)).toBeInTheDocument();
@@ -78,7 +82,7 @@ describe("Occupant profile", () => {
 
   it("should render occupant country", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} />
+      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
     );
 
     expect(getByText(/country/i)).toBeInTheDocument();
@@ -87,7 +91,7 @@ describe("Occupant profile", () => {
 
   it("should render stay history", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} />
+      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
     );
 
     expect(getByText("Stay History")).toBeInTheDocument();
@@ -95,7 +99,7 @@ describe("Occupant profile", () => {
 
   it("should render occupant remarks", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} />
+      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
     );
     expect(getByText("Remarks")).toBeInTheDocument();
     expect(getByText("might extend stay")).toBeInTheDocument();
@@ -103,7 +107,7 @@ describe("Occupant profile", () => {
 
   it("should render occupant status", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} />
+      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
     );
 
     expect(getByText("unallocated")).toBeInTheDocument();
@@ -144,6 +148,7 @@ describe("Occupant profile", () => {
       expect(getByText("Check In")).toBeInTheDocument();
       expect(getByText("Check Out")).toBeInTheDocument();
       expect(getByText("Monthly Rental")).toBeInTheDocument();
+      expect(getByText("Remarks")).toBeInTheDocument();
     });
 
     it("should render occupant's stay history with apartment name", async () => {
