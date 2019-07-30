@@ -77,7 +77,6 @@ const OccupantProfile = ({
             <h2 className="occupantProfile__details">
               Country: {occupant.country}
             </h2>
-            <button onClick={setStays}>click me!</button>
           </div>
           <h1 className="occupantProfile__header2">Stay History</h1>
           <table className="stayHistory__table">
