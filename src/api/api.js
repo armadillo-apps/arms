@@ -42,7 +42,7 @@ export const createNewOccupant = async (
   return response.data;
 };
 
-export const createNewStay = async (
+export const createStay = async (
   occupantId,
   apartmentId,
   checkInDate,
@@ -62,7 +62,7 @@ export const createNewStay = async (
   }
 };
 
-export const deleteStay = async stayId => {
+export const removeStay = async stayId => {
   try {
     const response = await axios.delete(`/stays/${stayId}`);
     return response.data;

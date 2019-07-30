@@ -4,8 +4,8 @@ import Lease from "../Lease/Lease";
 import ApartmentAssign from "../ApartmentAssign/ApartmentAssign";
 import {
   getApartmentProfileHistory,
-  createNewStay,
-  deleteStay
+  createStay,
+  removeStay
 } from "../../api/api";
 import ApartmentAssignModal from "../Modal/ApartmentAssignModal";
 import ConfirmationModal from "../Modal/ConfirmationModal";
@@ -27,11 +27,9 @@ class ApartmentProfile extends Component {
       dropdown: true,
       occupantHistory: [],
       stayToDelete: "",
-      apartmentAssignModal: false,
-      confirmationModal: false
+      isAssignOccupantModalOpen: false,
+      isConfirmationModalOpen: false
     };
-    this.apartmentAssignModal = "apartmentAssignModal";
-    this.confirmationModal = "confirmationModal";
   }
 
   componentDidMount = async () => {
@@ -66,9 +64,9 @@ class ApartmentProfile extends Component {
     });
   };
 
-  addNewStay = async () => {
+  addStay = async () => {
     try {
-      const response = await createNewStay(
+      const response = await createStay(
         this.state.occupantId,
         this.state.apartmentId,
         this.state.checkInDate,
@@ -93,9 +91,9 @@ class ApartmentProfile extends Component {
     }
   };
 
-  deleteStayFromHistory = async () => {
+  deleteStay = async () => {
     try {
-      const response = await deleteStay(this.state.stayToDelete);
+      const response = await removeStay(this.state.stayToDelete);
       this.setState({ stayToDelete: "", success: true, message: response });
       this.triggerRender();
     } catch (err) {
@@ -179,7 +177,7 @@ class ApartmentProfile extends Component {
               <h2 className="apartmentProfile__header2">Occupants</h2>
               <button
                 className="modalAddButton"
-                id={this.apartmentAssignModal}
+                id="isAssignOccupantModalOpen"
                 onClick={this.openModal}
               >
                 +
@@ -188,16 +186,16 @@ class ApartmentProfile extends Component {
 
             <div>
               <ApartmentAssignModal
-                modalIsOpen={this.state.apartmentAssignModal}
-                closeModal={() => this.closeModal(this.apartmentAssignModal)}
-                contentLabel={this.apartmentAssignModal}
+                modalIsOpen={this.state.isAssignOccupantModalOpen}
+                closeModal={() => this.closeModal("isAssignOccupantModalOpen")}
+                contentLabel="assignOccupantModal"
               >
                 <ApartmentAssign
                   handleChange={this.handleChange}
                   filterList={this.filterList}
                   apartmentId={apartmentId}
                   handleClick={this.handleClick}
-                  addNewStay={this.addNewStay}
+                  addStay={this.addStay}
                   occupantToAssign={this.state.occupantToAssign}
                   dropdown={this.state.dropdown}
                   success={this.state.success}
@@ -206,7 +204,7 @@ class ApartmentProfile extends Component {
                 />
                 <button
                   className="modalCloseButton"
-                  onClick={() => this.closeModal(this.apartmentAssignModal)}
+                  onClick={() => this.closeModal("isAssignOccupantModalOpen")}
                 >
                   X
                 </button>
@@ -214,10 +212,10 @@ class ApartmentProfile extends Component {
             </div>
             <div>
               <ConfirmationModal
-                modalIsOpen={this.state.confirmationModal}
-                closeModal={() => this.closeModal(this.confirmationModal)}
-                deleteStayFromHistory={this.deleteStayFromHistory}
-                contentLabel={this.confirmationModal}
+                modalIsOpen={this.state.isConfirmationModalOpen}
+                closeModal={() => this.closeModal("isConfirmationModalOpen")}
+                deleteStay={this.deleteStay}
+                contentLabel="confirmationModal"
                 success={this.state.success}
                 message={this.state.message}
               />
@@ -259,7 +257,7 @@ class ApartmentProfile extends Component {
                               this.openModal(event);
                               this.setState({ stayToDelete: _id });
                             }}
-                            id={this.confirmationModal}
+                            id="isConfirmationModalOpen"
                           >
                             X
                           </button>

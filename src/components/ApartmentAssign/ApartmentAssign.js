@@ -8,7 +8,7 @@ const ApartmentAssign = ({
   filterList,
   handleClick,
   dropdown,
-  addNewStay,
+  addStay,
   apartmentId,
   occupantToAssign,
   message,
@@ -24,9 +24,7 @@ const ApartmentAssign = ({
       />
       {dropdown ? (
         <div>
-          <table
-            className="apartmentAssignTable"
-          >
+          <table className="apartmentAssignTable">
             <thead>
               <tr className={occupantToAssign ? "visible" : "hidden"}>
                 <th>Name</th>
@@ -72,7 +70,7 @@ const ApartmentAssign = ({
             type="date"
             onChange={handleChange}
           />
-            <h2>Check-out</h2>
+          <h2>Check-out</h2>
           <input
             placeholder="Check-out"
             id="checkOutDate"
@@ -83,7 +81,7 @@ const ApartmentAssign = ({
             <button
               className="modalAssignButton"
               onClick={() => {
-                addNewStay();
+                addStay();
               }}
             >
               Assign

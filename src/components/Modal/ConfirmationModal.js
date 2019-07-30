@@ -5,7 +5,7 @@ import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 const ConfirmationModal = ({
   modalIsOpen,
   closeModal,
-  deleteStayFromHistory,
+  deleteStay,
   success,
   message
 }) => {
@@ -43,7 +43,7 @@ const ConfirmationModal = ({
       </button>
       <button
         onClick={() => {
-          deleteStayFromHistory();
+          deleteStay();
           setTimeout(() => closeModal(), 1000);
         }}
         className="confirmDelete__Modal"
