@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Input from "../Input/Input";
+import TextArea from "../Input/TextArea";
 import "./NewApartmentForm.css";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import { createNewApartment } from "../../api/api";
@@ -17,6 +18,7 @@ class NewApartmentForm extends Component {
       rent: "",
       landLordName: "",
       landLordAccount: "",
+      remarks: "",
       success: false,
       message: "",
       submitted: false
@@ -51,7 +53,8 @@ class NewApartmentForm extends Component {
           accountNumber: this.state.landLordAccount,
           mobile: this.state.landLordMobile,
           email: this.state.landLordEmail
-        }
+        },
+        remarks: this.state.remarks
       };
       const output = await createNewApartment(data);
 
@@ -65,6 +68,7 @@ class NewApartmentForm extends Component {
         rent: "",
         landLordName: "",
         landLordAccount: "",
+        remarks: "",
         success: true,
         message: output,
         submitted: true
@@ -86,7 +90,7 @@ class NewApartmentForm extends Component {
           <h1 className="apartmentForm__heading">Create New Apartment</h1>
           <Input
             id="apartment-name"
-            label="Apartment name"
+            label="Apartment name*"
             name="Name"
             onChange={this.onFormChange}
             value={this.state.name}
@@ -95,7 +99,7 @@ class NewApartmentForm extends Component {
           />
           <Input
             id="address"
-            label="Address"
+            label="Address*"
             name="Address"
             onChange={this.onFormChange}
             value={this.state.address}
@@ -105,7 +109,7 @@ class NewApartmentForm extends Component {
           <div className="formDivide">
             <Input
               id="landlord-name"
-              label="LandLord name"
+              label="Landlord name"
               name="LandLordName"
               onChange={this.onFormChange}
               value={this.state.landLordName}
@@ -114,7 +118,7 @@ class NewApartmentForm extends Component {
             />
             <Input
               id="landlord-account-number"
-              label="Landlord A/C No"
+              label="Landlord A/C number"
               name="LandLordAccount"
               onChange={this.onFormChange}
               value={this.state.landLordAccount}
@@ -126,7 +130,7 @@ class NewApartmentForm extends Component {
           <div className="formDivide">
             <Input
               id="lease-start"
-              label="Lease Start"
+              label="Lease start*"
               name="LeaseStart"
               onChange={this.onFormChange}
               value={this.state.leaseStart}
@@ -136,7 +140,7 @@ class NewApartmentForm extends Component {
             />
             <Input
               id="lease-end"
-              label="Lease End"
+              label="Lease end*"
               name="LeaseEnd"
               onChange={this.onFormChange}
               value={this.state.leaseEnd}
@@ -148,7 +152,7 @@ class NewApartmentForm extends Component {
           </div>
           <Input
             id="rental-per-month"
-            label="Rental per month"
+            label="Rental per month*"
             name="Rent"
             onChange={this.onFormChange}
             value={this.state.rent}
@@ -159,7 +163,7 @@ class NewApartmentForm extends Component {
           <div className="formDivide">
             <Input
               id="capacity"
-              label="Capacity"
+              label="Capacity*"
               name="Capacity"
               onChange={this.onFormChange}
               value={this.state.capacity}
@@ -180,6 +184,14 @@ class NewApartmentForm extends Component {
               required
             />
           </div>
+          <TextArea
+            id="remarks"
+            label="Remarks"
+            name="remarks"
+            onChange={this.onFormChange}
+            value={this.state.remarks}
+            type="text"
+          />
           <input
             className="apartmentForm__createButton"
             value="Create"

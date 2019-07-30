@@ -20,14 +20,14 @@ describe("Input form", () => {
 
   it("should have input text for name", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
-    expect(getByLabelText("Name")).toBeInTheDocument();
+    expect(getByLabelText(/name/i)).toBeInTheDocument();
   });
 
   it("should have input text for employee id", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
     expect(getByLabelText("Employee ID")).toBeInTheDocument();
   });
-  
+
   it("should have input text for gender", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
     expect(getByLabelText("Gender")).toBeInTheDocument();
@@ -50,7 +50,7 @@ describe("Input form", () => {
 
   it("should have text", () => {
     const { getByDisplayValue, getByLabelText } = render(<NewOccupantForm />);
-    const name = getByLabelText("Name");
+    const name = getByLabelText(/name/i);
     fireEvent.change(name, { target: { value: "Bob" } });
     expect(getByDisplayValue("Bob")).toBeInTheDocument();
   });
@@ -58,7 +58,7 @@ describe("Input form", () => {
   it("should fill up input text fields", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
 
-    const name = getByLabelText("Name");
+    const name = getByLabelText(/name/i);
     fireEvent.change(name, { target: { value: "Bob" } });
 
     const employeeId = getByLabelText("Employee ID");
@@ -72,7 +72,7 @@ describe("Input form", () => {
 
     const country = getByLabelText("Country");
     fireEvent.change(country, { target: { value: "Singapore" } });
-    
+
     const status = getByLabelText("Occupant Status:");
     fireEvent.change(status, { target: { value: "allocated" } });
 
@@ -90,7 +90,7 @@ describe("Confirmation message", () => {
     mockPost.mockReturnValueOnce("");
     const { getByText, getByLabelText } = render(<NewOccupantForm />);
 
-    const name = getByLabelText("Name");
+    const name = getByLabelText(/name/i);
     fireEvent.change(name, { target: { value: "Bob" } });
 
     const employeeId = getByLabelText("Employee ID");

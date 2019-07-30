@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./NewOccupantForm.css";
 import Input from "../Input/Input";
+import TextArea from "../Input/TextArea";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import { createNewOccupant } from "../../api/api";
 
@@ -67,7 +68,7 @@ class NewOccupantForm extends Component {
         <div className="occupantForm">
           <Input
             id="name"
-            label="Name"
+            label="Name*"
             name="name"
             onChange={this.onFormChange}
             value={this.state.name}
@@ -90,7 +91,7 @@ class NewOccupantForm extends Component {
             value={this.state.gender}
             type="text"
           />
-          <Input
+          <TextArea
             id="remarks"
             label="Remarks"
             name="remarks"
@@ -108,7 +109,9 @@ class NewOccupantForm extends Component {
             required
           />
           <section>
-            <label htmlFor="status" className="occupantForm__statusLabel">Occupant Status: </label>
+            <label htmlFor="status" className="occupantForm__statusLabel">
+              Occupant Status:{" "}
+            </label>
             <select
               id="status"
               name="status"

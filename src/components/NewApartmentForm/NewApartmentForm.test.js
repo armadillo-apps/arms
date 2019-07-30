@@ -16,52 +16,52 @@ describe("New apartment form", () => {
 
   it("should have input text for apartment name on page", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
-    expect(getByLabelText("Apartment name")).toBeInTheDocument();
+    expect(getByLabelText(/apartment name/i)).toBeInTheDocument();
   });
 
   it("should have input text for address on page", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
-    expect(getByLabelText("Address")).toBeInTheDocument();
+    expect(getByLabelText(/address/i)).toBeInTheDocument();
   });
 
   it("should have input text for landlord name on page", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
-    expect(getByLabelText("LandLord name")).toBeInTheDocument();
+    expect(getByLabelText(/landLord name/i)).toBeInTheDocument();
   });
 
   it("should have input text for landlord account number on page", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
-    expect(getByLabelText("Landlord A/C No")).toBeInTheDocument();
+    expect(getByLabelText("Landlord A/C number")).toBeInTheDocument();
   });
 
   it("should have input text for lease start on page", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
-    expect(getByLabelText("Lease Start")).toBeInTheDocument();
+    expect(getByLabelText(/lease start/i)).toBeInTheDocument();
   });
 
   it("should have input text for lease end on page", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
-    expect(getByLabelText("Lease End")).toBeInTheDocument();
+    expect(getByLabelText(/lease end/i)).toBeInTheDocument();
   });
 
   it("should have input text for rental per month on page", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
-    expect(getByLabelText("Rental per month")).toBeInTheDocument();
+    expect(getByLabelText(/rental per month/i)).toBeInTheDocument();
   });
 
   it("should have input text for capacity on page", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
-    expect(getByLabelText("Capacity")).toBeInTheDocument();
+    expect(getByLabelText(/capacity/i)).toBeInTheDocument();
   });
 
   it("should have input text for bedrooms on page", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
-    expect(getByLabelText("Bedrooms")).toBeInTheDocument();
+    expect(getByLabelText(/bedrooms/i)).toBeInTheDocument();
   });
 
   it("should register number changes to the capacity input", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
-    const capacityInput = getByLabelText("Capacity");
+    const capacityInput = getByLabelText(/capacity/i);
 
     fireEvent.change(capacityInput, { target: { value: 2 } });
 
@@ -71,7 +71,7 @@ describe("New apartment form", () => {
 
   it("should reject non-number changes to the capacity input", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
-    const capacityInput = getByLabelText("Capacity");
+    const capacityInput = getByLabelText(/capacity/i);
 
     fireEvent.change(capacityInput, { target: { value: "Not a valid input" } });
 

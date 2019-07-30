@@ -68,6 +68,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("input[name=Rent]").type(monthlyRent);
     cy.get("input[name=Capacity]").type(capacity);
     cy.get("input[name=Bedrooms]").type(bedrooms);
+    cy.get("textarea[name=remarks]").type("testing!!!");
   };
 
   it("should create a new occupant and show occupant profile", () => {
@@ -78,7 +79,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("input[name=name]").type(name);
     cy.get("input[name=employeeId]").type(employeeId);
     cy.get("input[name=gender]").type("male");
-    cy.get("input[name=remarks]").type("testing");
+    cy.get("textarea[name=remarks]").type("testing");
     cy.get("input[name=country]").type("singapore");
     cy.get("select[name=status]").select(status);
     cy.get("input[type=submit]").click();
