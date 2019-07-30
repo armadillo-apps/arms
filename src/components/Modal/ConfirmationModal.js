@@ -6,8 +6,8 @@ const ConfirmationModal = ({
   modalIsOpen,
   closeModal,
   deleteStayFromHistory,
-  message,
-  success
+  success,
+  message
 }) => {
   const customStyles = {
     content: {
@@ -41,11 +41,17 @@ const ConfirmationModal = ({
       <button onClick={closeModal} className="cancelDelete__Modal">
         Cancel
       </button>
-      <button onClick={deleteStayFromHistory} className="confirmDelete__Modal">
+      <button
+        onClick={() => {
+          deleteStayFromHistory();
+          setTimeout(() => closeModal(), 1000);
+        }}
+        className="confirmDelete__Modal"
+      >
         Delete
       </button>
       {message ? (
-        <ConfirmationMessage message={message} success={success} />
+        <ConfirmationMessage success={success} message={message} />
       ) : (
         ""
       )}

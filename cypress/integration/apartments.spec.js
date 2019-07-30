@@ -155,4 +155,30 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       .click();
     cy.contains("Occupant");
   });
+
+  it("be able to cancel occupant stay deletion", () => {
+    cy.visit(`${baseUrl}`);
+    cy.contains(apartmentName).click();
+    cy.get("button")
+      .contains("X")
+      .click();
+    cy.get("button")
+      .contains("Cancel")
+      .click();
+    cy.contains(name);
+  });
+
+  it("be able to remove an occupant's stay from an apartment", () => {
+    cy.visit(`${baseUrl}`);
+    cy.contains(apartmentName).click();
+    cy.get("button")
+      .contains("X")
+      .click();
+    cy.get("button")
+      .contains("Delete")
+      .click();
+    cy.get("p").contains("Successfully removed stay entry");
+    cy.contains(name).should("not.exist");
+    cy.contains("No occupants yet!");
+  });
 });

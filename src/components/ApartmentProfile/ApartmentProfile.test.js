@@ -1,11 +1,7 @@
 import React from "react";
 import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
-import {
-  render,
-  cleanup,
-  waitForElement
-} from "@testing-library/react";
+import { render, cleanup, waitForElement } from "@testing-library/react";
 import ApartmentProfile from "./ApartmentProfile";
 import * as data from "../../api/api";
 import moment from "moment";
@@ -78,7 +74,6 @@ const stayingHistory = [
     occupantName: "Kai"
   }
 ];
-
 
 const getApartmentProfileHistory = jest.spyOn(
   data,
@@ -165,19 +160,5 @@ describe("Apartment Profile", () => {
     const message = await waitForElement(() => getByText("No occupants yet!"));
 
     expect(message).toBeInTheDocument();
-  });
-
-  xit("should render an alert when x is pressed", async () => {
-    getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
-    const { getByText, getByLabelText } = render(
-      <ApartmentProfile apartments={apartmentDetails} match={match} />
-    );
-    // const { getByText } = render(<ConfirmationModal />);
-    const occupantName1 = await waitForElement(() => getByText("John"));
-    const button = await waitForElement(() => getByLabelText("cross"));
-    fireEvent.click(button);
-    expect(
-      getByText("Are you sure you want to delete this stay?")
-    ).toBeInTheDocument();
   });
 });
