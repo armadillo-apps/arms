@@ -64,8 +64,9 @@ class ApartmentProfile extends Component {
     });
   };
 
-  addStay = async () => {
+  addStay = async event => {
     try {
+      event.preventDefault();
       const response = await createStay(
         this.state.occupantId,
         this.state.apartmentId,
@@ -192,6 +193,7 @@ class ApartmentProfile extends Component {
               >
                 <ApartmentAssign
                   handleChange={this.handleChange}
+                  checkInDate={this.state.checkInDate}
                   filterList={this.filterList}
                   apartmentId={apartmentId}
                   handleClick={this.handleClick}

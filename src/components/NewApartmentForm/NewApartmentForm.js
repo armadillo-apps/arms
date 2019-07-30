@@ -141,6 +141,7 @@ class NewApartmentForm extends Component {
               onChange={this.onFormChange}
               value={this.state.leaseEnd}
               type="date"
+              min={this.state.leaseStart}
               width="170px"
               required
             />

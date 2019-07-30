@@ -5,6 +5,7 @@ import "./ApartmentAssign.css";
 
 const ApartmentAssign = ({
   handleChange,
+  checkInDate,
   filterList,
   handleClick,
   dropdown,
@@ -62,12 +63,13 @@ const ApartmentAssign = ({
           </table>
         </div>
       ) : (
-        <div className="dateContainer">
+        <form className="dateContainer" onSubmit={addStay}>
           <h2>Check-in</h2>
           <input
             placeholder="Check-in"
             id="checkInDate"
             type="date"
+            required={true}
             onChange={handleChange}
           />
           <h2>Check-out</h2>
@@ -75,17 +77,12 @@ const ApartmentAssign = ({
             placeholder="Check-out"
             id="checkOutDate"
             type="date"
+            min={checkInDate}
+            required={true}
             onChange={handleChange}
           />
           <div className="dateContainer__buttons">
-            <button
-              className="modalAssignButton"
-              onClick={() => {
-                addStay();
-              }}
-            >
-              Assign
-            </button>
+            <input className="modalAssignButton" value="Assign" type="submit" />
             <button
               className="modalCancelButton"
               onClick={() => {
@@ -95,7 +92,7 @@ const ApartmentAssign = ({
               Cancel
             </button>
           </div>
-        </div>
+        </form>
       )}
       {message ? (
         <ConfirmationMessage message={message} success={success} />

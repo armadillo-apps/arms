@@ -24,6 +24,18 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     bedrooms: 1
   };
 
+  const invalidNewApartment2 = {
+    apartmentName,
+    address,
+    landlordName,
+    accountNumber,
+    leaseStart: "2019-07-01",
+    leaseEnd: "2019-05-01",
+    monthlyRent,
+    capacity: 1,
+    bedrooms: 1
+  };
+
   const newApartment = {
     apartmentName,
     address,
@@ -83,7 +95,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("span").contains(status);
   });
 
-  it("should be unable to create a new apartment and show apartment profile", () => {
+  it("should be unable to create a new apartment with -ve inputs", () => {
     cy.visit(`${baseUrl}/newApartment`);
     cy.get("h1").contains("Create New Apartment");
 
@@ -91,6 +103,21 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
     cy.get("input[type=submit]").click();
     cy.get("input[name=Capacity]").should("have.focus");
+    cy.get("input[name=Name]").should("have.value", apartmentName);
+    cy.get("a")
+      .contains("APARTMENTS")
+      .click();
+    cy.contains(apartmentName).should("not.exist");
+  });
+
+  it("should be unable to create a new apartment with lease end before lease start date", () => {
+    cy.visit(`${baseUrl}/newApartment`);
+    cy.get("h1").contains("Create New Apartment");
+
+    fillOutApartmentForm(invalidNewApartment2);
+
+    cy.get("input[type=submit]").click();
+    cy.get("input[name=LeaseEnd]").should("have.focus");
     cy.get("input[name=Name]").should("have.value", apartmentName);
     cy.get("a")
       .contains("APARTMENTS")
@@ -125,10 +152,15 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("input[id=occupantToAssign]").type(name);
     cy.contains("Select").click();
     cy.get("input[id=checkInDate]").type("2015-05-01");
+    cy.get("input[id=checkOutDate]").type("2000-10-01");
+    cy.get("input[type=submit]").click();
+    cy.get("input[id=checkOutDate]").should("have.focus");
+    cy.contains(`Successfully assigned ${name} to ${apartmentName}`).should(
+      "not.exist"
+    );
+
     cy.get("input[id=checkOutDate]").type("2015-10-01");
-    cy.get("button")
-      .contains("Assign")
-      .click();
+    cy.get("input[type=submit]").click();
     cy.contains(`Successfully assigned ${name} to ${apartmentName}`);
   });
 
