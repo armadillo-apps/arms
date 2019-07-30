@@ -174,6 +174,10 @@ class ApartmentProfile extends Component {
                 <p>{apartment.bedrooms}</p>
               </div>
             </div>
+            <div>
+              <h2>Remarks</h2>
+              <p className="remarks__body">{apartment.remarks}</p>
+            </div>
             <div className="apartmentProfile__headerContainer">
               <h2 className="apartmentProfile__header2">Occupants</h2>
               <button
