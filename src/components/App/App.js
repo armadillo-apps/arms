@@ -63,7 +63,7 @@ class App extends Component {
     });
   };
 
-  openModal = (id, occupant) => {
+  openEditOccupantModal = (id, occupant) => {
     const {
       _id,
       name,
@@ -191,7 +191,7 @@ class App extends Component {
                   occupants={this.state.occupants}
                   updateOccupantDetails={this.updateOccupantDetails}
                   onSubmit={this.onEditOccupantFormSubmit}
-                  openModal={this.openModal}
+                  openModal={this.openEditOccupantModal}
                   closeModal={this.closeModal}
                   isModalOpen={this.state.editOccupantModal.isModalOpen}
                   onChange={this.onEditOccupantFormChange}
