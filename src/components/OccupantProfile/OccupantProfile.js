@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./OccupantProfile.css";
+import { fetchStays } from "../../api/api";
+import { formatDate } from "../../utils/date";
 
 const OccupantProfile = ({ occupants, history, match }) => {
+  const [stays, setStays] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await fetchStays();
+        setStays(data);
+      } catch (err) {
+        return err;
+      }
+    })();
+  }, []);
+
   if (!occupants || occupants.length < 1) {
     return <h1>Loading...</h1>;
   } else {
@@ -28,13 +43,20 @@ const OccupantProfile = ({ occupants, history, match }) => {
           </div>
           <div className="occupantProfile__header1Container">
             <h1 className="occupantProfile__header1">{occupant.name}</h1>
-            <span className={`occupantProfile__status ${occupant.status}`}>{occupant.status}</span>
+            <span className={`occupantProfile__status ${occupant.status}`}>
+              {occupant.status}
+            </span>
             <button className="occupantProfile__editDetailsButton">Edit</button>
           </div>
           <div className="occupantProfile__detailsContainer">
             <h2 className="occupantProfile__details">{occupant.employeeId}</h2>
-            <h2 className="occupantProfile__details">Gender: {occupant.gender}</h2>
-            <h2 className="occupantProfile__details">Country: {occupant.country}</h2>
+            <h2 className="occupantProfile__details">
+              Gender: {occupant.gender}
+            </h2>
+            <h2 className="occupantProfile__details">
+              Country: {occupant.country}
+            </h2>
+            <button onClick={setStays}>click me!</button>
           </div>
           <h1 className="occupantProfile__header2">Stay History</h1>
           <table className="stayHistory__table">
@@ -46,6 +68,18 @@ const OccupantProfile = ({ occupants, history, match }) => {
                 <th>Monthly Rental</th>
               </tr>
             </thead>
+            <tbody>
+              {stays &&
+                stays.map(stay => {
+                  return (
+                    <tr key={stay._id}>
+                      <td>{stay.apartment.name}</td>
+                      <td>{formatDate(stay.checkInDate)}</td>
+                      <td>{formatDate(stay.checkOutDate)}</td>
+                    </tr>
+                  );
+                })}
+            </tbody>
           </table>
           <h1 className="occupantProfile__header2">Remarks</h1>
           <p className="remarks__body">{occupant.remarks}</p>

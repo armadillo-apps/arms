@@ -92,3 +92,12 @@ export const updateOccupant = async (
   const response = await axios.put(`/occupants/${occupantId}`, requestBody);
   return response.data;
 };
+
+export const fetchStays = async () => {
+  try{
+  const response = await axios.get(`/stays`)
+  return response.data
+  } catch(err) {
+    throw err
+  }
+}

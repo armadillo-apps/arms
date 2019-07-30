@@ -89,7 +89,10 @@ class App extends Component {
             <Route
               path="/occupants/:occupantId"
               render={props => (
-                <OccupantProfile occupants={this.state.occupants} {...props} />
+                <OccupantProfile
+                  occupants={this.state.occupants}
+                  {...props}
+                />
               )}
             />
             <Route

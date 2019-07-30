@@ -212,5 +212,13 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       .click();
     cy.contains(name).should("not.exist");
     cy.contains("No occupants yet!");
+
+    it("should be able to view apartment name, check-in & check-out dates and monthly rent", () => {
+      cy.visit(`${baseUrl}/occupants`);
+      cy.contains(name).click();
+      cy.contains(apartmentName);
+      cy.contains("1 May 15");
+      cy.contains("1 Oct 15");
+    });
   });
 });
