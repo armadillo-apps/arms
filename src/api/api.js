@@ -22,10 +22,18 @@ export const createNewApartment = async input => {
   return response.data;
 };
 
-export const createNewOccupant = async (name, employeeId, remarks, country, status) => {
+export const createNewOccupant = async (
+  name,
+  employeeId,
+  gender,
+  remarks,
+  country,
+  status
+) => {
   const requestBody = {
     name,
     employeeId,
+    gender,
     remarks,
     country,
     status
@@ -63,7 +71,15 @@ export const deleteStay = async stayId => {
   }
 };
 
-export const updateOccupant = async(occupantId, name, employeeId, gender, remarks, country, status) =>  {
+export const updateOccupant = async (
+  occupantId,
+  name,
+  employeeId,
+  gender,
+  remarks,
+  country,
+  status
+) => {
   const requestBody = {
     name,
     employeeId,
@@ -75,6 +91,4 @@ export const updateOccupant = async(occupantId, name, employeeId, gender, remark
 
   const response = await axios.put(`/occupants/${occupantId}`, requestBody);
   return response.data;
-}
-
-
+};
