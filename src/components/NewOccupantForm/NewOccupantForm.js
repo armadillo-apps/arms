@@ -106,7 +106,6 @@ class NewOccupantForm extends Component {
             onChange={this.onFormChange}
             value={this.state.country}
             type="text"
-            required
           />
           <section>
             <label htmlFor="status" className="occupantForm__statusLabel">
@@ -125,11 +124,6 @@ class NewOccupantForm extends Component {
             </select>
           </section>
         </div>
-        <input
-          className="occupantForm__createButton"
-          value="Create"
-          type="submit"
-        />
         {this.state.submitted ? (
           <ConfirmationMessage
             success={this.state.success}
@@ -138,6 +132,11 @@ class NewOccupantForm extends Component {
         ) : (
           ""
         )}
+        <input
+          className="occupantForm__createButton"
+          value="Create"
+          type="submit"
+        />
       </form>
     );
   }

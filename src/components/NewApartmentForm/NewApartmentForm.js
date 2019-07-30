@@ -117,7 +117,6 @@ class NewApartmentForm extends Component {
               onChange={this.onFormChange}
               value={this.state.landLordName}
               type="text"
-              required
             />
             <Input
               id="landlord-account-number"
@@ -127,7 +126,6 @@ class NewApartmentForm extends Component {
               value={this.state.landLordAccount}
               type="text"
               width="196px"
-              required
             />
           </div>
           <div className="formDivide">
@@ -184,7 +182,6 @@ class NewApartmentForm extends Component {
               type="number"
               min="0"
               width="61px"
-              required
             />
           </div>
           <Input
@@ -203,11 +200,6 @@ class NewApartmentForm extends Component {
             value={this.state.remarks}
             type="text"
           />
-          <input
-            className="apartmentForm__createButton"
-            value="Create"
-            type="submit"
-          />
           {this.state.submitted ? (
             <ConfirmationMessage
               message={this.state.message}
@@ -216,6 +208,11 @@ class NewApartmentForm extends Component {
           ) : (
             ""
           )}
+          <input
+            className="apartmentForm__createButton"
+            value="Create"
+            type="submit"
+          />
         </div>
       </form>
     );
