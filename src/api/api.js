@@ -78,9 +78,11 @@ export const updateOccupant = async (
   gender,
   remarks,
   country,
-  status
+  status,
+  _id
 ) => {
   const requestBody = {
+    _id,
     name,
     employeeId,
     gender,
