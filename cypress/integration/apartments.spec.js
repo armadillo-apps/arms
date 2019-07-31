@@ -75,13 +75,13 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("textarea[name=Remarks]").type("testing!!!");
   };
 
-  it.only("should create a new occupant and show occupant profile", () => {
+  it("should create a new occupant and show occupant profile", () => {
     const status = "allocated";
 
     cy.visit(`${baseUrl}/newOccupant`);
     cy.get("h1").contains("Create New Occupant");
-    cy.get("input[name=name]").type(name);
-    cy.get("input[name=employeeId]").type(employeeId);
+    cy.get("input[name=name]").type(modName);
+    cy.get("input[name=employeeId]").type(modEmployeeId);
     cy.get("input[name=gender]").type("female");
     cy.get("textarea[name=remarks]").type("BAD REMARKS");
     cy.get("input[name=country]").type("Thailand");
@@ -91,23 +91,29 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       .contains("OCCUPANTS")
       .click();
     cy.get("td")
-      .contains(employeeId)
+      .contains(modEmployeeId)
       .click();
-    cy.get("h1").contains(name);
-    cy.get("h2").contains(employeeId);
+    cy.get("h1").contains(modName);
+    cy.get("h2").contains(modEmployeeId);
     cy.get("h2").contains(/Gender: Female/i);
     cy.get("h2").contains(/Country: Thailand/i);
     cy.get("span").contains(status);
+  });
 
+  it("should be able to edit the occupant details", () => {
+    cy.visit(`${baseUrl}/occupants`);
+    cy.get("td")
+      .contains(modEmployeeId)
+      .click();
     cy.get("button")
       .contains(/edit/i)
       .click();
     cy.get("input[name=name]")
       .clear()
-      .type(modName);
+      .type(name);
     cy.get("input[name=employeeId]")
       .clear()
-      .type(modEmployeeId);
+      .type(employeeId);
     cy.get("input[name=gender]")
       .clear()
       .type("male");
@@ -119,18 +125,16 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       .type("Singapore");
     cy.get("select[name=status]").select("Unallocated");
     cy.get("input[type=submit]").click();
-    cy.contains(`Successfully update new occupant: ${modName}`);
+    cy.contains(`Successfully update new occupant: ${name}`);
     cy.get("button")
       .contains(/close/i)
       .click();
-    cy.get("h1").contains(modName);
-    cy.get("h2").contains(modEmployeeId);
+    cy.get("h1").contains(name);
+    cy.get("h2").contains(employeeId);
     cy.get("h2").contains(/Gender: Male/i);
     cy.get("h2").contains(/Country: Singapore/i);
     cy.get("span").contains(/unallocated/i);
   });
-
-  it("should be able to edit the occupant details", () => {});
 
   it("should be unable to create a new apartment with -ve inputs", () => {
     cy.visit(`${baseUrl}/newApartment`);
@@ -237,6 +241,14 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.contains(name);
   });
 
+  it("should be able to view apartment name, check-in & check-out dates and monthly rent", () => {
+    cy.visit(`${baseUrl}/occupants`);
+    cy.contains(name).click();
+    cy.contains(apartmentName);
+    cy.contains("1 May 15");
+    cy.contains("1 Oct 15");
+  });
+
   it("be able to remove an occupant's stay from an apartment", () => {
     cy.visit(`${baseUrl}`);
     cy.contains(apartmentName).click();
@@ -248,13 +260,5 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       .click();
     cy.contains(name).should("not.exist");
     cy.contains("No occupants yet!");
-  });
-
-  it("should be able to view apartment name, check-in & check-out dates and monthly rent", () => {
-    cy.visit(`${baseUrl}/occupants`);
-    cy.contains(name).click();
-    cy.contains(apartmentName);
-    cy.contains("1 May 15");
-    cy.contains("1 Oct 15");
   });
 });
