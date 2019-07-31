@@ -49,7 +49,12 @@ describe("Occupant profile", () => {
 
   it("should render a back button", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates}/>
+      <OccupantProfile
+        occupants={occupantDetails}
+        match={match}
+        stays={[]}
+        modalStates={modalStates}
+      />
     );
 
     expect(getByText("< Back")).toBeInTheDocument();
@@ -57,7 +62,12 @@ describe("Occupant profile", () => {
 
   it("should render occupant name as header", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
+      <OccupantProfile
+        occupants={occupantDetails}
+        match={match}
+        stays={[]}
+        modalStates={modalStates}
+      />
     );
 
     expect(getByText("Tom")).toBeInTheDocument();
@@ -65,7 +75,12 @@ describe("Occupant profile", () => {
 
   it("should render occupant employeeId", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
+      <OccupantProfile
+        occupants={occupantDetails}
+        match={match}
+        stays={[]}
+        modalStates={modalStates}
+      />
     );
 
     expect(getByText("1234567a")).toBeInTheDocument();
@@ -73,7 +88,12 @@ describe("Occupant profile", () => {
 
   it("should render occupant gender", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
+      <OccupantProfile
+        occupants={occupantDetails}
+        match={match}
+        stays={[]}
+        modalStates={modalStates}
+      />
     );
 
     expect(getByText(/gender/i)).toBeInTheDocument();
@@ -82,7 +102,12 @@ describe("Occupant profile", () => {
 
   it("should render occupant country", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
+      <OccupantProfile
+        occupants={occupantDetails}
+        match={match}
+        stays={[]}
+        modalStates={modalStates}
+      />
     );
 
     expect(getByText(/country/i)).toBeInTheDocument();
@@ -91,7 +116,12 @@ describe("Occupant profile", () => {
 
   it("should render stay history", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
+      <OccupantProfile
+        occupants={occupantDetails}
+        match={match}
+        stays={[]}
+        modalStates={modalStates}
+      />
     );
 
     expect(getByText("Stay History")).toBeInTheDocument();
@@ -99,7 +129,12 @@ describe("Occupant profile", () => {
 
   it("should render occupant remarks", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
+      <OccupantProfile
+        occupants={occupantDetails}
+        match={match}
+        stays={[]}
+        modalStates={modalStates}
+      />
     );
     expect(getByText("Remarks")).toBeInTheDocument();
     expect(getByText("might extend stay")).toBeInTheDocument();
@@ -107,14 +142,19 @@ describe("Occupant profile", () => {
 
   it("should render occupant status", () => {
     const { getByText } = render(
-      <OccupantProfile occupants={occupantDetails} match={match} stays={[]} modalStates={modalStates} />
+      <OccupantProfile
+        occupants={occupantDetails}
+        match={match}
+        stays={[]}
+        modalStates={modalStates}
+      />
     );
 
     expect(getByText("unallocated")).toBeInTheDocument();
   });
 
   // skipped to suppress warnings for `not wrapped in act(...)` to fix, requires updating to React 16.9; https://github.com/testing-library/react-testing-library/issues/281#issuecomment-482718350
-  
+
   describe.skip("render the occupant staying history", () => {
     const stays = [
       {
@@ -141,6 +181,7 @@ describe("Occupant profile", () => {
           occupants={occupantDetails}
           match={match}
           stays={stays}
+          modalStates={modalStates}
         />
       );
 
@@ -155,7 +196,11 @@ describe("Occupant profile", () => {
       fetchStays.mockResolvedValue(stays);
 
       const { getByText } = render(
-        <OccupantProfile occupants={occupantDetails} match={match} />
+        <OccupantProfile
+          occupants={occupantDetails}
+          match={match}
+          modalStates={modalStates}
+        />
       );
 
       await wait(() => {
@@ -168,7 +213,11 @@ describe("Occupant profile", () => {
       fetchStays.mockResolvedValue(stays);
 
       const { getByText } = render(
-        <OccupantProfile occupants={occupantDetails} match={match} />
+        <OccupantProfile
+          occupants={occupantDetails}
+          match={match}
+          modalStates={modalStates}
+        />
       );
 
       await wait(() => {
