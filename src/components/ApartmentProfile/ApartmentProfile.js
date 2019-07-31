@@ -15,6 +15,7 @@ class ApartmentProfile extends Component {
   constructor(props) {
     super(props);
     this.apartmentId = this.props.match.params.apartmentId;
+    this.today = new Date();
     this.state = {
       renderToggle: false,
       occupantToAssign: "",
@@ -28,7 +29,10 @@ class ApartmentProfile extends Component {
       occupantHistory: [],
       stayToDelete: "",
       isAssignOccupantModalOpen: false,
-      isConfirmationModalOpen: false
+      isConfirmationModalOpen: false,
+      currentOccupants: [],
+      futureOccupants: [],
+      pastOccupants: []
     };
   }
 
@@ -41,6 +45,7 @@ class ApartmentProfile extends Component {
     } catch (err) {
       return err.message;
     }
+    this.organiseOccupants();
   };
 
   componentDidUpdate = async (prevProps, prevState) => {
@@ -50,6 +55,7 @@ class ApartmentProfile extends Component {
           this.apartmentId
         );
         this.setState({ occupantHistory });
+        this.organiseOccupants();
       } catch (err) {
         return err.message;
       }
@@ -138,6 +144,77 @@ class ApartmentProfile extends Component {
     this.setState({ [id]: false, message: "" });
   };
 
+  organiseOccupants = () => {
+    this.setState({
+      currentOccupants: this.sortOccupants(this.getCurrentOccupants()),
+      futureOccupants: this.sortOccupants(this.getFutureOccupants()),
+      pastOccupants: this.sortOccupants(this.getPastOccupants())
+    });
+  };
+
+  getCurrentOccupants = () => {
+    return this.state.occupantHistory
+      .filter(stay => {
+        return (
+          moment(this.today).isSameOrAfter(new Date(stay.checkInDate), "day") &&
+          moment(this.today).isSameOrBefore(new Date(stay.checkOutDate), "day")
+        );
+      })
+      .map(stay => {
+        return { ...stay, className: "currentOccupants" };
+      });
+  };
+
+  getFutureOccupants = () => {
+    return this.state.occupantHistory
+      .filter(stay => {
+        return moment(this.today).isBefore(new Date(stay.checkInDate), "day");
+      })
+      .map(stay => {
+        return { ...stay, className: "futureOccupants" };
+      });
+  };
+
+  getPastOccupants = () => {
+    return this.state.occupantHistory
+      .filter(stay => {
+        return moment(this.today).isAfter(new Date(stay.checkOutDate), "day");
+      })
+      .map(stay => {
+        return { ...stay, className: "pastOccupants" };
+      });
+  };
+
+  sortOccupants = array => {
+    return array.sort((beforeDate, afterDate) => {
+      if (
+        moment(new Date(beforeDate.checkOutDate)).isSame(
+          new Date(afterDate.checkOutDate)
+        )
+      ) {
+        if (
+          moment(new Date(beforeDate.checkInDate)).isBefore(
+            new Date(afterDate.checkInDate)
+          )
+        ) {
+          return 1;
+        } else {
+          return -1;
+        }
+      } else {
+        if (
+          moment(new Date(beforeDate.checkOutDate)).isBefore(
+            new Date(afterDate.checkOutDate)
+          )
+        ) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+    });
+  };
+
   render() {
     const apartmentId = this.props.match.params.apartmentId;
     if (!this.props.apartments || this.props.apartments.length < 1) {
@@ -169,7 +246,9 @@ class ApartmentProfile extends Component {
             <div className="apartmentProfile__details">
               <div className="occupantsNumber">
                 <h2>No. of Occupants</h2>
-                <p>0</p>
+                <p data-testid="occupantsCount">
+                  {this.state.currentOccupants.length}
+                </p>
               </div>
               <div className="capacity">
                 <h2>Capacity</h2>
@@ -262,17 +341,26 @@ class ApartmentProfile extends Component {
               </thead>
               <tbody>
                 {this.state.occupantHistory.length > 0 ? (
-                  this.state.occupantHistory.map((occupant, index) => {
+                  [
+                    ...this.state.futureOccupants,
+                    ...this.state.currentOccupants,
+                    ...this.state.pastOccupants
+                  ].map((occupant, index) => {
                     const {
                       _id,
                       occupantName,
                       checkInDate,
                       checkOutDate,
-                      occupantRemarks
+                      occupantRemarks,
+                      className
                     } = occupant;
 
                     return (
-                      <tr key={_id}>
+                      <tr
+                        key={_id}
+                        className={className}
+                        data-testid="tableRow"
+                      >
                         <td>{occupantName}</td>
                         <td>
                           {moment(new Date(checkInDate)).format("D MMM YY")}

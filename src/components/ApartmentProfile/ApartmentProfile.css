@@ -150,3 +150,14 @@
 #confirmationModal {
   cursor: pointer;
 }
+
+.futureOccupants td {
+  background-color: rgb(162, 252, 162);
+}
+.currentOccupants td {
+  background-color: white;
+}
+.pastOccupants td {
+  background-color: white;
+  color:lightgrey;
+}

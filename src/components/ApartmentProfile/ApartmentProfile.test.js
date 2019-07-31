@@ -4,7 +4,6 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, cleanup, waitForElement } from "@testing-library/react";
 import ApartmentProfile from "./ApartmentProfile";
 import * as data from "../../api/api";
-import moment from "moment";
 
 const apartmentDetails = [
   {
@@ -50,8 +49,8 @@ const stayingHistory = [
     _id: "67890123",
     apartmentId: "12345abc",
     occupantId: "5d2ef34111ead80017be83df",
-    checkInDate: "1 Feb 19",
-    checkOutDate: "1 Mar 19",
+    checkInDate: new Date("01-01-2010"),
+    checkOutDate: new Date("01-01-2011"),
     leaseId: "e83724nht8",
     occupantName: "John"
   },
@@ -59,8 +58,8 @@ const stayingHistory = [
     _id: "67890124",
     apartmentId: "12345abc",
     occupantId: "5d2ef34111ead80017be1234",
-    checkInDate: "1 Apr 19",
-    checkOutDate: "1 May 19",
+    checkInDate: new Date("01-01-2200"),
+    checkOutDate: new Date("01-01-2300"),
     leaseId: "e83724nht8",
     occupantName: "Tim"
   },
@@ -68,8 +67,8 @@ const stayingHistory = [
     _id: "67890125",
     apartmentId: "12345abc",
     occupantId: "5d2ef34111ead80016be1324",
-    checkInDate: "1 Apr 19",
-    checkOutDate: moment(Date.now()).format("D-MMM-YY"),
+    checkInDate: new Date("01-01-2018"),
+    checkOutDate: new Date(),
     leaseId: "e83724nht8",
     occupantName: "Kai"
   }
@@ -143,8 +142,8 @@ describe("Apartment Profile", () => {
     );
     const occupantName1 = await waitForElement(() => getByText("John"));
     const occupantName2 = await waitForElement(() => getByText("Tim"));
-    const checkInDate1 = await waitForElement(() => getByText("1 Feb 19"));
-    const checkOutDate2 = await waitForElement(() => getByText("1 May 19"));
+    const checkInDate1 = await waitForElement(() => getByText("1 Jan 10"));
+    const checkOutDate2 = await waitForElement(() => getByText("1 Jan 11"));
 
     expect(occupantName1).toBeInTheDocument();
     expect(occupantName2).toBeInTheDocument();
@@ -160,5 +159,31 @@ describe("Apartment Profile", () => {
     const message = await waitForElement(() => getByText("No occupants yet!"));
 
     expect(message).toBeInTheDocument();
+  });
+
+  it("should be able to update the number of occupants", async () => {
+    getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
+    const { getByTestId } = render(
+      <ApartmentProfile apartments={apartmentDetails} match={match} />
+    );
+    const noOccupants = await waitForElement(() =>
+      getByTestId("occupantsCount")
+    );
+    expect(noOccupants).toBeInTheDocument();
+    expect(noOccupants.textContent).toEqual("1");
+  });
+
+  it("should sort occupants by check-in date", async () => {
+    getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
+    const { getAllByTestId, container } = render(
+      <ApartmentProfile apartments={apartmentDetails} match={match} />
+    );
+    const pastOccupant = await waitForElement(() => getAllByTestId("tableRow"));
+    expect(pastOccupant[0]).toHaveClass("futureOccupants");
+    expect(JSON.stringify(pastOccupant[0].innerHTML)).toMatch("Tim");
+    expect(pastOccupant[1]).toHaveClass("currentOccupants");
+    expect(JSON.stringify(pastOccupant[1].innerHTML)).toMatch("Kai");
+    expect(pastOccupant[2]).toHaveClass("pastOccupants");
+    expect(JSON.stringify(pastOccupant[2].innerHTML)).toMatch("John");
   });
 });
