@@ -46,13 +46,15 @@ export const createStay = async (
   occupantId,
   apartmentId,
   checkInDate,
-  checkOutDate
+  checkOutDate,
+  leaseId
 ) => {
   const requestBody = {
     occupantId: occupantId,
     apartmentId: apartmentId,
     checkInDate: checkInDate,
-    checkOutDate: checkOutDate
+    checkOutDate: checkOutDate,
+    leaseId: leaseId
   };
   try {
     const response = await axios.post("/stays", requestBody);

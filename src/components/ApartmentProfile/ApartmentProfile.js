@@ -25,6 +25,7 @@ class ApartmentProfile extends Component {
       apartmentId: "",
       checkInDate: "",
       checkOutDate: "",
+      leaseId: "",
       success: false,
       message: "",
       dropdown: true,
@@ -40,6 +41,7 @@ class ApartmentProfile extends Component {
   }
 
   componentDidMount = async () => {
+    this.selectLeaseId();
     try {
       const occupantHistory = await getApartmentProfileHistory(
         this.apartmentId
@@ -73,6 +75,20 @@ class ApartmentProfile extends Component {
     });
   };
 
+  selectLeaseId = async () => {
+    // eslint-disable-next-line no-extra-boolean-cast
+    if (this.props.apartments.length < 1) {
+      return "";
+    }
+    const thisApartment = await this.props.apartments.find(apartment => {
+      return apartment._id === this.apartmentId;
+    });
+    const foundLease = thisApartment.leases.find(
+      lease => Date.parse(lease.leaseEnd) > Date.parse(new Date())
+    );
+    this.setState({ leaseId: foundLease._id });
+  };
+
   addStay = async event => {
     try {
       event.preventDefault();
@@ -80,7 +96,8 @@ class ApartmentProfile extends Component {
         this.state.occupantId,
         this.state.apartmentId,
         this.state.checkInDate,
-        this.state.checkOutDate
+        this.state.checkOutDate,
+        this.state.leaseId
       );
       this.setState({
         apartmentId: "",

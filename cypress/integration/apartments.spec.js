@@ -45,7 +45,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     landlordName,
     accountNumber,
     leaseStart: "2019-07-01",
-    leaseEnd: "2019-07-10",
+    leaseEnd: "2020-07-10",
     monthlyRent,
     capacity: 1,
     bedrooms: 1
@@ -198,7 +198,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       .click();
     cy.get("input[id=occupantToAssign]").type(name);
     cy.contains("Select").click();
-    cy.get("input[id=checkInDate]").type("2015-05-01");
+    cy.get("input[id=checkInDate]").type("2018-05-01");
     cy.get("input[id=checkOutDate]").type("2000-10-01");
     cy.get("input[type=submit]").click();
     cy.get("input[id=checkOutDate]").should("have.focus");
@@ -206,7 +206,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       "not.exist"
     );
 
-    cy.get("input[id=checkOutDate]").type("2015-10-01");
+    cy.get("input[id=checkOutDate]").type("2019-10-01");
     cy.get("input[type=submit]").click();
     cy.contains(`Successfully assigned ${name} to ${apartmentName}`);
   });
@@ -251,9 +251,9 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.visit(`${baseUrl}/occupants`);
     cy.contains(name).click();
     cy.contains(apartmentName);
-    cy.contains("1 May 15");
-    cy.contains("1 Oct 15");
-    cy.get("td").contains("Lease not allocated");
+    cy.contains("1 May 18");
+    cy.contains("1 Oct 19");
+    cy.contains(monthlyRent);
   });
 
   it("be able to remove an occupant's stay from an apartment", () => {
