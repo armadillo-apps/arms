@@ -21,6 +21,8 @@ const customStyles = {
   }
 };
 
+Modal.setAppElement("body");
+
 const EditApartmentModal = ({ isModalOpen, closeModal, children }) => {
   return (
     <Modal
