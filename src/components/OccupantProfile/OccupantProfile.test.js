@@ -156,12 +156,32 @@ describe("Occupant profile", () => {
   // skipped to suppress warnings for `not wrapped in act(...)` to fix, requires updating to React 16.9; https://github.com/testing-library/react-testing-library/issues/281#issuecomment-482718350
 
   describe.skip("render the occupant staying history", () => {
+    const modalStates = {
+      success: true,
+      message: "success"
+    };
+
     const stays = [
       {
         _id: "123",
         apartment: {
-          name: "Parc Sophia"
+          name: "Parc Sophia",
+          leases: [
+            {
+              _id: "5d401557d855f9677f345692",
+              leaseStart: "2008-10-25T00:00:00.000Z",
+              leaseEnd: "2004-12-25T00:00:00.000Z",
+              monthlyRent: "6000"
+            },
+            {
+              _id: "5d40fb0fe45a8c76d1061ebd",
+              leaseStart: "2009-11-25T00:00:00.000Z",
+              leaseEnd: "2003-11-25T00:00:00.000Z",
+              monthlyRent: "7000"
+            }
+          ]
         },
+        leaseId: "5d401557d855f9677f345692",
         checkInDate: "2009-12-25T00:00:00.000Z",
         checkOutDate: "2019-12-25T00:00:00.000Z"
       },
@@ -170,8 +190,23 @@ describe("Occupant profile", () => {
         checkInDate: "2001-12-25T00:00:00.000Z",
         checkOutDate: "2002-12-25T00:00:00.000Z",
         apartment: {
-          name: "The Beacon Condo"
-        }
+          name: "The Beacon Condo",
+          leases: [
+            {
+              _id: "5d401557d855f9677f345693",
+              leaseStart: "2008-10-25T00:00:00.000Z",
+              leaseEnd: "2004-12-25T00:00:00.000Z",
+              monthlyRent: "6000"
+            },
+            {
+              _id: "5d40fb0fe45a8c76d1061eb4",
+              leaseStart: "2009-11-25T00:00:00.000Z",
+              leaseEnd: "2003-11-25T00:00:00.000Z",
+              monthlyRent: "7000"
+            }
+          ]
+        },
+        leaseId: "5d401557d855f9677f345693"
       }
     ];
 
@@ -180,7 +215,6 @@ describe("Occupant profile", () => {
         <OccupantProfile
           occupants={occupantDetails}
           match={match}
-          stays={stays}
           modalStates={modalStates}
         />
       );

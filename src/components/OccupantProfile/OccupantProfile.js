@@ -96,6 +96,7 @@ const OccupantProfile = ({
                       <td>{stay.apartment.name}</td>
                       <td>{formatDate(stay.checkInDate)}</td>
                       <td>{formatDate(stay.checkOutDate)}</td>
+                      <td>{stay.apartment.leases[0].monthlyRent}</td>
                     </tr>
                   );
                 })}
