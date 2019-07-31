@@ -141,6 +141,7 @@ workflows:
           requires:
             - build
             - unitTest
+            - pingAllDeploymentServers
       - dropDb:
           requires:
             - deployTest

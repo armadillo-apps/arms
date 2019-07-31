@@ -134,6 +134,12 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("h2").contains(/Gender: Male/i);
     cy.get("h2").contains(/Country: Singapore/i);
     cy.get("span").contains(/unallocated/i);
+
+    cy.get("a")
+      .contains("OCCUPANTS")
+      .click();
+    cy.contains(name);
+    cy.contains(employeeId);
   });
 
   it("should be unable to create a new apartment with -ve inputs", () => {

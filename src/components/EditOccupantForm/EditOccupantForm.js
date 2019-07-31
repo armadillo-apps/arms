@@ -1,8 +1,8 @@
-import React from 'react';
-import Input from '../Input/Input.js';
-import TextArea from '../Input/TextArea.js';
-import './EditOccupantForm.css';
-import ConfirmationMessage from '../ConfirmationMessage/ConfirmationMessage';
+import React from "react";
+import Input from "../Input/Input.js";
+import TextArea from "../Input/TextArea.js";
+import "./EditOccupantForm.css";
+import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 
 const EditOccupantForm = ({
   onSubmit,
@@ -61,7 +61,6 @@ const EditOccupantForm = ({
             onChange={onChange}
             defaultValue={defaultCountry}
             type="text"
-            required
             width="100px"
             editOccupantLabel="input__editOccupantLabel"
           />
@@ -78,10 +77,9 @@ const EditOccupantForm = ({
           height="60px"
           editOccupantLabel="input__editOccupantLabel"
         />
-
         <section>
           <label htmlFor="status" className="editOccupantForm__statusLabel">
-            Occupant Status:{' '}
+            Occupant Status:{" "}
           </label>
           <select
             id="status"
