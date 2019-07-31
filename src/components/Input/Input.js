@@ -1,9 +1,17 @@
-import React from "react";
-import "./Input.css";
-const Input = ({ id, label, name, width, value, ...otherProps }) => {
+import React from 'react';
+import './Input.css';
+const Input = ({
+  id,
+  label,
+  name,
+  width,
+  value,
+  editOccupantLabel,
+  ...otherProps
+}) => {
   return (
     <section className="input">
-      <label className="input__label" htmlFor={id}>
+      <label className={`input__label ${editOccupantLabel}`} htmlFor={id}>
         {label}
       </label>
       <input
