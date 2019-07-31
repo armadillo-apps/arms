@@ -1,8 +1,8 @@
-import React from "react";
-import Input from "../Input/Input.js";
-import TextArea from "../Input/TextArea.js";
-import "./EditOccupantForm.css";
-import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
+import React from 'react';
+import Input from '../Input/Input.js';
+import TextArea from '../Input/TextArea.js';
+import './EditOccupantForm.css';
+import ConfirmationMessage from '../ConfirmationMessage/ConfirmationMessage';
 
 const EditOccupantForm = ({
   onSubmit,
@@ -30,14 +30,8 @@ const EditOccupantForm = ({
           onChange={onChange}
           defaultValue={defaultName}
           type="text"
-        />
-        <Input
-          id="employeeId"
-          label="Employee ID"
-          name="employeeId"
-          onChange={onChange}
-          defaultValue={defaultId}
-          type="text"
+          width="250px"
+          editOccupantLabel="input__editOccupantLabel"
         />
         <Input
           id="gender"
@@ -46,7 +40,33 @@ const EditOccupantForm = ({
           onChange={onChange}
           defaultValue={defaultGender}
           type="text"
+          width="100px"
+          editOccupantLabel="input__editOccupantLabel"
         />
+        <div className="editOccupantForm__flex">
+          <Input
+            id="employeeId"
+            label="Employee ID"
+            name="employeeId"
+            onChange={onChange}
+            defaultValue={defaultId}
+            type="text"
+            width="250px"
+            editOccupantLabel="input__editOccupantLabel"
+          />
+          <Input
+            id="country"
+            label="Country"
+            name="country"
+            onChange={onChange}
+            defaultValue={defaultCountry}
+            type="text"
+            required
+            width="100px"
+            editOccupantLabel="input__editOccupantLabel"
+          />
+        </div>
+
         <TextArea
           id="remarks"
           label="Remarks"
@@ -54,25 +74,21 @@ const EditOccupantForm = ({
           onChange={onChange}
           defaultValue={defaultRemarks}
           type="text"
+          width="250px"
+          height="60px"
+          editOccupantLabel="input__editOccupantLabel"
         />
-        <Input
-          id="country"
-          label="Country"
-          name="country"
-          onChange={onChange}
-          defaultValue={defaultCountry}
-          type="text"
-          required
-        />
+
         <section>
           <label htmlFor="status" className="editOccupantForm__statusLabel">
-            Occupant Status:{" "}
+            Occupant Status:{' '}
           </label>
           <select
             id="status"
             name="status"
             defaultValue={defaultStatus}
             onChange={onChange}
+            className="editOccupantForm__select"
           >
             <option value="">Select...</option>
             <option value="allocated">Allocated</option>

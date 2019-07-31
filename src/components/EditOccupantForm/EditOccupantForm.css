@@ -2,3 +2,35 @@
   width: 500px;
   height: 500px;
 }
+
+.editOccupantForm__flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.editOccupantForm__statusLabel {
+  font-size: var(--main-h2-font-size);
+  margin-bottom: 5px;
+}
+
+.editOccupantForm__select {
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  border-radius: 3px;
+  user-select: none;
+  padding: 0.5rem;
+  outline: none;
+}
+
+.editOccupantForm__updateButton {
+  background: var(--green-color);
+  font-size: var(--main-h2-font-size);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  height: 30px;
+  width: 120px;
+  margin-top: 2px;
+  cursor: pointer;
+}
