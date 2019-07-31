@@ -19,18 +19,6 @@ const occupantDetails = [
   }
 ];
 
-const stayingHistory = [
-  {
-    _id: "67890123",
-    apartmentId: "12345abc",
-    occupantId: "5d2ef34111ead80017be83df",
-    checkInDate: "1 Feb 19",
-    checkOutDate: "1 Mar 19",
-    leaseId: "e83724nht8",
-    apartmentName: "Parc Sophia"
-  }
-];
-
 describe("Occupant profile", () => {
   let match, modalStates;
 
@@ -205,8 +193,8 @@ describe("Occupant profile", () => {
               monthlyRent: "7000"
             }
           ]
-        },
-        leaseId: "5d401557d855f9677f345693"
+        }
+        // leaseId: "5d401557d855f9677f345693"
       }
     ];
 
@@ -259,6 +247,23 @@ describe("Occupant profile", () => {
         expect(getByText("25 Dec 19")).toBeInTheDocument();
         expect(getByText("25 Dec 01")).toBeInTheDocument();
         expect(getByText("25 Dec 02")).toBeInTheDocument();
+      });
+    });
+
+    it("should display rent or error message if lease not allocated", async () => {
+      fetchStays.mockResolvedValue(stays);
+
+      const { getByText } = render(
+        <OccupantProfile
+          occupants={occupantDetails}
+          match={match}
+          modalStates={modalStates}
+        />
+      );
+
+      await wait(() => {
+        expect(getByText("6000")).toBeInTheDocument();
+        expect(getByText("Lease not allocated")).toBeInTheDocument();
       });
     });
   });

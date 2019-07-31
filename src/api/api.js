@@ -95,11 +95,11 @@ export const updateOccupant = async (
   return response.data;
 };
 
-export const fetchStays = async () => {
-  try{
-  const response = await axios.get(`/stays`)
-  return response.data
-  } catch(err) {
-    throw err
+export const fetchStays = async id => {
+  try {
+    const response = await axios.get(`/stays?occupantId=${id}`);
+    return response.data;
+  } catch (err) {
+    throw err;
   }
-}
+};

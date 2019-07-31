@@ -22,12 +22,13 @@ const OccupantProfile = ({
   useEffect(() => {
     (async () => {
       try {
-        const data = await fetchStays();
+        const data = await fetchStays(match.params.occupantId);
         setStays(data);
       } catch (err) {
         return err;
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!occupants || occupants.length < 1) {
@@ -37,6 +38,7 @@ const OccupantProfile = ({
     const occupant = occupants.find(occupant => {
       return occupant._id === occupantId;
     });
+
     if (!occupant) {
       return (
         <div className="occupantProfileContainer">
@@ -45,6 +47,22 @@ const OccupantProfile = ({
         </div>
       );
     }
+
+    const rentFromLease = (stayLeaseId, apartmentLeaseId) => {
+      try {
+        const foundLease = apartmentLeaseId.find(lease => {
+          return stayLeaseId === lease._id;
+        });
+
+        if (foundLease) {
+          return foundLease.monthlyRent;
+        }
+        throw new Error("Lease not allocated");
+      } catch (err) {
+        return err.message;
+      }
+    };
+
     return (
       <div className="occupantProfileContainer">
         <div className="occupantProfile">
@@ -96,7 +114,9 @@ const OccupantProfile = ({
                       <td>{stay.apartment.name}</td>
                       <td>{formatDate(stay.checkInDate)}</td>
                       <td>{formatDate(stay.checkOutDate)}</td>
-                      <td>{stay.apartment.leases[0].monthlyRent}</td>
+                      <td>
+                        {rentFromLease(stay.leaseId, stay.apartment.leases)}
+                      </td>
                     </tr>
                   );
                 })}
