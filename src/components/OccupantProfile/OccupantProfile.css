@@ -40,7 +40,7 @@
 .occupantProfile__details {
   font-weight: normal;
   font-size: 1rem;
-  color: #767B86;
+  color: #767b86;
   margin: 1rem 0;
   text-transform: capitalize;
 }
@@ -54,10 +54,16 @@
   width: 20%;
 }
 
-.stayHistory__headers th {
+.stayHistory__table th {
   font-size: var(--main-h2-font-size);
   margin: 1rem;
-  padding: 20px;
+  width: 200px;
+}
+
+.stayHistory__table td {
+  font-size: var(--main-h2-font-size);
+  text-align: center;
+  background-color: white;
 }
 
 .remarks__body {
@@ -65,7 +71,7 @@
   height: 50px;
   padding: 1rem;
   background-color: white;
-  width:50%;
+  width: 50%;
   border-radius: 10px;
 }
 
@@ -90,8 +96,8 @@
   margin-left: 1rem;
   min-width: 50px;
   text-align: center;
-  border:none;
-  outline:none;
+  border: none;
+  outline: none;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   background-color: #fff;

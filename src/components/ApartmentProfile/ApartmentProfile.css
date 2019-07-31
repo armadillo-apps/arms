@@ -87,11 +87,6 @@
 .apartmentProfile__occupants th {
   font-size: var(--main-h2-font-size);
   margin: 1rem;
-}
-
-.apartmentProfile__occupants th {
-  font-size: var(--main-h2-font-size);
-  margin: 1rem;
   width: 200px;
 }
 

@@ -247,6 +247,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.contains(apartmentName);
     cy.contains("1 May 15");
     cy.contains("1 Oct 15");
+    cy.get("td").contains("Lease not allocated");
   });
 
   it("be able to remove an occupant's stay from an apartment", () => {
