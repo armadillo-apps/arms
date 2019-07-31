@@ -63,7 +63,7 @@ describe("EditApartmentForm", () => {
     it("should render an Update button", () => {
       const { getByText } = render(<EditApartmentForm />);
       expect(getByText("Update")).toBeInTheDocument();
-      expect(getByText("Update")).toHaveAttribute('type', 'submit');
+      expect(getByText("Update")).toHaveAttribute("type", "submit");
     });
 
     it("should render a Cancel button", () => {
@@ -106,5 +106,24 @@ describe("EditApartmentForm", () => {
     });
   });
 
-  
+  describe("Update button", () => {
+    it("should call onSubmit with updated details", () => {
+      const onSubmit = jest.fn().mockImplementation(event => {
+        event.preventDefault();
+      });
+
+      const { getByText, getByLabelText } = render(
+        <EditApartmentForm onSubmit={onSubmit} />
+      );
+
+      const nameInput = getByLabelText("Apartment Name");
+      fireEvent.change(nameInput, { target: { value: "The Beacon" } });
+
+      const updateButton = getByText("Update");
+      fireEvent.click(updateButton);
+
+      expect(onSubmit).toHaveBeenCalledTimes(1);
+      expect(onSubmit).toHaveBeenCalledWith(expect.anything(),{ name: "The Beacon" });
+    });
+  });
 });

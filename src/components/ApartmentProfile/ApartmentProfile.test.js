@@ -1,7 +1,12 @@
 import React from "react";
 import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
-import { render, cleanup, waitForElement } from "@testing-library/react";
+import {
+  render,
+  cleanup,
+  waitForElement,
+  fireEvent
+} from "@testing-library/react";
 import ApartmentProfile from "./ApartmentProfile";
 import * as data from "../../api/api";
 
@@ -186,4 +191,32 @@ describe("Apartment Profile", () => {
     expect(occupants[2]).toHaveClass("pastOccupants");
     expect(JSON.stringify(occupants[2].innerHTML)).toMatch("John");
   });
+
+  describe("EditApartmentFormModal", () => {
+    it("should open modal when edit button is clicked", () => {
+      const { getByText } = render(
+        <ApartmentProfile apartments={apartmentDetails} match={match} />
+      );
+
+      const editButton = getByText("Edit");
+      fireEvent.click(editButton);
+
+      const modalHeader = getByText("Edit Apartment");
+      expect(modalHeader).toBeInTheDocument();
+    });
+
+    it("should close modal when cancel button is clicked", () => {
+      const { getByText, queryByText } = render(
+        <ApartmentProfile apartments={apartmentDetails} match={match} />
+      );
+
+      const editButton = getByText("Edit");
+      fireEvent.click(editButton);
+      const cancelButton = getByText("Cancel");
+      fireEvent.click(cancelButton);
+
+      const modalHeader = queryByText("Edit Apartment");
+      expect(modalHeader).not.toBeInTheDocument();
+    });
+  })
 });
