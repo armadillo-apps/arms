@@ -178,12 +178,12 @@ describe("Apartment Profile", () => {
     const { getAllByTestId, container } = render(
       <ApartmentProfile apartments={apartmentDetails} match={match} />
     );
-    const pastOccupant = await waitForElement(() => getAllByTestId("tableRow"));
-    expect(pastOccupant[0]).toHaveClass("futureOccupants");
-    expect(JSON.stringify(pastOccupant[0].innerHTML)).toMatch("Tim");
-    expect(pastOccupant[1]).toHaveClass("currentOccupants");
-    expect(JSON.stringify(pastOccupant[1].innerHTML)).toMatch("Kai");
-    expect(pastOccupant[2]).toHaveClass("pastOccupants");
-    expect(JSON.stringify(pastOccupant[2].innerHTML)).toMatch("John");
+    const occupants = await waitForElement(() => getAllByTestId("tableRow"));
+    expect(occupants[0]).toHaveClass("futureOccupants");
+    expect(JSON.stringify(occupants[0].innerHTML)).toMatch("Tim");
+    expect(occupants[1]).toHaveClass("currentOccupants");
+    expect(JSON.stringify(occupants[1].innerHTML)).toMatch("Kai");
+    expect(occupants[2]).toHaveClass("pastOccupants");
+    expect(JSON.stringify(occupants[2].innerHTML)).toMatch("John");
   });
 });
