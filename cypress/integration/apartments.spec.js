@@ -125,7 +125,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       .type("Singapore");
     cy.get("select[name=status]").select("Unallocated");
     cy.get("input[type=submit]").click();
-    cy.contains(`Successfully update new occupant: ${name}`);
+    cy.contains(`Successfully updated occupant: ${name}`);
     cy.get("button")
       .contains(/close/i)
       .click();
