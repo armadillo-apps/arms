@@ -1,9 +1,16 @@
 import React from "react";
 import Input from "../Input/Input.js";
+import TextArea from "../Input/TextArea.js";
 import "./EditOccupantForm.css";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 
-const EditOccupantForm = ({ onSubmit, onChange, occupant, message, success }) => {
+const EditOccupantForm = ({
+  onSubmit,
+  onChange,
+  occupant,
+  message,
+  success
+}) => {
   const {
     name: defaultName,
     employeeId: defaultId,
@@ -40,7 +47,7 @@ const EditOccupantForm = ({ onSubmit, onChange, occupant, message, success }) =>
           defaultValue={defaultGender}
           type="text"
         />
-        <Input
+        <TextArea
           id="remarks"
           label="Remarks"
           name="remarks"

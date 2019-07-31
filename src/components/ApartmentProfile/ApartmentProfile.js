@@ -187,6 +187,14 @@ class ApartmentProfile extends Component {
                 <h2>Bedrooms</h2>
                 <p>{apartment.bedrooms}</p>
               </div>
+              <div className="landlord">
+                <h2>Landlord Name</h2>
+                <p>{apartment.landlord.name}</p>
+              </div>
+              <div className="landlordAccount">
+                <h2>Landlord A/C No</h2>
+                <p>{apartment.landlord.accountNumber}</p>
+              </div>
             </div>
             <div>
               <h2>Remarks</h2>
