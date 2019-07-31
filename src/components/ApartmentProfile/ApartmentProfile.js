@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from "moment";
 import "./ApartmentProfile.css";
 import Lease from "../Lease/Lease";
 import ApartmentAssign from "../ApartmentAssign/ApartmentAssign";
@@ -9,7 +10,8 @@ import {
 } from "../../api/api";
 import ApartmentAssignModal from "../Modal/ApartmentAssignModal";
 import ConfirmationModal from "../Modal/ConfirmationModal";
-import moment from "moment";
+import EditApartmentModal from "../Modal/EditApartmentModal";
+import EditApartmentForm from "../EditApartmentForm/EditApartmentForm";
 
 class ApartmentProfile extends Component {
   constructor(props) {
@@ -30,6 +32,7 @@ class ApartmentProfile extends Component {
       stayToDelete: "",
       isAssignOccupantModalOpen: false,
       isConfirmationModalOpen: false,
+      isEditApartmentModalOpen: false,
       currentOccupants: [],
       futureOccupants: [],
       pastOccupants: []
@@ -242,7 +245,17 @@ class ApartmentProfile extends Component {
             >
               &lt; Back
             </div>
-            <h1 className="apartmentProfile__heading">{apartment.name}</h1>
+            <div className="apartmentProfile__headingContainer">
+              <h1 className="apartmentProfile__heading">{apartment.name}</h1>
+              <button
+                id="isEditApartmentModalOpen"
+                className="apartmentProfile__editDetailsButton"
+                onClick={this.openModal}
+              >
+                Edit
+              </button>
+            </div>
+
             <div className="apartmentProfile__details">
               <div className="occupantsNumber">
                 <h2>No. of Occupants</h2>
@@ -409,6 +422,16 @@ class ApartmentProfile extends Component {
                 )}
               </tbody>
             </table>
+            <div>
+              <EditApartmentModal
+                isModalOpen={this.state.isEditApartmentModalOpen}
+                closeModal={() => this.closeModal("editApartmentModal")}
+              >
+                <EditApartmentForm
+                  closeModal={() => this.closeModal("isEditApartmentModalOpen")}
+                />
+              </EditApartmentModal>
+            </div>
           </div>
         </div>
       );
