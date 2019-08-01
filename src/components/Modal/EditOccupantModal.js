@@ -18,7 +18,7 @@ const EditOccupantModal = ({ isModalOpen, closeModal, children }) => {
       flexDirection: "column",
       alignItems: "center",
       borderRadius: "15px",
-      boxShadow: "0px 4px 4px rgba(150, 150, 150, 0.25)",
+      boxShadow: "0px 4px 4px rgba(150, 150, 150, 0.25)"
     }
   };
 
@@ -28,7 +28,7 @@ const EditOccupantModal = ({ isModalOpen, closeModal, children }) => {
       onRequestClose={closeModal}
       shouldCloseOnOverlayClick={true}
       style={customStyles}
-      contentLabel="EditOccupantModal"
+      contentLabel="editOccupantModal"
     >
       {children}
     </Modal>
