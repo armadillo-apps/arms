@@ -17,6 +17,10 @@ const apartmentDetails = [
     address: "18 Bogus Street #01-01",
     bedrooms: 1,
     capacity: 1,
+    landlord: {
+      name: "Bob",
+      accountNumber: "12345"
+    },
     leases: [
       {
         _id: "5678tyu",
@@ -38,6 +42,10 @@ const apartmentDetails = [
     address: "10 Another Road #05-10",
     bedrooms: 2,
     capacity: 2,
+    landlord: {
+      name: "Jack",
+      accountNumber: "54321"
+    },
     leases: [
       {
         _id: "5555tyu",
@@ -218,5 +226,5 @@ describe("Apartment Profile", () => {
       const modalHeader = queryByText("Edit Apartment");
       expect(modalHeader).not.toBeInTheDocument();
     });
-  })
+  });
 });
