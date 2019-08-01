@@ -309,4 +309,20 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       .type("Awesome");
     cy.get("input[class=editApartmentForm__updateButton]").click();
   });
+  
+  it("should be able to filter occupants using searchbar", () => {
+    const newOccupantname = "Bob";
+    cy.visit(`${baseUrl}/newOccupant`);
+    cy.get("h1").contains("Create New Occupant");
+    cy.get("input[name=name]").type(newOccupantname);
+    cy.get("select[name=status]").select("inactive");
+    cy.get("input[type=submit]").click();
+
+    cy.visit(`${baseUrl}/occupants`);
+    cy.get("input")
+      .should("have.attr", "placeholder", "Search Occupant")
+      .type(newOccupantname);
+    cy.contains(name).should("not.exist");
+    cy.contains(newOccupantname);
+  });
 });

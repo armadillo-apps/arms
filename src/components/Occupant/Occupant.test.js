@@ -1,6 +1,6 @@
 import React from "react";
 import Occupant from "./Occupant";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
 
@@ -70,5 +70,17 @@ describe("Occupant", () => {
   it("should attach inactive class to status", () => {
     const { getByText } = render(<Occupant occupants={occupants} />);
     expect(getByText("inactive")).toHaveClass("inactive");
+  });
+
+  it("should be able to filter occupants using searchbar correctly", () => {
+    const { getByPlaceholderText, getByText } = render(
+      <Occupant occupants={occupants} />
+    );
+    const inputField = getByPlaceholderText(/search occupant/i);
+    const bob = getByText("Bob");
+    const jason = getByText("Jason");
+    fireEvent.change(inputField, { target: { value: "b" } });
+    expect(bob).toBeInTheDocument();
+    expect(jason).not.toBeInTheDocument();
   });
 });
