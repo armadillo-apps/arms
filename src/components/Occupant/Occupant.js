@@ -4,6 +4,30 @@ import SearchBar from "../SearchBar/SearchBar";
 import "./Occupant.css";
 
 const Occupant = ({ occupants, history }) => {
+  const sortedOccupants = occupants.reduce(
+    (accumulator, occupant) => {
+      switch (occupant.status) {
+        case "inactive":
+          accumulator.inactive.push(occupant);
+          return accumulator;
+        case "unallocated":
+          accumulator.unallocated.push(occupant);
+          return accumulator;
+        case "allocated":
+          accumulator.allocated.push(occupant);
+          return accumulator;
+        default:
+          return accumulator;
+      }
+    },
+    { inactive: [], unallocated: [], allocated: [] }
+  );
+
+  const sortedOccupantsArray = [
+    ...sortedOccupants.unallocated,
+    ...sortedOccupants.allocated,
+    ...sortedOccupants.inactive
+  ];
   return (
     <div className="occupants" data-testid="occupants">
       <div className="occupants__div">
@@ -19,7 +43,7 @@ const Occupant = ({ occupants, history }) => {
             </tr>
           </thead>
           <tbody>
-            {occupants.map(occupant => {
+            {sortedOccupantsArray.map(occupant => {
               return (
                 <OccupantDetail
                   key={occupant._id}
