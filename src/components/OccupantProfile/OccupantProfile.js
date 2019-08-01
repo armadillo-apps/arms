@@ -22,7 +22,8 @@ const OccupantProfile = ({
   useEffect(() => {
     (async () => {
       try {
-        const data = await fetchStays(match.params.occupantId);
+        const { occupantId } = match.params;
+        const data = await fetchStays({ occupantId });
         setStays(data);
       } catch (err) {
         return err;

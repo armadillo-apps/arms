@@ -5,7 +5,8 @@ import {
   fetchOccupants,
   fetchApartments,
   updateOccupant,
-  updateApartment
+  updateApartment,
+  fetchStays
 } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
@@ -21,6 +22,7 @@ class App extends Component {
     this.state = {
       apartments: [],
       occupants: [],
+      stays: [],
       editOccupantModal: {
         isModalOpen: false,
         name: "",
@@ -42,6 +44,8 @@ class App extends Component {
       this.setState({ apartments });
       const occupants = await fetchOccupants();
       this.setState({ occupants });
+      const stays = await fetchStays();
+      this.setState({ stays });
     } catch (err) {
       return err.message;
     }
@@ -54,6 +58,8 @@ class App extends Component {
         this.setState({ apartments });
         const occupants = await fetchOccupants();
         this.setState({ occupants });
+        const stays = await fetchStays();
+        this.setState({ stays });
       } catch (err) {
         return err.message;
       }
@@ -197,7 +203,11 @@ class App extends Component {
               exact
               path="/"
               render={props => (
-                <Apartment apartments={this.state.apartments} {...props} />
+                <Apartment
+                  apartments={this.state.apartments}
+                  stays={this.state.stays}
+                  {...props}
+                />
               )}
             />
             <Route

@@ -1,4 +1,5 @@
 import axios from "./axios";
+import queryString from "query-string";
 
 export const fetchApartments = async () => {
   const response = await axios.get("/apartments");
@@ -121,9 +122,10 @@ export const updateApartment = async (
   return response.data;
 };
 
-export const fetchStays = async id => {
+export const fetchStays = async queryParams => {
+  const query = queryString.stringify(queryParams);
   try {
-    const response = await axios.get(`/stays?occupantId=${id}`);
+    const response = await axios.get(`/stays?${query}`);
     return response.data;
   } catch (err) {
     throw err;

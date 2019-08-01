@@ -2,8 +2,21 @@ import ApartmentDetail from "../ApartmentDetail/ApartmentDetail";
 import React from "react";
 import "./Apartment.css";
 import SearchBar from "../SearchBar/SearchBar";
+import PropTypes from "prop-types";
+import moment from "moment";
 
-const Apartment = ({ apartments, history }) => {
+const Apartment = ({ apartments, stays, history }) => {
+  const calculateVancancy = (apartment, staysForApartment) => {
+    const today = new Date();
+
+    const currentStays = staysForApartment
+      .filter(stay => moment(today).isSameOrBefore(stay.checkOutDate, "day"))
+      .filter(stay => moment(today).isSameOrAfter(stay.checkInDate, "day"))
+      .length;
+
+    return apartment.capacity - currentStays;
+  };
+
   const renderTable = () => {
     return (
       <table className="fields" cellSpacing="0" cellPadding="0">
@@ -18,9 +31,13 @@ const Apartment = ({ apartments, history }) => {
         </thead>
         <tbody>
           {apartments.map(apartment => {
+            const staysForCurrentApartment = stays.filter(
+              stay => stay.apartmentId === apartment._id
+            );
             return (
               <ApartmentDetail
                 key={apartment._id}
+                vacancy={calculateVancancy(apartment, staysForCurrentApartment)}
                 {...apartment}
                 history={history}
               />
@@ -40,6 +57,10 @@ const Apartment = ({ apartments, history }) => {
       </div>
     </div>
   );
+};
+
+Apartment.propTypes = {
+  stays: PropTypes.array.isRequired
 };
 
 export default Apartment;
