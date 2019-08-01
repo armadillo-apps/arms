@@ -97,6 +97,30 @@ export const updateOccupant = async (
   return response.data;
 };
 
+export const updateApartment = async (
+  apartmentId,
+  name,
+  address,
+  bedrooms,
+  capacity,
+  country,
+  landlord,
+  remarks
+) => {
+  const requestBody = {
+    name,
+    address,
+    bedrooms,
+    capacity,
+    country,
+    landlord,
+    remarks
+  };
+
+  const response = await axios.put(`/apartments/${apartmentId}`, requestBody);
+  return response.data;
+};
+
 export const fetchStays = async id => {
   try {
     const response = await axios.get(`/stays?occupantId=${id}`);
