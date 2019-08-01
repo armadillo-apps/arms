@@ -54,7 +54,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
   const newApartmentForSearchbarTest = {
     apartmentName: "Parc Sophia",
-    address,
+    address: "123 Parc Lane",
     landlordName,
     accountNumber,
     leaseStart: "2018-07-01",
