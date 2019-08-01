@@ -76,21 +76,20 @@ class ApartmentProfile extends Component {
   };
 
   selectLeaseId = async () => {
-    if (this.props.apartments.length < 1) {
-      return "";
+    if (this.props.apartments.length > 0) {
+      const thisApartment = await this.props.apartments.find(apartment => {
+        return apartment._id === this.apartmentId;
+      });
+      const [foundLease] = thisApartment.leases.filter(lease => {
+        return moment(new Date(lease.leaseEnd)).isSameOrAfter(
+          this.today,
+          "day"
+        );
+      });
+      if (foundLease) {
+        this.setState({ leaseId: foundLease._id });
+      }
     }
-    const thisApartment = await this.props.apartments.find(apartment => {
-      return apartment._id === this.apartmentId;
-    });
-
-    const foundLease = thisApartment.leases.find(
-      lease => Date.parse(lease.leaseEnd) > Date.parse(new Date())
-    );
-    if (foundLease) {
-      this.setState({ leaseId: foundLease._id });
-      return;
-    }
-    return "";
   };
 
   addStay = async event => {
