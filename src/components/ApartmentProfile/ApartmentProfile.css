@@ -14,6 +14,26 @@
   cursor: pointer;
 }
 
+.apartmentProfile__headingContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.apartmentProfile__editDetailsButton {
+  min-width: 50px;
+  text-align: center;
+  border: none;
+  outline: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background-color: #fff;
+  height: 2.3rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-left: 1rem;
+}
+
 .apartmentProfile__heading {
   font-weight: normal;
   font-size: var(--main-h1-font-size);
@@ -159,5 +179,5 @@
 }
 .pastOccupants td {
   background-color: white;
-  color:lightgrey;
+  color: lightgrey;
 }
