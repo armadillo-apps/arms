@@ -1,7 +1,7 @@
 import React from "react";
 import Apartment from "./Apartment";
 import "@testing-library/react/cleanup-after-each";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 const apartments = [
@@ -16,6 +16,20 @@ const apartments = [
         leaseStart: "25 June 2019",
         leaseEnd: "24 June 2020",
         monthlyRent: 5000
+      }
+    ]
+  },
+  {
+    _id: "456",
+    name: "Sea View",
+    address: "19 Bogus Street #02-02",
+    bedrooms: 2,
+    capacity: 5,
+    leases: [
+      {
+        leaseStart: "26 June 2018",
+        leaseEnd: "23 June 2021",
+        monthlyRent: 4000
       }
     ]
   }
@@ -59,19 +73,19 @@ describe("Apartment", () => {
     const oneMonthFromToday = today.setMonth(today.getMonth() + 1);
     const twoMonthsFromToday = today.setMonth(today.getMonth() + 2);
 
-    const stays = [ 
+    const stays = [
       {
-        apartmentId: '123',
+        apartmentId: "123",
         checkInDate: new Date("2017-01-01"),
         checkOutDate: new Date("2017-12-01")
       },
       {
-        apartmentId: '123',
+        apartmentId: "123",
         checkInDate: new Date("2018-01-01"),
         checkOutDate: oneMonthFromToday
       },
       {
-        apartmentId: '123',
+        apartmentId: "123",
         checkInDate: oneMonthFromToday,
         checkOutDate: twoMonthsFromToday
       }
@@ -82,5 +96,17 @@ describe("Apartment", () => {
     );
     expect(getByText("Vacancy")).toBeInTheDocument();
     expect(getByText("9")).toBeInTheDocument();
+  });
+
+  it("should be able to filter apartments using searchbar correctly", () => {
+    const { getByPlaceholderText, getByText } = render(
+      <Apartment apartments={apartments} stays={[]} />
+    );
+    const inputField = getByPlaceholderText(/search apartment/i);
+    const parcSophia = getByText("Parc Sophia");
+    const seaView = getByText("Sea View");
+    fireEvent.change(inputField, { target: { value: "p" } });
+    expect(parcSophia).toBeInTheDocument();
+    expect(seaView).not.toBeInTheDocument();
   });
 });

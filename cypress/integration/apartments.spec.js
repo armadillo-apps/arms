@@ -52,6 +52,18 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     bedrooms: 1
   };
 
+  const newApartmentForSearchbarTest = {
+    apartmentName: "Parc Sophia",
+    address,
+    landlordName,
+    accountNumber,
+    leaseStart: "2018-07-01",
+    leaseEnd: "2021-07-10",
+    monthlyRent,
+    capacity: 1,
+    bedrooms: 1
+  };
+
   const fillOutApartmentForm = ({
     apartmentName,
     address,
@@ -151,8 +163,9 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("input[name=name]").type(newOccupantname);
       cy.get("select[name=status]").select("inactive");
       cy.get("input[type=submit]").click();
-
-      cy.visit(`${baseUrl}/occupants`);
+      cy.get("a")
+        .contains("OCCUPANTS")
+        .click();
       cy.get("input")
         .should("have.attr", "placeholder", "Search Occupant")
         .type(newOccupantname);
@@ -214,6 +227,20 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("h1").contains(apartmentName);
       cy.get("h2").contains("Address");
       cy.get("p").contains(address);
+    });
+
+    it("should be able to filter apartments using searchbar", () => {
+      cy.visit(`${baseUrl}/newApartment`);
+      fillOutApartmentForm(newApartmentForSearchbarTest);
+      cy.get("input[type=submit]").click();
+      cy.get("a")
+        .contains("APARTMENTS")
+        .click();
+      cy.get("input")
+        .should("have.attr", "placeholder", "Search Apartment")
+        .type(newApartmentForSearchbarTest.apartmentName);
+      cy.contains(apartmentName).should("not.exist");
+      cy.contains(newApartmentForSearchbarTest.apartmentName);
     });
   });
 

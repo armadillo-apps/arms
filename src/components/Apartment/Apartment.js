@@ -1,11 +1,33 @@
 import ApartmentDetail from "../ApartmentDetail/ApartmentDetail";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Apartment.css";
 import SearchBar from "../SearchBar/SearchBar";
 import PropTypes from "prop-types";
 import moment from "moment";
 
 const Apartment = ({ apartments, stays, history }) => {
+  const [apartmentList, setApartmentList] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    setApartmentList(apartments);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [apartments]);
+
+  const handleNewInput = event => {
+    setInputValue(event.target.value);
+  };
+
+  const handleApartmentSearch = () => {
+    if (inputValue) {
+      return apartmentList.filter(apartment => {
+        return apartment.name.toLowerCase().includes(inputValue.toLowerCase());
+      });
+    } else {
+      return apartmentList;
+    }
+  };
+
   const calculateVancancy = (apartment, staysForApartment) => {
     const today = new Date();
 
@@ -30,7 +52,7 @@ const Apartment = ({ apartments, stays, history }) => {
           </tr>
         </thead>
         <tbody>
-          {apartments.map(apartment => {
+          {handleApartmentSearch().map(apartment => {
             const staysForCurrentApartment = stays.filter(
               stay => stay.apartmentId === apartment._id
             );
@@ -52,7 +74,7 @@ const Apartment = ({ apartments, stays, history }) => {
     <div className="apartment" data-testid="apartment">
       <div className="apartment__div">
         <h1 className="apartment__heading">Apartments</h1>
-        <SearchBar placeholder="Apartment" />
+        <SearchBar handleChange={handleNewInput} placeholder="Apartment" />
         {renderTable()}
       </div>
     </div>
