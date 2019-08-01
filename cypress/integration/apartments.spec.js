@@ -76,7 +76,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("textarea[name=Remarks]").type("testing!!!");
   };
 
-  describe("Create, edit, and view Occupant", () => {
+  describe("Create, edit, view, and search Occupant", () => {
     it("should create a new occupant and show occupant profile", () => {
       const status = "allocated";
 
@@ -142,6 +142,22 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .click();
       cy.contains(name);
       cy.contains(employeeId);
+    });
+
+    it("should be able to filter occupants using searchbar", () => {
+      const newOccupantname = "Bob";
+      cy.visit(`${baseUrl}/newOccupant`);
+      cy.get("h1").contains("Create New Occupant");
+      cy.get("input[name=name]").type(newOccupantname);
+      cy.get("select[name=status]").select("inactive");
+      cy.get("input[type=submit]").click();
+
+      cy.visit(`${baseUrl}/occupants`);
+      cy.get("input")
+        .should("have.attr", "placeholder", "Search Occupant")
+        .type(newOccupantname);
+      cy.contains(name).should("not.exist");
+      cy.contains(newOccupantname);
     });
   });
 
@@ -222,7 +238,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("input[type=submit]").click();
       cy.contains(`Successfully assigned ${name} to ${apartmentName}`);
       cy.get("button.modalCloseButton").click();
-      
+
       cy.get("a")
         .contains("APARTMENTS")
         .click();
@@ -293,59 +309,45 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  it("should be able to edit apartment details", () => {
-    cy.visit(`${baseUrl}`);
-    cy.contains(apartmentName).click();
-    cy.get("button")
-      .contains("Edit")
-      .click();
-    cy.get("form[class=editApartmentFormContainer]").should("exist");
-    cy.get("input[class=editApartmentForm__cancelButton]").scrollIntoView();
-    cy.get("input[class=editApartmentForm__cancelButton]").click();
-    cy.get("form[class=editApartmentFormContainer]").should("not.exist");
-    cy.get("button")
-      .contains("Edit")
-      .click();
-    cy.get("input[id=name]")
-      .clear()
-      .type("The Beacon");
-    cy.get("input[id=address]")
-      .clear()
-      .type("Fake street 11");
-    cy.get("input[id=bedrooms]")
-      .clear()
-      .type("10");
-    cy.get("input[id=capacity]")
-      .clear()
-      .type("10");
-    cy.get("input[id=country]")
-      .clear()
-      .type("Indonesia");
-    cy.get("input[id=landlordName]")
-      .clear()
-      .type("Tony Stark");
-    cy.get("input[id=landlordAccountNumber]")
-      .clear()
-      .type("12345");
-    cy.get("textarea[id=remarks]")
-      .clear()
-      .type("Awesome");
-    cy.get("input[class=editApartmentForm__updateButton]").click();
-  });
-  
-  it("should be able to filter occupants using searchbar", () => {
-    const newOccupantname = "Bob";
-    cy.visit(`${baseUrl}/newOccupant`);
-    cy.get("h1").contains("Create New Occupant");
-    cy.get("input[name=name]").type(newOccupantname);
-    cy.get("select[name=status]").select("inactive");
-    cy.get("input[type=submit]").click();
-
-    cy.visit(`${baseUrl}/occupants`);
-    cy.get("input")
-      .should("have.attr", "placeholder", "Search Occupant")
-      .type(newOccupantname);
-    cy.contains(name).should("not.exist");
-    cy.contains(newOccupantname);
+  describe("Edit apartment details", () => {
+    it("should be able to edit apartment details", () => {
+      cy.visit(`${baseUrl}`);
+      cy.contains(apartmentName).click();
+      cy.get("button")
+        .contains("Edit")
+        .click();
+      cy.get("form[class=editApartmentFormContainer]").should("exist");
+      cy.get("input[class=editApartmentForm__cancelButton]").scrollIntoView();
+      cy.get("input[class=editApartmentForm__cancelButton]").click();
+      cy.get("form[class=editApartmentFormContainer]").should("not.exist");
+      cy.get("button")
+        .contains("Edit")
+        .click();
+      cy.get("input[id=name]")
+        .clear()
+        .type("The Beacon");
+      cy.get("input[id=address]")
+        .clear()
+        .type("Fake street 11");
+      cy.get("input[id=bedrooms]")
+        .clear()
+        .type("10");
+      cy.get("input[id=capacity]")
+        .clear()
+        .type("10");
+      cy.get("input[id=country]")
+        .clear()
+        .type("Indonesia");
+      cy.get("input[id=landlordName]")
+        .clear()
+        .type("Tony Stark");
+      cy.get("input[id=landlordAccountNumber]")
+        .clear()
+        .type("12345");
+      cy.get("textarea[id=remarks]")
+        .clear()
+        .type("Awesome");
+      cy.get("input[class=editApartmentForm__updateButton]").click();
+    });
   });
 });
