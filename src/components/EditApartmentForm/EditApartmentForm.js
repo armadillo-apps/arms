@@ -13,12 +13,21 @@ const EditApartmentForm = ({ apartment, closeModal, onSubmit }) => {
   const [accountNumber, setAccountNumber] = useState(
     apartment.landlord.accountNumber
   );
-
+  const updatedApartment = {
+    apartmentId: apartment._id,
+    name,
+    address,
+    bedrooms,
+    capacity,
+    country,
+    landlord: { name: landlordName, accountNumber },
+    remarks
+  };
   return (
     <form
       className="editApartmentFormContainer"
       data-testid="editApartmentForm"
-      onSubmit={(event) => onSubmit(event, {name})}
+      onSubmit={event => onSubmit(event, updatedApartment)}
     >
       <h1 className="editApartmentForm__heading">Edit Apartment</h1>
       <div className="editApartmentForm">
