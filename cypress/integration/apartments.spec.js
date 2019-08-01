@@ -270,31 +270,43 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.contains("No occupants yet!");
   });
 
-  xit('should be able edit apartment details', () => {
+  it("should be able to edit apartment details", () => {
     cy.visit(`${baseUrl}`);
     cy.contains(apartmentName).click();
     cy.get("button")
       .contains("Edit")
       .click();
-    cy.get("form[class=editApartmentFormContainer]").should("exist")
-    cy.get("div[aria-label=EditApartmentModal]").scrollTo('bottom')
-    cy.get("button")
-      .contains("Cancel")
-      .click();
-    cy.get("form[class=editApartmentFormContainer]").should("not.exist")
+    cy.get("form[class=editApartmentFormContainer]").should("exist");
+    cy.get("input[class=editApartmentForm__cancelButton]").scrollIntoView();
+    cy.get("input[class=editApartmentForm__cancelButton]").click();
+    cy.get("form[class=editApartmentFormContainer]").should("not.exist");
     cy.get("button")
       .contains("Edit")
       .click();
-    cy.get("input[id=name]").type("The Beacon");
-    cy.get("input[id=address]").type("Fake street 11");
-    cy.get("input[id=bedrooms]").type("10");
-    cy.get("input[id=capacity]").type("10");
-    cy.get("input[id=country]").type("Indonesia");
-    cy.get("input[id=landlordName]").type("Tony Stark");
-    cy.get("input[id=landlordaccountNumber]").type("12345");
-    cy.get("input[id=remarks]").type("Awesome");
-    cy.get("button")
-      .contains("Update")
-      .click();
+    cy.get("input[id=name]")
+      .clear()
+      .type("The Beacon");
+    cy.get("input[id=address]")
+      .clear()
+      .type("Fake street 11");
+    cy.get("input[id=bedrooms]")
+      .clear()
+      .type("10");
+    cy.get("input[id=capacity]")
+      .clear()
+      .type("10");
+    cy.get("input[id=country]")
+      .clear()
+      .type("Indonesia");
+    cy.get("input[id=landlordName]")
+      .clear()
+      .type("Tony Stark");
+    cy.get("input[id=landlordAccountNumber]")
+      .clear()
+      .type("12345");
+    cy.get("textarea[id=remarks]")
+      .clear()
+      .type("Awesome");
+    cy.get("input[class=editApartmentForm__updateButton]").click();
   });
 });
