@@ -50,7 +50,7 @@ const EditApartmentForm = ({ apartment, closeModal, onSubmit }) => {
             setAddress(event.target.value);
           }}
         />
-        <div className="bedroomCapacityWrapper">
+        <div className="bedroomCapacity__wrapper">
           <Input
             id="bedrooms"
             label="Bedrooms"
@@ -104,24 +104,33 @@ const EditApartmentForm = ({ apartment, closeModal, onSubmit }) => {
             setAccountNumber(event.target.value);
           }}
         />
-        <label htmlFor="remarks">Remarks</label>
-        <textarea
-          id="remarks"
-          name="remarks"
-          rows="3"
-          cols="30"
-          value={remarks}
-          onChange={event => {
-            setRemarks(event.target.value);
-          }}
+        <div className="textarea__wrapper">
+          <label htmlFor="remarks">Remarks</label>
+          <textarea
+            id="remarks"
+            name="remarks"
+            rows="3"
+            cols="30"
+            value={remarks}
+            onChange={event => {
+              setRemarks(event.target.value);
+            }}
+          />
+        </div>
+      </div>
+      <div className="editApartmentForm__buttons">
+        <input
+          className="editApartmentForm__cancelButton"
+          type="button"
+          value="Cancel"
+          onClick={closeModal}
+        />
+        <input
+          className="editApartmentForm__updateButton"
+          value="Update"
+          type="submit"
         />
       </div>
-      <input type="button" value="Cancel" onClick={closeModal} />
-      <input
-        className="editApartmentForm__updateButton"
-        value="Update"
-        type="submit"
-      />
     </form>
   );
 };
