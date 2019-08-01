@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Input from "../Input/Input";
 import "./EditApartmentForm.css";
+import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage"
 
-const EditApartmentForm = ({ apartment, closeModal, onSubmit }) => {
+const EditApartmentForm = ({ apartment, closeModal, onSubmit, success, message }) => {
   const [name, setName] = useState(apartment.name);
   const [address, setAddress] = useState(apartment.address);
   const [bedrooms, setBedrooms] = useState(apartment.bedrooms);
@@ -110,7 +111,7 @@ const EditApartmentForm = ({ apartment, closeModal, onSubmit }) => {
             id="remarks"
             name="remarks"
             rows="3"
-            cols="30"
+            cols="40"
             value={remarks}
             onChange={event => {
               setRemarks(event.target.value);
@@ -130,7 +131,9 @@ const EditApartmentForm = ({ apartment, closeModal, onSubmit }) => {
           value="Update"
           type="submit"
         />
+        <ConfirmationMessage success={success} message={message} />
       </div>
+
     </form>
   );
 };
