@@ -76,23 +76,19 @@ class ApartmentProfile extends Component {
   };
 
   selectLeaseId = async () => {
-    // eslint-disable-next-line no-extra-boolean-cast
     if (this.props.apartments.length < 1) {
       return "";
     }
-    console.log("this.props.apartments", this.props.apartments);
     const thisApartment = await this.props.apartments.find(apartment => {
       return apartment._id === this.apartmentId;
     });
 
-    console.log("this Apartment", thisApartment);
     const foundLease = thisApartment.leases.find(
       lease => Date.parse(lease.leaseEnd) > Date.parse(new Date())
     );
     if (foundLease) {
-      console.log("foundLease", foundLease);
       this.setState({ leaseId: foundLease._id });
-      return
+      return;
     }
     return "";
   };
