@@ -74,6 +74,7 @@ class ApartmentProfile extends Component {
         renderToggle: !prev.renderToggle
       };
     });
+    this.props.getAllStays();
   };
 
   selectLeaseId = async () => {

@@ -78,6 +78,15 @@ class App extends Component {
     });
   };
 
+  getAllStays = async () => {
+    try {
+      const stays = await fetchStays();
+      this.setState({ stays });
+    } catch (err) {
+      return err.message;
+    }
+  };
+
   openEditOccupantModal = (id, occupant) => {
     const {
       _id,
@@ -239,6 +248,7 @@ class App extends Component {
                   confirmationModal={this.state.confirmationModal}
                   onSubmit={this.onEditApartmentFormSubmit}
                   editApartmentModal={this.state.editApartmentModal}
+                  getAllStays={this.getAllStays}
                   {...props}
                 />
               )}
