@@ -445,10 +445,12 @@ class ApartmentProfile extends Component {
             <div>
               <EditApartmentModal
                 isModalOpen={this.state.isEditApartmentModalOpen}
-                closeModal={() => this.closeModal("editApartmentModal")}
+                closeModal={() => this.closeModal("isEditApartmentModalOpen")}
               >
                 <EditApartmentForm
                   closeModal={() => this.closeModal("isEditApartmentModalOpen")}
+                  apartment={apartment}
+                  onSubmit={this.props.onSubmit}
                 />
               </EditApartmentModal>
             </div>

@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import { fetchOccupants, fetchApartments, updateOccupant } from "../../api/api";
+import {
+  fetchOccupants,
+  fetchApartments,
+  updateOccupant,
+  updateApartment
+} from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
 import Occupant from "../Occupant/Occupant";
@@ -152,6 +157,36 @@ class App extends Component {
     }
   };
 
+  onEditApartmentFormSubmit = async (event, updatedApartment) => {
+    try {
+      event.preventDefault();
+      const {
+        apartmentId,
+        name,
+        address,
+        bedrooms,
+        capacity,
+        country,
+        landlord,
+        remarks
+      } = updatedApartment;
+      await updateApartment(
+        apartmentId,
+        name,
+        address,
+        bedrooms,
+        capacity,
+        country,
+        landlord,
+        remarks
+      );
+      const apartments = await fetchApartments();
+      this.setState({ apartments });
+    } catch (err) {
+      return err.message;
+    }
+  };
+
   render() {
     return (
       <section className="app">
@@ -181,6 +216,7 @@ class App extends Component {
                   {...props}
                   apartmentAssignModal={this.state.apartmentAssignModal}
                   confirmationModal={this.state.confirmationModal}
+                  onSubmit={this.onEditApartmentFormSubmit}
                 />
               )}
             />
