@@ -34,6 +34,10 @@ class App extends Component {
         message: "",
         success: false
       },
+      editApartmentModal: {
+        success: false,
+        message: ""
+      },
       renderToggle: false
     };
   }
@@ -176,7 +180,7 @@ class App extends Component {
         landlord,
         remarks
       } = updatedApartment;
-      await updateApartment(
+      const response = await updateApartment(
         apartmentId,
         name,
         address,
@@ -186,10 +190,18 @@ class App extends Component {
         landlord,
         remarks
       );
+      this.setState({
+        editApartmentModal: { success: true, message: response }
+      });
       const apartments = await fetchApartments();
       this.setState({ apartments });
     } catch (err) {
-      return err.message;
+      this.setState({
+        editApartmentModal: {
+          success: false,
+          message: "Unable to update apartment"
+        }
+      });
     }
   };
 
@@ -223,10 +235,11 @@ class App extends Component {
                 <ApartmentProfile
                   apartments={this.state.apartments}
                   occupants={this.state.occupants}
-                  {...props}
                   apartmentAssignModal={this.state.apartmentAssignModal}
                   confirmationModal={this.state.confirmationModal}
                   onSubmit={this.onEditApartmentFormSubmit}
+                  editApartmentModal={this.state.editApartmentModal}
+                  {...props}
                 />
               )}
             />

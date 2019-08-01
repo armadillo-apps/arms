@@ -93,8 +93,11 @@ const getApartmentProfileHistory = jest.spyOn(
 );
 
 describe("Apartment Profile", () => {
-  let match;
-
+  let match, onSubmit;
+  const editApartmentModal = {
+    success: false,
+    message: ""
+  };
   beforeEach(() => {
     match = {
       params: { apartmentId: "12345abc" },
@@ -102,13 +105,19 @@ describe("Apartment Profile", () => {
       path: "",
       url: ""
     };
+
+    onSubmit = jest.fn().mockImplementation(event => {
+      event.preventDefault();
+    });
+
+   
   });
 
   afterEach(cleanup);
 
   it("should render field labels", () => {
     const { getByText } = render(
-      <ApartmentProfile apartments={apartmentDetails} match={match} />
+      <ApartmentProfile apartments={apartmentDetails} match={match} editApartmentModal={editApartmentModal} onSubmit={onSubmit}/>
     );
 
     expect(getByText("Address")).toBeInTheDocument();
@@ -127,7 +136,7 @@ describe("Apartment Profile", () => {
 
   it("should render the apartments details", () => {
     const { getByText } = render(
-      <ApartmentProfile apartments={apartmentDetails} match={match} />
+      <ApartmentProfile apartments={apartmentDetails} match={match} editApartmentModal={editApartmentModal} onSubmit={onSubmit} />
     );
 
     expect(getByText(/fancy penthouse/i)).toBeInTheDocument();
@@ -142,7 +151,7 @@ describe("Apartment Profile", () => {
 
   it("should render a Back button", () => {
     const { getByText } = render(
-      <ApartmentProfile apartments={apartmentDetails} match={match} />
+      <ApartmentProfile apartments={apartmentDetails} match={match} editApartmentModal={editApartmentModal} onSubmit={onSubmit} />
     );
 
     expect(getByText("< Back")).toBeInTheDocument();
@@ -151,7 +160,7 @@ describe("Apartment Profile", () => {
   it("should render occupant history", async () => {
     getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
     const { getByText } = render(
-      <ApartmentProfile apartments={apartmentDetails} match={match} />
+      <ApartmentProfile apartments={apartmentDetails} match={match} editApartmentModal={editApartmentModal} onSubmit={onSubmit} />
     );
     const occupantName1 = await waitForElement(() => getByText("John"));
     const occupantName2 = await waitForElement(() => getByText("Tim"));
@@ -167,7 +176,7 @@ describe("Apartment Profile", () => {
   it("should render message when occupant history is empty", async () => {
     getApartmentProfileHistory.mockReturnValueOnce([]);
     const { getByText } = render(
-      <ApartmentProfile apartments={apartmentDetails} match={match} />
+      <ApartmentProfile apartments={apartmentDetails} match={match} editApartmentModal={editApartmentModal} onSubmit={onSubmit} />
     );
     const message = await waitForElement(() => getByText("No occupants yet!"));
 
@@ -177,7 +186,7 @@ describe("Apartment Profile", () => {
   it("should be able to update the number of occupants", async () => {
     getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
     const { getByTestId } = render(
-      <ApartmentProfile apartments={apartmentDetails} match={match} />
+      <ApartmentProfile apartments={apartmentDetails} match={match} editApartmentModal={editApartmentModal} onSubmit={onSubmit} />
     );
     const noOccupants = await waitForElement(() =>
       getByTestId("occupantsCount")
@@ -189,7 +198,7 @@ describe("Apartment Profile", () => {
   it("should sort occupants by check-in date", async () => {
     getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
     const { getAllByTestId, container } = render(
-      <ApartmentProfile apartments={apartmentDetails} match={match} />
+      <ApartmentProfile apartments={apartmentDetails} match={match} editApartmentModal={editApartmentModal} onSubmit={onSubmit} />
     );
     const occupants = await waitForElement(() => getAllByTestId("tableRow"));
     expect(occupants[0]).toHaveClass("futureOccupants");
@@ -201,9 +210,25 @@ describe("Apartment Profile", () => {
   });
 
   describe("EditApartmentFormModal", () => {
+    let onSubmit;
+    beforeEach(() => {
+      onSubmit = jest.fn().mockImplementation(event => {
+        event.preventDefault();
+      });
+    });
     it("should open modal when edit button is clicked", () => {
+      const editApartmentModal = {
+        success: false,
+        message: ""
+      };
+
       const { getByText } = render(
-        <ApartmentProfile apartments={apartmentDetails} match={match} />
+        <ApartmentProfile
+          apartments={apartmentDetails}
+          match={match}
+          editApartmentModal={editApartmentModal}
+          onSubmit={onSubmit}
+        />
       );
 
       const editButton = getByText("Edit");
@@ -214,8 +239,18 @@ describe("Apartment Profile", () => {
     });
 
     it("should close modal when cancel button is clicked", () => {
+      const editApartmentModal = {
+        success: false,
+        message: ""
+      };
+
       const { getByText, queryByText } = render(
-        <ApartmentProfile apartments={apartmentDetails} match={match} />
+        <ApartmentProfile
+          apartments={apartmentDetails}
+          match={match}
+          editApartmentModal={editApartmentModal}
+          onSubmit={onSubmit}
+        />
       );
 
       const editButton = getByText("Edit");
@@ -225,6 +260,28 @@ describe("Apartment Profile", () => {
 
       const modalHeader = queryByText("Edit Apartment");
       expect(modalHeader).not.toBeInTheDocument();
+    });
+
+    it("should show error message when updating apartment is not successful", () => {
+      const editApartmentModal = {
+        success: false,
+        message: "Unable to update apartment"
+      };
+      const { getByText, queryByText } = render(
+        <ApartmentProfile
+          apartments={apartmentDetails}
+          match={match}
+          editApartmentModal={editApartmentModal}
+          onSubmit={onSubmit}
+        />
+      );
+
+      const editButton = getByText("Edit");
+      fireEvent.click(editButton);
+      const updateButton = getByText("Update");
+      fireEvent.click(updateButton);
+
+      expect(getByText(/Unable to update apartment/i)).toBeInTheDocument();
     });
   });
 });

@@ -12,6 +12,7 @@ import ApartmentAssignModal from "../Modal/ApartmentAssignModal";
 import ConfirmationModal from "../Modal/ConfirmationModal";
 import EditApartmentModal from "../Modal/EditApartmentModal";
 import EditApartmentForm from "../EditApartmentForm/EditApartmentForm";
+import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 
 class ApartmentProfile extends Component {
   constructor(props) {
@@ -447,11 +448,31 @@ class ApartmentProfile extends Component {
                 isModalOpen={this.state.isEditApartmentModalOpen}
                 closeModal={() => this.closeModal("isEditApartmentModalOpen")}
               >
-                <EditApartmentForm
-                  closeModal={() => this.closeModal("isEditApartmentModalOpen")}
-                  apartment={apartment}
-                  onSubmit={this.props.onSubmit}
-                />
+                {this.props.editApartmentModal.success ? (
+                  <div>
+                    <ConfirmationMessage
+                      success={this.props.editApartmentModal.success}
+                      message={this.props.editApartmentModal.message}
+                    />
+                    <button
+                      onClick={() =>
+                        this.closeModal("isEditApartmentModalOpen")
+                      } className="editApartmentForm__closeButton"
+                    >
+                      Close
+                    </button>
+                  </div>
+                ) : (
+                  <EditApartmentForm
+                    closeModal={() =>
+                      this.closeModal("isEditApartmentModalOpen")
+                    }
+                    apartment={apartment}
+                    onSubmit={this.props.onSubmit}
+                    success={this.props.editApartmentModal.success}
+                    message={this.props.editApartmentModal.message}
+                  />
+                )}
               </EditApartmentModal>
             </div>
           </div>
