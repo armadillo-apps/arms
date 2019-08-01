@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Input from "../Input/Input";
+import "./EditApartmentForm.css";
 
 const EditApartmentForm = ({ apartment, closeModal, onSubmit }) => {
   const [name, setName] = useState(apartment.name);
@@ -49,28 +50,30 @@ const EditApartmentForm = ({ apartment, closeModal, onSubmit }) => {
             setAddress(event.target.value);
           }}
         />
-        <Input
-          id="bedrooms"
-          label="Bedrooms"
-          name="bedrooms"
-          type="number"
-          min="0"
-          value={bedrooms}
-          onChange={event => {
-            setBedrooms(event.target.value);
-          }}
-        />
-        <Input
-          id="capacity"
-          label="Capacity"
-          name="capacity"
-          type="number"
-          min="0"
-          value={capacity}
-          onChange={event => {
-            setCapacity(event.target.value);
-          }}
-        />
+        <div className="bedroomCapacityWrapper">
+          <Input
+            id="bedrooms"
+            label="Bedrooms"
+            name="bedrooms"
+            type="number"
+            min="0"
+            value={bedrooms}
+            onChange={event => {
+              setBedrooms(event.target.value);
+            }}
+          />
+          <Input
+            id="capacity"
+            label="Capacity"
+            name="capacity"
+            type="number"
+            min="0"
+            value={capacity}
+            onChange={event => {
+              setCapacity(event.target.value);
+            }}
+          />
+        </div>
         <Input
           id="country"
           label="Country"
