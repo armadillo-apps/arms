@@ -271,7 +271,8 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       const vacancy = 0;
       cy.get("tbody tr")
         .contains("tr", apartmentName)
-        .contains("td", vacancy);
+        .contains("td", vacancy)
+        .should("have.class", "inverted");
     });
 
     it("be able to cancel the assign operation", () => {
