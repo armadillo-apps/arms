@@ -272,9 +272,9 @@ class ApartmentProfile extends Component {
               <button
                 id="isEditApartmentModalOpen"
                 className="apartmentProfile__editDetailsButton"
-                onClick={(event) => {
-                  this.openModal(event)
-                  this.props.clearConfirmationMessage()
+                onClick={event => {
+                  this.openModal(event);
+                  this.props.clearConfirmationMessage();
                 }}
               >
                 Edit
@@ -308,16 +308,17 @@ class ApartmentProfile extends Component {
                   <p>{apartment.country}</p>
                 </div>
               </div>
-
-              <div className="landlord">
-                <h2>Landlord Name</h2>
-                <p>{apartment.landlord ? apartment.landlord.name : ""}</p>
-              </div>
-              <div className="landlordAccount">
-                <h2>Landlord A/C No</h2>
-                <p>
-                  {apartment.landlord ? apartment.landlord.accountNumber : ""}
-                </p>
+              <div className="apartmentProfile__landlordDetails">
+                <div className="landlord">
+                  <h2>Landlord Name</h2>
+                  <p>{apartment.landlord ? apartment.landlord.name : ""}</p>
+                </div>
+                <div className="landlordAccount">
+                  <h2>Landlord A/C No</h2>
+                  <p>
+                    {apartment.landlord ? apartment.landlord.accountNumber : ""}
+                  </p>
+                </div>
               </div>
             </div>
             <div className="apartmentProfile__headerContainer">

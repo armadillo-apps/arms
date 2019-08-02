@@ -1,5 +1,6 @@
 .apartmentProfileContainer {
   background-color: var(--main-bg-color);
+  font-family: Open Sans;
 }
 .apartmentProfile {
   margin-left: 60px;
@@ -29,53 +30,19 @@
   border-radius: 20px;
   background-color: #fff;
   height: 2.3rem;
-  cursor: pointer;
   font-size: 1.1rem;
   margin-left: 1rem;
+  cursor: pointer;
 }
 
 .apartmentProfile__heading {
-  font-weight: normal;
+  font-weight: 400;
   font-size: var(--main-h1-font-size);
+  font-family: var(--font2)
 }
 
 .gridContainer {
   display: grid;
-}
-
-.apartmentProfile__vacancyDetails {
-  display: flex;
-  flex-direction: column;
-}
-
-.apartmentProfile__vacancyDetails h2 {
-  font-size: var(--main-h2-font-size);
-  font-weight: normal;
-}
-
-.apartmentProfile__vacancyDetails p {
-  font-size: 2.5rem;
-  margin: 0;
-}
-
-.apartmentProfile__details {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1.5fr 3fr;
-  width: 80%;
-}
-
-.occupantsNumber p {
-  font-size: 3rem;
-  margin: 1rem;
-}
-
-.bedrooms {
-  grid-column: 4/5;
-}
-
-.bedrooms p {
-  font-size: 2.5rem;
-  margin: 1rem 0;
 }
 
 .address {
@@ -95,13 +62,10 @@
   font-size: 2.5rem;
 }
 
-.capacity p {
-  font-size: 3rem;
-  margin: 1rem;
-}
-
 .apartmentProfile__header2 {
   font-size: 2.5rem;
+  font-family: Open Sans;
+  font-weight: 400;
 }
 
 .apartmentProfile__occupants {
@@ -121,6 +85,67 @@
   text-align: center;
   background-color: white;
   padding: 10px;
+}
+
+.apartmentProfile__details {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  width: 80%;
+}
+
+.apartmentProfile__details h2 {
+  font-weight: normal;
+  font-size: 1rem;
+}
+
+.apartmentProfile__details p {
+  color:black;
+  font-size: 1.6rem;
+  margin: 0 auto;
+}
+
+
+.apartmentProfile__spaceDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 280px;
+}
+
+.apartmentProfile__spaceDetails h2 {
+  text-align: center;
+}
+
+.apartmentProfile__spaceDetails p {
+  margin: 0.5rem;
+  font-weight: 400;
+  font-size: 3rem;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid #b1b9cc;
+  line-height: 80px;
+  width: 80px;
+  height: 80px;
+}
+
+.apartmentProfile__locationDetails {
+  display: flex;
+  flex-direction: column;
+  font-weight: 200;
+  margin: 0 20px;
+}
+
+.apartmentProfile__locationDetails p {
+  font-weight: 400;
+  text-align: left;
+  font-size: 1.6rem;
+  color:black;
+}
+
+.apartmentProfile__landlordDetails {
+  display: flex;
+  flex-direction: column;
 }
 
 .apartmentProfile__leases {
