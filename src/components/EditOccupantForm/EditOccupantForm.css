@@ -34,3 +34,13 @@
   margin-top: 2px;
   cursor: pointer;
 }
+
+.editOccupantForm__cancelButton {
+  margin-right: 1rem;
+  background-color: white;
+  text-decoration: none;
+  font-size: var(--main-h2-font-size);
+  outline: none;
+  border: none;
+  cursor: pointer;
+}

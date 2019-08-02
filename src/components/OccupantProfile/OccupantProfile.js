@@ -147,6 +147,7 @@ const OccupantProfile = ({
               onChange={onChange}
               occupant={occupant}
               {...modalStates}
+              closeModal={closeModal}
             />
           )}
         </EditOccupantModal>

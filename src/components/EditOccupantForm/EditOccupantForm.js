@@ -1,15 +1,16 @@
-import React from "react";
-import Input from "../Input/Input.js";
-import TextArea from "../Input/TextArea.js";
-import "./EditOccupantForm.css";
-import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
+import React from 'react';
+import Input from '../Input/Input.js';
+import TextArea from '../Input/TextArea.js';
+import './EditOccupantForm.css';
+import ConfirmationMessage from '../ConfirmationMessage/ConfirmationMessage';
 
 const EditOccupantForm = ({
   onSubmit,
   onChange,
   occupant,
   message,
-  success
+  success,
+  closeModal
 }) => {
   const {
     name: defaultName,
@@ -79,7 +80,7 @@ const EditOccupantForm = ({
         />
         <section>
           <label htmlFor="status" className="editOccupantForm__statusLabel">
-            Occupant Status:{" "}
+            Occupant Status:{' '}
           </label>
           <select
             id="status"
@@ -95,6 +96,12 @@ const EditOccupantForm = ({
           </select>
         </section>
       </div>
+      <input
+        className="editOccupantForm__cancelButton"
+        type="button"
+        value="Cancel"
+        onClick={() => closeModal('editOccupantModal')}
+      />
       <input
         className="editOccupantForm__updateButton"
         value="Update"
