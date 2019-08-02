@@ -104,16 +104,21 @@
   font-size: 2.5rem;
 }
 
+.apartmentProfile__occupants {
+  border-spacing: 0;
+  margin-bottom: 50px;
+}
 .apartmentProfile__occupants th {
   font-size: var(--main-h2-font-size);
   margin: 1rem;
+  padding-bottom: 8px;
   width: 200px;
 }
-
 .apartmentProfile__occupants td {
   font-size: var(--main-h2-font-size);
   text-align: center;
   background-color: white;
+  padding: 10px;
 }
 
 .apartmentProfile__leases {
@@ -129,12 +134,13 @@
   font-size: var(--main-h2-font-size);
   margin: 1rem;
   width: 200px;
+  padding-bottom: 8px;
 }
 
 .apartmentProfile__leases td {
   font-size: var(--main-h2-font-size);
   text-align: center;
-  height: 50px;
+  height: 38px;
   background-color: white;
 }
 
@@ -178,16 +184,22 @@
 .currentOccupants td {
   background-color: white;
 }
+/* .currentOccupants td:last-child {
+  background-color: var(--main-bg-color);
+} */
 .pastOccupants td {
   background-color: white;
   color: lightgrey;
 }
 
 #isConfirmationModalOpen {
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   background: rgb(255, 109, 109);
-  border-radius: 12px;
+  border-radius: 8px;
   color: white;
   border: none;
+  text-align: center;
+  align-items: center;
+  padding: 0px;
 }
