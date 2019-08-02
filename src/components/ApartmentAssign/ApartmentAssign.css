@@ -2,10 +2,42 @@
   padding: 1rem;
   font-size: 1.3rem;
   border-collapse: separate;
-  border-spacing: 0 2rem;
-  /* height: 150px; */
+  border-spacing: 0 1rem;
   overflow-y: scroll;
   display: inline-block;
+}
+
+.apartmentAssignTable__row {
+  border: 1px solid black;
+  border-radius: 20px;
+  background: whitesmoke;
+}
+
+.apartmentAssignTable__row td:first-child {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.apartmentAssignTable__row td:last-child {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.visible th {
+  text-align-last: left;
+  padding: 0px 10px;
+}
+
+.apartmentAssignTable__row td {
+  padding: 5px 10px;
+  align-items: left;
+}
+
+.apartmentAssignTable__row button {
+  background: grey;
+  padding: 5px 10px;
+  border-radius: 15px;
+  color: white;
 }
 
 /* Please rename */
