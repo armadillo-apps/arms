@@ -46,9 +46,9 @@
 }
 
 .textarea__wrapper textarea {
- border-color: var(--main-row-border-color);
- border-radius: 10px;
- padding:15px;
+  border-color: var(--main-row-border-color);
+  border-radius: 10px;
+  padding: 15px;
 }
 
 .editApartmentForm__buttons {
@@ -75,4 +75,19 @@
   width: 110px;
   margin-top: 2px;
   cursor: pointer;
+}
+
+.editApartmentForm__textarea {
+  border-radius: 10px;
+  border-color: var(--main-row-border-color);
+  font-size: 1.8rem;
+  outline: none;
+  border: 1px solid #e4e5ea;
+  font-family: var(--font);
+  margin-bottom: 2rem;
+  padding: 5px 30px;
+}
+
+.editApartmentForm__heading {
+  text-align: center;
 }
