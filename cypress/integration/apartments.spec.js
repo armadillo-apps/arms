@@ -314,7 +314,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  describe("Remove occupant stay from history", () => {
+  xdescribe("Remove occupant stay from history", () => {
     it("be able to cancel occupant stay deletion", () => {
       cy.visit(`${baseUrl}`);
       cy.contains(apartmentName).click();
