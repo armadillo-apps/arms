@@ -49,7 +49,7 @@ describe("Apartment", () => {
       <Apartment apartments={apartments} stays={[]} />
     );
     expect(getByText("Rental Per Month")).toBeInTheDocument();
-    expect(getByText("5000")).toBeInTheDocument();
+    expect(getByText("$5,000.00")).toBeInTheDocument();
   });
 
   it("renders the lease start of the apartment", () => {

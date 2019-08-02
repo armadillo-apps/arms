@@ -1,5 +1,4 @@
 import faker from "faker";
-import EditApartmentModal from "../../src/components/Modal/EditApartmentModal";
 
 describe("Apartments, Occupant, and ApartmentAssign", () => {
   const baseUrl = Cypress.env("baseUrl");
@@ -8,7 +7,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   const landlordName = faker.name.firstName();
   const address = faker.address.streetAddress();
   const accountNumber = faker.finance.account();
-  const monthlyRent = faker.random.number();
+  const monthlyRent = "$1,000.00";
 
   const name = faker.name.firstName();
   const employeeId = faker.random.uuid();
