@@ -228,7 +228,7 @@ class App extends Component {
           <Switch>
             <Route
               exact
-              path="/"
+              path={["/", "/apartments"]}
               render={props => (
                 <Apartment
                   apartments={this.state.apartments}
