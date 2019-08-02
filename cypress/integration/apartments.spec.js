@@ -7,7 +7,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   const landlordName = faker.name.firstName();
   const address = faker.address.streetAddress();
   const accountNumber = faker.finance.account();
-  const monthlyRent = "$1,000.00";
+  const monthlyRent = "1000";
 
   const name = faker.name.firstName();
   const employeeId = faker.random.uuid();
@@ -304,7 +304,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.contains(apartmentName);
       cy.contains("1 May 18");
       cy.contains("1 Oct 19");
-      cy.contains(monthlyRent);
+      cy.contains("$1,000.00");
       cy.get("tbody tr").should("have.length", 1);
     });
   });
