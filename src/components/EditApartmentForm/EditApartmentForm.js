@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Input from "../Input/Input";
 import "./EditApartmentForm.css";
-import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage"
+import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 
-const EditApartmentForm = ({ apartment, closeModal, onSubmit, success, message }) => {
+const EditApartmentForm = ({
+  apartment,
+  closeModal,
+  onSubmit,
+  success,
+  message
+}) => {
   const [name, setName] = useState(apartment.name);
   const [address, setAddress] = useState(apartment.address);
   const [bedrooms, setBedrooms] = useState(apartment.bedrooms);
@@ -133,7 +139,6 @@ const EditApartmentForm = ({ apartment, closeModal, onSubmit, success, message }
         />
         <ConfirmationMessage success={success} message={message} />
       </div>
-
     </form>
   );
 };
@@ -143,7 +148,16 @@ EditApartmentForm.propTypes = {
 };
 
 EditApartmentForm.defaultProps = {
-  apartment: { name: "", landlord: {} }
+  apartment: {
+    name: "",
+    address: "",
+    capacity: 1,
+    bedrooms: 1,
+    country: "",
+    leases: {},
+    remarks: "",
+    landlord: {}
+  }
 };
 
 export default EditApartmentForm;

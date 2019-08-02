@@ -11,8 +11,8 @@ class NewApartmentForm extends Component {
     this.state = {
       name: "",
       address: "",
-      bedrooms: "",
-      capacity: "",
+      bedrooms: 1,
+      capacity: 1,
       leaseStart: "",
       leaseEnd: "",
       rent: "",
@@ -63,8 +63,8 @@ class NewApartmentForm extends Component {
       this.setState({
         name: "",
         address: "",
-        bedrooms: "",
-        capacity: "",
+        bedrooms: 1,
+        capacity: 1,
         leaseStart: "",
         leaseEnd: "",
         rent: "",
@@ -175,13 +175,14 @@ class NewApartmentForm extends Component {
             />
             <Input
               id="bedrooms"
-              label="Bedrooms"
+              label="Bedrooms*"
               name="Bedrooms"
               onChange={this.onFormChange}
               value={this.state.bedrooms}
               type="number"
               min="0"
               width="61px"
+              required
             />
           </div>
           <TextArea
