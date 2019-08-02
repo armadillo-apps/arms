@@ -10,7 +10,7 @@
 .apartmentAssignTable__row {
   border: 1px solid black;
   border-radius: 20px;
-  background: whitesmoke;
+  background: rgb(245, 245, 245);
 }
 
 .apartmentAssignTable__row td:first-child {
