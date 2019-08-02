@@ -30,4 +30,12 @@
   height: 30px;
   width: 120px;
   margin-top: 35px;
+  margin-bottom: 50px;
+}
+
+#remarks {
+  max-width: 510px;
+  min-width: 510px;
+  min-height: 100px;
+  overflow: scroll;
 }

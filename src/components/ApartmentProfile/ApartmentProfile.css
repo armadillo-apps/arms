@@ -118,6 +118,7 @@
 
 .apartmentProfile__leases {
   border-spacing: 0;
+  margin-bottom: 50px;
 }
 
 .apartmentProfile__leases h2 {
@@ -180,4 +181,13 @@
 .pastOccupants td {
   background-color: white;
   color: lightgrey;
+}
+
+#isConfirmationModalOpen {
+  width: 24px;
+  height: 24px;
+  background: rgb(255, 109, 109);
+  border-radius: 12px;
+  color: white;
+  border: none;
 }
