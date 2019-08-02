@@ -36,9 +36,9 @@
 }
 
 .apartmentProfile__heading {
-  font-weight: 400;
+  font-weight: 600;
   font-size: var(--main-h1-font-size);
-  font-family: var(--font2)
+  font-family: var(--font2);
 }
 
 .gridContainer {
@@ -75,6 +75,7 @@
 
 .apartmentProfile__occupants th {
   font-size: var(--main-h2-font-size);
+  font-weight: 600;
   margin: 1rem;
   padding-bottom: 8px;
   width: 200px;
@@ -99,11 +100,10 @@
 }
 
 .apartmentProfile__details p {
-  color:black;
+  color: black;
   font-size: 1.6rem;
   margin: 0 auto;
 }
-
 
 .apartmentProfile__spaceDetails {
   display: flex;
@@ -140,12 +140,18 @@
   font-weight: 400;
   text-align: left;
   font-size: 1.6rem;
-  color:black;
+  color: black;
 }
 
 .apartmentProfile__landlordDetails {
   display: flex;
   flex-direction: column;
+}
+
+.apartmentProfile__bottomGrid {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 50px;
 }
 
 .apartmentProfile__leases {
@@ -160,6 +166,7 @@
 
 .apartmentProfile__leases th {
   font-size: var(--main-h2-font-size);
+  font-weight: 600;
   margin: 1rem;
   width: 200px;
   padding-bottom: 8px;
@@ -170,6 +177,15 @@
   text-align: center;
   height: 38px;
   background-color: white;
+}
+
+.apartmentProfile__remarks p {
+  font-size: var(--main-h2-font-size);
+  height: 50px;
+  padding: 1rem;
+  background-color: white;
+  width: 50%;
+  width:80%;
 }
 
 .apartmentProfile__headerContainer {

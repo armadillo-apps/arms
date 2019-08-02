@@ -430,28 +430,32 @@ class ApartmentProfile extends Component {
                 )}
               </tbody>
             </table>
-            <h2 className="apartmentProfile__header2">Leases</h2>
-            <table className="apartmentProfile__leases">
-              <thead>
-                <tr>
-                  <th>Lease Start</th>
-                  <th>Lease End</th>
-                  <th>Monthly Rent</th>
-                </tr>
-              </thead>
-              <tbody>
-                {apartment.leases.length > 0 ? (
-                  apartment.leases.map(lease => (
-                    <Lease key={lease._id} leaseInfo={lease} />
-                  ))
-                ) : (
-                  <tr>No Leases yet!</tr>
-                )}
-              </tbody>
-            </table>
-            <div>
-              <h2>Remarks</h2>
-              <p className="remarks__body">{apartment.remarks}</p>
+            <div className="apartmentProfile__bottomGrid">
+              <div>
+                <h2 className="apartmentProfile__header2">Leases</h2>
+                <table className="apartmentProfile__leases">
+                  <thead>
+                    <tr>
+                      <th>Lease Start</th>
+                      <th>Lease End</th>
+                      <th>Monthly Rent</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {apartment.leases.length > 0 ? (
+                      apartment.leases.map(lease => (
+                        <Lease key={lease._id} leaseInfo={lease} />
+                      ))
+                    ) : (
+                      <tr>No Leases yet!</tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+              <div className="apartmentProfile__remarks">
+                <h2 className="apartmentProfile__header2">Remarks</h2>
+                <p>{apartment.remarks}</p>
+              </div>
             </div>
             <div>
               <EditApartmentModal
