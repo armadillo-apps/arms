@@ -5,6 +5,7 @@ import { formatDate } from "../../utils/date";
 import EditOccupantModal from "../Modal/EditOccupantModal";
 import EditOccupantForm from "../EditOccupantForm/EditOccupantForm";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
+import formatter from "../../utils/formatMoney";
 
 const OccupantProfile = ({
   occupants,
@@ -56,7 +57,7 @@ const OccupantProfile = ({
         });
 
         if (foundLease) {
-          return foundLease.monthlyRent;
+          return formatter.format(foundLease.monthlyRent);
         }
         throw new Error("Lease not allocated");
       } catch (err) {
