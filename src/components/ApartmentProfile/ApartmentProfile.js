@@ -265,7 +265,7 @@ class ApartmentProfile extends Component {
               className="apartmentProfile__backButton"
               onClick={() => this.props.history.goBack()}
             >
-              &lt; Back
+              &lt; Back to Apartment Listings
             </div>
             <div className="apartmentProfile__headingContainer">
               <h1 className="apartmentProfile__heading">{apartment.name}</h1>
@@ -279,15 +279,21 @@ class ApartmentProfile extends Component {
             </div>
 
             <div className="apartmentProfile__details">
-              <div className="occupantsNumber">
-                <h2>No. of Occupants</h2>
-                <p data-testid="occupantsCount">
-                  {this.state.currentOccupants.length}
-                </p>
-              </div>
-              <div className="capacity">
-                <h2>Capacity</h2>
-                <p>{apartment.capacity}</p>
+              <div className="apartmentProfile__spaceDetails">
+                <div className="occupantsNumber">
+                  <h2>No. of Occupants</h2>
+                  <p data-testid="occupantsCount">
+                    {this.state.currentOccupants.length}
+                  </p>
+                </div>
+                <div className="capacity">
+                  <h2>Capacity</h2>
+                  <p>{apartment.capacity}</p>
+                </div>
+                <div className="bedrooms">
+                  <h2>Bedrooms</h2>
+                  <p>{apartment.bedrooms}</p>
+                </div>
               </div>
               <div className="address">
                 <h2>Address</h2>
@@ -297,10 +303,7 @@ class ApartmentProfile extends Component {
                 <h2>Country</h2>
                 <p>{apartment.country}</p>
               </div>
-              <div className="bedrooms">
-                <h2>Bedrooms</h2>
-                <p>{apartment.bedrooms}</p>
-              </div>
+
               <div className="landlord">
                 <h2>Landlord Name</h2>
                 <p>{apartment.landlord ? apartment.landlord.name : ""}</p>
@@ -458,7 +461,8 @@ class ApartmentProfile extends Component {
                     <button
                       onClick={() =>
                         this.closeModal("isEditApartmentModalOpen")
-                      } className="editApartmentForm__closeButton"
+                      }
+                      className="editApartmentForm__closeButton"
                     >
                       Close
                     </button>

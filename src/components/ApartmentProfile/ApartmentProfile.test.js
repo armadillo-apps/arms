@@ -154,7 +154,7 @@ describe("Apartment Profile", () => {
       <ApartmentProfile apartments={apartmentDetails} match={match} editApartmentModal={editApartmentModal} onSubmit={onSubmit} />
     );
 
-    expect(getByText("< Back")).toBeInTheDocument();
+    expect(getByText("< Back to Apartment Listings")).toBeInTheDocument();
   });
 
   it("should render occupant history", async () => {

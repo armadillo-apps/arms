@@ -45,7 +45,7 @@ describe("Occupant profile", () => {
       />
     );
 
-    expect(getByText("< Back")).toBeInTheDocument();
+    expect(getByText("< Back to Occupant Listings")).toBeInTheDocument();
   });
 
   it("should render occupant name as header", () => {

@@ -71,7 +71,7 @@ const OccupantProfile = ({
             className="occupantProfile__backButton"
             onClick={() => history.goBack()}
           >
-            &lt; Back
+            &lt; Back to Occupant Listings
           </div>
           <div className="occupantProfile__header1Container">
             <h1 className="occupantProfile__header1">{occupant.name}</h1>
