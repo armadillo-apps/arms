@@ -1,34 +1,34 @@
-import React, { Component } from "react";
-import "./NewOccupantForm.css";
-import Input from "../Input/Input";
-import TextArea from "../Input/TextArea";
-import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
-import { createNewOccupant } from "../../api/api";
+import React, { Component } from 'react';
+import './NewOccupantForm.css';
+import Input from '../Input/Input';
+import TextArea from '../Input/TextArea';
+import ConfirmationMessage from '../ConfirmationMessage/ConfirmationMessage';
+import { createNewOccupant } from '../../api/api';
 
 class NewOccupantForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      employeeId: "",
-      gender: "",
-      remarks: "",
-      country: "",
-      status: "",
+      name: '',
+      employeeId: '',
+      gender: '',
+      remarks: '',
+      country: '',
+      status: '',
       success: false,
-      message: "",
+      message: '',
       submitted: false
     };
   }
 
-  onFormChange = event => {
+  onFormChange = (event) => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
   };
 
-  onFormSubmit = async event => {
+  onFormSubmit = async (event) => {
     try {
       event.preventDefault();
       const { name, employeeId, gender, remarks, country, status } = this.state;
@@ -41,12 +41,12 @@ class NewOccupantForm extends Component {
         status
       );
       this.setState({
-        name: "",
-        employeeId: "",
-        gender: "",
-        remarks: "",
-        country: "",
-        status: "",
+        name: '',
+        employeeId: '',
+        gender: '',
+        remarks: '',
+        country: '',
+        status: '',
         success: true,
         message: response,
         submitted: true
@@ -55,7 +55,7 @@ class NewOccupantForm extends Component {
     } catch (err) {
       this.setState({
         success: false,
-        message: "Unable to create new occupant :(",
+        message: 'Unable to create new occupant :(',
         submitted: true
       });
     }
@@ -109,15 +109,18 @@ class NewOccupantForm extends Component {
           />
           <section>
             <label htmlFor="status" className="occupantForm__statusLabel">
-              Occupant Status:{" "}
+              Occupant Status:{' '}
             </label>
             <select
               id="status"
               name="status"
+              required
               value={this.state.status}
               onChange={this.onFormChange}
             >
-              <option value="">Select...</option>
+              <option value="" selected>
+                Select...
+              </option>
               <option value="allocated">Allocated</option>
               <option value="unallocated">Unallocated</option>
               <option value="inactive">Inactive</option>
@@ -130,7 +133,7 @@ class NewOccupantForm extends Component {
             message={this.state.message}
           />
         ) : (
-          ""
+          ''
         )}
         <input
           className="occupantForm__createButton"
