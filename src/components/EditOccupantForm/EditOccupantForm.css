@@ -1,6 +1,7 @@
 .editOccupantFormContainer {
   width: 500px;
   height: 500px;
+  font-family: Open Sans;
 }
 
 .editOccupantForm__flex {

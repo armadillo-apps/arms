@@ -1,5 +1,6 @@
 .apartmentForm {
   background: var(--main-bg-color);
+  font-family: Open Sans;
 }
 
 .apartmentForm__div {
@@ -11,6 +12,7 @@
 .apartmentForm__heading {
   font-size: 36px;
   line-height: 43px;
+  font-weight: 600;
 }
 
 .formDivide {

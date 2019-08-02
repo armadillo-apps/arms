@@ -74,8 +74,6 @@ const EditOccupantForm = ({
           onChange={onChange}
           defaultValue={defaultRemarks}
           type="text"
-          width="250px"
-          height="60px"
           editOccupantLabel="input__editOccupantLabel"
         />
         <section>

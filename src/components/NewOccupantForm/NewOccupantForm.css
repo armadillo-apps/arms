@@ -1,11 +1,13 @@
 .occupantFormContainer {
   background: var(--main-bg-color);
+  font-family: Open Sans;
 }
 
 .occupantForm {
   display: flex;
   flex-direction: column;
   margin-left: 60px;
+  
 }
 
 .occupantForm__heading {
@@ -13,7 +15,7 @@
   color: var(--main-h1-color);
   margin-left: 60px;
   margin-bottom: 40px;
-  font-weight: normal;
+  font-weight: 600;
 }
 
 .occupantForm__label {

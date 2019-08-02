@@ -6,6 +6,7 @@
 .apartment__div {
   padding-left: 6rem;
   padding-right: 6rem;
+  font-family: var(--font2);
 }
 
 .apartment__heading {
@@ -13,7 +14,7 @@
   color: var(--main-h1-color);
   line-height: 43px;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 600;
   margin-top: 64px;
   margin-bottom: 43px;
 }
@@ -30,5 +31,6 @@
 }
 
 .fields__th {
-  font-size: var(--main-h2-font-size);
+  font-size: 1.3rem;
+  font-weight: 400;
 }

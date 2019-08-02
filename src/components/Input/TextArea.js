@@ -3,9 +3,7 @@ import './Input.css';
 const TextArea = ({
   id,
   label,
-  height,
   name,
-  width,
   editOccupantLabel,
   value,
   ...otherProps
@@ -18,7 +16,6 @@ const TextArea = ({
       <textarea
         id={id}
         className="input__text"
-        style={{ width, height }}
         name={name}
         value={value}
         {...otherProps}

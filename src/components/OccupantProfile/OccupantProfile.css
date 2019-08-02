@@ -12,6 +12,7 @@
 .occupantProfile {
   margin-left: 6rem;
   margin-top: 2rem;
+  font-family: Open Sans;
 }
 
 .occupantProfile__header1Container {
@@ -35,6 +36,7 @@
   font-weight: normal;
   font-size: var(--main-h1-font-size);
   margin: 3rem 0 0 0;
+  font-weight: 600;
 }
 
 .occupantProfile__details {
@@ -48,6 +50,7 @@
 .occupantProfile__header2 {
   font-size: 2.5rem;
   margin-top: 10rem;
+  font-weight: 400;
 }
 
 .occupantProfile__employeeId {
@@ -58,6 +61,7 @@
   font-size: var(--main-h2-font-size);
   margin: 1rem;
   width: 200px;
+  font-weight: 600;
 }
 
 .stayHistory__table td {
