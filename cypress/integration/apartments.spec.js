@@ -81,8 +81,12 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("input[name=LeaseStart]").type(leaseStart);
     cy.get("input[name=LeaseEnd]").type(leaseEnd);
     cy.get("input[name=Rent]").type(monthlyRent);
-    cy.get("input[name=Capacity]").type(capacity);
-    cy.get("input[name=Bedrooms]").type(bedrooms);
+    cy.get("input[name=Capacity]")
+      .clear()
+      .type(capacity);
+    cy.get("input[name=Bedrooms]")
+      .clear()
+      .type(bedrooms);
     cy.get("input[name=Country").type("THIS IS HOME, TRULY");
     cy.get("textarea[name=Remarks]").type("testing!!!");
   };
