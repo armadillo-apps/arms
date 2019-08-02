@@ -118,9 +118,7 @@ class NewOccupantForm extends Component {
               value={this.state.status}
               onChange={this.onFormChange}
             >
-              <option value="" selected>
-                Select...
-              </option>
+              <option value="">Select...</option>
               <option value="allocated">Allocated</option>
               <option value="unallocated">Unallocated</option>
               <option value="inactive">Inactive</option>
