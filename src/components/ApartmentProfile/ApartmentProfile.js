@@ -272,7 +272,10 @@ class ApartmentProfile extends Component {
               <button
                 id="isEditApartmentModalOpen"
                 className="apartmentProfile__editDetailsButton"
-                onClick={this.openModal}
+                onClick={(event) => {
+                  this.openModal(event)
+                  this.props.clearConfirmationMessage()
+                }}
               >
                 Edit
               </button>
@@ -295,13 +298,15 @@ class ApartmentProfile extends Component {
                   <p>{apartment.bedrooms}</p>
                 </div>
               </div>
-              <div className="address">
-                <h2>Address</h2>
-                <p>{apartment.address}</p>
-              </div>
-              <div className="country">
-                <h2>Country</h2>
-                <p>{apartment.country}</p>
+              <div className="apartmentProfile__locationDetails">
+                <div className="address">
+                  <h2>Address</h2>
+                  <p>{apartment.address}</p>
+                </div>
+                <div className="country">
+                  <h2>Country</h2>
+                  <p>{apartment.country}</p>
+                </div>
               </div>
 
               <div className="landlord">
@@ -314,10 +319,6 @@ class ApartmentProfile extends Component {
                   {apartment.landlord ? apartment.landlord.accountNumber : ""}
                 </p>
               </div>
-            </div>
-            <div>
-              <h2>Remarks</h2>
-              <p className="remarks__body">{apartment.remarks}</p>
             </div>
             <div className="apartmentProfile__headerContainer">
               <h2 className="apartmentProfile__header2">Occupants</h2>
@@ -447,6 +448,10 @@ class ApartmentProfile extends Component {
                 )}
               </tbody>
             </table>
+            <div>
+              <h2>Remarks</h2>
+              <p className="remarks__body">{apartment.remarks}</p>
+            </div>
             <div>
               <EditApartmentModal
                 isModalOpen={this.state.isEditApartmentModalOpen}

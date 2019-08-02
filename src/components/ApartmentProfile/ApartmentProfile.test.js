@@ -243,11 +243,12 @@ describe("Apartment Profile", () => {
   });
 
   describe("EditApartmentFormModal", () => {
-    let onSubmit;
+    let onSubmit, clearConfirmationMessage;
     beforeEach(() => {
       onSubmit = jest.fn().mockImplementation(event => {
         event.preventDefault();
       });
+      clearConfirmationMessage = jest.fn().mockImplementation();
     });
     it("should open modal when edit button is clicked", () => {
       const editApartmentModal = {
@@ -261,6 +262,7 @@ describe("Apartment Profile", () => {
           match={match}
           editApartmentModal={editApartmentModal}
           onSubmit={onSubmit}
+          clearConfirmationMessage={clearConfirmationMessage}
         />
       );
 
@@ -283,6 +285,7 @@ describe("Apartment Profile", () => {
           match={match}
           editApartmentModal={editApartmentModal}
           onSubmit={onSubmit}
+          clearConfirmationMessage={clearConfirmationMessage}
         />
       );
 
@@ -306,6 +309,7 @@ describe("Apartment Profile", () => {
           match={match}
           editApartmentModal={editApartmentModal}
           onSubmit={onSubmit}
+          clearConfirmationMessage={clearConfirmationMessage}
         />
       );
 

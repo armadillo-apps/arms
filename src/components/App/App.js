@@ -214,6 +214,12 @@ class App extends Component {
     }
   };
 
+  clearConfirmationMessage = () => {
+    this.setState({
+      editApartmentModal: { success: false, message: "" }
+    });
+  };
+
   render() {
     return (
       <section className="app">
@@ -249,6 +255,7 @@ class App extends Component {
                   onSubmit={this.onEditApartmentFormSubmit}
                   editApartmentModal={this.state.editApartmentModal}
                   getAllStays={this.getAllStays}
+                  clearConfirmationMessage={this.clearConfirmationMessage}
                   {...props}
                 />
               )}
