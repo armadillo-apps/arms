@@ -45,7 +45,7 @@ describe("Input form", () => {
 
   it("should have dropdown for status", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
-    expect(getByLabelText("Occupant Status:")).toBeInTheDocument();
+    expect(getByLabelText("Occupant Status*")).toBeInTheDocument();
   });
 
   it("should have text", () => {
@@ -73,7 +73,7 @@ describe("Input form", () => {
     const country = getByLabelText("Country");
     fireEvent.change(country, { target: { value: "Singapore" } });
 
-    const status = getByLabelText("Occupant Status:");
+    const status = getByLabelText("Occupant Status*");
     fireEvent.change(status, { target: { value: "allocated" } });
 
     expect(name.value).toBe("Bob");
@@ -105,7 +105,7 @@ describe("Confirmation message", () => {
     const country = getByLabelText("Country");
     fireEvent.change(country, { target: { value: "Singapore" } });
 
-    const status = getByLabelText("Occupant Status:");
+    const status = getByLabelText("Occupant Status*");
     fireEvent.change(status, { target: { value: "unallocated" } });
 
     const submitButton = getByText("Create", {
