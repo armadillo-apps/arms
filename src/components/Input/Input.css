@@ -4,8 +4,9 @@
 }
 
 .input__label {
-  font-size: var(--main-h2-font-size);
   display: block;
+  font-size: 1.3rem;
+  font-weight: 400;
   margin-top: 30px;
   margin-bottom: 7px;
 }
@@ -13,19 +14,25 @@
 .input__text {
   height: 40px;
   width: 510px;
-  border-radius: 10px;
   border-color: var(--main-row-border-color);
   font-size: 1.8rem;
   outline: none;
   border: 1px solid #e4e5ea;
   font-family: var(--font);
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   padding: 5px 30px;
+  font-family: var(--font2);
 }
 
-
-.input__editOccupantLabel{
-  margin-bottom:0px;
-  margin-top:7px;
+.input__text::-webkit-datetime-edit {
+  color: #b1b9cc;
 }
 
+.input__text[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+.input__editOccupantLabel {
+  margin-bottom: 0px;
+  margin-top: 7px;
+}

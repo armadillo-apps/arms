@@ -1,6 +1,6 @@
 .apartmentForm {
   background: var(--main-bg-color);
-  font-family: Open Sans;
+  font-family: var(--font2);
 }
 
 .apartmentForm__div {
@@ -35,9 +35,13 @@
   margin-bottom: 50px;
 }
 
-#remarks {
+.apartmentForm__remarks {
   max-width: 510px;
   min-width: 510px;
   min-height: 100px;
   overflow: scroll;
+  border: 1px solid #e4e5ea;
+  font-size: 1.8rem;
+  outline: none;
+  padding: 10px 30px;
 }

@@ -1,6 +1,6 @@
 .occupants {
   background-color: var(--main-bg-color);
-  font-family: Open Sans;
+  font-family: var(--font2);
 }
 
 .occupants__div {
@@ -57,4 +57,8 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 1rem;
+}
+
+.occupants__table th {
+  font-weight: 600;
 }

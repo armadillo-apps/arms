@@ -11,3 +11,7 @@
   box-sizing: border-box;
   padding: 15px 25px;
 }
+
+.searchInput::placeholder {
+  color: var(--search-bar-placeholder-color);
+}

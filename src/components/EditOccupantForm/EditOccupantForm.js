@@ -66,17 +66,7 @@ const EditOccupantForm = ({
             editOccupantLabel="input__editOccupantLabel"
           />
         </div>
-
-        <TextArea
-          id="remarks"
-          label="Remarks"
-          name="remarks"
-          onChange={onChange}
-          defaultValue={defaultRemarks}
-          type="text"
-          editOccupantLabel="input__editOccupantLabel"
-        />
-        <section>
+        <section className="editOccupantForm__status">
           <label htmlFor="status" className="editOccupantForm__statusLabel">
             Occupant Status:{' '}
           </label>
@@ -93,6 +83,16 @@ const EditOccupantForm = ({
             <option value="inactive">Inactive</option>
           </select>
         </section>
+        <TextArea
+          id="remarks"
+          label="Remarks"
+          name="remarks"
+          className="editOccupantForm__remarks"
+          onChange={onChange}
+          defaultValue={defaultRemarks}
+          type="text"
+          editOccupantLabel="input__editOccupantLabel"
+        />
       </div>
       <input
         className="editOccupantForm__cancelButton"

@@ -185,20 +185,21 @@ class NewApartmentForm extends Component {
               required
             />
           </div>
-          <TextArea
-            id="remarks"
-            label="Remarks"
-            name="Remarks"
-            onChange={this.onFormChange}
-            value={this.state.remarks}
-            type="text"
-          />
           <Input
             id="country"
             label="Country"
             name="Country"
             onChange={this.onFormChange}
             value={this.state.country}
+            type="text"
+          />
+          <TextArea
+            id="remarks"
+            label="Remarks"
+            name="Remarks"
+            className="apartmentForm__remarks"
+            onChange={this.onFormChange}
+            value={this.state.remarks}
             type="text"
           />
           {this.state.submitted ? (

@@ -12,7 +12,7 @@
 .occupantProfile {
   margin-left: 6rem;
   margin-top: 2rem;
-  font-family: Open Sans;
+  font-family: var(--font2);
 }
 
 .occupantProfile__header1Container {
@@ -57,6 +57,11 @@
   width: 20%;
 }
 
+.stayHistory__table {
+  border-collapse: separate;
+  border-spacing: 0 .5rem;
+}
+
 .stayHistory__table th {
   font-size: var(--main-h2-font-size);
   margin: 1rem;
@@ -68,6 +73,7 @@
   font-size: var(--main-h2-font-size);
   text-align: center;
   background-color: white;
+  height:3rem;
 }
 
 .remarks__body {

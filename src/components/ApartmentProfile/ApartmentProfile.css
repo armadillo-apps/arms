@@ -1,7 +1,8 @@
 .apartmentProfileContainer {
   background-color: var(--main-bg-color);
-  font-family: Open Sans;
+  font-family: var(--font2);
 }
+
 .apartmentProfile {
   margin-left: 60px;
   margin-top: 20px;
@@ -10,8 +11,8 @@
 
 .apartmentProfile__backButton {
   font-size: var(--main-h2-font-size);
-  text-decoration: none;
   color: var(--sidebar-font-color-inactive);
+  text-decoration: none;
   cursor: pointer;
 }
 
@@ -45,32 +46,16 @@
   display: grid;
 }
 
-.address {
-  grid-column: 4/5;
-}
-
-.address p {
-  font-size: 2.5rem;
-  margin: 1rem 0;
-}
-
-.country {
-  grid-column: 1/4;
-}
-
-.country p {
-  font-size: 2.5rem;
-}
-
 .apartmentProfile__header2 {
   font-size: 2.5rem;
-  font-family: Open Sans;
+  font-family: var(--font2);
   font-weight: 400;
 }
 
 .apartmentProfile__occupants {
-  border-spacing: 0;
-  margin-bottom: 50px;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+  margin-bottom: 80px;
 }
 
 .apartmentProfile__occupants th {
@@ -91,7 +76,9 @@
 .apartmentProfile__details {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  width: 80%;
+  width: 90%;
+  grid-gap: 80px;
+  margin-bottom: 80px;
 }
 
 .apartmentProfile__details h2 {
@@ -123,7 +110,8 @@
   background-color: #fff;
   text-align: center;
   border-radius: 10px;
-  border: 1px solid #b1b9cc;
+  box-shadow: 0 10px 20px rgba(193, 193, 193, 0.1),
+    0 6px 6px rgba(162, 162, 162, 0.1);
   line-height: 80px;
   width: 80px;
   height: 80px;
@@ -149,7 +137,7 @@
 }
 
 .apartmentProfile__bottomGrid {
-  display:grid;
+  display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 50px;
 }
@@ -185,24 +173,30 @@
   padding: 1rem;
   background-color: white;
   width: 50%;
-  width:80%;
+  width: 80%;
 }
 
 .apartmentProfile__headerContainer {
   display: flex;
   height: 70px;
   align-content: center;
+  vertical-align: middle;
+  align-items: center;
 }
 
 .modalAddButton {
+  display: flex;
+  height: 20px;
+  width: 20px;
+  justify-content: center;
+  line-height: 50%;
   text-decoration: none;
   border: none;
-  border-radius: 20px;
-  margin: auto 10px;
+  border-radius: 50%;
+  margin: 0 10px;
   background-color: var(--green-color);
   color: white;
   font-size: 1.5rem;
-  vertical-align: middle;
   cursor: pointer;
   outline: none;
 }
@@ -223,7 +217,7 @@
 }
 
 .futureOccupants td {
-  background-color: rgb(162, 252, 162);
+  color: var(--green-color);
 }
 
 .currentOccupants td {
@@ -236,13 +230,14 @@
 }
 
 #isConfirmationModalOpen {
+  display: flex;
+  justify-content: center;
   width: 16px;
   height: 16px;
-  background: rgb(255, 109, 109);
-  border-radius: 8px;
-  color: white;
+  background: var(--red-color);
+  border-radius: 50%;
   border: none;
-  text-align: center;
-  align-items: center;
-  padding: 0px;
+  color: white;
+  font-size: 0.8rem;
+  opacity: 0.8;
 }

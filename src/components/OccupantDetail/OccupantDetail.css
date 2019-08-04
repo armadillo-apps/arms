@@ -3,6 +3,12 @@
   background: white;
   text-align: center;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.occupantDetails:hover {
+  box-shadow: 0 2px 5px rgba(228, 228, 228, 0.19),
+    0 3px 6px rgba(211, 211, 211, 0.23);
 }
 
 .occupantDetails__td {

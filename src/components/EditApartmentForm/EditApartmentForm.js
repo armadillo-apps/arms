@@ -35,7 +35,7 @@ const EditApartmentForm = ({
     <form
       className="editApartmentFormContainer"
       data-testid="editApartmentForm"
-      onSubmit={(event) => onSubmit(event, updatedApartment)}
+      onSubmit={event => onSubmit(event, updatedApartment)}
     >
       <h1 className="editApartmentForm__heading">Edit Apartment</h1>
       <div className="editApartmentForm">
@@ -45,7 +45,7 @@ const EditApartmentForm = ({
           name="name"
           type="text"
           value={name}
-          onChange={(event) => setName(event.target.value)}
+          onChange={event => setName(event.target.value)}
         />
         <Input
           id="address"
@@ -53,7 +53,7 @@ const EditApartmentForm = ({
           name="address"
           type="text"
           value={address}
-          onChange={(event) => {
+          onChange={event => {
             setAddress(event.target.value);
           }}
         />
@@ -65,7 +65,7 @@ const EditApartmentForm = ({
             type="number"
             min="0"
             value={bedrooms}
-            onChange={(event) => {
+            onChange={event => {
               setBedrooms(event.target.value);
             }}
           />
@@ -76,7 +76,7 @@ const EditApartmentForm = ({
             type="number"
             min="0"
             value={capacity}
-            onChange={(event) => {
+            onChange={event => {
               setCapacity(event.target.value);
             }}
           />
@@ -87,7 +87,7 @@ const EditApartmentForm = ({
           name="country"
           type="text"
           value={country}
-          onChange={(event) => {
+          onChange={event => {
             setCountry(event.target.value);
           }}
         />
@@ -97,7 +97,7 @@ const EditApartmentForm = ({
           name="landlordName"
           type="text"
           value={landlordName}
-          onChange={(event) => {
+          onChange={event => {
             setLandlordName(event.target.value);
           }}
         />
@@ -107,20 +107,19 @@ const EditApartmentForm = ({
           name="landlordAccountNumber"
           type="text"
           value={accountNumber}
-          onChange={(event) => {
+          onChange={event => {
             setAccountNumber(event.target.value);
           }}
         />
-        <div className="textarea__wrapper">
+        <div className="editApartmentForm__remarks">
           <label htmlFor="remarks">Remarks</label>
           <textarea
             id="remarks"
             name="remarks"
             rows="3"
             cols="40"
-            className="editApartmentForm__textarea"
             value={remarks}
-            onChange={(event) => {
+            onChange={event => {
               setRemarks(event.target.value);
             }}
           />

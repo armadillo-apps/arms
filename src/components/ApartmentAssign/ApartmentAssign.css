@@ -5,7 +5,7 @@
   border-spacing: 0 1rem;
   overflow-y: scroll;
   display: inline-block;
-  font-family: Open Sans;
+  font-family: var(--font2);
 }
 
 .apartmentAssignTable__row {
@@ -74,7 +74,6 @@
 }
 
 .dateContainer__buttons button {
-  /* margin: 1rem 0; */
   text-decoration: none;
   outline: none;
   border: none;

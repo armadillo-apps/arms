@@ -1,9 +1,9 @@
 .editApartmentFormContainer {
   width: 500px;
-  height: 500px;
+  height: 700px;
   box-sizing: border-box;
-  margin-left: 30px;
-  font-family: Open Sans;
+  margin: 30px;
+  font-family: var(--font2);
 }
 
 .editApartmentForm {
@@ -11,10 +11,10 @@
 }
 
 .editApartmentForm input {
-  height: 20px;
-  width: 200px;
+  height: 40px;
+  width: auto;
   margin-bottom: 0.5rem;
-  padding-left: 15px;
+  padding-left: 30px;
 }
 
 .editApartmentForm label {
@@ -37,23 +37,8 @@
   margin-right: 15px;
 }
 
-.textarea__wrapper {
-  margin-top: 1.5rem;
-}
-
-.textarea__wrapper label {
-  display: block;
-  margin-right: 1rem;
-}
-
-.textarea__wrapper textarea {
-  border-color: var(--main-row-border-color);
-  border-radius: 10px;
-  padding: 15px;
-}
-
 .editApartmentForm__buttons {
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
 
 .editApartmentForm__cancelButton {
@@ -78,15 +63,25 @@
   cursor: pointer;
 }
 
-.editApartmentForm__textarea {
-  border-radius: 10px;
-  border-color: var(--main-row-border-color);
+.editApartmentForm__remarks {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.editApartmentForm__remarks label {
+  font-size: 1.3rem;
+}
+
+.editApartmentForm__remarks textarea {
   font-size: 1.8rem;
   outline: none;
+  font-family: var(--font2);
+  max-width: 440px;
+  min-width: 440px;
+  min-height: 100px;
+  overflow: scroll;
   border: 1px solid #e4e5ea;
-  font-family: var(--font);
-  margin-bottom: 2rem;
-  padding: 5px 30px;
+  padding: 10px 30px;
 }
 
 .editApartmentForm__heading {

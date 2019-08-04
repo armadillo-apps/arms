@@ -1,7 +1,12 @@
 .editOccupantFormContainer {
   width: 500px;
   height: 500px;
-  font-family: Open Sans;
+  font-family: var(--font2);
+  margin: 30px;
+}
+
+.editOccupantForm__heading {
+  text-align: center;
 }
 
 .editOccupantForm__flex {
@@ -9,9 +14,12 @@
   justify-content: space-between;
 }
 
+.editOccupantForm__status {
+  margin: 20px 0;
+}
+
 .editOccupantForm__statusLabel {
-  font-size: var(--main-h2-font-size);
-  margin-bottom: 5px;
+  font-size: 1.3rem;
 }
 
 .editOccupantForm__select {
@@ -44,4 +52,17 @@
   outline: none;
   border: none;
   cursor: pointer;
+}
+
+.editOccupantForm__remarks {
+  max-width: 400px;
+  min-width: 400px;
+  min-height: 100px;
+  overflow: scroll;
+  border: 1px solid #e4e5ea;
+  font-size: 1.8rem;
+  font-family: var(--font2);
+  outline: none;
+  padding: 10px 30px;
+  margin-bottom: 30px;
 }

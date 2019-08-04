@@ -1,13 +1,12 @@
 .occupantFormContainer {
   background: var(--main-bg-color);
-  font-family: Open Sans;
+  font-family: var(--font2);
 }
 
 .occupantForm {
   display: flex;
   flex-direction: column;
   margin-left: 60px;
-  
 }
 
 .occupantForm__heading {
@@ -55,4 +54,31 @@
 .occupantForm__statusLabel {
   margin-top: 100px;
   font-size: var(--main-h2-font-size);
+  margin-top: 30px;
+  margin-bottom: 7px;
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.occupantForm__split {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 510px;
+  grid-gap: 80px;
+}
+
+.occupantForm__split input {
+  width: 100%;
+}
+
+.occupantForm__remarks {
+  max-width: 510px;
+  min-width: 510px;
+  min-height: 100px;
+  overflow: scroll;
+  border: 1px solid #e4e5ea;
+  font-size: 1.8rem;
+  outline: none;
+  padding: 10px 30px;
 }
