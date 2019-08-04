@@ -11,7 +11,7 @@ const customStyles = {
     backgroundColor: "rgb(255,255,255)",
     transform: "translate(-50%, -50%)",
     width: "700px",
-    height: "900px",
+    height: "80%",
     display: "flex",
     justifyContent: "flex-start",
     flexDirection: "column",
