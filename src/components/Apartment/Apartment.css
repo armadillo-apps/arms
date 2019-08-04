@@ -1,15 +1,15 @@
-.apartment {
+.apartments {
   background-color: var(--main-bg-color);
   width: 100%;
 }
 
-.apartment__div {
+.apartments__div {
   padding-left: 6rem;
   padding-right: 6rem;
   font-family: var(--font2);
 }
 
-.apartment__heading {
+.apartments__heading {
   font-size: var(--main-h1-font-size);
   color: var(--main-h1-color);
   line-height: 43px;
@@ -23,14 +23,14 @@
   display: flex;
 }
 
-.fields {
+.apartments__table {
   margin-top: 2.2rem;
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 1rem;
 }
 
-.fields__th {
+.apartments__table th {
   font-size: 1.3rem;
-  font-weight: 400;
+  font-weight: 600;
 }

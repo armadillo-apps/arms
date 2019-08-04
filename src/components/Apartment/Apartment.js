@@ -41,8 +41,8 @@ const Apartment = ({ apartments, stays, history }) => {
 
   const renderTable = () => {
     return (
-      <table className="fields" cellSpacing="0" cellPadding="0">
-        <thead className="fields__th">
+      <table className="apartments__table">
+        <thead className="apartments__tableHeaders">
           <tr>
             <th>Vacancy</th>
             <th>Apartment Name</th>
@@ -71,9 +71,9 @@ const Apartment = ({ apartments, stays, history }) => {
   };
 
   return (
-    <div className="apartment" data-testid="apartment">
-      <div className="apartment__div">
-        <h1 className="apartment__heading">Apartments</h1>
+    <div className="apartments" data-testid="apartment">
+      <div className="apartments__div">
+        <h1 className="apartments__heading">Apartments</h1>
         <SearchBar handleChange={handleNewInput} placeholder="Apartment" />
         {renderTable()}
       </div>
