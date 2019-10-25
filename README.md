@@ -15,6 +15,12 @@ Create a `cypress.env.json` and add the `baseUrl`.
 }
 ```
 
+Create a `.env` and add the `REACT_APP_URL`.
+
+```
+REACT_APP_URL = "http://localhost:3005"
+```
+
 ## Getting started
 
 To start development
