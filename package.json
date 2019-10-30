@@ -43,5 +43,12 @@
     "cypress": "^3.5.0",
     "eslint-plugin-cypress": "^2.6.0",
     "faker": "^4.1.0"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "printWidth": 80,
+    "useTabs": false,
+    "singleQuote": false,
+    "semi": true
   }
 }
