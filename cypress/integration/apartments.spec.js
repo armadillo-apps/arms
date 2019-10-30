@@ -308,7 +308,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 			cy.contains("Occupant");
 		});
 
-		const monthlyRentCheckoutDate = checkoutDate.format("d MMM YY");
+		const monthlyRentCheckoutDate = checkoutDate.format("D MMM YY");
 		it("should be able to view apartment name, check-in & check-out dates and monthly rent on occupant profile", () => {
 			cy.visit(`${baseUrl}/occupants`);
 			cy.contains(name).click();
