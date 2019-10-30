@@ -5,7 +5,8 @@ import {
   render,
   cleanup,
   waitForElement,
-  fireEvent
+  fireEvent,
+  wait
 } from "@testing-library/react";
 import ApartmentProfile from "./ApartmentProfile";
 import * as data from "../../api/api";
@@ -84,6 +85,18 @@ const stayingHistory = [
     checkOutDate: new Date(),
     leaseId: "e83724nht8",
     occupantName: "Kai"
+  }
+];
+
+const occupantToBeDeleted = [
+  {
+    _id: "67890120",
+    apartmentId: "12345abc",
+    occupantId: "1d2ef34111ead80016be1324",
+    checkInDate: new Date("01-01-2018"),
+    checkOutDate: new Date(),
+    leaseId: "e83724nht8",
+    occupantName: "Jane"
   }
 ];
 
@@ -189,6 +202,25 @@ describe("Apartment Profile", () => {
     expect(occupantName2).toBeInTheDocument();
     expect(checkInDate1).toBeInTheDocument();
     expect(checkOutDate2).toBeInTheDocument();
+  });
+
+  it("should display the modal with the delete confirmation message when X is clicked", async () => {
+    getApartmentProfileHistory.mockReturnValueOnce(occupantToBeDeleted);
+    const { getByText } = render(
+      <ApartmentProfile
+        apartments={apartmentDetails}
+        match={match}
+        editApartmentModal={editApartmentModal}
+        onSubmit={onSubmit}
+      />
+    );
+    const occupantName = await waitForElement(() => getByText("Jane"));
+    expect(occupantName).toBeInTheDocument();
+    const xButton = getByText("X");
+    fireEvent.click(xButton);
+    expect(
+      getByText("Are you sure you want to delete this entry?")
+    ).toBeInTheDocument();
   });
 
   it("should render message when occupant history is empty", async () => {
