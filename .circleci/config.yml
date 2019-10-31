@@ -127,13 +127,15 @@ workflows:
   testAndDeploy:
     jobs:
       - pingAllDeploymentServers
-      - build
-      - unitTest
+      - unitTest:
+          requires:
+            - pingAllDeploymentServers
+      - build:
+          requires:
+            - unitTest
       - deployTest:
           requires:
             - build
-            - unitTest
-            - pingAllDeploymentServers
       - dropDb:
           requires:
             - deployTest
