@@ -36,7 +36,7 @@ jobs:
             - node_modules
       - run:
           name: Run unit tests
-          command: npm run test
+          command: npm run test:coverage
   dropDb:
     docker:
       - image: circleci/mongo:3.6.12

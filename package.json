@@ -52,5 +52,18 @@
     "useTabs": false,
     "singleQuote": false,
     "semi": true
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 59.7,
+        "functions": 58.5,
+        "lines": 63.2,
+        "statements": 63.0
+      }
+    }
   }
 }
