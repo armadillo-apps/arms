@@ -35,6 +35,20 @@ describe("Login Form", () => {
     expect(getByLabelText("login")).toBeInTheDocument();
   });
 
+  it("should fill in the login credentials", () => {
+    const { getByLabelText } = render(<LoginForm />);
+    const userEmail = getByLabelText("Email");
+    fireEvent.change(userEmail, {
+      target: { value: "elson@thoughtworks.com" }
+    });
+
+    const userPassword = getByLabelText("Password");
+    fireEvent.change(userPassword, { target: { value: "pass1234" } });
+
+    expect(userEmail.value).toBe("elson@thoughtworks.com");
+    expect(userPassword.value).toBe("pass1234");
+  });
+
   xit("should display successful message when user is logged in", async () => {
     const { getByLabelText, getByText } = loginFunction();
 
