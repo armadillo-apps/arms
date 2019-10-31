@@ -119,7 +119,7 @@ class ApartmentProfile extends Component {
       this.setState({
         success: false,
         message: "Unable to assign occupant to apartment"
-      })
+      });
     }
   };
 
