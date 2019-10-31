@@ -11,7 +11,6 @@ const Apartment = ({ apartments, stays, history }) => {
 
   useEffect(() => {
     setApartmentList(apartments);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apartments]);
 
   const handleNewInput = event => {

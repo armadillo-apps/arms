@@ -30,7 +30,6 @@ const OccupantProfile = ({
         return err;
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!occupants || occupants.length < 1) {

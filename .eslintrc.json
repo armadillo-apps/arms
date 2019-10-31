@@ -1,27 +1,29 @@
 {
-  "plugins": ["cypress", "prettier"],
+  "plugins": ["cypress", "prettier", "jest", "react"],
   "env": {
+    "browser": true,
     "node": true,
-    "commonjs": true,
     "es6": true,
-    "jest": true,
+    "jest/globals": true,
     "cypress/globals": true
   },
   "extends": [
-    "react-app",
-    "plugin:cypress/recommended",
     "eslint:recommended",
-    "plugin:prettier/recommend"
+    "plugin:jest/recommended",
+    "plugin:react/recommended",
+    "plugin:cypress/recommended",
+    "plugin:prettier/recommended"
   ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
-  "parserOptions": {
-    "ecmaVersion": 2018
-  },
   "rules": {
     "no-unused-vars": 0,
+    "react/prop-types": 0,
     "prettier/prettier": "error"
+  },
+  "parser": "babel-eslint",
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "16.8.6"
+    }
   }
 }

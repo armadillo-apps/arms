@@ -50,7 +50,7 @@ describe("ApartmentAssign", () => {
     ).toBeInTheDocument();
   });
 
-  it("should show the success message on assignment of occupant to particular apartment", () => {
+  it("should show the Failture! message on assignment of occupant to particular apartment", () => {
     const { getByText } = render(
       <ApartmentAssign message={"Failture!"} success={false} />
     );

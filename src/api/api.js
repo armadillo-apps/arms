@@ -57,21 +57,13 @@ export const createStay = async (
     checkOutDate: checkOutDate,
     leaseId: leaseId
   };
-  try {
-    const response = await axios.post("/stays", requestBody);
-    return response.data;
-  } catch (err) {
-    throw err;
-  }
+  const response = await axios.post("/stays", requestBody);
+  return response.data;
 };
 
 export const removeStay = async stayId => {
-  try {
-    const response = await axios.delete(`/stays/${stayId}`);
-    return response.data;
-  } catch (err) {
-    throw err;
-  }
+  const response = await axios.delete(`/stays/${stayId}`);
+  return response.data;
 };
 
 export const updateOccupant = async (
@@ -124,12 +116,8 @@ export const updateApartment = async (
 
 export const fetchStays = async queryParams => {
   const query = queryString.stringify(queryParams);
-  try {
-    const response = await axios.get(`/stays?${query}`);
-    return response.data;
-  } catch (err) {
-    throw err;
-  }
+  const response = await axios.get(`/stays?${query}`);
+  return response.data;
 };
 
 export const loginUser = async (email, password) => {

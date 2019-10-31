@@ -1,3 +1,4 @@
+/* eslint-disable jest/expect-expect */
 import faker from "faker";
 import moment from "moment";
 
