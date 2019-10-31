@@ -96,12 +96,13 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   describe("Create, edit, view, and search Occupant", () => {
     it("should create a new occupant and show occupant profile", () => {
       const status = "allocated";
+      const gender = "female";
 
       cy.visit(`${baseUrl}/newOccupant`);
       cy.get("h1").contains("Create New Occupant");
       cy.get("input[name=name]").type(modName);
       cy.get("input[name=employeeId]").type(modEmployeeId);
-      cy.get("input[name=gender]").type("female");
+      cy.get("select[name=gender]").select(gender);
       cy.get("textarea[name=remarks]").type("BAD REMARKS");
       cy.get("input[name=country]").type("Thailand");
       cy.get("select[name=status]").select(status);
@@ -114,7 +115,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .click();
       cy.get("h1").contains(modName);
       cy.get("h2").contains(modEmployeeId);
-      cy.get("h2").contains(/Gender: Female/i);
+      cy.get("h2").contains(gender);
       cy.get("h2").contains(/Country: Thailand/i);
       cy.get("span").contains(status);
     });

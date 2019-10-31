@@ -60,6 +60,15 @@
   font-size: 1.3rem;
   font-weight: 400;
 }
+.occupantForm__genderLabel {
+  margin-top: 100px;
+  font-size: var(--main-h2-font-size);
+  margin-top: 30px;
+  margin-bottom: 7px;
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
 
 .occupantForm__split {
   display: grid;

@@ -84,14 +84,24 @@ class NewOccupantForm extends Component {
             type="text"
           />
           <div className="occupantForm__split">
-            <Input
-              id="gender"
-              label="Gender"
-              name="gender"
-              onChange={this.onFormChange}
-              value={this.state.gender}
-              type="text"
-            />
+            <section>
+              <label htmlFor="gender" className="occupantForm__genderLabel">
+                Gender
+              </label>
+              <select
+                id="gender"
+                label="Gender"
+                name="gender"
+                onChange={this.onFormChange}
+                value={this.state.gender}
+                type="text"
+              >
+                <option value="">Select...</option>
+                <option value="male">male</option>
+                <option value="female">female</option>
+                <option value="neutral">neutral</option>
+              </select>
+            </section>
             <Input
               id="country"
               label="Country"
