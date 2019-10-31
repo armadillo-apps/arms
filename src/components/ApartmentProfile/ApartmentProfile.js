@@ -119,20 +119,16 @@ class ApartmentProfile extends Component {
       this.setState({
         success: false,
         message: "Unable to assign occupant to apartment"
-      });
+      })
     }
   };
 
   deleteStay = async () => {
     try {
-      console.log("we are going to delete");
       const response = await removeStay(this.state.stayToDelete);
-      console.log("we have remove stayed, we going to set state");
       this.setState({ stayToDelete: "", success: true, message: response });
-      console.log("we are going to trigger render");
       this.triggerRender();
     } catch (err) {
-      console.log(err);
       this.setState({
         success: false,
         message: "Unable to delete stay from history"

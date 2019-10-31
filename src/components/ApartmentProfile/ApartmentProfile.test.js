@@ -104,8 +104,6 @@ const getApartmentProfileHistory = jest.spyOn(
   "getApartmentProfileHistory"
 );
 
-const removeStay = jest.spyOn(data, "removeStay");
-
 describe("Apartment Profile", () => {
   let match, onSubmit;
   const editApartmentModal = {
@@ -222,27 +220,6 @@ describe("Apartment Profile", () => {
     expect(
       getByText("Are you sure you want to delete this entry?")
     ).toBeInTheDocument();
-  });
-
-  it("should delete the occupant when Delete button is clicked", async () => {
-    getApartmentProfileHistory.mockReturnValueOnce(occupantToBeDeleted);
-    removeStay.mockResolvedValueOnce("Successfully removed stay entry");
-    const { getByText } = render(
-      <ApartmentProfile
-        apartments={apartmentDetails}
-        match={match}
-        editApartmentModal={editApartmentModal}
-        onSubmit={onSubmit}
-      />
-    );
-    const xButton = await waitForElement(() => getByText("X"));
-    console.log(xButton)
-    fireEvent.click(xButton);
-    const deleteButton = await getByText("Delete");
-    console.log(deleteButton)
-    fireEvent.click(deleteButton);
-    const message = await waitForElement(() => getByText("No occupants yet!"));
-    expect(message).toBeInTheDocument();
   });
 
   it("should render message when occupant history is empty", async () => {
