@@ -5,8 +5,7 @@ import {
   render,
   cleanup,
   waitForElement,
-  fireEvent,
-  wait
+  fireEvent
 } from "@testing-library/react";
 import ApartmentProfile from "./ApartmentProfile";
 import * as data from "../../api/api";
@@ -104,6 +103,8 @@ const getApartmentProfileHistory = jest.spyOn(
   data,
   "getApartmentProfileHistory"
 );
+
+const removeStay = jest.spyOn(data, "removeStay");
 
 describe("Apartment Profile", () => {
   let match, onSubmit;
@@ -223,6 +224,25 @@ describe("Apartment Profile", () => {
     ).toBeInTheDocument();
   });
 
+  it("should delete the occupant when Delete button is clicked", async () => {
+    getApartmentProfileHistory.mockReturnValueOnce(occupantToBeDeleted);
+    removeStay.mockResolvedValueOnce();
+    const { getByText } = render(
+      <ApartmentProfile
+        apartments={apartmentDetails}
+        match={match}
+        editApartmentModal={editApartmentModal}
+        onSubmit={onSubmit}
+      />
+    );
+    const xButton = await waitForElement(() => getByText("X"));
+    fireEvent.click(xButton);
+    const deleteButton = await getByText("Delete");
+    fireEvent.click(deleteButton);
+    const message = await waitForElement(() => getByText("No occupants yet!"));
+    expect(message).toBeInTheDocument();
+  });
+
   it("should render message when occupant history is empty", async () => {
     getApartmentProfileHistory.mockReturnValueOnce([]);
     const { getByText } = render(
@@ -335,7 +355,7 @@ describe("Apartment Profile", () => {
         success: false,
         message: "Unable to update apartment"
       };
-      const { getByText, queryByText } = render(
+      const { getByText } = render(
         <ApartmentProfile
           apartments={apartmentDetails}
           match={match}
