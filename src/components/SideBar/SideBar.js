@@ -39,6 +39,14 @@ const SideBar = () => {
           <svg className="addIcon" />
           NEW OCCUPANT
         </NavLink>
+        <NavLink
+          className="sideBar__heading"
+          to="/login"
+          activeClassName="active"
+        >
+          <svg className="addIcon" />
+          Login
+        </NavLink>
       </div>
     </div>
   );

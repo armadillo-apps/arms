@@ -15,6 +15,7 @@ import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
 import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
 import OccupantProfile from "../OccupantProfile/OccupantProfile";
 import ApartmentProfile from "../ApartmentProfile/ApartmentProfile";
+import LoginForm from "../LoginForm/LoginForm";
 
 class App extends Component {
   constructor(props) {
@@ -294,6 +295,13 @@ class App extends Component {
                   triggerRender={this.triggerRender}
                   {...props}
                 />
+              )}
+            />
+            <Route
+              exact
+              path="/login"
+              render={props => (
+                <LoginForm triggerRender={this.triggerRender} {...props} />
               )}
             />
             <Route component={NoMatchPage} />
