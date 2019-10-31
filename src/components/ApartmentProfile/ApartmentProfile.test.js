@@ -226,7 +226,7 @@ describe("Apartment Profile", () => {
 
   it("should delete the occupant when Delete button is clicked", async () => {
     getApartmentProfileHistory.mockReturnValueOnce(occupantToBeDeleted);
-    removeStay.mockResolvedValueOnce();
+    removeStay.mockResolvedValueOnce("Successfully removed stay entry");
     const { getByText } = render(
       <ApartmentProfile
         apartments={apartmentDetails}
@@ -236,8 +236,10 @@ describe("Apartment Profile", () => {
       />
     );
     const xButton = await waitForElement(() => getByText("X"));
+    console.log(xButton)
     fireEvent.click(xButton);
     const deleteButton = await getByText("Delete");
+    console.log(deleteButton)
     fireEvent.click(deleteButton);
     const message = await waitForElement(() => getByText("No occupants yet!"));
     expect(message).toBeInTheDocument();
