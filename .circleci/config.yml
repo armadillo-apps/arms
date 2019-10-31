@@ -67,60 +67,60 @@ jobs:
           name: Run Cypress
           command: npm run cy:run
   deployTest:
-      docker:
-        - image: circleci/node:12.6.0
-      environment:
-        HEROKU_APP_NAME: test-armadillo-arms
-      steps:
-        - checkout
-        - run:
-            name: Deploy to test frontend on Heroku
-            command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+    docker:
+      - image: circleci/node:12.6.0
+    environment:
+      HEROKU_APP_NAME: test-armadillo-arms
+    steps:
+      - checkout
+      - run:
+          name: Deploy to test frontend on Heroku
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
   deployDemo:
-      docker:
-         - image: circleci/node:12.6.0
-      environment:
-         HEROKU_APP_NAME: demo-armadillo-arms
-      steps:
-          - checkout
-          - run:
-              name: Deploy to demo frontend on Heroku
-              command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+    docker:
+      - image: circleci/node:12.6.0
+    environment:
+      HEROKU_APP_NAME: demo-armadillo-arms
+    steps:
+      - checkout
+      - run:
+          name: Deploy to demo frontend on Heroku
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
   deployProd:
-      docker:
-         - image: circleci/node:12.6.0
-      environment:
-          HEROKU_APP_NAME: armadillo-arms
-      steps:
-          - checkout
-          - run:
-              name: Deploy to production frontend on Heroku
-              command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
-          - run:
-              name: Ping test deployment
-              command: curl --fail https://$HEROKU_APP_NAME.herokuapp.com/
+    docker:
+      - image: circleci/node:12.6.0
+    environment:
+      HEROKU_APP_NAME: armadillo-arms
+    steps:
+      - checkout
+      - run:
+          name: Deploy to production frontend on Heroku
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+      - run:
+          name: Ping test deployment
+          command: curl --fail https://$HEROKU_APP_NAME.herokuapp.com/
   pingAllDeploymentServers:
-        docker:
-          - image: circleci/node:12.6.0-browsers
-        steps:
-          - run:
-              name: Ping arms test server
-              command: curl --silent https://test-armadillo-arms.herokuapp.com/
-          - run:
-              name: Ping legs test server
-              command: curl --silent https://test-armadillo-legs.herokuapp.com/
-          - run:
-              name: Ping arms demo server
-              command: curl --silent https://demo-armadillo-arms.herokuapp.com/
-          - run:
-              name: Ping legs demo server
-              command: curl --silent https://demo-armadillo-legs.herokuapp.com/
-          - run:
-              name: Ping arms production server
-              command: curl --silent https://armadillo-arms.herokuapp.com/
-          - run:
-              name: Ping legs production server
-              command: curl --silent https://armadillo-legs.herokuapp.com/
+    docker:
+      - image: circleci/node:12.6.0-browsers
+    steps:
+      - run:
+          name: Ping arms test server
+          command: curl --silent https://test-armadillo-arms.herokuapp.com/
+      - run:
+          name: Ping legs test server
+          command: curl --silent https://test-armadillo-legs.herokuapp.com/
+      - run:
+          name: Ping arms demo server
+          command: curl --silent https://demo-armadillo-arms.herokuapp.com/
+      - run:
+          name: Ping legs demo server
+          command: curl --silent https://demo-armadillo-legs.herokuapp.com/
+      - run:
+          name: Ping arms production server
+          command: curl --silent https://armadillo-arms.herokuapp.com/
+      - run:
+          name: Ping legs production server
+          command: curl --silent https://armadillo-legs.herokuapp.com/
 
 workflows:
   version: 2
@@ -146,5 +146,3 @@ workflows:
       - deployProd:
           requires:
             - deployDemo
-
-

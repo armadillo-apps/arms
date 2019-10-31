@@ -4,20 +4,19 @@ import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
 import EditApartmentForm from "./EditApartmentForm";
 
-const apartment = 
-  {
-    _id:"12345",
-    name: "Fancy Penthouse",
-    address: "18 Bogus Street #01-01",
-    bedrooms: 1,
-    capacity: 1,
-    landlord: {
-      name: "Bob",
-      accountNumber: "12345"
-    },
-    remarks: "helloo",
-    country: "Singapore"
-  };
+const apartment = {
+  _id: "12345",
+  name: "Fancy Penthouse",
+  address: "18 Bogus Street #01-01",
+  bedrooms: 1,
+  capacity: 1,
+  landlord: {
+    name: "Bob",
+    accountNumber: "12345"
+  },
+  remarks: "helloo",
+  country: "Singapore"
+};
 
 describe("EditApartmentForm", () => {
   describe("Form fields", () => {
@@ -123,8 +122,6 @@ describe("EditApartmentForm", () => {
 
   describe("Update button", () => {
     it("should call onSubmit with updated details", () => {
-      
-      
       const onSubmit = jest.fn().mockImplementation(event => {
         event.preventDefault();
       });
@@ -138,7 +135,7 @@ describe("EditApartmentForm", () => {
 
       const updateButton = getByText("Update");
       fireEvent.click(updateButton);
-      
+
       const updatedApartment = {
         apartmentId: "12345",
         name: "The Beacon",
@@ -153,7 +150,10 @@ describe("EditApartmentForm", () => {
         country: "Singapore"
       };
       expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit).toHaveBeenCalledWith(expect.anything(), updatedApartment);
+      expect(onSubmit).toHaveBeenCalledWith(
+        expect.anything(),
+        updatedApartment
+      );
     });
   });
 });

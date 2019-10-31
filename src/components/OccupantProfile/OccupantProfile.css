@@ -59,7 +59,7 @@
 
 .stayHistory__table {
   border-collapse: separate;
-  border-spacing: 0 .5rem;
+  border-spacing: 0 0.5rem;
 }
 
 .stayHistory__table th {
@@ -73,7 +73,7 @@
   font-size: var(--main-h2-font-size);
   text-align: center;
   background-color: white;
-  height:3rem;
+  height: 3rem;
 }
 
 .remarks__body {

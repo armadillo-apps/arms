@@ -171,7 +171,7 @@ describe("Occupant profile", () => {
         },
         leaseId: "5d401557d855f9677f345692",
         checkInDate: "2009-12-25T00:00:00.000Z",
-        checkOutDate: "2019-12-25T00:00:00.000Z",
+        checkOutDate: "2019-12-25T00:00:00.000Z"
       },
       {
         _id: "456",

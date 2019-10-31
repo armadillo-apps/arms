@@ -43,14 +43,14 @@ const Occupant = ({ occupants, history }) => {
   };
 
   const handleOccupantSearch = () => {
-    if(inputValue){
+    if (inputValue) {
       return filteredOccupants.filter(occupant => {
         return occupant.name.toLowerCase().includes(inputValue.toLowerCase());
-      })
-    }else{
+      });
+    } else {
       return filteredOccupants;
     }
-  }
+  };
 
   return (
     <div className="occupants" data-testid="occupants">

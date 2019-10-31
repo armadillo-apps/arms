@@ -1,5 +1,5 @@
 {
-  "plugins": ["cypress"],
+  "plugins": ["cypress", "prettier"],
   "env": {
     "node": true,
     "commonjs": true,
@@ -7,7 +7,12 @@
     "jest": true,
     "cypress/globals": true
   },
-  "extends": ["react-app", "plugin:cypress/recommended", "eslint:recommended"],
+  "extends": [
+    "react-app",
+    "plugin:cypress/recommended",
+    "eslint:recommended",
+    "plugin:prettier/recommend"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -16,6 +21,7 @@
     "ecmaVersion": 2018
   },
   "rules": {
-    "no-unused-vars": 0
+    "no-unused-vars": 0,
+    "prettier/prettier": "error"
   }
 }

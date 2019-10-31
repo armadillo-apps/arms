@@ -59,7 +59,9 @@ describe("ApartmentAssign", () => {
 
   it("should render headers in assign occupant to apartment modal", async () => {
     const filterList = jest.fn(() => []);
-    const { getByText } = render(<ApartmentAssign dropdown={true} filterList={filterList} />);
+    const { getByText } = render(
+      <ApartmentAssign dropdown={true} filterList={filterList} />
+    );
 
     expect(getByText("Name")).toBeInTheDocument();
     expect(getByText("Employee Id")).toBeInTheDocument();
