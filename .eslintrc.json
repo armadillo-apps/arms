@@ -8,18 +8,17 @@
     "cypress/globals": true
   },
   "extends": [
+    "plugin:react/recommended",
     "eslint:recommended",
     "plugin:jest/recommended",
     "plugin:cypress/recommended",
     "plugin:prettier/recommended"
   ],
   "rules": {
-    "no-unused-vars": 0,
-    "react/prop-types": 0,
-    "no-useless-catch": 1,
-    "no-undef": 1,
-    "jest/no-test-prefixes": 1,
+    "no-unused-vars": 1,
     "react/no-unescaped-entities": 0,
+    "react/prop-types": 0,
+    "jest/no-test-prefixes": 1,
     "prettier/prettier": "error"
   },
   "parser": "babel-eslint",
