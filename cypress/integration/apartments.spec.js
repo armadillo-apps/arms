@@ -110,6 +110,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("a")
         .contains("OCCUPANTS")
         .click();
+      cy.get("input[type=text]").type(modName);
       cy.get("td")
         .contains(modEmployeeId)
         .click();
@@ -221,6 +222,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("a")
         .contains("APARTMENTS")
         .click();
+      cy.get("input[type=text]").type(apartmentName);
 
       const vacancy = 1;
       cy.get("tbody tr")
