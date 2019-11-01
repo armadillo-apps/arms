@@ -5,7 +5,6 @@ import { render, wait, waitForElement } from "@testing-library/react";
 import OccupantProfile from "./OccupantProfile";
 import * as data from "../../api/api";
 
-console.error = jest.fn();
 const fetchStays = jest.spyOn(data, "fetchStays");
 
 const occupantDetails = [
