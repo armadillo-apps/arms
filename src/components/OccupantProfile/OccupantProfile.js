@@ -30,7 +30,7 @@ const OccupantProfile = ({
         return err;
       }
     })();
-  }, []);
+  }, [match.params]);
 
   if (!occupants || occupants.length < 1) {
     return <h1>Loading...</h1>;
