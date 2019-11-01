@@ -16,22 +16,24 @@ class LoginForm extends Component {
     };
   }
 
-  handleInputChange = event => {
+  onFormChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
   };
 
-  onLogin = async () => {
+  onFormSubmit = async event => {
     try {
+      event.preventDefault();
       const { email, password } = this.state;
-      await loginUser(email, password);
+      const response = await loginUser(email, password);
       this.setState({
         success: true,
         submitted: true,
-        message: "You are logged in"
+        message: response
       });
+      this.props.triggerRender();
     } catch (err) {
       this.setState({
         success: false,
@@ -43,16 +45,16 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <div className="loginFormContainer">
+      <form className="loginFormContainer" onSubmit={this.onFormSubmit}>
         <h1 className="loginForm__heading">User Login</h1>
         <div className="loginForm">
           <Input
             id="email"
             label="Email"
             name="email"
+            onChange={this.onFormChange}
             type="text"
             value={this.state.email}
-            onChange={this.handleInputChange}
             required
           />
           <Input
@@ -61,26 +63,20 @@ class LoginForm extends Component {
             name="password"
             type="password"
             value={this.state.password}
-            onChange={this.handleInputChange}
+            onChange={this.onFormChange}
             required
           />
-          <button
-            className="loginForm__loginButton"
-            aria-label="login"
-            onClick={this.onLogin}
-          >
-            Login
-          </button>
-          {this.state.submitted ? (
-            <ConfirmationMessage
-              success={this.state.success}
-              message={this.state.message}
-            />
-          ) : (
-            ""
-          )}
         </div>
-      </div>
+        {this.state.submitted ? (
+          <ConfirmationMessage
+            success={this.state.success}
+            message={this.state.message}
+          />
+        ) : (
+          ""
+        )}
+        <input className="loginForm__loginButton" value="Login" type="submit" />
+      </form>
     );
   }
 }

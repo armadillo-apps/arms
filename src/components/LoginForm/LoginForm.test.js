@@ -1,24 +1,18 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, fireEvent, waitForElement } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  waitForElement,
+  within
+} from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 import LoginForm from "./LoginForm";
+import * as data from "../../api/api";
+
+const postSpy = jest.spyOn(data, "loginUser");
 
 describe("Login Form", () => {
-  const onLogin = jest.fn();
-  let loginInput;
-
-  beforeEach(() => {
-    loginInput = {
-      email: "elson@thoughtworks.com",
-      password: "pass1234"
-    };
-  });
-
-  const loginFunction = () => {
-    return render(<LoginForm onLogin={onLogin} loginInput={input} />);
-  };
-
   it("should have Login title on page ", () => {
     const { getByText } = render(<LoginForm />);
     expect(getByText("User Login")).toBeInTheDocument();
@@ -31,8 +25,10 @@ describe("Login Form", () => {
   });
 
   it("should display a login button", () => {
-    const { getByLabelText } = render(<LoginForm />);
-    expect(getByLabelText("login")).toBeInTheDocument();
+    const { getByText } = render(<LoginForm />);
+    expect(
+      getByText("Login", { selector: "input[type=submit]" })
+    ).toBeInTheDocument();
   });
 
   it("should fill in the login credentials", () => {
@@ -49,20 +45,21 @@ describe("Login Form", () => {
     expect(userPassword.value).toBe("pass1234");
   });
 
-  xit("should display successful message when user is logged in", async () => {
-    const { getByLabelText, getByText } = loginFunction();
+  describe("Confirmation message", () => {
+    it("should display successful message when user is logged in", async () => {
+      postSpy.mockReturnValue("You are logged in");
 
-    const getEmailInput = getByLabelText("Email");
-    const getPasswordInput = getByLabelText("Password");
-    const getLoginButton = getByLabelText("login");
+      const triggerRender = () => {};
+      const { getByText } = render(<LoginForm triggerRender={triggerRender} />);
 
-    fireEvent.click(getLoginButton);
-    expect(onLogin).toBeCalledWith(loginInput);
+      const button = getByText("Login", { selector: "input[type=submit]" });
+      fireEvent.click(button);
 
-    // const loginSuccessful = await waitForElement(() => {
-    //   getByText("You are logged in");
-    // });
+      const loginSuccessful = await waitForElement(() =>
+        getByText("You are logged in")
+      );
 
-    // expect(loginSuccessful).toBeInTheDocument();
+      expect(loginSuccessful).toBeInTheDocument();
+    });
   });
 });

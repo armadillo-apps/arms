@@ -122,10 +122,6 @@ export const fetchStays = async queryParams => {
 
 export const loginUser = async (email, password) => {
   const loginDetails = { email, password };
-  try {
-    const login = await axios.post("/users/login", loginDetails);
-    return login.data;
-  } catch (err) {
-    throw err;
-  }
+  const login = await axios.post("/users/login", loginDetails);
+  return login.data;
 };
