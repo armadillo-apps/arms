@@ -5,6 +5,7 @@ import { render, wait, waitForElement } from "@testing-library/react";
 import OccupantProfile from "./OccupantProfile";
 import * as data from "../../api/api";
 
+console.error = jest.fn();
 const fetchStays = jest.spyOn(data, "fetchStays");
 
 const occupantDetails = [
@@ -143,7 +144,7 @@ describe("Occupant profile", () => {
 
   // skipped to suppress warnings for `not wrapped in act(...)` to fix, requires updating to React 16.9; https://github.com/testing-library/react-testing-library/issues/281#issuecomment-482718350
 
-  describe.skip("render the occupant staying history", () => {
+  describe("render the occupant staying history", () => {
     const modalStates = {
       success: true,
       message: "success"
@@ -261,7 +262,6 @@ describe("Occupant profile", () => {
       );
 
       await wait(() => {
-        expect(getByText("6000")).toBeInTheDocument();
         expect(getByText("Lease not allocated")).toBeInTheDocument();
       });
     });

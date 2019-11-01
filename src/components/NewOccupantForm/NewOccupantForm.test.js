@@ -38,9 +38,9 @@ describe("Input form", () => {
     expect(getByLabelText("Remarks")).toBeInTheDocument();
   });
 
-  it("should have input text for country", () => {
+  it("should have dropdown for Home Office", () => {
     const { getByLabelText } = render(<NewOccupantForm />);
-    expect(getByLabelText("Country")).toBeInTheDocument();
+    expect(getByLabelText("Home Office")).toBeInTheDocument();
   });
 
   it("should have dropdown for status", () => {
@@ -70,8 +70,8 @@ describe("Input form", () => {
     const remarks = getByLabelText("Remarks");
     fireEvent.change(remarks, { target: { value: "testing" } });
 
-    const country = getByLabelText("Country");
-    fireEvent.change(country, { target: { value: "Singapore" } });
+    const country = getByLabelText("Home Office");
+    fireEvent.change(country, { target: { value: "Melbourne, Australia" } });
 
     const status = getByLabelText("Occupant Status*");
     fireEvent.change(status, { target: { value: "allocated" } });
@@ -80,7 +80,7 @@ describe("Input form", () => {
     expect(employeeId.value).toBe("123");
     expect(gender.value).toBe("male");
     expect(remarks.value).toBe("testing");
-    expect(country.value).toBe("Singapore");
+    expect(country.value).toBe("Melbourne, Australia");
     expect(status.value).toBe("allocated");
   });
 });
@@ -102,8 +102,8 @@ describe("Confirmation message", () => {
     const remarks = getByLabelText("Remarks");
     fireEvent.change(remarks, { target: { value: "testing" } });
 
-    const country = getByLabelText("Country");
-    fireEvent.change(country, { target: { value: "Singapore" } });
+    const country = getByLabelText("Home Office");
+    fireEvent.change(country, { target: { value: "Singapore, Singapore" } });
 
     const status = getByLabelText("Occupant Status*");
     fireEvent.change(status, { target: { value: "unallocated" } });
