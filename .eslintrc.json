@@ -1,5 +1,5 @@
 {
-  "plugins": ["cypress", "prettier", "jest", "react"],
+  "plugins": ["cypress", "prettier", "jest"],
   "env": {
     "browser": true,
     "node": true,
@@ -10,7 +10,6 @@
   "extends": [
     "eslint:recommended",
     "plugin:jest/recommended",
-    "plugin:react/recommended",
     "plugin:cypress/recommended",
     "plugin:prettier/recommended"
   ],
@@ -20,7 +19,7 @@
     "no-useless-catch": 1,
     "no-undef": 1,
     "jest/no-test-prefixes": 1,
-    "react/no-unescaped-entities": 1,
+    "react/no-unescaped-entities": 0,
     "prettier/prettier": "error"
   },
   "parser": "babel-eslint",
