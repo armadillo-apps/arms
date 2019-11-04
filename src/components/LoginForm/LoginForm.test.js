@@ -49,8 +49,15 @@ describe("Login Form", () => {
     it("should display successful message when user is logged in", async () => {
       postSpy.mockReturnValue("You are logged in");
 
+      const checkIsLoggedIn = () => {};
       const triggerRender = () => {};
-      const { getByText } = render(<LoginForm triggerRender={triggerRender} />);
+
+      const { getByText } = render(
+        <LoginForm
+          triggerRender={triggerRender}
+          checkIsLoggedIn={checkIsLoggedIn}
+        />
+      );
 
       const button = getByText("Login", { selector: "input[type=submit]" });
       fireEvent.click(button);

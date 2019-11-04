@@ -28,6 +28,7 @@ class LoginForm extends Component {
       event.preventDefault();
       const { email, password } = this.state;
       const response = await loginUser(email, password);
+      this.props.checkIsLoggedIn(true);
       this.setState({
         success: true,
         submitted: true,
@@ -45,7 +46,11 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <form className="loginFormContainer" onSubmit={this.onFormSubmit}>
+      <form
+        className="loginFormContainer"
+        onSubmit={this.onFormSubmit}
+        data-testid="loginForm"
+      >
         <h1 className="loginForm__heading">User Login</h1>
         <div className="loginForm">
           <Input
