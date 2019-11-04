@@ -10,7 +10,7 @@ const occupants = [
     name: "Bob",
     employeeId: "1234561b",
     remarks: "testing for Bob",
-    country: "Singapore",
+    homeOffice: "Singapore, Singapore",
     status: "allocated"
   },
   {

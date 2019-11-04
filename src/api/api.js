@@ -28,7 +28,7 @@ export const createNewOccupant = async (
   employeeId,
   gender,
   remarks,
-  country,
+  homeOffice,
   status
 ) => {
   const requestBody = {
@@ -36,7 +36,7 @@ export const createNewOccupant = async (
     employeeId,
     gender,
     remarks,
-    country,
+    homeOffice,
     status
   };
   const response = await axios.post("/occupants", requestBody);
@@ -72,7 +72,7 @@ export const updateOccupant = async (
   employeeId,
   gender,
   remarks,
-  country,
+  homeOffice,
   status,
   _id
 ) => {
@@ -82,7 +82,7 @@ export const updateOccupant = async (
     employeeId,
     gender,
     remarks,
-    country,
+    homeOffice,
     status
   };
 

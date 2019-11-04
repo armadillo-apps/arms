@@ -13,7 +13,7 @@ const occupantDetails = [
     name: "Tom",
     employeeId: "1234567a",
     remarks: "might extend stay",
-    country: "thailand",
+    homeOffice: "Melbourne, Australia",
     gender: "male",
     status: "unallocated"
   }
@@ -88,7 +88,7 @@ describe("Occupant profile", () => {
     expect(getByText(/male/i)).toBeInTheDocument();
   });
 
-  it("should render occupant country", () => {
+  it("should render occupant Home Office", () => {
     const { getByText } = render(
       <OccupantProfile
         occupants={occupantDetails}
@@ -98,8 +98,8 @@ describe("Occupant profile", () => {
       />
     );
 
-    expect(getByText(/country/i)).toBeInTheDocument();
-    expect(getByText(/thailand/i)).toBeInTheDocument();
+    expect(getByText(/Home Office/i)).toBeInTheDocument();
+    expect(getByText(/Melbourne, Australia/i)).toBeInTheDocument();
   });
 
   it("should render stay history", () => {

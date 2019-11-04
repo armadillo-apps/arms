@@ -14,6 +14,22 @@
   justify-content: space-between;
 }
 
+.editOccupantForm__gender {
+  margin: 20px 0;
+}
+
+.editOccupantForm__genderLabel {
+  font-size: 1.3rem;
+}
+
+.editOccupantForm__homeOffice {
+  margin: 20px;
+}
+
+.editOccupantForm__homeOfficeLabel {
+  font-size: 1.3rem;
+}
+
 .editOccupantForm__status {
   margin: 20px 0;
 }

@@ -70,8 +70,8 @@ describe("Input form", () => {
     const remarks = getByLabelText("Remarks");
     fireEvent.change(remarks, { target: { value: "testing" } });
 
-    const country = getByLabelText("Home Office");
-    fireEvent.change(country, { target: { value: "Melbourne, Australia" } });
+    const homeOffice = getByLabelText("Home Office");
+    fireEvent.change(homeOffice, { target: { value: "Melbourne, Australia" } });
 
     const status = getByLabelText("Occupant Status*");
     fireEvent.change(status, { target: { value: "allocated" } });
@@ -80,7 +80,7 @@ describe("Input form", () => {
     expect(employeeId.value).toBe("123");
     expect(gender.value).toBe("male");
     expect(remarks.value).toBe("testing");
-    expect(country.value).toBe("Melbourne, Australia");
+    expect(homeOffice.value).toBe("Melbourne, Australia");
     expect(status.value).toBe("allocated");
   });
 });
@@ -102,8 +102,8 @@ describe("Confirmation message", () => {
     const remarks = getByLabelText("Remarks");
     fireEvent.change(remarks, { target: { value: "testing" } });
 
-    const country = getByLabelText("Home Office");
-    fireEvent.change(country, { target: { value: "Singapore, Singapore" } });
+    const homeOffice = getByLabelText("Home Office");
+    fireEvent.change(homeOffice, { target: { value: "Singapore, Singapore" } });
 
     const status = getByLabelText("Occupant Status*");
     fireEvent.change(status, { target: { value: "unallocated" } });
@@ -120,7 +120,7 @@ describe("Confirmation message", () => {
       expect(employeeId.value).toBe("");
       expect(gender.value).toBe("");
       expect(remarks.value).toBe("");
-      expect(country.value).toBe("");
+      expect(homeOffice.value).toBe("");
       expect(status.value).toBe("");
     });
   });

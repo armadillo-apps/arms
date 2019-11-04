@@ -94,7 +94,7 @@ const OccupantProfile = ({
               Gender: {occupant.gender}
             </h2>
             <h2 className="occupantProfile__details">
-              Country: {occupant.country}
+            Home Office: {occupant.homeOffice}
             </h2>
           </div>
           <h1 className="occupantProfile__header2">Stay History</h1>

@@ -14,7 +14,7 @@ const occupants = [
     name: "Bob",
     employeeId: "1234561b",
     remarks: "testing for Bob",
-    country: "Singapore",
+    homeOffice: "Singapore, Singapore",
     status: "allocated"
   },
   {
@@ -63,11 +63,11 @@ describe("EditOccupantForm", () => {
     expect(getByLabelText("Remarks")).toBeInTheDocument();
   });
 
-  it("should have input field for country", () => {
+  it("should have input field for Home Office", () => {
     const { getByLabelText } = render(
       <EditOccupantForm occupant={occupants[0]} />
     );
-    expect(getByLabelText("Country")).toBeInTheDocument();
+    expect(getByLabelText("Home Office")).toBeInTheDocument();
   });
 
   it("should have dropdown for status", () => {

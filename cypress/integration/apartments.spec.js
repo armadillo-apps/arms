@@ -96,6 +96,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
   describe("Create, edit, view, and search Occupant", () => {
     it("should create a new occupant and show occupant profile", () => {
+      const homeOffice = "Home Office: Melbourne, Australia";
       const status = "allocated";
       const gender = "female";
 
@@ -105,7 +106,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("input[name=employeeId]").type(modEmployeeId);
       cy.get("select[name=gender]").select(gender);
       cy.get("textarea[name=remarks]").type("BAD REMARKS");
-      cy.get("select[name=country]").select("Melbourne, Australia");
+      cy.get("select[name=homeOffice]").select("Melbourne, Australia");
       cy.get("select[name=status]").select(status);
       cy.get("input[type=submit]").click();
       cy.get("a")
@@ -118,7 +119,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("h1").contains(modName);
       cy.get("h2").contains(modEmployeeId);
       cy.get("h2").contains(gender);
-      cy.get("h2").contains(/Country: Melbourne, Australia/i);
+      cy.get("h2").contains(/Home Office: Melbourne, Australia/i);
       cy.get("span").contains(status);
     });
 
@@ -136,15 +137,13 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("input[name=employeeId]")
         .clear()
         .type(employeeId);
-      cy.get("input[name=gender]")
-        .clear()
-        .type("male");
+      cy.get("select[name=gender]")
+        .select("male");
       cy.get("textarea[name=remarks]")
         .clear()
         .type("testing");
-      cy.get("input[name=country]")
-        .clear()
-        .type("Singapore");
+      cy.get("select[name=homeOffice]")
+        .select("Singapore, Singapore");
       cy.get("select[name=status]").select("Unallocated");
       cy.get("input[type=submit]").click();
       cy.contains(`Successfully updated occupant: ${name}`);
@@ -154,7 +153,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("h1").contains(name);
       cy.get("h2").contains(employeeId);
       cy.get("h2").contains(/Gender: Male/i);
-      cy.get("h2").contains(/Country: Singapore/i);
+      cy.get("h2").contains(/Home Office: Singapore, Singapore/i);
       cy.get("span").contains(/unallocated/i);
 
       cy.get("a")

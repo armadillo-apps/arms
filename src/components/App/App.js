@@ -30,7 +30,7 @@ class App extends Component {
         employeeId: "",
         gender: "",
         remarks: "",
-        country: "",
+        homeOffice: "",
         status: "",
         message: "",
         success: false
@@ -94,7 +94,7 @@ class App extends Component {
       name,
       employeeId,
       gender,
-      country,
+      homeOffice,
       remarks,
       status
     } = occupant;
@@ -104,7 +104,7 @@ class App extends Component {
         name,
         employeeId,
         gender,
-        country,
+        homeOffice,
         remarks,
         status,
         isModalOpen: true
@@ -139,7 +139,7 @@ class App extends Component {
         employeeId,
         gender,
         remarks,
-        country,
+        homeOffice,
         status
       } = this.state.editOccupantModal;
       const response = await updateOccupant(
@@ -148,7 +148,7 @@ class App extends Component {
         employeeId,
         gender,
         remarks,
-        country,
+        homeOffice,
         status
       );
       const occupants = await fetchOccupants();
@@ -160,7 +160,7 @@ class App extends Component {
           employeeId: "",
           gender: "",
           remarks: "",
-          country: "",
+          homeOffice: "",
           status: "",
           message: response,
           success: true

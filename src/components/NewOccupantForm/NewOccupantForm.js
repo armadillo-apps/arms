@@ -13,7 +13,7 @@ class NewOccupantForm extends Component {
       employeeId: "",
       gender: "",
       remarks: "",
-      country: "",
+      homeOffice: "",
       status: "",
       success: false,
       message: "",
@@ -31,13 +31,13 @@ class NewOccupantForm extends Component {
   onFormSubmit = async event => {
     try {
       event.preventDefault();
-      const { name, employeeId, gender, remarks, country, status } = this.state;
+      const { name, employeeId, gender, remarks, homeOffice, status } = this.state;
       const response = await createNewOccupant(
         name,
         employeeId,
         gender,
         remarks,
-        country,
+        homeOffice,
         status
       );
       this.setState({
@@ -45,7 +45,7 @@ class NewOccupantForm extends Component {
         employeeId: "",
         gender: "",
         remarks: "",
-        country: "",
+        homeOffice: "",
         status: "",
         success: true,
         message: response,
@@ -104,16 +104,16 @@ class NewOccupantForm extends Component {
             </section>
             <section>
               <label
-                htmlFor="country"
+                htmlFor="homeOffice"
                 className="occupantForm__homeOfficeLabel"
               >
                 Home Office
               </label>
               <select
-                id="country"
-                name="country"
+                id="homeOffice"
+                name="homeOffice"
                 onChange={this.onFormChange}
-                value={this.state.country}
+                value={this.state.homeOffice}
                 type="text"
               >
                 <option value="">Select Home Office...</option>
