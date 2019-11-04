@@ -137,13 +137,11 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("input[name=employeeId]")
         .clear()
         .type(employeeId);
-      cy.get("select[name=gender]")
-        .select("male");
+      cy.get("select[name=gender]").select("male");
       cy.get("textarea[name=remarks]")
         .clear()
         .type("testing");
-      cy.get("select[name=homeOffice]")
-        .select("Singapore, Singapore");
+      cy.get("select[name=homeOffice]").select("Singapore, Singapore");
       cy.get("select[name=status]").select("Unallocated");
       cy.get("input[type=submit]").click();
       cy.contains(`Successfully updated occupant: ${name}`);
