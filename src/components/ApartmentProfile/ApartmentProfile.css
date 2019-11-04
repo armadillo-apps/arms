@@ -20,6 +20,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-size: 1.2rem;
+  text-transform: capitalize;
 }
 
 .apartmentProfile__headingContainer span {
@@ -44,6 +46,8 @@
 }
 
 .apartmentProfile__editDetailsButton {
+  margin-top: 3rem;
+  margin-left: 1rem;
   min-width: 50px;
   text-align: center;
   border: none;
@@ -51,16 +55,15 @@
   padding: 0.5rem 1rem;
   border-radius: 20px;
   background-color: #fff;
-  height: 2.3rem;
-  font-size: 1.1rem;
-  margin-left: 1rem;
+  height: auto;
   cursor: pointer;
 }
 
 .apartmentProfile__heading {
-  font-weight: 600;
+  font-weight: normal;
   font-size: var(--main-h1-font-size);
-  font-family: var(--font2);
+  margin: 3rem 0 0 0;
+  font-weight: 600;
 }
 
 .gridContainer {
