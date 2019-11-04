@@ -1,6 +1,7 @@
 import React from "react";
 import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
+import Logout from "../Logout/Logout";
 
 const SideBar = () => {
   return (
@@ -47,6 +48,7 @@ const SideBar = () => {
           <svg className="addIcon" />
           Login
         </NavLink>
+        <Logout />
       </div>
     </div>
   );

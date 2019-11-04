@@ -2,12 +2,12 @@ import axios from "./axios";
 import queryString from "query-string";
 
 export const fetchApartments = async () => {
-  const response = await axios.get("/apartments");
+  const response = await axios.get("/apartments", { withCredentials: true });
   return response.data;
 };
 
 export const fetchOccupants = async () => {
-  const response = await axios.get("/occupants");
+  const response = await axios.get("/occupants", { withCredentials: true });
   return response.data;
 };
 
@@ -122,6 +122,17 @@ export const fetchStays = async queryParams => {
 
 export const loginUser = async (email, password) => {
   const loginDetails = { email, password };
-  const login = await axios.post("/users/login", loginDetails);
+  const login = await axios.post("/users/login", loginDetails, {
+    withCredentials: true
+  });
   return login.data;
+};
+
+export const logoutUser = async () => {
+  const logout = await axios.post(
+    "/users/logout",
+    {},
+    { withCredentials: true }
+  );
+  return logout.data;
 };
