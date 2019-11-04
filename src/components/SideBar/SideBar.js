@@ -40,22 +40,15 @@ const SideBar = props => {
           <svg className="addIcon" />
           NEW OCCUPANT
         </NavLink>
-        {props.isLoggedIn ? (
-          <NavLink
-            className="sideBar__heading"
-            to="/logout"
-            activeClassName="active"
-            onClick={props.logout}
-          >
-            <svg className="addIcon" />
-            Logout
-          </NavLink>
-        ) : (
-          <NavLink className="sideBar__heading" to="/" activeClassName="active">
-            <svg className="addIcon" />
-            Login
-          </NavLink>
-        )}
+        <NavLink
+          className="sideBar__heading"
+          to="/"
+          activeClassName="active"
+          onClick={props.logout}
+        >
+          <svg className="addIcon" />
+          Logout
+        </NavLink>
       </div>
     </div>
   );

@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import {
+  Redirect,
+  Switch,
+  Route,
+  BrowserRouter as Router
+} from "react-router-dom";
 import "./App.css";
 import {
   fetchOccupants,
@@ -237,7 +242,6 @@ class App extends Component {
         message: logoutMessage,
         isLoggedIn: false
       });
-      this.props.history.push("/");
       this.props.triggerRender();
     } catch (err) {
       console.error(err);
@@ -245,37 +249,32 @@ class App extends Component {
   };
 
   render() {
-    return (
-      <section className="app">
-        <Router>
-          <SideBar isLoggedIn={this.state.isLoggedIn} logout={this.logout} />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={props => (
-                <LoginForm
-                  triggerRender={this.triggerRender}
-                  checkIsLoggedIn={this.checkIsLoggedIn}
-                  {...props}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/logout"
-              render={props => (
-                <Logout
-                  triggerRender={this.triggerRender}
-                  checkIsLoggedIn={this.checkIsLoggedIn}
-                  {...props}
-                />
-              )}
-            />
-          </Switch>
-        </Router>
-        {this.state.isLoggedIn ? (
+    if (!this.state.isLoggedIn) {
+      return (
+        <section className="app">
           <Router>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={props => (
+                  <LoginForm
+                    triggerRender={this.triggerRender}
+                    checkIsLoggedIn={this.checkIsLoggedIn}
+                    {...props}
+                  />
+                )}
+              />
+            </Switch>
+          </Router>
+          {/* <Route component={NoMatchPage} /> */}
+        </section>
+      );
+    } else {
+      return (
+        <section className="app">
+          <Router>
+            <SideBar isLoggedIn={this.state.isLoggedIn} logout={this.logout} />
             <Switch>
               <Route
                 exact
@@ -285,7 +284,6 @@ class App extends Component {
                     apartments={this.state.apartments}
                     stays={this.state.stays}
                     triggerRender={this.triggerRender}
-                    isLoggedIn={this.state.isLoggedIn}
                     {...props}
                   />
                 )}
@@ -350,14 +348,11 @@ class App extends Component {
                 )}
               />
             </Switch>
+            <Redirect to="/apartments" />
           </Router>
-        ) : (
-          ""
-        )}
-
-        {/* <Route component={NoMatchPage} /> */}
-      </section>
-    );
+        </section>
+      );
+    }
   }
 }
 
