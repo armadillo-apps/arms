@@ -1,0 +1,12 @@
+.logoutContainer {
+  background: var(--main-bg-color);
+  font-family: var(--font2);
+}
+
+.logout__heading {
+  font-size: var(--main-h1-font-size);
+  color: var(--main-h1-color);
+  margin-left: 60px;
+  margin-bottom: 40px;
+  font-weight: 600;
+}

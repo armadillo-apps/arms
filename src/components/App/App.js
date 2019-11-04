@@ -6,7 +6,8 @@ import {
   fetchApartments,
   updateOccupant,
   updateApartment,
-  fetchStays
+  fetchStays,
+  logoutUser
 } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
@@ -16,6 +17,7 @@ import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
 import OccupantProfile from "../OccupantProfile/OccupantProfile";
 import ApartmentProfile from "../ApartmentProfile/ApartmentProfile";
 import LoginForm from "../LoginForm/LoginForm";
+import Logout from "../Logout/Logout";
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +26,7 @@ class App extends Component {
       apartments: [],
       occupants: [],
       stays: [],
+      isLoggedIn: false,
       editOccupantModal: {
         isModalOpen: false,
         name: "",
@@ -76,6 +79,12 @@ class App extends Component {
       return {
         renderToggle: !prev.renderToggle
       };
+    });
+  };
+
+  checkIsLoggedIn = isLoggedIn => {
+    this.setState({
+      isLoggedIn
     });
   };
 
@@ -221,92 +230,132 @@ class App extends Component {
     });
   };
 
+  logout = async () => {
+    try {
+      const logoutMessage = await logoutUser();
+      this.setState({
+        message: logoutMessage,
+        isLoggedIn: false
+      });
+      this.props.history.push("/");
+      this.props.triggerRender();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   render() {
     return (
       <section className="app">
         <Router>
-          <SideBar />
+          <SideBar isLoggedIn={this.state.isLoggedIn} logout={this.logout} />
           <Switch>
             <Route
               exact
-              path={["/", "/apartments"]}
+              path="/"
               render={props => (
-                <Apartment
-                  apartments={this.state.apartments}
-                  stays={this.state.stays}
-                  {...props}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/occupants"
-              render={props => (
-                <Occupant occupants={this.state.occupants} {...props} />
-              )}
-            />
-            <Route
-              path="/apartments/:apartmentId"
-              render={props => (
-                <ApartmentProfile
-                  apartments={this.state.apartments}
-                  occupants={this.state.occupants}
-                  apartmentAssignModal={this.state.apartmentAssignModal}
-                  confirmationModal={this.state.confirmationModal}
-                  onSubmit={this.onEditApartmentFormSubmit}
-                  editApartmentModal={this.state.editApartmentModal}
-                  getAllStays={this.getAllStays}
-                  clearConfirmationMessage={this.clearConfirmationMessage}
-                  {...props}
-                />
-              )}
-            />
-            <Route
-              path="/occupants/:occupantId"
-              render={props => (
-                <OccupantProfile
-                  occupants={this.state.occupants}
-                  updateOccupantDetails={this.updateOccupantDetails}
-                  onSubmit={this.onEditOccupantFormSubmit}
-                  openModal={this.openEditOccupantModal}
-                  closeModal={this.closeModal}
-                  isModalOpen={this.state.editOccupantModal.isModalOpen}
-                  onChange={this.onEditOccupantFormChange}
-                  modalStates={this.state.editOccupantModal}
-                  {...props}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/newApartment"
-              render={props => (
-                <NewApartmentForm
+                <LoginForm
                   triggerRender={this.triggerRender}
+                  checkIsLoggedIn={this.checkIsLoggedIn}
                   {...props}
                 />
               )}
             />
             <Route
               exact
-              path="/newOccupant"
+              path="/logout"
               render={props => (
-                <NewOccupantForm
+                <Logout
                   triggerRender={this.triggerRender}
+                  checkIsLoggedIn={this.checkIsLoggedIn}
                   {...props}
                 />
               )}
             />
-            <Route
-              exact
-              path="/login"
-              render={props => (
-                <LoginForm triggerRender={this.triggerRender} {...props} />
-              )}
-            />
-            <Route component={NoMatchPage} />
           </Switch>
         </Router>
+        {this.state.isLoggedIn ? (
+          <Router>
+            <Switch>
+              <Route
+                exact
+                path="/apartments"
+                render={props => (
+                  <Apartment
+                    apartments={this.state.apartments}
+                    stays={this.state.stays}
+                    triggerRender={this.triggerRender}
+                    isLoggedIn={this.state.isLoggedIn}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/occupants"
+                render={props => (
+                  <Occupant occupants={this.state.occupants} {...props} />
+                )}
+              />
+              <Route
+                path="/apartments/:apartmentId"
+                render={props => (
+                  <ApartmentProfile
+                    apartments={this.state.apartments}
+                    occupants={this.state.occupants}
+                    apartmentAssignModal={this.state.apartmentAssignModal}
+                    confirmationModal={this.state.confirmationModal}
+                    onSubmit={this.onEditApartmentFormSubmit}
+                    editApartmentModal={this.state.editApartmentModal}
+                    getAllStays={this.getAllStays}
+                    clearConfirmationMessage={this.clearConfirmationMessage}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                path="/occupants/:occupantId"
+                render={props => (
+                  <OccupantProfile
+                    occupants={this.state.occupants}
+                    updateOccupantDetails={this.updateOccupantDetails}
+                    onSubmit={this.onEditOccupantFormSubmit}
+                    openModal={this.openEditOccupantModal}
+                    closeModal={this.closeModal}
+                    isModalOpen={this.state.editOccupantModal.isModalOpen}
+                    onChange={this.onEditOccupantFormChange}
+                    modalStates={this.state.editOccupantModal}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/newApartment"
+                render={props => (
+                  <NewApartmentForm
+                    triggerRender={this.triggerRender}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/newOccupant"
+                render={props => (
+                  <NewOccupantForm
+                    triggerRender={this.triggerRender}
+                    {...props}
+                  />
+                )}
+              />
+            </Switch>
+          </Router>
+        ) : (
+          ""
+        )}
+
+        {/* <Route component={NoMatchPage} /> */}
       </section>
     );
   }

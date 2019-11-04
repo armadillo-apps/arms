@@ -3,14 +3,14 @@ import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
 import Logout from "../Logout/Logout";
 
-const SideBar = () => {
+const SideBar = props => {
   return (
     <div className="sideBar__container" data-testid="sideBar">
       <div className="sideBar__headerContainer">
         <NavLink
           className="sideBar__heading"
           exact
-          to="/"
+          to="/apartments"
           activeClassName="active"
         >
           <svg className="apartmentIcon" />
@@ -40,15 +40,22 @@ const SideBar = () => {
           <svg className="addIcon" />
           NEW OCCUPANT
         </NavLink>
-        <NavLink
-          className="sideBar__heading"
-          to="/login"
-          activeClassName="active"
-        >
-          <svg className="addIcon" />
-          Login
-        </NavLink>
-        <Logout />
+        {props.isLoggedIn ? (
+          <NavLink
+            className="sideBar__heading"
+            to="/logout"
+            activeClassName="active"
+            onClick={props.logout}
+          >
+            <svg className="addIcon" />
+            Logout
+          </NavLink>
+        ) : (
+          <NavLink className="sideBar__heading" to="/" activeClassName="active">
+            <svg className="addIcon" />
+            Login
+          </NavLink>
+        )}
       </div>
     </div>
   );
