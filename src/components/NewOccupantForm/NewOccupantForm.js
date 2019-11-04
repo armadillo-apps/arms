@@ -31,7 +31,14 @@ class NewOccupantForm extends Component {
   onFormSubmit = async event => {
     try {
       event.preventDefault();
-      const { name, employeeId, gender, remarks, homeOffice, status } = this.state;
+      const {
+        name,
+        employeeId,
+        gender,
+        remarks,
+        homeOffice,
+        status
+      } = this.state;
       const response = await createNewOccupant(
         name,
         employeeId,
