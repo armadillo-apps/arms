@@ -22,6 +22,27 @@
   align-items: center;
 }
 
+.apartmentProfile__headingContainer span {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background-color: #fff;
+  height: auto;
+  width: auto;
+}
+
+.apartmentProfile__status {
+  margin-top: 3rem;
+}
+
+.active {
+  color: var(--green-color);
+}
+
+.inactive {
+  color: #b1b9cc;
+}
+
 .apartmentProfile__editDetailsButton {
   min-width: 50px;
   text-align: center;

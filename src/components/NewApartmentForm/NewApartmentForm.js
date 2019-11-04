@@ -22,7 +22,8 @@ class NewApartmentForm extends Component {
       remarks: "",
       success: false,
       message: "",
-      submitted: false
+      submitted: false,
+      status: ""
     };
   }
 
@@ -42,6 +43,7 @@ class NewApartmentForm extends Component {
         address: this.state.address,
         bedrooms: this.state.bedrooms,
         capacity: this.state.capacity,
+        status: this.state.status,
         leases: [
           {
             leaseStart: this.state.leaseStart,
@@ -74,7 +76,8 @@ class NewApartmentForm extends Component {
         remarks: "",
         success: true,
         message: output,
-        submitted: true
+        submitted: true,
+        status: ""
       });
       this.props.triggerRender();
     } catch (err) {
@@ -184,6 +187,22 @@ class NewApartmentForm extends Component {
               width="61px"
               required
             />
+            <section>
+              <label htmlFor="status" className="apartmentForm__status">
+                Apartment Status*
+              </label>
+              <select
+                id="status"
+                name="status"
+                required
+                value={this.state.status}
+                onChange={this.onFormChange}
+              >
+                <option value="">Select status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </section>
           </div>
           <Input
             id="country"

@@ -37,7 +37,8 @@ class ApartmentProfile extends Component {
       isEditApartmentModalOpen: false,
       currentOccupants: [],
       futureOccupants: [],
-      pastOccupants: []
+      pastOccupants: [],
+      status: ""
     };
   }
 
@@ -269,6 +270,9 @@ class ApartmentProfile extends Component {
             </div>
             <div className="apartmentProfile__headingContainer">
               <h1 className="apartmentProfile__heading">{apartment.name}</h1>
+              <span className={`apartmentProfile__status ${apartment.status}`}>
+                {apartment.status}
+              </span>
               <button
                 id="isEditApartmentModalOpen"
                 className="apartmentProfile__editDetailsButton"
