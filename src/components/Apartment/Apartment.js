@@ -43,6 +43,7 @@ const Apartment = ({ apartments, stays, history }) => {
       <table className="apartments__table">
         <thead className="apartments__tableHeaders">
           <tr>
+            <th>Status</th>
             <th>Vacancy</th>
             <th>Apartment Name</th>
             <th>Lease Start</th>

@@ -3,7 +3,15 @@ import "./ApartmentDetail.css";
 import extractDate from "../../utils/ExtractDate";
 import formatter from "../../utils/formatMoney";
 
-const ApartmentDetail = ({ vacancy, capacity, name, leases, _id, history }) => {
+const ApartmentDetail = ({
+  status,
+  vacancy,
+  capacity,
+  name,
+  leases,
+  _id,
+  history
+}) => {
   const [firstLeases] = leases;
   const { leaseStart, leaseEnd, monthlyRent } = firstLeases;
   return (
@@ -13,6 +21,7 @@ const ApartmentDetail = ({ vacancy, capacity, name, leases, _id, history }) => {
         history.push(`/apartments/${_id}`);
       }}
     >
+      <td className={`apartmentDetails__td ${status}`}>{status}</td>
       <td className={vacancy <= 0 ? "inverted" : "positive"}>{vacancy}</td>
       <td className="apartmentDetails__td">{name}</td>
       <td className="apartmentDetails__td">{extractDate(leaseStart)}</td>
