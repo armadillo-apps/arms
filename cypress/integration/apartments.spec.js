@@ -4,12 +4,19 @@ import moment from "moment";
 
 describe("Apartments, Occupant, and ApartmentAssign", () => {
   beforeEach(() => {
+    cy.request("POST", `http://localhost:3005/users/new`, {
+      email: "nicole@thoughtworks.com",
+      password: "pass1234"
+    })
+      .its("body")
+      .as("seededUser");
+
     cy.visit(`${baseUrl}`);
-    cy.get("input[name=email]").type("elson@thoughtworks.com");
+    cy.get("input[name=email]").type("nicole@thoughtworks.com");
     cy.get("input[name=password]").type("pass1234");
     cy.get("input[type=submit]").click();
-    // cy.getCookie("session_id").should("exist");
   });
+
   const baseUrl = Cypress.env("baseUrl");
 
   const apartmentName = faker.company.companyName();
