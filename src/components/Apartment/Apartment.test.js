@@ -109,4 +109,16 @@ describe("Apartment", () => {
     expect(parcSophia).toBeInTheDocument();
     expect(seaView).not.toBeInTheDocument();
   });
+
+  it("should return all apartments if searchbar is not used", () => {
+    const { getByPlaceholderText, getByText } = render(
+      <Apartment apartments={apartments} stays={[]} />
+    );
+    const inputField = getByPlaceholderText(/search apartment/i);
+    const parcSophia = getByText("Parc Sophia");
+    const seaView = getByText("Sea View");
+    fireEvent.change(inputField, { target: { value: " " } });
+    expect(parcSophia).toBeInTheDocument();
+    expect(seaView).toBeInTheDocument();
+  });
 });
