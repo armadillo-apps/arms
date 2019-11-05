@@ -64,6 +64,11 @@ describe("New apartment form", () => {
     expect(getByLabelText(/status/i)).toBeInTheDocument();
   });
 
+  it("should have a select field for apartment's country", () => {
+    const { getByLabelText } = render(<NewApartmentForm />);
+    expect(getByLabelText(/country/i)).toBeInTheDocument();
+  });
+
   it("should register number changes to the capacity input", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
     const capacityInput = getByLabelText(/capacity/i);

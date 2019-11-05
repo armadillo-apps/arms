@@ -204,14 +204,22 @@ class NewApartmentForm extends Component {
               </select>
             </section>
           </div>
-          <Input
-            id="country"
-            label="Country"
-            name="Country"
-            onChange={this.onFormChange}
-            value={this.state.country}
-            type="text"
-          />
+          <section>
+            <label htmlFor="country" className="apartmentForm__country">
+              Country*
+            </label>
+            <select
+              id="country"
+              name="Country"
+              required
+              value={this.state.country}
+              onChange={this.onFormChange}
+            >
+              <option value="">Select country</option>
+              <option value="Singapore">Singapore</option>
+              <option value="Thailand">Thailand</option>
+            </select>
+          </section>
           <TextArea
             id="remarks"
             label="Remarks"

@@ -41,6 +41,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     monthlyRent,
     capacity: -1,
     bedrooms: 1,
+    country: "Singapore",
     status: "active"
   };
 
@@ -54,6 +55,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     monthlyRent,
     capacity: 1,
     bedrooms: 1,
+    country: "Singapore",
     status: "active"
   };
 
@@ -67,6 +69,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     monthlyRent,
     capacity: 1,
     bedrooms: 1,
+    country: "Singapore",
     status: "active"
   };
 
@@ -80,6 +83,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     monthlyRent,
     capacity: 1,
     bedrooms: 1,
+    country: "Singapore",
     status: "active"
   };
 
@@ -93,6 +97,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     monthlyRent,
     capacity,
     bedrooms,
+    country,
     status
   }) => {
     cy.get("input[name=Name]").type(apartmentName);
@@ -110,7 +115,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       .clear()
       .type(bedrooms);
     cy.get("select[name=status]").select(status);
-    cy.get("input[name=Country").type("THIS IS HOME, TRULY");
+    cy.get("select[name=Country").select(country);
     cy.get("textarea[name=Remarks]").type("testing!!!");
   };
 
