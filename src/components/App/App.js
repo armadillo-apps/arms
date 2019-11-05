@@ -6,6 +6,7 @@ import {
   BrowserRouter as Router
 } from "react-router-dom";
 import "./App.css";
+import "../LoginForm/LoginForm.css";
 import {
   fetchOccupants,
   fetchApartments,
@@ -250,7 +251,7 @@ class App extends Component {
   render() {
     if (!this.state.isLoggedIn) {
       return (
-        <section className="app">
+        <section>
           <Router>
             <Switch>
               <Route

@@ -51,7 +51,10 @@ class LoginForm extends Component {
         onSubmit={this.onFormSubmit}
         data-testid="loginForm"
       >
-        <h1 className="loginForm__heading">User Login</h1>
+        <h1 className="loginForm__header">
+          Apartments and Residential Management System
+        </h1>
+        <h2 className="loginForm__heading">User Login</h2>
         <div className="loginForm">
           <Input
             id="email"
@@ -71,16 +74,21 @@ class LoginForm extends Component {
             onChange={this.onFormChange}
             required
           />
-        </div>
-        {this.state.submitted ? (
-          <ConfirmationMessage
-            success={this.state.success}
-            message={this.state.message}
+
+          {this.state.submitted ? (
+            <ConfirmationMessage
+              success={this.state.success}
+              message={this.state.message}
+            />
+          ) : (
+            ""
+          )}
+          <input
+            className="loginForm__loginButton"
+            value="Login"
+            type="submit"
           />
-        ) : (
-          ""
-        )}
-        <input className="loginForm__loginButton" value="Login" type="submit" />
+        </div>
       </form>
     );
   }
