@@ -121,7 +121,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
   describe("Create, edit, view, and search Occupant", () => {
     it("should create a new occupant and show occupant profile", () => {
-      const homeOffice = "Home Office: Melbourne, Australia";
       const status = "allocated";
       const gender = "female";
 
@@ -424,9 +423,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("input[id=capacity]")
         .clear()
         .type("10");
-      cy.get("input[id=country]")
-        .clear()
-        .type("Indonesia");
+      cy.get("select[id=country]").select("Thailand");
       cy.get("input[id=landlordName]")
         .clear()
         .type("Tony Stark");

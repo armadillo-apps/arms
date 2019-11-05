@@ -81,16 +81,22 @@ const EditApartmentForm = ({
             }}
           />
         </div>
-        <Input
-          id="country"
-          label="Country"
-          name="country"
-          type="text"
-          value={country}
-          onChange={event => {
-            setCountry(event.target.value);
-          }}
-        />
+        <section>
+          <label htmlFor="country" className="editApartmentForm__country">
+            Country
+          </label>
+          <select
+            id="country"
+            name="country"
+            required
+            value={country}
+            onChange={event => setCountry(event.target.value)}
+          >
+            <option value="">Select country</option>
+            <option value="Singapore">Singapore</option>
+            <option value="Thailand">Thailand</option>
+          </select>
+        </section>
         <Input
           id="landlordName"
           label="Landlord Name"

@@ -48,10 +48,9 @@ describe("EditApartmentForm", () => {
       expect(getByLabelText("Capacity")).toHaveAttribute("type", "number");
     });
 
-    it("should render Country input field", () => {
+    it("should render Country select field", () => {
       const { getByLabelText } = render(<EditApartmentForm />);
-      expect(getByLabelText("Country")).toBeInTheDocument();
-      expect(getByLabelText("Country")).toHaveAttribute("type", "text");
+      expect(getByLabelText(/country/i)).toBeInTheDocument();
     });
 
     it("should render Landlord Name input field", () => {
