@@ -13,13 +13,16 @@ export const fetchOccupants = async () => {
 
 export const getApartmentProfileHistory = async apartmentId => {
   const response = await axios.get(
-    `/stays/apartmentProfileHistory/${apartmentId}`
+    `/stays/apartmentProfileHistory/${apartmentId}`,
+    { withCredentials: true }
   );
   return response.data;
 };
 
 export const createNewApartment = async input => {
-  const response = await axios.post("/apartments", input);
+  const response = await axios.post("/apartments", input, {
+    withCredentials: true
+  });
   return response.data;
 };
 
@@ -110,7 +113,9 @@ export const updateApartment = async (
     remarks
   };
 
-  const response = await axios.put(`/apartments/${apartmentId}`, requestBody);
+  const response = await axios.put(`/apartments/${apartmentId}`, requestBody, {
+    withCredentials: true
+  });
   return response.data;
 };
 
