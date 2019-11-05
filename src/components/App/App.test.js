@@ -10,6 +10,8 @@ describe("App", () => {
     const div = document.createElement("div");
     ReactDOM.render(<App />, div);
     ReactDOM.unmountComponentAtNode(div);
+    const { getByText } = render(<App />);
+    expect(getByText("User Login")).toBeInTheDocument();
   });
 
   it("renders sidebar and Login page on load", () => {

@@ -19,7 +19,7 @@
     "lint": "eslint src",
     "test": "react-scripts test",
     "test:coverage": "npm test -- --coverage --watchAll=false",
-    "test:all": "CI=true npm test src && npm run cy:run",
+    "test:all": "CI=true npm test src && npm run cy:run && npm run lint && npm run test:coverage",
     "eject": "react-scripts eject",
     "cy:open": "cypress open",
     "cy:verify": "cypress verify",

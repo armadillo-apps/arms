@@ -244,7 +244,7 @@ class App extends Component {
       });
       this.props.triggerRender();
     } catch (err) {
-      console.error(err);
+      return err.message;
     }
   };
 
