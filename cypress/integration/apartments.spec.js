@@ -92,7 +92,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     leaseEnd,
     monthlyRent,
     capacity,
-    bedrooms, 
+    bedrooms,
     status
   }) => {
     cy.get("input[name=Name]").type(apartmentName);
@@ -109,7 +109,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("input[name=Bedrooms]")
       .clear()
       .type(bedrooms);
-    cy.get("select[name=status]").select(status)
+    cy.get("select[name=status]").select(status);
     cy.get("input[name=Country").type("THIS IS HOME, TRULY");
     cy.get("textarea[name=Remarks]").type("testing!!!");
   };
@@ -205,7 +205,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  describe.only("Create, edit, and view Apartment", () => {
+  describe("Create, edit, and view Apartment", () => {
     it("should be unable to create a new apartment with -ve inputs", () => {
       cy.get("a")
         .contains("NEW APARTMENT")
