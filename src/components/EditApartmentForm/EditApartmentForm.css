@@ -25,12 +25,22 @@
 .bedroomCapacity__wrapper {
   display: flex;
   justify-content: space-between;
-  width: 160px;
+}
+
+.bedroomCapacity__wrapper section {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px;
+  font-size: 1.3rem;
+  margin-top: 20px;
 }
 
 .bedroomCapacity__wrapper input {
   width: 35px;
-  padding: 5px 10px;
+}
+
+.bedroomCapacity__wrapper select {
+  font-size: 1.8rem;
 }
 
 #bedrooms {

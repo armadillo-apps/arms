@@ -188,6 +188,22 @@ class NewApartmentForm extends Component {
               required
             />
             <section>
+              <label htmlFor="country" className="apartmentForm__country">
+                Country*
+              </label>
+              <select
+                id="country"
+                name="Country"
+                required
+                value={this.state.country}
+                onChange={this.onFormChange}
+              >
+                <option value="">Select country</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Thailand">Thailand</option>
+              </select>
+            </section>
+            <section>
               <label htmlFor="status" className="apartmentForm__status">
                 Apartment Status*
               </label>
@@ -204,22 +220,6 @@ class NewApartmentForm extends Component {
               </select>
             </section>
           </div>
-          <section>
-            <label htmlFor="country" className="apartmentForm__country">
-              Country*
-            </label>
-            <select
-              id="country"
-              name="Country"
-              required
-              value={this.state.country}
-              onChange={this.onFormChange}
-            >
-              <option value="">Select country</option>
-              <option value="Singapore">Singapore</option>
-              <option value="Thailand">Thailand</option>
-            </select>
-          </section>
           <TextArea
             id="remarks"
             label="Remarks"

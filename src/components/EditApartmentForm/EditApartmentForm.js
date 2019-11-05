@@ -80,23 +80,21 @@ const EditApartmentForm = ({
               setCapacity(event.target.value);
             }}
           />
+          <section className="editApartmentForm__country">
+            <label htmlFor="country">Country</label>
+            <select
+              id="country"
+              name="country"
+              required
+              value={country}
+              onChange={event => setCountry(event.target.value)}
+            >
+              <option value="">Select country</option>
+              <option value="Singapore">Singapore</option>
+              <option value="Thailand">Thailand</option>
+            </select>
+          </section>
         </div>
-        <section>
-          <label htmlFor="country" className="editApartmentForm__country">
-            Country
-          </label>
-          <select
-            id="country"
-            name="country"
-            required
-            value={country}
-            onChange={event => setCountry(event.target.value)}
-          >
-            <option value="">Select country</option>
-            <option value="Singapore">Singapore</option>
-            <option value="Thailand">Thailand</option>
-          </select>
-        </section>
         <Input
           id="landlordName"
           label="Landlord Name"
