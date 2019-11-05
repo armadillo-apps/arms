@@ -4,7 +4,7 @@ import moment from "moment";
 
 describe("Apartments, Occupant, and ApartmentAssign", () => {
   beforeEach(() => {
-    cy.request("POST", `http://localhost:3005/users/new`, {
+    cy.request("POST", `https://test-armadillo-legs.herokuapp.com/users/new`, {
       email: "nicole@thoughtworks.com",
       password: "pass1234"
     })
