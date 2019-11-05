@@ -67,8 +67,12 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run:
-          name: Run Cypress
+          name: Run Cypress E2E tests
           command: npm run cy:run
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
   deployTest:
     docker:
       - image: circleci/node:12.6.0
