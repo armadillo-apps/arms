@@ -194,6 +194,7 @@ class NewApartmentForm extends Component {
               <select
                 id="status"
                 name="status"
+                required
                 value={this.state.status}
                 onChange={this.onFormChange}
               >

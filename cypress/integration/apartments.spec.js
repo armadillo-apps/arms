@@ -40,7 +40,8 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     leaseEnd: "2019-07-10",
     monthlyRent,
     capacity: -1,
-    bedrooms: 1
+    bedrooms: 1,
+    status: "active"
   };
 
   const invalidNewApartment2 = {
@@ -52,7 +53,8 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     leaseEnd: "2019-05-01",
     monthlyRent,
     capacity: 1,
-    bedrooms: 1
+    bedrooms: 1,
+    status: "active"
   };
 
   const newApartment = {
@@ -64,7 +66,8 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     leaseEnd: "2020-07-10",
     monthlyRent,
     capacity: 1,
-    bedrooms: 1
+    bedrooms: 1,
+    status: "active"
   };
 
   const newApartmentForSearchbarTest = {
@@ -76,7 +79,8 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     leaseEnd: "2021-07-10",
     monthlyRent,
     capacity: 1,
-    bedrooms: 1
+    bedrooms: 1,
+    status: "active"
   };
 
   const fillOutApartmentForm = ({
@@ -88,7 +92,8 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     leaseEnd,
     monthlyRent,
     capacity,
-    bedrooms
+    bedrooms, 
+    status
   }) => {
     cy.get("input[name=Name]").type(apartmentName);
     cy.get("input[name=Address]").type(address);
@@ -104,6 +109,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("input[name=Bedrooms]")
       .clear()
       .type(bedrooms);
+    cy.get("select[name=status]").select(status)
     cy.get("input[name=Country").type("THIS IS HOME, TRULY");
     cy.get("textarea[name=Remarks]").type("testing!!!");
   };
@@ -199,7 +205,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  describe("Create, edit, and view Apartment", () => {
+  describe.only("Create, edit, and view Apartment", () => {
     it("should be unable to create a new apartment with -ve inputs", () => {
       cy.get("a")
         .contains("NEW APARTMENT")
