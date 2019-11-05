@@ -11,7 +11,8 @@ Create a `cypress.env.json` and add the `baseUrl`.
 
 ```json
 {
-  "baseUrl": "http://localhost:3000"
+  "baseUrl": "http://localhost:3000",
+  "BACKEND_URL": "http://localhost:3005"
 }
 ```
 

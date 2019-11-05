@@ -3,14 +3,19 @@ import faker from "faker";
 import moment from "moment";
 
 describe("Apartments, Occupant, and ApartmentAssign", () => {
-  beforeEach(() => {
-    cy.request("POST", `https://test-armadillo-legs.herokuapp.com/users/new`, {
+  before(() => {
+    cy.visit(`${baseUrl}`);
+    // Visiting baseUrl prevents request from being called twice.
+    // visit issue https://github.com/cypress-io/cypress/issues/2777 for more information
+    cy.request("POST", `${Cypress.env("backendUrl")}/users/new`, {
       email: "nicole@thoughtworks.com",
       password: "pass1234"
     })
       .its("body")
       .as("seededUser");
+  });
 
+  beforeEach(() => {
     cy.visit(`${baseUrl}`);
     cy.get("input[name=email]").type("nicole@thoughtworks.com");
     cy.get("input[name=password]").type("pass1234");
