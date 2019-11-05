@@ -1,7 +1,6 @@
 import React from "react";
 import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
-import Logout from "../Logout/Logout";
 
 const SideBar = props => {
   return (

@@ -22,7 +22,6 @@ import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
 import OccupantProfile from "../OccupantProfile/OccupantProfile";
 import ApartmentProfile from "../ApartmentProfile/ApartmentProfile";
 import LoginForm from "../LoginForm/LoginForm";
-import Logout from "../Logout/Logout";
 
 class App extends Component {
   constructor(props) {
@@ -265,9 +264,9 @@ class App extends Component {
                   />
                 )}
               />
+              <Route component={NoMatchPage} />
             </Switch>
           </Router>
-          {/* <Route component={NoMatchPage} /> */}
         </section>
       );
     } else {
