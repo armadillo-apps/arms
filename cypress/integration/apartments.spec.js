@@ -448,4 +448,13 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("form[class=editApartmentFormContainer]").should("not.exist");
     });
   });
+
+  describe("Successfully logout", () => {
+    it("should allow logout for users", () => {
+      cy.get("a")
+        .contains("LOGOUT")
+        .click();
+      cy.get("h2").contains("User Login");
+    });
+  });
 });
