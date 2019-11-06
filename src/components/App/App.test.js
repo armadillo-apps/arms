@@ -14,8 +14,8 @@ describe("App", () => {
     expect(getByText("User Login")).toBeInTheDocument();
   });
 
-  it("renders sidebar and Login page on load", () => {
-    const { getByTestId, queryByTestId } = render(<App />);
+  it("renders Login page on load", () => {
+    const { getByTestId } = render(<App />);
     expect(getByTestId("loginForm")).toBeInTheDocument();
   });
 });
