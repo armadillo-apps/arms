@@ -42,7 +42,9 @@ export const createNewOccupant = async (
     homeOffice,
     status
   };
-  const response = await axios.post("/occupants", requestBody);
+  const response = await axios.post("/occupants", requestBody, {
+    withCredentials: true
+  });
   return response.data;
 };
 
@@ -60,12 +62,16 @@ export const createStay = async (
     checkOutDate: checkOutDate,
     leaseId: leaseId
   };
-  const response = await axios.post("/stays", requestBody);
+  const response = await axios.post("/stays", requestBody, {
+    withCredentials: true
+  });
   return response.data;
 };
 
 export const removeStay = async stayId => {
-  const response = await axios.delete(`/stays/${stayId}`);
+  const response = await axios.delete(`/stays/${stayId}`, {
+    withCredentials: true
+  });
   return response.data;
 };
 
@@ -89,7 +95,9 @@ export const updateOccupant = async (
     status
   };
 
-  const response = await axios.put(`/occupants/${occupantId}`, requestBody);
+  const response = await axios.put(`/occupants/${occupantId}`, requestBody, {
+    withCredentials: true
+  });
   return response.data;
 };
 
