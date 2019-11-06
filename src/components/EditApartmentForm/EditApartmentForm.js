@@ -174,6 +174,7 @@ EditApartmentForm.defaultProps = {
     capacity: 1,
     bedrooms: 1,
     country: "",
+    status: "",
     leases: {},
     remarks: "",
     landlord: {}

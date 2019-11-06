@@ -10,6 +10,7 @@ const apartment = {
   address: "18 Bogus Street #01-01",
   bedrooms: 1,
   capacity: 1,
+  status: "Active",
   landlord: {
     name: "Bob",
     accountNumber: "12345"
@@ -53,6 +54,11 @@ describe("EditApartmentForm", () => {
       expect(getByLabelText(/country/i)).toBeInTheDocument();
     });
 
+    it("should render Status select field", () => {
+      const { getByLabelText } = render(<EditApartmentForm />);
+      expect(getByLabelText(/status/i)).toBeInTheDocument();
+    });
+
     it("should render Landlord Name input field", () => {
       const { getByLabelText } = render(<EditApartmentForm />);
       expect(getByLabelText("Landlord Name")).toBeInTheDocument();
@@ -86,12 +92,98 @@ describe("EditApartmentForm", () => {
     });
   });
 
+  describe("Change form values", () => {
+    it("should update Apartment Name", () => {
+      const { getByDisplayValue, getByLabelText } = render(
+        <EditApartmentForm />
+      );
+      const apartmentName = getByLabelText("Apartment Name");
+      fireEvent.change(apartmentName, { target: { value: "New Condominium" } });
+      expect(getByDisplayValue("New Condominium")).toBeInTheDocument();
+    });
+
+    it("should update Address", () => {
+      const { getByDisplayValue, getByLabelText } = render(
+        <EditApartmentForm />
+      );
+      const address = getByLabelText("Address");
+      fireEvent.change(address, {
+        target: { value: "Upper Serangoon Avenue" }
+      });
+      expect(getByDisplayValue("Upper Serangoon Avenue")).toBeInTheDocument();
+    });
+
+    it("should update Bedroom", () => {
+      const { getByDisplayValue, getByLabelText } = render(
+        <EditApartmentForm />
+      );
+      const bedrooms = getByLabelText("Bedrooms");
+      fireEvent.change(bedrooms, {
+        target: { value: 2 }
+      });
+      expect(getByDisplayValue("2")).toBeInTheDocument();
+    });
+
+    it("should update Capacity", () => {
+      const { getByDisplayValue, getByLabelText } = render(
+        <EditApartmentForm />
+      );
+      const capacity = getByLabelText("Capacity");
+      fireEvent.change(capacity, {
+        target: { value: 2 }
+      });
+      expect(getByDisplayValue("2")).toBeInTheDocument();
+    });
+
+    it("should update Country", () => {
+      const { getByDisplayValue, getByLabelText } = render(
+        <EditApartmentForm />
+      );
+      const country = getByLabelText("Country");
+      fireEvent.change(country, {
+        target: { value: "Singapore" }
+      });
+      expect(getByDisplayValue("Singapore")).toBeInTheDocument();
+    });
+
+    it("should update Landlord name", () => {
+      const { getByDisplayValue, getByLabelText } = render(
+        <EditApartmentForm />
+      );
+      const landlordName = getByLabelText("Landlord Name");
+      fireEvent.change(landlordName, { target: { value: "Jane" } });
+      expect(getByDisplayValue("Jane")).toBeInTheDocument();
+    });
+
+    it("should update Landlord A/C", () => {
+      const { getByDisplayValue, getByLabelText } = render(
+        <EditApartmentForm />
+      );
+      const landlordAccountNumber = getByLabelText("Landlord A/C Number");
+      fireEvent.change(landlordAccountNumber, {
+        target: { value: "12345" }
+      });
+      expect(getByDisplayValue("12345")).toBeInTheDocument();
+    });
+    it("should update Remarks", () => {
+      const { getByDisplayValue, getByLabelText } = render(
+        <EditApartmentForm />
+      );
+      const remarks = getByLabelText("Remarks");
+      fireEvent.change(remarks, {
+        target: { value: "Good landlord" }
+      });
+      expect(getByDisplayValue("Good landlord")).toBeInTheDocument();
+    });
+  });
+
   describe("Initial values", () => {
     const apartment = {
       name: "Parc Sophia",
       address: "18 Cross Street",
       bedrooms: 1,
       capacity: 2,
+      status: "Active",
       country: "Singapore",
       landlord: {
         name: "Tony Stark",
@@ -111,6 +203,7 @@ describe("EditApartmentForm", () => {
         address: "18 Cross Street",
         bedrooms: 1,
         capacity: 2,
+        status: "Active",
         country: "Singapore",
         landlordName: "Tony Stark",
         landlordAccountNumber: "12345",
@@ -141,6 +234,7 @@ describe("EditApartmentForm", () => {
         address: "18 Bogus Street #01-01",
         bedrooms: 1,
         capacity: 1,
+        status: "Active",
         landlord: {
           name: "Bob",
           accountNumber: "12345"

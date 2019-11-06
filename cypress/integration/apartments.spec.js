@@ -47,7 +47,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     capacity: -1,
     bedrooms: 1,
     country: "Singapore",
-    status: "active"
+    status: "Active"
   };
 
   const invalidNewApartment2 = {
@@ -61,7 +61,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     capacity: 1,
     bedrooms: 1,
     country: "Singapore",
-    status: "active"
+    status: "Active"
   };
 
   const newApartment = {
@@ -75,7 +75,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     capacity: 1,
     bedrooms: 1,
     country: "Singapore",
-    status: "active"
+    status: "Active"
   };
 
   const newApartmentForSearchbarTest = {
@@ -89,7 +89,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     capacity: 1,
     bedrooms: 1,
     country: "Singapore",
-    status: "active"
+    status: "Active"
   };
 
   const fillOutApartmentForm = ({
@@ -433,6 +433,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .clear()
         .type("10");
       cy.get("select[id=country]").select("Thailand");
+      cy.get("select[id=status]").select("Active");
       cy.get("input[id=landlordName]")
         .clear()
         .type("Tony Stark");
