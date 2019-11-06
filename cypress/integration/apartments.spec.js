@@ -268,12 +268,16 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .contains("tr", apartmentName)
         .contains("td", vacancy);
 
+      const status = "active";
+      cy.get("td").contains(status);
+
       cy.get("td")
         .contains(apartmentName)
         .click();
       cy.get("h1").contains(apartmentName);
       cy.get("h2").contains("Address");
       cy.get("p").contains(address);
+      cy.get("span").contains(/active/i);
     });
 
     it("should be able to filter apartments using searchbar", () => {
