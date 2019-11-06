@@ -33,6 +33,7 @@
   padding: 5px 10px;
   font-size: 1.3rem;
   margin-top: 20px;
+  margin-bottom: 12px;
 }
 
 .bedroomCapacity__wrapper input {
@@ -40,7 +41,19 @@
 }
 
 .bedroomCapacity__wrapper select {
-  font-size: 1.8rem;
+  font-size: 1.2rem;
+}
+
+.editApartmentForm__status section {
+  margin: 10rem, 0;
+  padding-top: 10px;
+  font-size: 1.3rem;
+}
+
+.editApartmentForm__status select {
+  width: 11rem;
+  font-size: 1.2rem;
+  margin-left: 1rem;
 }
 
 #bedrooms {
