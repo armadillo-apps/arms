@@ -46,7 +46,7 @@ const SideBar = props => {
           onClick={props.logout}
         >
           <svg className="addIcon" />
-          Logout
+          LOGOUT
         </NavLink>
       </div>
     </div>
