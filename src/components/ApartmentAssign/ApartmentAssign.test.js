@@ -67,4 +67,23 @@ describe("ApartmentAssign", () => {
     expect(getByText("Employee Id")).toBeInTheDocument();
     expect(getByText("Remarks")).toBeInTheDocument();
   });
+
+  it("should render a list of users and allow users to be clicked on", () => {
+    const handleClick = jest.fn().mockImplementation();
+    const { getByPlaceholderText, getByText } = render(
+      <ApartmentAssign
+        dropdown={true}
+        filterList={() => [
+          { name: "Natalie", employeeId: "12345ABC", remarks: "Loves Twisties" }
+        ]}
+        handleClick={handleClick}
+      />
+    );
+    const inputField = getByPlaceholderText(/search occupants here.../i);
+    fireEvent.change(inputField, { target: { value: "N" } });
+    expect(getByText("Natalie")).toBeInTheDocument();
+    const selectButton = getByText("Select");
+    fireEvent.click(selectButton);
+    expect(handleClick).toHaveBeenCalled();
+  });
 });
