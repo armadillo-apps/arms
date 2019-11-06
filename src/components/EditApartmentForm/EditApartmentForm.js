@@ -16,6 +16,7 @@ const EditApartmentForm = ({
   const [bedrooms, setBedrooms] = useState(apartment.bedrooms);
   const [capacity, setCapacity] = useState(apartment.capacity);
   const [country, setCountry] = useState(apartment.country);
+  const [status, setStatus] = useState(apartment.status);
   const [landlordName, setLandlordName] = useState(apartment.landlord.name);
   const [remarks, setRemarks] = useState(apartment.remarks);
   const [accountNumber, setAccountNumber] = useState(
@@ -28,6 +29,7 @@ const EditApartmentForm = ({
     bedrooms,
     capacity,
     country,
+    status,
     landlord: { name: landlordName, accountNumber },
     remarks
   };
@@ -95,6 +97,20 @@ const EditApartmentForm = ({
             </select>
           </section>
         </div>
+        <section className="editApartmentForm__status">
+          <label htmlFor="status">Status</label>
+          <select
+            id="status"
+            name="status"
+            required
+            value={status}
+            onChange={event => setStatus(event.target.value)}
+          >
+            <option value="">Select status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </section>
         <Input
           id="landlordName"
           label="Landlord Name"
