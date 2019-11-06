@@ -215,8 +215,8 @@ class NewApartmentForm extends Component {
                 onChange={this.onFormChange}
               >
                 <option value="">Select status</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
               </select>
             </section>
           </div>

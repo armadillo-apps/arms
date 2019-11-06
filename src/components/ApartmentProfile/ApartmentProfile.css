@@ -37,11 +37,11 @@
   margin-top: 3rem;
 }
 
-.active {
+.Active {
   color: var(--green-color);
 }
 
-.inactive {
+.Inactive {
   color: #b1b9cc;
 }
 
