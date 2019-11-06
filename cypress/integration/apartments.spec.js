@@ -386,9 +386,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get('a[href="/apartments"]').click();
 
       cy.contains(apartmentName).click();
-      cy.get("button")
-        .contains("X")
-        .click();
+      cy.get('button[id="isConfirmationModalOpen"]').click();
       cy.get("button")
         .contains("Delete")
         .click();
