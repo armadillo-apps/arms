@@ -487,6 +487,8 @@ class ApartmentProfile extends Component {
                       this.closeModal("isEditApartmentModalOpen")
                     }
                     apartment={apartment}
+                    currentOccupants={this.state.currentOccupants}
+                    futureOccupants={this.state.futureOccupants}
                     onSubmit={this.props.onSubmit}
                     success={this.props.editApartmentModal.success}
                     message={this.props.editApartmentModal.message}

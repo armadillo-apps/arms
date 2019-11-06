@@ -19,6 +19,14 @@ const apartment = {
   country: "Singapore"
 };
 
+const currentOccupants = [];
+
+const futureOccupants = [
+  {
+    name: "Jane"
+  }
+];
+
 describe("EditApartmentForm", () => {
   describe("Form fields", () => {
     it("should contain correct title", () => {
@@ -51,12 +59,12 @@ describe("EditApartmentForm", () => {
 
     it("should render Country select field", () => {
       const { getByLabelText } = render(<EditApartmentForm />);
-      expect(getByLabelText(/country/i)).toBeInTheDocument();
+      expect(getByLabelText("Country")).toBeInTheDocument();
     });
 
     it("should render Status select field", () => {
       const { getByLabelText } = render(<EditApartmentForm />);
-      expect(getByLabelText(/status/i)).toBeInTheDocument();
+      expect(getByLabelText("Status")).toBeInTheDocument();
     });
 
     it("should render Landlord Name input field", () => {
@@ -135,15 +143,42 @@ describe("EditApartmentForm", () => {
       expect(getByDisplayValue("2")).toBeInTheDocument();
     });
 
-    it("should update Country", () => {
+    it("should have a dropdown to update Country", () => {
       const { getByDisplayValue, getByLabelText } = render(
         <EditApartmentForm />
       );
       const country = getByLabelText("Country");
-      fireEvent.change(country, {
-        target: { value: "Singapore" }
+      fireEvent.select(country, {
+        target: { value: "Thailand" }
       });
-      expect(getByDisplayValue("Singapore")).toBeInTheDocument();
+      expect(getByDisplayValue("Thailand")).toBeInTheDocument();
+    });
+
+    it("should have a dropdown to update Status", () => {
+      const { getByDisplayValue, getByLabelText } = render(
+        <EditApartmentForm
+          currentOccupants={currentOccupants}
+          futureOccupants={futureOccupants}
+        />
+      );
+      const status = getByLabelText("Status");
+      fireEvent.select(status, {
+        target: { value: "Active" }
+      });
+      expect(getByDisplayValue("Active")).toBeInTheDocument();
+    });
+
+    it("should not be able to update Status to Inactive if there are occupants", () => {
+      const { getByText, getByTestId } = render(
+        <EditApartmentForm
+          currentOccupants={currentOccupants}
+          futureOccupants={futureOccupants}
+        />
+      );
+
+      const status = getByTestId("editApartment__status");
+      fireEvent.change(status, { target: { value: "Inactive" } });
+      expect(getByText("Unable to change to inactive")).toBeInTheDocument();
     });
 
     it("should update Landlord name", () => {
@@ -218,12 +253,15 @@ describe("EditApartmentForm", () => {
         event.preventDefault();
       });
 
-      const { getByText, getByLabelText } = render(
+      const { getByText, getByLabelText, getByTestId } = render(
         <EditApartmentForm onSubmit={onSubmit} apartment={apartment} />
       );
 
       const nameInput = getByLabelText("Apartment Name");
       fireEvent.change(nameInput, { target: { value: "The Beacon" } });
+
+      const country = getByTestId("editApartment__country");
+      fireEvent.change(country, { target: { value: "Thailand" } });
 
       const updateButton = getByText("Update");
       fireEvent.click(updateButton);
@@ -240,7 +278,7 @@ describe("EditApartmentForm", () => {
           accountNumber: "12345"
         },
         remarks: "helloo",
-        country: "Singapore"
+        country: "Thailand"
       };
       expect(onSubmit).toHaveBeenCalledTimes(1);
       expect(onSubmit).toHaveBeenCalledWith(

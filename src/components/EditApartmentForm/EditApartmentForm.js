@@ -6,6 +6,8 @@ import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 
 const EditApartmentForm = ({
   apartment,
+  currentOccupants,
+  futureOccupants,
   closeModal,
   onSubmit,
   success,
@@ -17,6 +19,7 @@ const EditApartmentForm = ({
   const [capacity, setCapacity] = useState(apartment.capacity);
   const [country, setCountry] = useState(apartment.country);
   const [status, setStatus] = useState(apartment.status);
+  const [error, setError] = useState("");
   const [landlordName, setLandlordName] = useState(apartment.landlord.name);
   const [remarks, setRemarks] = useState(apartment.remarks);
   const [accountNumber, setAccountNumber] = useState(
@@ -85,6 +88,7 @@ const EditApartmentForm = ({
           <section className="editApartmentForm__country">
             <label htmlFor="country">Country</label>
             <select
+              data-testid={"editApartment__country"}
               id="country"
               name="country"
               required
@@ -100,16 +104,28 @@ const EditApartmentForm = ({
         <section className="editApartmentForm__status">
           <label htmlFor="status">Status</label>
           <select
+            data-testid="editApartment__status"
             id="status"
             name="status"
             required
             value={status}
-            onChange={event => setStatus(event.target.value)}
+            onChange={event => {
+              setStatus(event.target.value);
+              if (
+                event.target.value === "Inactive" &&
+                (currentOccupants.length > 0 || futureOccupants.length > 0)
+              ) {
+                setError("Unable to change to inactive");
+              } else {
+                setError("");
+              }
+            }}
           >
             <option value="">Select status</option>
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
           </select>
+          {error ? <p className="editApartmentForm__error">{error}</p> : ""}
         </section>
         <Input
           id="landlordName"
@@ -156,6 +172,7 @@ const EditApartmentForm = ({
           className="editApartmentForm__updateButton"
           value="Update"
           type="submit"
+          disabled={error !== "" ? true : false}
         />
         <ConfirmationMessage success={success} message={message} />
       </div>
