@@ -38,6 +38,10 @@
   background: url("../../assets/add.svg") no-repeat;
 }
 
+.logoutIcon {
+  background: url("../../assets/logout.svg") no-repeat;
+}
+
 .active {
   color: var(--sidebar-font-color-active);
   transition: 0.8s;
