@@ -201,7 +201,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .click();
       cy.get("h1").contains("Create New Occupant");
       cy.get("input[name=name]").type(newOccupantname);
-      cy.get("select[name=status]").select("inactive");
+      cy.get("select[name=status]").select("Inactive");
       cy.get("input[type=submit]").click();
       cy.get("a")
         .contains("OCCUPANTS")
@@ -268,7 +268,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .contains("tr", apartmentName)
         .contains("td", vacancy);
 
-      const status = "active";
+      const status = "Active";
       cy.get("td").contains(status);
 
       cy.get("td")
@@ -277,7 +277,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("h1").contains(apartmentName);
       cy.get("h2").contains("Address");
       cy.get("p").contains(address);
-      cy.get("span").contains(/active/i);
+      cy.get("span").contains(/Active/i);
     });
 
     it("should be able to filter apartments using searchbar", () => {
