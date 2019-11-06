@@ -131,7 +131,9 @@ export const updateApartment = async (
 
 export const fetchStays = async queryParams => {
   const query = queryString.stringify(queryParams);
-  const response = await axios.get(`/stays?${query}`);
+  const response = await axios.get(`/stays?${query}`, {
+    withCredentials: true
+  });
   return response.data;
 };
 
