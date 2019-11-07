@@ -391,14 +391,13 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
       cy.get("input[type=text]").type(apartmentName);
       cy.contains(apartmentName).click();
-      cy.get("button")
-        .contains("X")
-        .click();
+      cy.get('button[id="isConfirmationModalOpen"]').click();
       cy.get("button")
         .contains("Cancel")
         .click();
       cy.contains(name);
     });
+
     it("be able to remove an occupant's stay from an apartment", () => {
       cy.get('a[href="/apartments"]').click();
 
