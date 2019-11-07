@@ -411,7 +411,28 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.contains("No occupants yet!");
     });
   });
+
   describe("Edit apartment details", () => {
+    it("should be able to edit apartment status to inactive", () => {
+      cy.get('a[href="/apartments"]').click();
+
+      cy.contains(apartmentName).click();
+      cy.get("button")
+        .contains("Edit")
+        .click();
+
+      cy.get("select[id=status]").select("Inactive");
+      cy.get("input[class=editApartmentForm__updateButton]").click();
+      cy.get("button[class=editApartmentForm__closeButton]").click();
+
+      cy.get('a[href="/apartments"]').click();
+
+      const status = "Inactive";
+      cy.get("tbody tr")
+        .contains("tr", apartmentName)
+        .contains("td", status);
+    });
+
     it("should be able to edit apartment details", () => {
       cy.get('a[href="/apartments"]').click();
 
@@ -439,7 +460,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .clear()
         .type("10");
       cy.get("select[id=country]").select("Thailand");
-      cy.get("select[id=status]").select("Active");
+      cy.get("select[id=status]").select("Inactive");
       cy.get("input[id=landlordName]")
         .clear()
         .type("Tony Stark");
