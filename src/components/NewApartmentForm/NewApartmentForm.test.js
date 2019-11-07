@@ -31,7 +31,7 @@ describe("New apartment form", () => {
 
   it("should have input text for landlord account number on page", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
-    expect(getByLabelText("Landlord A/C number")).toBeInTheDocument();
+    expect(getByLabelText(/Landlord A\/C number/i)).toBeInTheDocument();
   });
 
   it("should have input text for lease start on page", () => {
@@ -104,7 +104,7 @@ describe("apartment form confirmation message", () => {
     await wait(() => expect(nameInput.value).toBe(""));
   });
 
-  it("should display confirmation message on creation", async () => {
+  xit("should display confirmation message on creation", async () => {
     mockPost.mockReturnValueOnce(
       "Successfully added new apartment: Garden Shack"
     );

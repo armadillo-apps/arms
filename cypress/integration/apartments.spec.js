@@ -253,8 +253,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
       cy.get("input[type=submit]").click();
 
-      cy.get('a[href="/apartments"]').click();
-
       cy.get("input[type=text]").type(apartmentName);
 
       const vacancy = 1;

@@ -80,6 +80,7 @@ class NewApartmentForm extends Component {
         status: ""
       });
       this.props.triggerRender();
+      this.props.history.push(`/apartments`);
     } catch (err) {
       this.setState({
         success: false,
@@ -115,20 +116,22 @@ class NewApartmentForm extends Component {
           <div className="formDivide">
             <Input
               id="landlord-name"
-              label="Landlord name"
+              label="Landlord name*"
               name="LandLordName"
               onChange={this.onFormChange}
               value={this.state.landLordName}
               type="text"
+              require
             />
             <Input
               id="landlord-account-number"
-              label="Landlord A/C number"
+              label="Landlord A/C number*"
               name="LandLordAccount"
               onChange={this.onFormChange}
               value={this.state.landLordAccount}
               type="text"
               width="196px"
+              required
             />
           </div>
           <div className="formDivide">
