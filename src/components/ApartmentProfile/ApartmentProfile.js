@@ -107,8 +107,10 @@ class ApartmentProfile extends Component {
 
   checkLeaseEnd = () => {
     const thisApartment = this.findSpecificApartment();
-    const formattedLeaseEndDate = extractDate(thisApartment.leases[0].leaseEnd);
-    const monthBeforeLeaseEnd = moment(formattedLeaseEndDate, "YYYY-MM-DD")
+    const formattedLeaseEndDate = new Date(
+      extractDate(thisApartment.leases[0].leaseEnd)
+    );
+    const monthBeforeLeaseEnd = moment(formattedLeaseEndDate)
       .subtract(1, "months")
       .format("YYYY-MM-DD");
     const leaseEndAlert = moment(this.today).isBetween(

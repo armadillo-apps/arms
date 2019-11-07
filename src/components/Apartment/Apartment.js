@@ -41,9 +41,12 @@ const Apartment = ({ apartments, stays, history }) => {
     const today = new Date();
 
     const currentStays = staysForApartment
-      .filter(stay => moment(today).isSameOrBefore(stay.checkOutDate, "day"))
-      .filter(stay => moment(today).isSameOrAfter(stay.checkInDate, "day"))
-      .length;
+      .filter(stay =>
+        moment(today).isSameOrBefore(new Date(stay.checkOutDate), "day")
+      )
+      .filter(stay =>
+        moment(today).isSameOrAfter(new Date(stay.checkInDate), "day")
+      ).length;
 
     return apartment.capacity - currentStays;
   };
