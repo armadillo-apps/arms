@@ -46,8 +46,8 @@ describe("Login Form", () => {
   });
 
   describe("Confirmation message", () => {
-    it("should display successful message when user is logged in", async () => {
-      postSpy.mockReturnValue("You are logged in");
+    it("should display an error message when user is logged in", async () => {
+      postSpy.mockReturnValue("Invalid email or password");
 
       const checkIsLoggedIn = () => {};
       const triggerRender = () => {};
@@ -62,11 +62,11 @@ describe("Login Form", () => {
       const button = getByText("Login", { selector: "input[type=submit]" });
       fireEvent.click(button);
 
-      const loginSuccessful = await waitForElement(() =>
-        getByText("You are logged in")
+      const loginErrorMessage = await waitForElement(() =>
+        getByText("Invalid email or password")
       );
 
-      expect(loginSuccessful).toBeInTheDocument();
+      expect(loginErrorMessage).toBeInTheDocument();
     });
   });
 });

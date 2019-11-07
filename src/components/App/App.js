@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-  Redirect,
-  Switch,
-  Route,
-  BrowserRouter as Router
-} from "react-router-dom";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import "../LoginForm/LoginForm.css";
 import {
@@ -53,6 +48,8 @@ class App extends Component {
 
   componentDidMount = async () => {
     try {
+      const checkSavedState = localStorage.getItem("isLoggedIn");
+      this.setState({ isLoggedIn: checkSavedState });
       const apartments = await fetchApartments();
       this.setState({ apartments });
       const occupants = await fetchOccupants();
@@ -91,6 +88,7 @@ class App extends Component {
     this.setState({
       isLoggedIn
     });
+    localStorage.setItem("isLoggedIn", true);
   };
 
   getAllStays = async () => {
@@ -244,6 +242,7 @@ class App extends Component {
         message: logoutMessage,
         isLoggedIn: false
       });
+      localStorage.removeItem("isLoggedIn");
       this.props.triggerRender();
     } catch (err) {
       return err.message;
@@ -350,7 +349,6 @@ class App extends Component {
                 )}
               />
             </Switch>
-            <Redirect to="/apartments" />
           </Router>
         </section>
       );

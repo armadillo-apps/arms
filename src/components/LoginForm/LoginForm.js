@@ -34,6 +34,7 @@ class LoginForm extends Component {
         submitted: true,
         message: response
       });
+      this.props.history.push("/apartments");
       this.props.triggerRender();
     } catch (err) {
       this.setState({

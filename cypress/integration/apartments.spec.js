@@ -439,6 +439,28 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
+  describe("Maintain user session after log in", () => {
+    it("should remain logged in on the same page after refresh", () => {
+      cy.get("h1").contains("Apartments");
+
+      cy.get('a[href="/occupants"]').click();
+      cy.reload();
+      cy.get("h1").contains("Occupants");
+
+      cy.get('a[href="/newApartment"]').click();
+      cy.reload();
+      cy.get("h1").contains("Create New Apartment");
+
+      cy.get('a[href="/newOccupant"]').click();
+      cy.reload();
+      cy.get("h1").contains("Create New Occupant");
+
+      cy.get('a[href="/apartments"]').click();
+      cy.reload();
+      cy.get("h1").contains("Apartments");
+    });
+  });
+
   describe("Successfully logout", () => {
     it("should allow logout for users", () => {
       cy.get('a[href="/"]').click();
