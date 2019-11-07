@@ -368,6 +368,23 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
+  describe("Change apartment status", () => {
+    it("should show an error message if status of apartment with an occupant is changed to inactive", () => {
+      cy.get('a[href="/apartments"]').click();
+      cy.get("input[type=text]").type(apartmentName);
+      cy.contains(apartmentName).click();
+
+      cy.get("button")
+        .contains("Edit")
+        .click();
+
+      cy.get("select[name=status]").select("Inactive");
+      cy.contains(
+        "Unable to change to inactive when there are current or future occupants"
+      );
+    });
+  });
+
   describe("Remove occupant stay from history", () => {
     it("be able to cancel occupant stay deletion", () => {
       cy.get('a[href="/apartments"]').click();
