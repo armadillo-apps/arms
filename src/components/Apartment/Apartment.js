@@ -21,6 +21,13 @@ const Apartment = ({ apartments, stays, history }) => {
     const activeApartments = apartmentList.filter(apartment =>
       apartment.status.includes("Active")
     );
+
+    activeApartments.sort((firstApartment, secondApartment) => {
+      let apartmentA = moment(new Date(firstApartment.leases[0].leaseEnd));
+      let apartmentB = moment(new Date(secondApartment.leases[0].leaseEnd));
+      return apartmentA - apartmentB;
+    });
+
     const inactiveApartments = apartmentList.filter(apartment =>
       apartment.status.includes("Inactive")
     );
@@ -73,6 +80,7 @@ const Apartment = ({ apartments, stays, history }) => {
               <ApartmentDetail
                 key={apartment._id}
                 vacancy={calculateVancancy(apartment, staysForCurrentApartment)}
+                // setAlertBoolean={setAlertBoolean}
                 {...apartment}
                 history={history}
               />
