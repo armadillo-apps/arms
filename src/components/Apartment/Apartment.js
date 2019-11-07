@@ -17,13 +17,23 @@ const Apartment = ({ apartments, stays, history }) => {
     setInputValue(event.target.value);
   };
 
+  const sortApartmentsByStatus = apartmentList => {
+    const activeApartments = apartmentList.filter(apartment =>
+      apartment.status.includes("Active")
+    );
+    const inactiveApartments = apartmentList.filter(apartment =>
+      apartment.status.includes("Inactive")
+    );
+    return activeApartments.concat(inactiveApartments);
+  };
+
   const handleApartmentSearch = () => {
     if (inputValue) {
-      return apartmentList.filter(apartment => {
+      return sortApartmentsByStatus(apartmentList).filter(apartment => {
         return apartment.name.toLowerCase().includes(inputValue.toLowerCase());
       });
     } else {
-      return apartmentList;
+      return sortApartmentsByStatus(apartmentList);
     }
   };
 

@@ -11,6 +11,7 @@ const apartments = [
     address: "18 Bogus Street #01-01",
     bedrooms: 1,
     capacity: 10,
+    status: "Active",
     leases: [
       {
         leaseStart: "25 June 2019",
@@ -25,6 +26,7 @@ const apartments = [
     address: "19 Bogus Street #02-02",
     bedrooms: 2,
     capacity: 5,
+    status: "Active",
     leases: [
       {
         leaseStart: "26 June 2018",
