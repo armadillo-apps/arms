@@ -211,7 +211,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  describe.only("Create, edit, and view Apartment", () => {
+  describe("Create, edit, and view Apartment", () => {
     it("should be unable to create a new apartment with -ve inputs", () => {
       cy.get('a[href="/newApartment"]').click();
 
