@@ -38,11 +38,11 @@
 }
 
 .Active {
-  color: var(--green-color);
+  color: var(--green-color)
 }
 
 .Inactive {
-  color: #b1b9cc;
+  color: var(--sidebar-font-color-inactive);
 }
 
 .apartmentProfile__editDetailsButton {
@@ -264,4 +264,8 @@
   color: white;
   font-size: 0.8rem;
   opacity: 0.8;
+}
+
+.leaseEndAlert {
+  color: var(--red-color)
 }

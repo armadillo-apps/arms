@@ -13,6 +13,7 @@ import ConfirmationModal from "../Modal/ConfirmationModal";
 import EditApartmentModal from "../Modal/EditApartmentModal";
 import EditApartmentForm from "../EditApartmentForm/EditApartmentForm";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
+import extractDate from "../../utils/ExtractDate";
 
 class ApartmentProfile extends Component {
   constructor(props) {
@@ -93,6 +94,28 @@ class ApartmentProfile extends Component {
         this.setState({ leaseId: foundLease._id });
       }
     }
+  };
+
+  findSpecificApartment = () => {
+    if (this.props.apartments.length > 0) {
+      const thisApartment = this.props.apartments.find(apartment => {
+        return apartment._id === this.apartmentId;
+      });
+      return thisApartment;
+    }
+  };
+
+  checkLeaseEnd = () => {
+    const thisApartment = this.findSpecificApartment();
+    const formattedLeaseEndDate = extractDate(thisApartment.leases[0].leaseEnd);
+    const monthBeforeLeaseEnd = moment(formattedLeaseEndDate, "YYYY-MM-DD")
+      .subtract(1, "months")
+      .format("YYYY-MM-DD");
+    const leaseEndAlert = moment(this.today).isBetween(
+      monthBeforeLeaseEnd,
+      formattedLeaseEndDate
+    );
+    return leaseEndAlert ? "leaseEndAlert" : "";
   };
 
   addStay = async event => {
@@ -259,6 +282,7 @@ class ApartmentProfile extends Component {
           </div>
         );
       }
+
       return (
         <div className="apartmentProfileContainer">
           <div className="apartmentProfile">
@@ -270,7 +294,11 @@ class ApartmentProfile extends Component {
             </div>
             <div className="apartmentProfile__headingContainer">
               <h1 className="apartmentProfile__heading">{apartment.name}</h1>
-              <span className={`apartmentProfile__status ${apartment.status}`}>
+              <span
+                className={`apartmentProfile__status ${this.checkLeaseEnd()} ${
+                  apartment.status
+                }`}
+              >
                 {apartment.status}
               </span>
               <button
@@ -437,7 +465,9 @@ class ApartmentProfile extends Component {
             <div className="apartmentProfile__bottomGrid">
               <div>
                 <h2 className="apartmentProfile__header2">Leases</h2>
-                <table className="apartmentProfile__leases">
+                <table
+                  className={`apartmentProfile__leases ${this.checkLeaseEnd()}`}
+                >
                   <thead>
                     <tr>
                       <th>Lease Start</th>

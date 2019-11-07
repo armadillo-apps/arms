@@ -114,5 +114,5 @@
 
 .editApartmentForm__error {
   font-size: 1.45rem;
-  color: red;
+  color: var(--red-color);
 }
