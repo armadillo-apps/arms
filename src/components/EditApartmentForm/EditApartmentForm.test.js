@@ -178,7 +178,11 @@ describe("EditApartmentForm", () => {
 
       const status = getByTestId("editApartment__status");
       fireEvent.change(status, { target: { value: "Inactive" } });
-      expect(getByText("Unable to change to inactive")).toBeInTheDocument();
+      expect(
+        getByText(
+          "Unable to change to inactive when there are current or future occupants"
+        )
+      ).toBeInTheDocument();
     });
 
     it("should update Landlord name", () => {

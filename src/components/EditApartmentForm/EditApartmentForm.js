@@ -115,7 +115,9 @@ const EditApartmentForm = ({
                 event.target.value === "Inactive" &&
                 (currentOccupants.length > 0 || futureOccupants.length > 0)
               ) {
-                setError("Unable to change to inactive");
+                setError(
+                  "Unable to change to inactive when there are current or future occupants"
+                );
               } else {
                 setError("");
               }
