@@ -59,6 +59,7 @@ class NewOccupantForm extends Component {
         submitted: true
       });
       this.props.triggerRender();
+      this.props.history.push(`/occupants`);
     } catch (err) {
       this.setState({
         success: false,

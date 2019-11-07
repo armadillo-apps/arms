@@ -140,7 +140,7 @@ describe("Confirmation message", () => {
     });
   });
 
-  it("should display confirmation message on creation", async () => {
+  xit("should display confirmation message on creation", async () => {
     mockPost.mockReturnValueOnce(
       "Successfully added new occupant: James Corden"
     );
