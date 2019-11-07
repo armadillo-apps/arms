@@ -211,7 +211,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  describe("Create, edit, and view Apartment", () => {
+  describe.only("Create, edit, and view Apartment", () => {
     it("should be unable to create a new apartment with -ve inputs", () => {
       cy.get('a[href="/newApartment"]').click();
 
@@ -253,7 +253,9 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
       cy.get("input[type=submit]").click();
 
-      cy.get("input[type=text]").type(apartmentName);
+      cy.get("input[type=text]")
+        .should("have.attr", "placeholder", "Search Apartment")
+        .type(apartmentName);
 
       const vacancy = 1;
       cy.get("tbody tr")
