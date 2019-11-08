@@ -16,6 +16,7 @@ class NewApartmentForm extends Component {
       leaseStart: "",
       leaseEnd: "",
       rent: "",
+      currency: "",
       landLordName: "",
       landLordAccount: "",
       country: "",
@@ -48,7 +49,8 @@ class NewApartmentForm extends Component {
           {
             leaseStart: this.state.leaseStart,
             leaseEnd: this.state.leaseEnd,
-            monthlyRent: this.state.rent
+            monthlyRent: this.state.rent,
+            currency: this.state.currency
           }
         ],
         landlord: {
@@ -70,6 +72,7 @@ class NewApartmentForm extends Component {
         leaseStart: "",
         leaseEnd: "",
         rent: "",
+        currency: "",
         landLordName: "",
         landLordAccount: "",
         country: "",
@@ -167,6 +170,22 @@ class NewApartmentForm extends Component {
             min="0"
             required
           />
+
+          <label htmlFor="currency" className="apartmentForm__currency">
+            Currency*
+          </label>
+          <select
+            id="currency"
+            name="Currency"
+            required
+            onChange={this.onFormChange}
+            value={this.state.currency}
+          >
+            <option value="">Select currency</option>
+            <option value="Singapore">SGD</option>
+            <option value="Thailand">THB</option>
+          </select>
+
           <div className="formDivide">
             <Input
               id="capacity"

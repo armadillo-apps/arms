@@ -44,6 +44,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     leaseStart: "2019-07-01",
     leaseEnd: "2019-07-10",
     monthlyRent,
+    currency: "SGD",
     capacity: -1,
     bedrooms: 1,
     country: "Singapore",
@@ -58,6 +59,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     leaseStart: "2019-07-01",
     leaseEnd: "2019-05-01",
     monthlyRent,
+    currency: "SGD",
     capacity: 1,
     bedrooms: 1,
     country: "Singapore",
@@ -72,6 +74,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     leaseStart: "2019-07-01",
     leaseEnd: "2020-07-10",
     monthlyRent,
+    currency: "SGD",
     capacity: 1,
     bedrooms: 1,
     country: "Singapore",
@@ -86,6 +89,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     leaseStart: "2018-07-01",
     leaseEnd: "2021-07-10",
     monthlyRent,
+    currency: "SGD",
     capacity: 1,
     bedrooms: 1,
     country: "Singapore",
@@ -100,6 +104,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     leaseStart,
     leaseEnd,
     monthlyRent,
+    currency,
     capacity,
     bedrooms,
     country,
@@ -112,6 +117,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("input[name=LeaseStart]").type(leaseStart);
     cy.get("input[name=LeaseEnd]").type(leaseEnd);
     cy.get("input[name=Rent]").type(monthlyRent);
+    cy.get("select[name=Currency]").select(currency);
     cy.get("input[name=Capacity]").should("not.be.disabled");
     cy.get("input[name=Capacity]")
       .clear()
