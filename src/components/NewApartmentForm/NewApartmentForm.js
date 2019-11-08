@@ -124,6 +124,7 @@ class NewApartmentForm extends Component {
               onChange={this.onFormChange}
               value={this.state.landLordName}
               type="text"
+              width="20rem"
               require
             />
             <Input
@@ -133,7 +134,7 @@ class NewApartmentForm extends Component {
               onChange={this.onFormChange}
               value={this.state.landLordAccount}
               type="text"
-              width="196px"
+              width="20rem"
               required
             />
           </div>
@@ -145,7 +146,7 @@ class NewApartmentForm extends Component {
               onChange={this.onFormChange}
               value={this.state.leaseStart}
               type="date"
-              width="170px"
+              width="20rem"
               required
             />
             <Input
@@ -156,35 +157,43 @@ class NewApartmentForm extends Component {
               value={this.state.leaseEnd}
               type="date"
               min={this.state.leaseStart}
-              width="170px"
+              width="20rem"
               required
             />
           </div>
-          <Input
-            id="rental-per-month"
-            label="Rental per month*"
-            name="Rent"
-            onChange={this.onFormChange}
-            value={this.state.rent}
-            type="number"
-            min="0"
-            required
-          />
 
-          <label htmlFor="currency" className="apartmentForm__currency">
-            Currency*
-          </label>
-          <select
-            id="currency"
-            name="Currency"
-            required
-            onChange={this.onFormChange}
-            value={this.state.currency}
-          >
-            <option value="">Select currency</option>
-            <option value="Singapore">SGD</option>
-            <option value="Thailand">THB</option>
-          </select>
+          <div className="formDivide">
+            <section>
+              <Input
+                id="rental-per-month"
+                label="Rental per month*"
+                name="Rent"
+                onChange={this.onFormChange}
+                value={this.state.rent}
+                type="number"
+                min="0"
+                width="20rem"
+                required
+              />
+            </section>
+            <section>
+              <label htmlFor="currency" className="apartmentForm__currency">
+                Currency*
+              </label>
+              <select
+                id="currency"
+                name="Currency"
+                required
+                onChange={this.onFormChange}
+                value={this.state.currency}
+                width="20rem"
+              >
+                <option value="">Select currency</option>
+                <option value="Singapore">SGD</option>
+                <option value="Thailand">THB</option>
+              </select>
+            </section>
+          </div>
 
           <div className="formDivide">
             <Input

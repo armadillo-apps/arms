@@ -13,7 +13,7 @@
 
 .input__text {
   height: 40px;
-  width: 510px;
+  width: 50rem;
   border-color: var(--main-row-border-color);
   font-size: 1.8rem;
   outline: none;
