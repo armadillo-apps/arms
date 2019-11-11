@@ -34,7 +34,7 @@ const apartmentDetails = [
         leaseStart: "26 Jun 19",
         leaseEnd: "26 Jun 22",
         monthlyRent: 2000,
-        currency: "SGD"
+        currency: "THB"
       }
     ]
   },
@@ -169,7 +169,7 @@ describe("Apartment Profile", () => {
     expect(getByText("SGD 1,000.00")).toBeInTheDocument();
     expect(getByText(/26 Jun 19/i)).toBeInTheDocument();
     expect(getByText(/26 Jun 22/i)).toBeInTheDocument();
-    expect(getByText("SGD 2,000.00")).toBeInTheDocument();
+    expect(getByText("THB 2,000.00")).toBeInTheDocument();
   });
 
   it("should render a Back button", () => {

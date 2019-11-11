@@ -5,7 +5,6 @@ import { formatDate } from "../../utils/date";
 import EditOccupantModal from "../Modal/EditOccupantModal";
 import EditOccupantForm from "../EditOccupantForm/EditOccupantForm";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
-// import formatter from "../../utils/formatMoney";
 import { sgdFormatter, thbFormatter } from "../../utils/formatMoney";
 
 const OccupantProfile = ({

@@ -160,7 +160,7 @@ describe("Occupant profile", () => {
               leaseStart: "2008-10-25T00:00:00.000Z",
               leaseEnd: "2004-12-25T00:00:00.000Z",
               monthlyRent: "6000",
-              currency: "SGD"
+              currency: "THB"
             },
             {
               _id: "5d40fb0fe45a8c76d1061ebd",
@@ -176,9 +176,34 @@ describe("Occupant profile", () => {
         checkOutDate: "2019-12-25T00:00:00.000Z"
       },
       {
+        _id: "234",
+        apartment: {
+          name: "Parc El'Royale",
+          leases: [
+            {
+              _id: "5d401557d855f9677f345692",
+              leaseStart: "2002-9-25T00:00:00.000Z",
+              leaseEnd: "2003-12-25T00:00:00.000Z",
+              monthlyRent: "8000",
+              currency: "SGD"
+            },
+            {
+              _id: "5d40fb0fe45a8c76d1061ebd",
+              leaseStart: "2009-11-25T00:00:00.000Z",
+              leaseEnd: "2003-11-25T00:00:00.000Z",
+              monthlyRent: "7000",
+              currency: "SGD"
+            }
+          ]
+        },
+        leaseId: "5d401557d855f9677f345692",
+        checkInDate: "2002-12-25T00:00:00.000Z",
+        checkOutDate: "2003-12-25T00:00:00.000Z"
+      },
+      {
         _id: "456",
         checkInDate: "2001-12-25T00:00:00.000Z",
-        checkOutDate: "2002-12-25T00:00:00.000Z",
+        checkOutDate: "2004-12-25T00:00:00.000Z",
         apartment: {
           name: "The Beacon Condo",
           leases: [
@@ -194,7 +219,7 @@ describe("Occupant profile", () => {
               leaseStart: "2009-11-25T00:00:00.000Z",
               leaseEnd: "2003-11-25T00:00:00.000Z",
               monthlyRent: "7000",
-              currency: "SGD"
+              currency: "THB"
             }
           ]
         }
@@ -253,6 +278,23 @@ describe("Occupant profile", () => {
       });
     });
 
+    it("should render occupant's monthly rent", async () => {
+      fetchStays.mockResolvedValue(stays);
+
+      const { getByText } = render(
+        <OccupantProfile
+          occupants={occupantDetails}
+          match={match}
+          modalStates={modalStates}
+        />
+      );
+
+      await wait(() => {
+        expect(getByText("THB 6,000.00")).toBeInTheDocument();
+        expect(getByText("SGD 8,000.00")).toBeInTheDocument();
+      });
+    });
+
     it("should display rent or error message if lease not allocated", async () => {
       fetchStays.mockResolvedValue(stays);
 
@@ -267,6 +309,14 @@ describe("Occupant profile", () => {
       await wait(() => {
         expect(getByText("Lease not allocated")).toBeInTheDocument();
       });
+    });
+
+    it("should render Loading.. if there are no occupants", () => {
+      const { getByText } = render(
+        <OccupantProfile match={match} modalStates={modalStates} />
+      );
+
+      expect(getByText("Loading...")).toBeInTheDocument();
     });
   });
 });
