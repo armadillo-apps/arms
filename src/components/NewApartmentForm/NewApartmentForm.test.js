@@ -3,8 +3,10 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, waitForElement, wait } from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 import NewApartmentForm from "./NewApartmentForm";
+import Apartment from "../Apartment/Apartment";
 import { fireEvent } from "@testing-library/react/dist";
 import * as data from "../../api/api";
+import { createMemoryHistory } from "history";
 
 const mockPost = jest.spyOn(data, "createNewApartment");
 
@@ -104,26 +106,20 @@ describe("apartment form confirmation message", () => {
     await wait(() => expect(nameInput.value).toBe(""));
   });
 
-  xit("should display confirmation message on creation", async () => {
-    mockPost.mockReturnValueOnce(
-      "Successfully added new apartment: Garden Shack"
-    );
+  it("should redirect to Apartments Page on creation", async () => {
+    const renderApp = () => {
+      const history = createMemoryHistory();
+      return render(
+        <Apartment history={history} stays={[]} apartments={[]}>
+          <NewApartmentForm />
+        </Apartment>
+      );
+    };
 
-    const triggerRender = () => {};
-    const { getByLabelText, getByText } = render(
-      <NewApartmentForm triggerRender={triggerRender} />
-    );
+    const { getByTestId } = renderApp();
 
-    const nameInput = getByLabelText(/apartment name/i);
-    const button = getByText("Create", { selector: "input[type=submit]" });
-
-    fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
-    fireEvent.click(button);
-
-    const successMessage = await waitForElement(() =>
-      getByText("Successfully added new apartment: Garden Shack")
-    );
-    expect(successMessage).toBeInTheDocument();
+    const ApartmentsPage = await waitForElement(() => getByTestId("apartment"));
+    expect(ApartmentsPage).toBeInTheDocument();
   });
 
   it("should display failure message when there is an error", async () => {
