@@ -16,8 +16,6 @@
   "rules": {
     "no-unused-vars": 0,
     "react/prop-types": 0,
-    "no-useless-catch": 1,
-    "no-undef": 1,
     "jest/no-test-prefixes": 1,
     "react/no-unescaped-entities": 0,
     "prettier/prettier": "error"
