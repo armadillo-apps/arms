@@ -17,7 +17,7 @@ const ApartmentDetail = ({
   const { leaseStart, leaseEnd, monthlyRent } = firstLeases;
 
   const leaseEndDate = extractDate(leaseEnd);
-  const monthBeforeLeaseEnd = moment(leaseEndDate)
+  const monthBeforeLeaseEnd = moment(new Date(leaseEndDate))
     .subtract(1, "months")
     .format("YYYY-MM-DD");
 

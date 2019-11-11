@@ -125,7 +125,7 @@ class NewApartmentForm extends Component {
               value={this.state.landLordName}
               type="text"
               width="20rem"
-              require
+              required
             />
             <Input
               id="landlord-account-number"
