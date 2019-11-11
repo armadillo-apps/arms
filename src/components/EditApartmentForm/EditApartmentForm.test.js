@@ -30,51 +30,67 @@ const futureOccupants = [
 describe("EditApartmentForm", () => {
   describe("Form fields", () => {
     it("should contain correct title", () => {
-      const { getByText } = render(<EditApartmentForm />);
+      const { getByText } = render(<EditApartmentForm apartment={apartment} />);
       expect(getByText("Edit Apartment")).toBeInTheDocument();
     });
     it("should render Name input field", () => {
-      const { getByLabelText } = render(<EditApartmentForm />);
+      const { getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
       expect(getByLabelText("Apartment Name")).toBeInTheDocument();
       expect(getByLabelText("Apartment Name")).toHaveAttribute("type", "text");
     });
 
     it("should render Address input field", () => {
-      const { getByLabelText } = render(<EditApartmentForm />);
+      const { getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
       expect(getByLabelText("Address")).toBeInTheDocument();
       expect(getByLabelText("Address")).toHaveAttribute("type", "text");
     });
 
     it("should render Bedrooms input field", () => {
-      const { getByLabelText } = render(<EditApartmentForm />);
+      const { getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
       expect(getByLabelText("Bedrooms")).toBeInTheDocument();
       expect(getByLabelText("Bedrooms")).toHaveAttribute("type", "number");
     });
 
     it("should render Capacity input field", () => {
-      const { getByLabelText } = render(<EditApartmentForm />);
+      const { getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
       expect(getByLabelText("Capacity")).toBeInTheDocument();
       expect(getByLabelText("Capacity")).toHaveAttribute("type", "number");
     });
 
     it("should render Country select field", () => {
-      const { getByLabelText } = render(<EditApartmentForm />);
+      const { getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
       expect(getByLabelText("Country")).toBeInTheDocument();
     });
 
     it("should render Status select field", () => {
-      const { getByLabelText } = render(<EditApartmentForm />);
+      const { getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
       expect(getByLabelText("Status")).toBeInTheDocument();
     });
 
     it("should render Landlord Name input field", () => {
-      const { getByLabelText } = render(<EditApartmentForm />);
+      const { getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
       expect(getByLabelText("Landlord Name")).toBeInTheDocument();
       expect(getByLabelText("Landlord Name")).toHaveAttribute("type", "text");
     });
 
     it("should render Landlord A/C number input field", () => {
-      const { getByLabelText } = render(<EditApartmentForm />);
+      const { getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
       expect(getByLabelText("Landlord A/C Number")).toBeInTheDocument();
       expect(getByLabelText("Landlord A/C Number")).toHaveAttribute(
         "type",
@@ -83,18 +99,20 @@ describe("EditApartmentForm", () => {
     });
 
     it("should render Remarks input field", () => {
-      const { getByLabelText } = render(<EditApartmentForm />);
+      const { getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
       expect(getByLabelText("Remarks")).toBeInTheDocument();
     });
 
     it("should render an Update button", () => {
-      const { getByText } = render(<EditApartmentForm />);
+      const { getByText } = render(<EditApartmentForm apartment={apartment} />);
       expect(getByText("Update")).toBeInTheDocument();
       expect(getByText("Update")).toHaveAttribute("type", "submit");
     });
 
     it("should render a Cancel button", () => {
-      const { getByText } = render(<EditApartmentForm />);
+      const { getByText } = render(<EditApartmentForm apartment={apartment} />);
       expect(getByText("Cancel")).toBeInTheDocument();
       expect(getByText("Cancel")).toHaveAttribute("type", "button");
     });
@@ -103,7 +121,7 @@ describe("EditApartmentForm", () => {
   describe("Change form values", () => {
     it("should update Apartment Name", () => {
       const { getByDisplayValue, getByLabelText } = render(
-        <EditApartmentForm />
+        <EditApartmentForm apartment={apartment} />
       );
       const apartmentName = getByLabelText("Apartment Name");
       fireEvent.change(apartmentName, { target: { value: "New Condominium" } });
@@ -112,7 +130,7 @@ describe("EditApartmentForm", () => {
 
     it("should update Address", () => {
       const { getByDisplayValue, getByLabelText } = render(
-        <EditApartmentForm />
+        <EditApartmentForm apartment={apartment} />
       );
       const address = getByLabelText("Address");
       fireEvent.change(address, {
@@ -123,7 +141,7 @@ describe("EditApartmentForm", () => {
 
     it("should update Bedroom", () => {
       const { getByDisplayValue, getByLabelText } = render(
-        <EditApartmentForm />
+        <EditApartmentForm apartment={apartment} />
       );
       const bedrooms = getByLabelText("Bedrooms");
       fireEvent.change(bedrooms, {
@@ -134,7 +152,7 @@ describe("EditApartmentForm", () => {
 
     it("should update Capacity", () => {
       const { getByDisplayValue, getByLabelText } = render(
-        <EditApartmentForm />
+        <EditApartmentForm apartment={apartment} />
       );
       const capacity = getByLabelText("Capacity");
       fireEvent.change(capacity, {
@@ -145,10 +163,10 @@ describe("EditApartmentForm", () => {
 
     it("should have a dropdown to update Country", () => {
       const { getByDisplayValue, getByLabelText } = render(
-        <EditApartmentForm />
+        <EditApartmentForm apartment={apartment} />
       );
       const country = getByLabelText("Country");
-      fireEvent.select(country, {
+      fireEvent.change(country, {
         target: { value: "Thailand" }
       });
       expect(getByDisplayValue("Thailand")).toBeInTheDocument();
@@ -157,12 +175,13 @@ describe("EditApartmentForm", () => {
     it("should have a dropdown to update Status", () => {
       const { getByDisplayValue, getByLabelText } = render(
         <EditApartmentForm
+          apartment={apartment}
           currentOccupants={currentOccupants}
           futureOccupants={futureOccupants}
         />
       );
       const status = getByLabelText("Status");
-      fireEvent.select(status, {
+      fireEvent.change(status, {
         target: { value: "Active" }
       });
       expect(getByDisplayValue("Active")).toBeInTheDocument();
@@ -171,6 +190,7 @@ describe("EditApartmentForm", () => {
     it("should not be able to update Status to Inactive if there are occupants", () => {
       const { getByText, getByTestId } = render(
         <EditApartmentForm
+          apartment={apartment}
           currentOccupants={currentOccupants}
           futureOccupants={futureOccupants}
         />
@@ -187,7 +207,7 @@ describe("EditApartmentForm", () => {
 
     it("should update Landlord name", () => {
       const { getByDisplayValue, getByLabelText } = render(
-        <EditApartmentForm />
+        <EditApartmentForm apartment={apartment} />
       );
       const landlordName = getByLabelText("Landlord Name");
       fireEvent.change(landlordName, { target: { value: "Jane" } });
@@ -196,17 +216,18 @@ describe("EditApartmentForm", () => {
 
     it("should update Landlord A/C", () => {
       const { getByDisplayValue, getByLabelText } = render(
-        <EditApartmentForm />
+        <EditApartmentForm apartment={apartment} />
       );
       const landlordAccountNumber = getByLabelText("Landlord A/C Number");
       fireEvent.change(landlordAccountNumber, {
-        target: { value: "12345" }
+        target: { value: "123456" }
       });
-      expect(getByDisplayValue("12345")).toBeInTheDocument();
+      expect(getByDisplayValue("123456")).toBeInTheDocument();
     });
+
     it("should update Remarks", () => {
       const { getByDisplayValue, getByLabelText } = render(
-        <EditApartmentForm />
+        <EditApartmentForm apartment={apartment} />
       );
       const remarks = getByLabelText("Remarks");
       fireEvent.change(remarks, {
