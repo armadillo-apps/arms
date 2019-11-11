@@ -1,6 +1,9 @@
-const formatter = new Intl.NumberFormat("en-US", {
+export const sgdFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
-  currency: "USD"
+  currency: "SGD"
 });
 
-export default formatter;
+export const thbFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "THB"
+});

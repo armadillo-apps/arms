@@ -26,13 +26,15 @@ const apartmentDetails = [
         _id: "5678tyu",
         leaseStart: "25 Jun 19",
         leaseEnd: "25 Jun 22",
-        monthlyRent: 1000
+        monthlyRent: 1000,
+        currency: "SGD"
       },
       {
         _id: "9872wer",
         leaseStart: "26 Jun 19",
         leaseEnd: "26 Jun 22",
-        monthlyRent: 2000
+        monthlyRent: 2000,
+        currency: "SGD"
       }
     ]
   },
@@ -51,7 +53,8 @@ const apartmentDetails = [
         _id: "5555tyu",
         leaseStart: "25 Jun 19",
         leaseEnd: "25 Jun 22",
-        monthlyRent: 1000
+        monthlyRent: 1000,
+        currency: "SGD"
       }
     ]
   }
@@ -163,10 +166,10 @@ describe("Apartment Profile", () => {
     expect(getByText(/18 Bogus Street #01-01/i)).toBeInTheDocument();
     expect(getByText(/25 Jun 19/i)).toBeInTheDocument();
     expect(getByText(/25 Jun 22/i)).toBeInTheDocument();
-    expect(getByText("$1,000.00")).toBeInTheDocument();
+    expect(getByText("SGD 1,000.00")).toBeInTheDocument();
     expect(getByText(/26 Jun 19/i)).toBeInTheDocument();
     expect(getByText(/26 Jun 22/i)).toBeInTheDocument();
-    expect(getByText("$2,000.00")).toBeInTheDocument();
+    expect(getByText("SGD 2,000.00")).toBeInTheDocument();
   });
 
   it("should render a Back button", () => {

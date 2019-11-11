@@ -16,7 +16,8 @@ const apartments = [
       {
         leaseStart: "25 June 2019",
         leaseEnd: "24 June 2020",
-        monthlyRent: 5000
+        monthlyRent: 5000,
+        currency: "SGD"
       }
     ]
   },
@@ -31,7 +32,8 @@ const apartments = [
       {
         leaseStart: "26 June 2018",
         leaseEnd: "23 June 2021",
-        monthlyRent: 4000
+        monthlyRent: 4000,
+        currency: "SGD"
       }
     ]
   }
@@ -51,7 +53,7 @@ describe("Apartment", () => {
       <Apartment apartments={apartments} stays={[]} />
     );
     expect(getByText("Rental Per Month")).toBeInTheDocument();
-    expect(getByText("$5,000.00")).toBeInTheDocument();
+    expect(getByText("SGD 5,000.00")).toBeInTheDocument();
   });
 
   it("renders the lease start of the apartment", () => {

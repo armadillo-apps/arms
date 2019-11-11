@@ -1,7 +1,7 @@
 import React from "react";
 import "./ApartmentDetail.css";
 import extractDate from "../../utils/ExtractDate";
-import formatter from "../../utils/formatMoney";
+import { sgdFormatter, thbFormatter } from "../../utils/formatMoney";
 import moment from "moment";
 
 const ApartmentDetail = ({
@@ -14,7 +14,8 @@ const ApartmentDetail = ({
   history
 }) => {
   const [firstLeases] = leases;
-  const { leaseStart, leaseEnd, monthlyRent } = firstLeases;
+  const { leaseStart, leaseEnd, monthlyRent, currency } = firstLeases;
+
   const leaseEndDate = extractDate(leaseEnd);
   const monthBeforeLeaseEnd = moment(new Date(leaseEndDate))
     .subtract(1, "months")
@@ -26,6 +27,15 @@ const ApartmentDetail = ({
   );
 
   const leaseEndAlert = boolean => (boolean ? "leaseEndAlert" : "");
+
+  const monthlyRentFormatted = monthlyRent => {
+    if (currency === "SGD") {
+      return sgdFormatter.format(monthlyRent);
+    } else if (currency === "THB") {
+      return thbFormatter.format(monthlyRent);
+    }
+  };
+
   return (
     <tr
       className="apartmentDetails"
@@ -50,7 +60,9 @@ const ApartmentDetail = ({
       >
         {leaseEndDate}
       </td>
-      <td className="apartmentDetails__td">{formatter.format(monthlyRent)}</td>
+      <td className="apartmentDetails__td">
+        {monthlyRentFormatted(monthlyRent)}
+      </td>
     </tr>
   );
 };

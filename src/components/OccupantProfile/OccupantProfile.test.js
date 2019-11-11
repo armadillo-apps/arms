@@ -159,13 +159,15 @@ describe("Occupant profile", () => {
               _id: "5d401557d855f9677f345692",
               leaseStart: "2008-10-25T00:00:00.000Z",
               leaseEnd: "2004-12-25T00:00:00.000Z",
-              monthlyRent: "6000"
+              monthlyRent: "6000",
+              currency: "SGD"
             },
             {
               _id: "5d40fb0fe45a8c76d1061ebd",
               leaseStart: "2009-11-25T00:00:00.000Z",
               leaseEnd: "2003-11-25T00:00:00.000Z",
-              monthlyRent: "7000"
+              monthlyRent: "7000",
+              currency: "SGD"
             }
           ]
         },
@@ -184,13 +186,15 @@ describe("Occupant profile", () => {
               _id: "5d401557d855f9677f345693",
               leaseStart: "2008-10-25T00:00:00.000Z",
               leaseEnd: "2004-12-25T00:00:00.000Z",
-              monthlyRent: "6000"
+              monthlyRent: "6000",
+              currency: "SGD"
             },
             {
               _id: "5d40fb0fe45a8c76d1061eb4",
               leaseStart: "2009-11-25T00:00:00.000Z",
               leaseEnd: "2003-11-25T00:00:00.000Z",
-              monthlyRent: "7000"
+              monthlyRent: "7000",
+              currency: "SGD"
             }
           ]
         }

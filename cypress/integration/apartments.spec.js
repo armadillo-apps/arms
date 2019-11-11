@@ -1,6 +1,7 @@
 /* eslint-disable jest/expect-expect */
 import faker from "faker";
 import moment from "moment";
+import { sgdFormatter } from "../../src/utils/formatMoney";
 
 describe("Apartments, Occupant, and ApartmentAssign", () => {
   before(() => {
@@ -29,6 +30,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   const address = faker.address.streetAddress();
   const accountNumber = faker.finance.account();
   const monthlyRent = "1000";
+  const monthlyRentFormatted = sgdFormatter.format(monthlyRent);
 
   const name = faker.name.firstName();
   const employeeId = faker.random.uuid();
@@ -369,7 +371,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.contains(apartmentName);
       cy.contains("1 May 18");
       cy.contains(monthlyRentCheckoutDate);
-      cy.contains("$1,000.00");
+      cy.contains(monthlyRentFormatted);
       cy.get("tbody tr").should("have.length", 1);
     });
   });

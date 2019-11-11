@@ -189,8 +189,8 @@ class NewApartmentForm extends Component {
                 width="20rem"
               >
                 <option value="">Select currency</option>
-                <option value="Singapore">SGD</option>
-                <option value="Thailand">THB</option>
+                <option value="SGD">SGD</option>
+                <option value="THB">THB</option>
               </select>
             </section>
           </div>
