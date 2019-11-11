@@ -15,15 +15,14 @@ const ApartmentDetail = ({
 }) => {
   const [firstLeases] = leases;
   const { leaseStart, leaseEnd, monthlyRent } = firstLeases;
-
   const leaseEndDate = extractDate(leaseEnd);
   const monthBeforeLeaseEnd = moment(new Date(leaseEndDate))
     .subtract(1, "months")
     .format("YYYY-MM-DD");
 
-  const leaseEndAlertBoolean = moment().isBetween(
+  const leaseEndAlertBoolean = moment(new Date()).isBetween(
     monthBeforeLeaseEnd,
-    leaseEndDate
+    new Date(leaseEndDate)
   );
 
   const leaseEndAlert = boolean => (boolean ? "leaseEndAlert" : "");

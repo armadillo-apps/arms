@@ -302,7 +302,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   });
 
   describe("Assign occupant to apartment", () => {
-    const checkoutDate = moment().add(1, "days");
+    const checkoutDate = moment(new Date()).add(1, "days");
 
     it("be able to assign an occupant to apartment", () => {
       cy.get('a[href="/apartments"]').click();
