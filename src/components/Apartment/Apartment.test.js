@@ -46,6 +46,7 @@ describe("Apartment", () => {
     );
     expect(getByText("Apartment Name")).toBeInTheDocument();
     expect(getByText("Parc Sophia")).toBeInTheDocument();
+    expect(getByText("Sea View")).toBeInTheDocument();
   });
 
   it("renders the monthly rent of the apartment", () => {
@@ -54,6 +55,7 @@ describe("Apartment", () => {
     );
     expect(getByText("Rental Per Month")).toBeInTheDocument();
     expect(getByText("THB 5,000.00")).toBeInTheDocument();
+    expect(getByText("SGD 4,000.00")).toBeInTheDocument();
   });
 
   it("renders the lease start of the apartment", () => {

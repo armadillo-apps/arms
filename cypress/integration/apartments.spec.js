@@ -1,7 +1,7 @@
 /* eslint-disable jest/expect-expect */
 import faker from "faker";
 import moment from "moment";
-import { sgdFormatter } from "../../src/utils/formatMoney";
+import { sgdFormatter, thbFormatter } from "../../src/utils/formatMoney";
 
 describe("Apartments, Occupant, and ApartmentAssign", () => {
   before(() => {
@@ -26,11 +26,13 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   const baseUrl = Cypress.env("baseUrl");
 
   const apartmentName = faker.company.companyName();
+  const apartmentName2 = faker.company.companyName();
   const landlordName = faker.name.firstName();
   const address = faker.address.streetAddress();
   const accountNumber = faker.finance.account();
   const monthlyRent = "1000";
-  const monthlyRentFormatted = sgdFormatter.format(monthlyRent);
+  const monthlyRentSgdFormatted = sgdFormatter.format(monthlyRent);
+  const monthlyRentThbFormatted = thbFormatter.format(monthlyRent);
 
   const name = faker.name.firstName();
   const employeeId = faker.random.uuid();
@@ -83,6 +85,21 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     status: "Active"
   };
 
+  const newApartment2 = {
+    apartmentName2,
+    address,
+    landlordName,
+    accountNumber,
+    leaseStart: "2019-07-01",
+    leaseEnd: "2020-07-10",
+    monthlyRent,
+    currency: "THB",
+    capacity: 1,
+    bedrooms: 1,
+    country: "Thailand",
+    status: "Active"
+  };
+
   const newApartmentForSearchbarTest = {
     apartmentName: "Parc Sophia",
     address: "123 Parc Lane",
@@ -113,6 +130,40 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     status
   }) => {
     cy.get("input[name=Name]").type(apartmentName);
+    cy.get("input[name=Address]").type(address);
+    cy.get("input[name=LandLordName]").type(landlordName);
+    cy.get("input[name=LandLordAccount]").type(accountNumber);
+    cy.get("input[name=LeaseStart]").type(leaseStart);
+    cy.get("input[name=LeaseEnd]").type(leaseEnd);
+    cy.get("input[name=Rent]").type(monthlyRent);
+    cy.get("select[name=Currency]").select(currency);
+    cy.get("input[name=Capacity]").should("not.be.disabled");
+    cy.get("input[name=Capacity]")
+      .clear()
+      .type(capacity);
+    cy.get("input[name=Bedrooms]")
+      .clear()
+      .type(bedrooms);
+    cy.get("select[name=status]").select(status);
+    cy.get("select[name=Country").select(country);
+    cy.get("textarea[name=Remarks]").type("testing!!!");
+  };
+
+  const fillOutApartmentForm2 = ({
+    apartmentName2,
+    address,
+    landlordName,
+    accountNumber,
+    leaseStart,
+    leaseEnd,
+    monthlyRent,
+    currency,
+    capacity,
+    bedrooms,
+    country,
+    status
+  }) => {
+    cy.get("input[name=Name]").type(apartmentName2);
     cy.get("input[name=Address]").type(address);
     cy.get("input[name=LandLordName]").type(landlordName);
     cy.get("input[name=LandLordAccount]").type(accountNumber);
@@ -252,7 +303,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.contains(apartmentName).should("not.exist");
     });
 
-    it("should create a new apartment and show apartment profile", () => {
+    it("should create a new apartment in Singapore and show apartment profile", () => {
       cy.get('a[href="/newApartment"]').click();
 
       cy.get("h1").contains("Create New Apartment");
@@ -284,6 +335,47 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("div")
         .should("have.class", "country")
         .contains("Singapore");
+      cy.get("table")
+        .should("have.class", "apartmentProfile__leases")
+        .contains(monthlyRentSgdFormatted);
+      cy.get("span").contains(/Active/i);
+    });
+
+    it("should create a new apartment in Thailand and show apartment profile", () => {
+      cy.get('a[href="/newApartment"]').click();
+
+      cy.get("h1").contains("Create New Apartment");
+
+      fillOutApartmentForm2(newApartment2);
+
+      cy.get("input[type=submit]").click();
+
+      cy.get("input[type=text]")
+        .should("have.attr", "placeholder", "Search Apartment")
+        .type(apartmentName2);
+
+      const vacancy = 1;
+      cy.get("tbody tr")
+        .contains("tr", apartmentName2)
+        .contains("td", vacancy);
+
+      const status = "Active";
+      cy.get("td").contains(status);
+
+      cy.get("td")
+        .contains(apartmentName2)
+        .click();
+      cy.get("h1").contains(apartmentName2);
+
+      cy.get("div")
+        .should("have.class", "address")
+        .contains(address);
+      cy.get("div")
+        .should("have.class", "country")
+        .contains("Thailand");
+      cy.get("table")
+        .should("have.class", "apartmentProfile__leases")
+        .contains(monthlyRentThbFormatted);
       cy.get("span").contains(/Active/i);
     });
 
@@ -371,7 +463,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.contains(apartmentName);
       cy.contains("1 May 18");
       cy.contains(monthlyRentCheckoutDate);
-      cy.contains(monthlyRentFormatted);
+      cy.contains(monthlyRentSgdFormatted);
       cy.get("tbody tr").should("have.length", 1);
     });
   });

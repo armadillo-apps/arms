@@ -1,6 +1,5 @@
 import React from "react";
 import extractDate from "../../utils/ExtractDate";
-// import formatter from "../../utils/formatMoney";
 import { sgdFormatter, thbFormatter } from "../../utils/formatMoney";
 
 const Lease = ({
