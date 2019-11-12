@@ -1,19 +1,16 @@
 import React from "react";
-import { Router } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
 import {
   render,
   fireEvent,
   waitForElement,
-  wait,
-  shallow
+  wait
 } from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 import NewOccupantForm from "./NewOccupantForm";
 import * as data from "../../api/api";
 import Occupant from "../Occupant/Occupant";
 import { createMemoryHistory } from "history";
-import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
 
 const mockPost = jest.spyOn(data, "createNewOccupant");
 

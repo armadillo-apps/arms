@@ -17,8 +17,6 @@ class UserManagement extends Component {
     console.log(this.state.data);
   }
 
-  deleteUser = id => {};
-
   render() {
     return (
       <div>
