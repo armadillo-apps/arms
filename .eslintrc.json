@@ -16,9 +16,8 @@
   ],
   "rules": {
     "no-unused-vars": 1,
-    "react/no-unescaped-entities": 0,
+    "react/no-unescaped-entities": 1,
     "react/prop-types": 0,
-    "jest/no-test-prefixes": 1,
     "prettier/prettier": "error"
   },
   "parser": "babel-eslint",
