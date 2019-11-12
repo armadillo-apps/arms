@@ -11,6 +11,11 @@ export const fetchOccupants = async () => {
   return response.data;
 };
 
+export const fetchUsers = async () => {
+  const response = await axios.get("/users", { withCredentials: true });
+  return response.data;
+};
+
 export const getApartmentProfileHistory = async apartmentId => {
   const response = await axios.get(
     `/stays/apartmentProfileHistory/${apartmentId}`,
@@ -48,6 +53,19 @@ export const createNewOccupant = async (
   return response.data;
 };
 
+export const createNewUser = async (name, email, password, role) => {
+  const requestBody = {
+    name,
+    email,
+    password,
+    role
+  };
+  const response = await axios.post("/users/new", requestBody, {
+    withCredentials: true
+  });
+  return response.data;
+};
+
 export const createStay = async (
   occupantId,
   apartmentId,
@@ -70,6 +88,13 @@ export const createStay = async (
 
 export const removeStay = async stayId => {
   const response = await axios.delete(`/stays/${stayId}`, {
+    withCredentials: true
+  });
+  return response.data;
+};
+
+export const removeUser = async userId => {
+  const response = await axios.delete(`/users/${userId}`, {
     withCredentials: true
   });
   return response.data;

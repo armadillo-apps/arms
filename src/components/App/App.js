@@ -8,7 +8,8 @@ import {
   updateOccupant,
   updateApartment,
   fetchStays,
-  logoutUser
+  logoutUser,
+  fetchUsers
 } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import Apartment from "../Apartment/Apartment";
@@ -18,6 +19,8 @@ import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
 import OccupantProfile from "../OccupantProfile/OccupantProfile";
 import ApartmentProfile from "../ApartmentProfile/ApartmentProfile";
 import LoginForm from "../LoginForm/LoginForm";
+import NewUserForm from "../NewUserForm/NewUserForm";
+import UserManagement from "../UserManagement/UserManagement";
 
 class App extends Component {
   constructor(props) {
@@ -25,6 +28,7 @@ class App extends Component {
     this.state = {
       apartments: [],
       occupants: [],
+      users: [],
       stays: [],
       isLoggedIn: false,
       editOccupantModal: {
@@ -54,6 +58,8 @@ class App extends Component {
       this.setState({ apartments });
       const occupants = await fetchOccupants();
       this.setState({ occupants });
+      const users = await fetchUsers();
+      this.setState({ users });
       const stays = await fetchStays();
       this.setState({ stays });
     } catch (err) {
@@ -68,6 +74,8 @@ class App extends Component {
         this.setState({ apartments });
         const occupants = await fetchOccupants();
         this.setState({ occupants });
+        const users = await fetchUsers();
+        this.setState({ users });
         const stays = await fetchStays();
         this.setState({ stays });
       } catch (err) {
@@ -330,6 +338,18 @@ class App extends Component {
               />
               <Route
                 exact
+                path="/users"
+                render={props => (
+                  <UserManagement
+                    triggerRender={this.triggerRender}
+                    users={this.state.users}
+                    fetchUsers={this.fetchUsers}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                exact
                 path="/newApartment"
                 render={props => (
                   <NewApartmentForm
@@ -346,6 +366,12 @@ class App extends Component {
                     triggerRender={this.triggerRender}
                     {...props}
                   />
+                )}
+              />
+              <Route
+                exactpath="/newUser"
+                render={props => (
+                  <NewUserForm triggerRender={this.triggerRender} {...props} />
                 )}
               />
             </Switch>

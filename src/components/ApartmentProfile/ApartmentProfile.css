@@ -38,7 +38,7 @@
 }
 
 .Active {
-  color: var(--green-color)
+  color: var(--green-color);
 }
 
 .Inactive {
@@ -267,5 +267,5 @@
 }
 
 .leaseEndAlert {
-  color: var(--red-color)
+  color: var(--red-color);
 }

@@ -25,6 +25,14 @@ const SideBar = props => {
         </NavLink>
         <NavLink
           className="sideBar__heading"
+          to="/users"
+          activeClassName="active"
+        >
+          <svg className="addIcon" />
+          USER MANAGEMENT
+        </NavLink>
+        <NavLink
+          className="sideBar__heading"
           to="/newApartment"
           activeClassName="active"
         >
@@ -38,6 +46,14 @@ const SideBar = props => {
         >
           <svg className="addIcon" />
           NEW OCCUPANT
+        </NavLink>
+        <NavLink
+          className="sideBar__heading"
+          to="/newUser"
+          activeClassName="active"
+        >
+          <svg className="addIcon" />
+          NEW USER
         </NavLink>
         <NavLink
           className="sideBar__heading"
