@@ -10,7 +10,8 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     // visit issue https://github.com/cypress-io/cypress/issues/2777 for more information
     cy.request("POST", `${Cypress.env("backendUrl")}/users/new`, {
       email: "baqa@thoughtworks.com",
-      password: "pass1234"
+      password: "pass1234",
+      role: "admin"
     })
       .its("body")
       .as("seededUser");
