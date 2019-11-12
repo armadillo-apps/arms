@@ -76,7 +76,7 @@ describe("Input form", () => {
     fireEvent.change(remarks, { target: { value: "testing" } });
 
     const homeOffice = getByLabelText("Home Office");
-    fireEvent.change(homeOffice, { target: { value: "Melbourne, Australia" } });
+    fireEvent.change(homeOffice, { target: { value: "Australia, Melbourne" } });
 
     const status = getByLabelText("Occupant Status*");
     fireEvent.change(status, { target: { value: "allocated" } });
@@ -85,7 +85,7 @@ describe("Input form", () => {
     expect(employeeId.value).toBe("123");
     expect(gender.value).toBe("male");
     expect(remarks.value).toBe("testing");
-    expect(homeOffice.value).toBe("Melbourne, Australia");
+    expect(homeOffice.value).toBe("Australia, Melbourne");
     expect(status.value).toBe("allocated");
   });
 });

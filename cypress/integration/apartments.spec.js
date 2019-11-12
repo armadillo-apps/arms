@@ -195,7 +195,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("input[name=employeeId]").type(modEmployeeId);
       cy.get("select[name=gender]").select(gender);
       cy.get("textarea[name=remarks]").type("BAD REMARKS");
-      cy.get("select[name=homeOffice]").select("Melbourne, Australia");
+      cy.get("select[name=homeOffice]").select("Australia, Melbourne");
       cy.get("select[name=status]").select(status);
       cy.get("input[type=submit]").click();
       cy.get("a")
@@ -208,7 +208,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("h1").contains(modName);
       cy.get("h2").contains(modEmployeeId);
       cy.get("h2").contains(gender);
-      cy.get("h2").contains(/Home Office: Melbourne, Australia/i);
+      cy.get("h2").contains(/Home Office: Australia, Melbourne/i);
       cy.get("span").contains(status);
     });
 
