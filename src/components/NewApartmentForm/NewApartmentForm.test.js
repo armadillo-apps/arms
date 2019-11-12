@@ -107,19 +107,23 @@ describe("apartment form confirmation message", () => {
   });
 
   it("should redirect to Apartments Page on creation", async () => {
-    const renderApp = () => {
-      const history = createMemoryHistory();
-      return render(
-        <Apartment history={history} stays={[]} apartments={[]}>
-          <NewApartmentForm />
-        </Apartment>
-      );
-    };
+    const history = { push: jest.fn() };
+    const triggerRender = jest.fn();
+    mockPost.mockReturnValueOnce("");
 
-    const { getByTestId } = renderApp();
+    const { getByLabelText, getByText } = render(
+      <NewApartmentForm history={history} triggerRender={triggerRender} />
+    );
 
-    const ApartmentsPage = await waitForElement(() => getByTestId("apartment"));
-    expect(ApartmentsPage).toBeInTheDocument();
+    const nameInput = getByLabelText(/apartment name/i);
+    const button = getByText("Create", { selector: "input[type=submit]" });
+
+    fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
+    fireEvent.click(button);
+
+    await Promise.resolve();
+
+    expect(history.push).toHaveBeenCalled();
   });
 
   it("should display failure message when there is an error", async () => {
