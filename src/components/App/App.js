@@ -48,7 +48,7 @@ class App extends Component {
 
   componentDidMount = async () => {
     try {
-      const checkSavedState = sessionStorage.getItem("isLoggedIn");
+      const checkSavedState = localStorage.getItem("isLoggedIn");
       this.setState({ isLoggedIn: checkSavedState });
       const apartments = await fetchApartments();
       this.setState({ apartments });
@@ -88,7 +88,7 @@ class App extends Component {
     this.setState({
       isLoggedIn
     });
-    sessionStorage.setItem("isLoggedIn", true);
+    localStorage.setItem("isLoggedIn", true);
   };
 
   getAllStays = async () => {
@@ -242,7 +242,7 @@ class App extends Component {
         message: logoutMessage,
         isLoggedIn: false
       });
-      sessionStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("isLoggedIn");
       this.props.triggerRender();
     } catch (err) {
       return err.message;
