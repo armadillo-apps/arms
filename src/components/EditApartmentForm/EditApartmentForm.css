@@ -22,18 +22,25 @@
   margin-bottom: 0.5rem;
 }
 
-.bedroomCapacity__wrapper {
+.bedroomCapacity__wrapper,
+.lease__wrapper,
+.monthlyRent__wrapper {
   display: flex;
   justify-content: space-between;
 }
 
-.bedroomCapacity__wrapper section {
+.bedroomCapacity__wrapper section,
+.monthlyRent__wrapper section {
   display: flex;
   flex-direction: column;
   padding: 5px 10px;
   font-size: 1.3rem;
   margin-top: 20px;
   margin-bottom: 12px;
+}
+
+.monthlyRent__wrapper input {
+  width: 30rem;
 }
 
 .bedroomCapacity__wrapper input {

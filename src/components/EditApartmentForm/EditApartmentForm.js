@@ -115,80 +115,84 @@ const EditApartmentForm = ({
               <option value="Thailand">Thailand</option>
             </select>
           </section>
+          <section className="editApartmentForm__status">
+            <label htmlFor="status">Status</label>
+            <select
+              data-testid="editApartment__status"
+              id="status"
+              name="status"
+              value={status}
+              onChange={event => {
+                setStatus(event.target.value);
+                if (
+                  event.target.value === "Inactive" &&
+                  (currentOccupants.length > 0 || futureOccupants.length > 0)
+                ) {
+                  setError(
+                    "Unable to change to inactive when there are current or future occupants"
+                  );
+                } else {
+                  setError("");
+                }
+              }}
+            >
+              <option value="">Select status</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+            {error ? <p className="editApartmentForm__error">{error}</p> : ""}
+          </section>
         </div>
-        <section className="editApartmentForm__status">
-          <label htmlFor="status">Status</label>
-          <select
-            data-testid="editApartment__status"
-            id="status"
-            name="status"
-            value={status}
+        <div className="lease__wrapper">
+          <Input
+            id="leaseStart"
+            label="Lease Start"
+            name="leaseStart"
+            type="date"
+            value={leaseStartFormat}
             onChange={event => {
-              setStatus(event.target.value);
-              if (
-                event.target.value === "Inactive" &&
-                (currentOccupants.length > 0 || futureOccupants.length > 0)
-              ) {
-                setError(
-                  "Unable to change to inactive when there are current or future occupants"
-                );
-              } else {
-                setError("");
-              }
+              setLeaseStart(event.target.value);
             }}
-          >
-            <option value="">Select status</option>
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
-          </select>
-          {error ? <p className="editApartmentForm__error">{error}</p> : ""}
-        </section>
-        <Input
-          id="leaseStart"
-          label="Lease Start"
-          name="leaseStart"
-          type="date"
-          value={leaseStartFormat}
-          onChange={event => {
-            setLeaseStart(event.target.value);
-          }}
-        />
-        <Input
-          id="leaseEnd"
-          label="Lease End"
-          name="leaseEnd"
-          type="date"
-          value={leaseEndFormat}
-          onChange={event => {
-            setLeaseEnd(event.target.value);
-          }}
-        />
-        <Input
-          id="monthlyRent"
-          label="Monthly Rent"
-          name="monthlyRent"
-          type="number"
-          value={monthlyRent}
-          onChange={event => {
-            setMonthlyRent(event.target.value);
-          }}
-        />
-        <section className="editApartmentForm__currency">
-          <label htmlFor="currency">Currency</label>
-          <select
-            data-testid={"editApartment__currency"}
-            id="currency"
-            name="currency"
-            value={currency}
+          />
+          <Input
+            id="leaseEnd"
+            label="Lease End"
+            name="leaseEnd"
+            type="date"
+            value={leaseEndFormat}
             onChange={event => {
-              setCurrency(event.target.value);
+              setLeaseEnd(event.target.value);
             }}
-          >
-            <option value="">Select currency</option>
-            <option value="SGD">SGD</option>
-            <option value="THB">THB</option>
-          </select>
-        </section>
+          />
+        </div>
+        <div className="monthlyRent__wrapper">
+          <Input
+            id="monthlyRent"
+            label="Monthly Rent"
+            name="monthlyRent"
+            type="number"
+            value={monthlyRent}
+            onChange={event => {
+              setMonthlyRent(event.target.value);
+            }}
+          />
+          <section className="editApartmentForm__currency">
+            <label htmlFor="currency">Currency</label>
+            <select
+              data-testid={"editApartment__currency"}
+              id="currency"
+              name="currency"
+              value={currency}
+              onChange={event => {
+                setCurrency(event.target.value);
+              }}
+            >
+              <option value="">Select currency</option>
+              <option value="SGD">SGD</option>
+              <option value="THB">THB</option>
+            </select>
+          </section>
+        </div>
         <Input
           id="landlordName"
           label="Landlord Name"
