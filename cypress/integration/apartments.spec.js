@@ -558,6 +558,16 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .type("10");
       cy.get("select[id=country]").select("Thailand");
       cy.get("select[id=status]").select("Inactive");
+      cy.get("input[id=leaseStart]")
+        .clear()
+        .type("2020-11-12");
+      cy.get("input[id=leaseEnd]")
+        .clear()
+        .type("2020-12-12");
+      cy.get("input[id=monthlyRent]")
+        .clear()
+        .type("8000");
+      cy.get("select[id=currency]").select("THB");
       cy.get("input[id=landlordName]")
         .clear()
         .type("Tony Stark");

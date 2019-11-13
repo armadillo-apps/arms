@@ -208,6 +208,7 @@ class App extends Component {
         capacity,
         country,
         status,
+        leases,
         landlord,
         remarks
       } = updatedApartment;
@@ -219,6 +220,7 @@ class App extends Component {
         capacity,
         country,
         status,
+        leases,
         landlord,
         remarks
       );

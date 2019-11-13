@@ -134,6 +134,7 @@ export const updateApartment = async (
   capacity,
   country,
   status,
+  leases,
   landlord,
   remarks
 ) => {
@@ -144,6 +145,7 @@ export const updateApartment = async (
     capacity,
     country,
     status,
+    leases,
     landlord,
     remarks
   };

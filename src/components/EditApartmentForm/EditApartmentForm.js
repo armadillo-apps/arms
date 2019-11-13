@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Input from "../Input/Input";
 import "./EditApartmentForm.css";
+import moment from "moment";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 
 const EditApartmentForm = ({
@@ -25,6 +26,13 @@ const EditApartmentForm = ({
   const [accountNumber, setAccountNumber] = useState(
     apartment.landlord.accountNumber
   );
+
+  const [leaseStart, setLeaseStart] = useState(apartment.leases[0].leaseStart);
+  const [leaseEnd, setLeaseEnd] = useState(apartment.leases[0].leaseEnd);
+  const [monthlyRent, setMonthlyRent] = useState(
+    apartment.leases[0].monthlyRent
+  );
+  const [currency, setCurrency] = useState(apartment.leases[0].currency);
   const updatedApartment = {
     apartmentId: apartment._id,
     name,
@@ -33,9 +41,17 @@ const EditApartmentForm = ({
     capacity,
     country,
     status,
+    leases: [{ leaseStart, leaseEnd, monthlyRent, currency }],
     landlord: { name: landlordName, accountNumber },
     remarks
   };
+
+  const leaseStartDate = new Date(leaseStart);
+  const leaseStartFormat = moment(leaseStartDate).format("YYYY-MM-DD");
+
+  const leaseEndDate = new Date(leaseEnd);
+  const leaseEndFormat = moment(leaseEndDate).format("YYYY-MM-DD");
+
   return (
     <form
       className="editApartmentFormContainer"
@@ -91,7 +107,6 @@ const EditApartmentForm = ({
               data-testid={"editApartment__country"}
               id="country"
               name="country"
-              required
               value={country}
               onChange={event => setCountry(event.target.value)}
             >
@@ -107,7 +122,6 @@ const EditApartmentForm = ({
             data-testid="editApartment__status"
             id="status"
             name="status"
-            required
             value={status}
             onChange={event => {
               setStatus(event.target.value);
@@ -128,6 +142,52 @@ const EditApartmentForm = ({
             <option value="Inactive">Inactive</option>
           </select>
           {error ? <p className="editApartmentForm__error">{error}</p> : ""}
+        </section>
+        <Input
+          id="leaseStart"
+          label="Lease Start"
+          name="leaseStart"
+          type="date"
+          value={leaseStartFormat}
+          onChange={event => {
+            setLeaseStart(event.target.value);
+          }}
+        />
+        <Input
+          id="leaseEnd"
+          label="Lease End"
+          name="leaseEnd"
+          type="date"
+          value={leaseEndFormat}
+          onChange={event => {
+            setLeaseEnd(event.target.value);
+          }}
+        />
+        <Input
+          id="monthlyRent"
+          label="Monthly Rent"
+          name="monthlyRent"
+          type="number"
+          value={monthlyRent}
+          onChange={event => {
+            setMonthlyRent(event.target.value);
+          }}
+        />
+        <section className="editApartmentForm__currency">
+          <label htmlFor="currency">Currency</label>
+          <select
+            data-testid={"editApartment__currency"}
+            id="currency"
+            name="currency"
+            value={currency}
+            onChange={event => {
+              setCurrency(event.target.value);
+            }}
+          >
+            <option value="">Select currency</option>
+            <option value="SGD">SGD</option>
+            <option value="THB">THB</option>
+          </select>
         </section>
         <Input
           id="landlordName"
@@ -156,7 +216,7 @@ const EditApartmentForm = ({
             name="remarks"
             rows="3"
             cols="40"
-            value={remarks}
+            value={remarks || ""}
             onChange={event => {
               setRemarks(event.target.value);
             }}
@@ -194,7 +254,7 @@ EditApartmentForm.defaultProps = {
     bedrooms: 1,
     country: "",
     status: "",
-    leases: {},
+    leases: [{}],
     remarks: "",
     landlord: {}
   }

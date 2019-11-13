@@ -11,6 +11,14 @@ const apartment = {
   bedrooms: 1,
   capacity: 1,
   status: "Active",
+  leases: [
+    {
+      leaseStart: "2019-11-12",
+      leaseEnd: "2019-11-30",
+      monthlyRent: 5000,
+      currency: "THB"
+    }
+  ],
   landlord: {
     name: "Bob",
     accountNumber: "12345"
@@ -77,6 +85,34 @@ describe("EditApartmentForm", () => {
         <EditApartmentForm apartment={apartment} />
       );
       expect(getByLabelText("Status")).toBeInTheDocument();
+    });
+
+    it("should render lease start date select field", () => {
+      const { getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
+      expect(getByLabelText("Lease Start")).toBeInTheDocument();
+    });
+
+    it("should render lease end date select field", () => {
+      const { getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
+      expect(getByLabelText("Lease End")).toBeInTheDocument();
+    });
+
+    it("should render monthly rent input field", () => {
+      const { getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
+      expect(getByLabelText("Monthly Rent")).toBeInTheDocument();
+    });
+
+    it("should render currency select field", () => {
+      const { getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
+      expect(getByLabelText("Currency")).toBeInTheDocument();
     });
 
     it("should render Landlord Name input field", () => {
@@ -235,6 +271,50 @@ describe("EditApartmentForm", () => {
       });
       expect(getByDisplayValue("Good landlord")).toBeInTheDocument();
     });
+
+    it("should update lease start date", () => {
+      const { getByDisplayValue, getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
+      const leaseStart = getByLabelText("Lease Start");
+      fireEvent.change(leaseStart, {
+        target: { value: "2020-11-12" }
+      });
+      expect(getByDisplayValue("2020-11-12")).toBeInTheDocument();
+    });
+
+    it("should update lease end date", () => {
+      const { getByDisplayValue, getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
+      const leaseEnd = getByLabelText("Lease End");
+      fireEvent.change(leaseEnd, {
+        target: { value: "2020-11-30" }
+      });
+      expect(getByDisplayValue("2020-11-30")).toBeInTheDocument();
+    });
+
+    it("should update monthly rent", () => {
+      const { getByDisplayValue, getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
+      const monthlyRent = getByLabelText("Monthly Rent");
+      fireEvent.change(monthlyRent, {
+        target: { value: "8000" }
+      });
+      expect(getByDisplayValue("8000")).toBeInTheDocument();
+    });
+
+    it("should update currency", () => {
+      const { getByDisplayValue, getByLabelText } = render(
+        <EditApartmentForm apartment={apartment} />
+      );
+      const currency = getByLabelText("Currency");
+      fireEvent.change(currency, {
+        target: { value: "THB" }
+      });
+      expect(getByDisplayValue("THB")).toBeInTheDocument();
+    });
   });
 
   describe("Initial values", () => {
@@ -245,6 +325,14 @@ describe("EditApartmentForm", () => {
       capacity: 2,
       status: "Active",
       country: "Singapore",
+      leases: [
+        {
+          leaseStart: "2020-11-12",
+          leaseEnd: "2020-11-30",
+          monthlyRent: 5000,
+          currency: "THB"
+        }
+      ],
       landlord: {
         name: "Tony Stark",
         accountNumber: "12345"
@@ -265,6 +353,10 @@ describe("EditApartmentForm", () => {
         capacity: 2,
         status: "Active",
         country: "Singapore",
+        leaseStart: "2020-11-12",
+        leaseEnd: "2020-11-30",
+        monthlyRent: 5000,
+        currency: "THB",
         landlordName: "Tony Stark",
         landlordAccountNumber: "12345",
         remarks: "Great place"
@@ -298,6 +390,14 @@ describe("EditApartmentForm", () => {
         bedrooms: 1,
         capacity: 1,
         status: "Active",
+        leases: [
+          {
+            leaseStart: "2019-11-12",
+            leaseEnd: "2019-11-30",
+            monthlyRent: 5000,
+            currency: "THB"
+          }
+        ],
         landlord: {
           name: "Bob",
           accountNumber: "12345"
