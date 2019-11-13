@@ -3,7 +3,6 @@ import "./UserManagement.css";
 import "../UserManagement/UserManagement.css";
 import { fetchUsers, removeUser } from "../../api/api";
 import DeleteUserModal from "../Modal/DeleteUserModal";
-import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 
 class UserManagement extends Component {
   constructor(props) {

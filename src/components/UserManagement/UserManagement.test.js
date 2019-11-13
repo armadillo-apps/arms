@@ -66,7 +66,7 @@ describe("User Management Page", () => {
 
     it("should delete the modal when cancel button is clicked", async () => {
       mockFetchUsers.mockReturnValueOnce(users);
-      mockRemoveUser.mockReturnValueOnce([]);
+      mockRemoveUser.mockReturnValueOnce();
       const { getByText, queryByText } = render(<UserManagement />);
       const deleteButton = await waitForElement(() => getByText("Delete"));
       fireEvent.click(deleteButton);
