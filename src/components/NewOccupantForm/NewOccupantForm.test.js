@@ -174,3 +174,41 @@ describe("Confirmation message", () => {
     expect(failureMessage).toBeInTheDocument();
   });
 });
+
+describe("Redirect upon successful submission", () => {
+  it("should redirect to Occupants Page on creation", async () => {
+    const history = { push: jest.fn() };
+    const triggerRender = jest.fn();
+    mockPost.mockReturnValueOnce("");
+
+    const { getByLabelText, getByText } = render(
+      <NewOccupantForm history={history} triggerRender={triggerRender} />
+    );
+
+    const name = getByLabelText(/name/i);
+    fireEvent.change(name, { target: { value: "Bob" } });
+
+    const employeeId = getByLabelText("Employee ID");
+    fireEvent.change(employeeId, { target: { value: "123" } });
+
+    const gender = getByLabelText("Gender");
+    fireEvent.change(gender, { target: { value: "male" } });
+
+    const remarks = getByLabelText("Remarks");
+    fireEvent.change(remarks, { target: { value: "testing" } });
+
+    const homeOffice = getByLabelText("Home Office");
+    fireEvent.change(homeOffice, { target: { value: "Australia, Melbourne" } });
+
+    const status = getByLabelText("Occupant Status*");
+    fireEvent.change(status, { target: { value: "allocated" } });
+
+    const button = getByText("Create", { selector: "input[type=submit]" });
+
+    fireEvent.click(button);
+
+    await Promise.resolve();
+
+    expect(history.push).toHaveBeenCalled();
+  });
+});

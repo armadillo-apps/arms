@@ -3,6 +3,9 @@ import Occupant from "./Occupant";
 import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
+import * as data from "../../api/api";
+
+const mockPost = jest.spyOn(data, "fetchOccupants");
 
 const occupants = [
   {
@@ -82,5 +85,27 @@ describe("Occupant", () => {
     fireEvent.change(inputField, { target: { value: "b" } });
     expect(bob).toBeInTheDocument();
     expect(jason).not.toBeInTheDocument();
+  });
+
+  it("should redirect to Occupant Details Page on selection", async () => {
+    const history = { push: jest.fn() };
+    const triggerRender = jest.fn();
+    mockPost.mockReturnValueOnce("");
+
+    const { getByText } = render(
+      <Occupant
+        occupants={occupants}
+        history={history}
+        triggerRender={triggerRender}
+      />
+    );
+
+    const occupantName = getByText("Bob");
+
+    fireEvent.click(occupantName);
+
+    await Promise.resolve();
+
+    expect(history.push).toHaveBeenCalled();
   });
 });
