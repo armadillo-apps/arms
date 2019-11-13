@@ -51,6 +51,11 @@ describe("New apartment form", () => {
     expect(getByLabelText(/rental per month/i)).toBeInTheDocument();
   });
 
+  it("should have a dropdown list for currency", () => {
+    const { getByLabelText } = render(<NewApartmentForm />);
+    expect(getByLabelText(/Currency/i)).toBeInTheDocument();
+  });
+
   it("should have input text for capacity on page", () => {
     const { getByLabelText } = render(<NewApartmentForm />);
     expect(getByLabelText(/capacity/i)).toBeInTheDocument();
