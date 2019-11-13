@@ -17,6 +17,7 @@ const occupants = [
   {
     _id: "5d36b4ade2a0d50eff851284",
     name: "Jason",
+    homeOffice: "Australia, Brisbane",
     status: "unallocated"
   },
   {
@@ -102,5 +103,10 @@ describe("EditOccupantForm", () => {
     expect(
       getByText("Successfully update new occupant: Bob")
     ).toBeInTheDocument();
+  });
+
+  it("should render country, city when Home office is selected", () => {
+    const { getByText } = render(<EditOccupantForm occupant={occupants[1]} />);
+    expect(getByText("Australia, Brisbane")).toBeInTheDocument();
   });
 });
