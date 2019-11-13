@@ -1,12 +1,9 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import "@testing-library/react/cleanup-after-each";
-import { render, fireEvent, waitForElement } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import EditOccupantForm from "./EditOccupantForm";
 import * as data from "../../api/api";
-
-const mockUpdateOccupant = jest.spyOn(data, "updateOccupant");
-const mockFetchOccupants = jest.spyOn(data, "fetchOccupants");
 
 const occupants = [
   {
@@ -84,6 +81,13 @@ describe("EditOccupantForm", () => {
     });
 
     expect(updateButton).toBeInTheDocument();
+  });
+
+  it("should have Cancel button", () => {
+    const { getByText } = render(<EditOccupantForm occupant={occupants[0]} />);
+    const cancelButton = getByText("Cancel");
+
+    expect(cancelButton).toBeInTheDocument();
   });
 
   it("should render a confirmation message", () => {
