@@ -342,12 +342,7 @@ class App extends Component {
                 exact
                 path="/users"
                 render={props => (
-                  <UserManagement
-                    triggerRender={this.triggerRender}
-                    users={this.state.users}
-                    fetchUsers={this.fetchUsers}
-                    {...props}
-                  />
+                  <UserManagement users={this.state.users} {...props} />
                 )}
               />
               <Route
