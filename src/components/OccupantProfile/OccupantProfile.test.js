@@ -1,7 +1,7 @@
 import React from "react";
 import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
-import { render, wait, waitForElement } from "@testing-library/react";
+import { render, wait } from "@testing-library/react";
 import OccupantProfile from "./OccupantProfile";
 import * as data from "../../api/api";
 

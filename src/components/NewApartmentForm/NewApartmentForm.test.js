@@ -3,10 +3,8 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, waitForElement, wait } from "@testing-library/react";
 import "@testing-library/react/cleanup-after-each";
 import NewApartmentForm from "./NewApartmentForm";
-import Apartment from "../Apartment/Apartment";
 import { fireEvent } from "@testing-library/react/dist";
 import * as data from "../../api/api";
-import { createMemoryHistory } from "history";
 
 const mockPost = jest.spyOn(data, "createNewApartment");
 

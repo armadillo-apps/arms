@@ -259,7 +259,7 @@ describe("Apartment Profile", () => {
 
   it("should sort occupants by check-in date", async () => {
     getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
-    const { getAllByTestId, container } = render(
+    const { getAllByTestId } = render(
       <ApartmentProfile
         apartments={apartmentDetails}
         match={match}

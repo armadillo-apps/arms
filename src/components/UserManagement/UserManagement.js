@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import SearchBar from "../SearchBar/SearchBar";
 import "./UserManagement.css";
 import "../ApartmentProfile/ApartmentProfile.css";
 // import { removeUser } from "../../api/api";

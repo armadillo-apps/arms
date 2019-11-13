@@ -419,7 +419,7 @@ class ApartmentProfile extends Component {
                     ...this.state.futureOccupants,
                     ...this.state.currentOccupants,
                     ...this.state.pastOccupants
-                  ].map((occupant, index) => {
+                  ].map(occupant => {
                     const {
                       _id,
                       occupantName,

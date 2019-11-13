@@ -4,15 +4,7 @@ import extractDate from "../../utils/ExtractDate";
 import { sgdFormatter, thbFormatter } from "../../utils/formatMoney";
 import moment from "moment";
 
-const ApartmentDetail = ({
-  status,
-  vacancy,
-  capacity,
-  name,
-  leases,
-  _id,
-  history
-}) => {
+const ApartmentDetail = ({ status, vacancy, name, leases, _id, history }) => {
   const [firstLeases] = leases;
   const { leaseStart, leaseEnd, monthlyRent, currency } = firstLeases;
 
