@@ -16,7 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "eslint src --max-warnings 14",
+    "lint": "eslint src --max-warnings 1",
     "test": "react-scripts test",
     "test:coverage": "npm test -- --coverage --watchAll=false",
     "test:all": "CI=true npm test src && npm run cy:dev && npm run lint && npm run test:coverage",
@@ -62,14 +62,14 @@
   "jest": {
     "collectCoverageFrom": [
       "<rootDir>/src/**/*.js",
-      "!./src/api/api.js"
+      "!./src/index.js"
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 69.9,
-        "functions": 72.44,
-        "lines": 74.43,
-        "statements": 74.32
+        "branches": 71.03,
+        "functions": 72.19,
+        "lines": 73.32,
+        "statements": 73.23
       }
     }
   }
