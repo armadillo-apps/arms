@@ -40,14 +40,43 @@ describe("User Management Page", () => {
       expect(deleteButton).toBeInTheDocument();
     });
 
-    it("should be able to delete a user", async () => {
+    it("should open up a modal when delete button is clicked", async () => {
+      mockFetchUsers.mockReturnValueOnce(users);
+      const { getByText } = render(<UserManagement />);
+      const deleteButton = await waitForElement(() => getByText("Delete"));
+      fireEvent.click(deleteButton);
+      const modalHeader = getByText(
+        "Are you sure you want to delete this user?"
+      );
+      expect(modalHeader).toBeInTheDocument();
+    });
+
+    it("should close the modal when cancel button is clicked", async () => {
+      mockFetchUsers.mockReturnValueOnce(users);
+      const { getByText, queryByText } = render(<UserManagement />);
+      const deleteButton = await waitForElement(() => getByText("Delete"));
+      fireEvent.click(deleteButton);
+      const cancelButton = await waitForElement(() => getByText("Cancel"));
+      fireEvent.click(cancelButton);
+      const modalHeader = queryByText(
+        "Are you sure you want to delete this user?"
+      );
+      expect(modalHeader).not.toBeInTheDocument();
+    });
+
+    it("should delete the modal when cancel button is clicked", async () => {
       mockFetchUsers.mockReturnValueOnce(users);
       mockRemoveUser.mockReturnValueOnce([]);
       const { getByText, queryByText } = render(<UserManagement />);
       const deleteButton = await waitForElement(() => getByText("Delete"));
       fireEvent.click(deleteButton);
-      const deletedUser = await waitForElement(() => queryByText("Bob"));
-      expect(deletedUser).not.toBeInTheDocument();
+      const modalDeleteButton = await waitForElement(() =>
+        getByText("Confirm")
+      );
+      expect(modalDeleteButton).toBeInTheDocument();
+      fireEvent.click(modalDeleteButton);
+      const userToBeDeleted = await waitForElement(() => queryByText("Bob"));
+      expect(userToBeDeleted).not.toBeInTheDocument();
     });
   });
 });
