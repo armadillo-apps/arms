@@ -139,19 +139,7 @@ workflows:
   version: 2
   testAndDeploy:
     jobs:
-      - pingAllDeploymentServers
-      - unitTest:
-          requires:
-            - pingAllDeploymentServers
-      - build:
-          requires:
-            - unitTest
-      - deployTest:
-          requires:
-            - build
-      - dropDb:
-          requires:
-            - deployTest
+      - dropDb
       - uiTest:
           requires:
             - dropDb
