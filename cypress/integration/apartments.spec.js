@@ -20,7 +20,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   beforeEach(() => {
     cy.visit(`${baseUrl}`);
     cy.get("input[name=email]").type("baqa@thoughtworks.com");
-    cy.get("input[name=password]").type("pass1234");
+    cy.get("input[name=password]").type(`${Cypress.env("adminPassword")}`);
     cy.get("input[type=submit]").click();
   });
 
