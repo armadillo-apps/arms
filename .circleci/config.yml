@@ -53,10 +53,13 @@ jobs:
     steps:
       - run:
           name: Pull backend
-          command: git clone https://github.com/armadillo-apps/legs.git && cd legs
+          command: git clone https://github.com/armadillo-apps/legs.git
+      - run:
+          name: check folder
+          command: ls
       - run:
           name: Install dependencies and apply pending migrations
-          command: npm install && npm run mongo:migrate up
+          command: cd legs && npm install && npm run mongo:migrate up
   uiTest:
     docker:
       - image: cypress/base:10
