@@ -7,12 +7,13 @@ Apartments and Residential Managements System
 
 ## Files you need to create
 
-Create a `cypress.env.json` and add the `baseUrl` and `backendUrl` to test cypress locally.
+Create a `cypress.env.json` and add the `baseUrl` , `backendUrl` and `adminPassword` to test cypress locally.
 
 ```json
 {
   "baseUrl": "http://localhost:3000",
-  "backendUrl": "http://localhost:3005"
+  "backendUrl": "http://localhost:3005",
+  "adminPassword": "<Get from teammates>"
 }
 ```
 
