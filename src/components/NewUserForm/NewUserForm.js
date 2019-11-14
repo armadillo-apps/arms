@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./NewUserForm.css";
 import Input from "../Input/Input";
 import { createNewUser } from "../../api/api";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
@@ -51,8 +52,9 @@ class NewUserForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onFormSubmit}>
-        <div>
+      <form className="newUserFormContainer" onSubmit={this.onFormSubmit}>
+        <h1 className="newUserForm__heading">Create New User</h1>
+        <div className="newUserForm">
           <Input
             id="name"
             label="Name*"

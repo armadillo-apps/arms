@@ -1,0 +1,28 @@
+.newUserFormContainer {
+  background: var(--main-bg-color);
+  font-family: var(--font2);
+}
+
+.newUserForm__heading {
+  font-size: var(--main-h1-font-size);
+  color: var(--main-h1-color);
+  margin-left: 60px;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.newUserForm {
+  display: flex;
+  flex-direction: column;
+  margin-left: 60px;
+}
+
+.userForm__roleLabel {
+  margin-top: 100px;
+  font-size: var(--main-h2-font-size);
+  margin-top: 30px;
+  margin-bottom: 7px;
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
