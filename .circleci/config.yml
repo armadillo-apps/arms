@@ -46,7 +46,7 @@ jobs:
     steps:
       - run:
           name: install git
-          command: apt-get install -y sudo && sudo apt install git-all
+          command: apt-get install -y git
       - run:
           name: Drop test database
           command: mongo $HEROKU_TEST_DB -u $HEROKU_TEST_DB_USER -p $HEROKU_TEST_DB_PASSWORD --eval "db.dropDatabase()"
