@@ -48,6 +48,9 @@ jobs:
           name: Drop test database
           command: mongo $HEROKU_TEST_DB -u $HEROKU_TEST_DB_USER -p $HEROKU_TEST_DB_PASSWORD --eval "db.dropDatabase()"
       - run:
+          name: install git
+          command: sudo apt install git-all
+      - run:
           name: Pull backend
           command: git clone https://github.com/armadillo-apps/legs.git && cd legs
       - run:
