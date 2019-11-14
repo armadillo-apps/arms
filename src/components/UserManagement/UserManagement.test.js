@@ -111,9 +111,7 @@ describe("User Management Page", () => {
   it("should change the user's role when the confirm button is clicked", async () => {
     mockFetchUsers.mockReturnValueOnce(users);
     mockRemoveUser.mockReturnValueOnce();
-    const { getByText, queryByText, getByLabelText, getByTestId } = render(
-      <UserManagement />
-    );
+    const { getByText, queryByText, getByTestId } = render(<UserManagement />);
     const editButton = await waitForElement(() => getByText("Edit Role"));
     fireEvent.click(editButton);
     const modalHeader = getByText("Select a role for user:");
