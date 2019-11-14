@@ -49,7 +49,7 @@ jobs:
           command: mongo $HEROKU_TEST_DB -u $HEROKU_TEST_DB_USER -p $HEROKU_TEST_DB_PASSWORD --eval "db.dropDatabase()"
   seedData:
     docker:
-      - image: cypress/base:12
+      - image: cypress/base:10
     steps:
       - run:
           name: Pull backend
