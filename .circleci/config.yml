@@ -47,19 +47,6 @@ jobs:
       - run:
           name: Drop test database
           command: mongo $HEROKU_TEST_DB -u $HEROKU_TEST_DB_USER -p $HEROKU_TEST_DB_PASSWORD --eval "db.dropDatabase()"
-  seedData:
-    docker:
-      - image: cypress/base:10
-    steps:
-      - run:
-          name: Pull backend
-          command: git clone https://github.com/armadillo-apps/legs.git
-      - run:
-          name: check folder
-          command: ls
-      - run:
-          name: Install dependencies and apply pending migrations
-          command: cd legs && npm install && npm run mongo:migrate up
   uiTest:
     docker:
       - image: cypress/base:10
@@ -146,13 +133,22 @@ workflows:
   version: 2
   testAndDeploy:
     jobs:
-      - dropDb
-      - seedData:
+      - pingAllDeploymentServers
+      - unitTest:
           requires:
-            - dropDb
+            - pingAllDeploymentServers
+      - build:
+          requires:
+            - unitTest
+      - deployTest:
+          requires:
+            - build
+      - dropDb:
+          requires:
+            - deployTest
       - uiTest:
           requires:
-            - seedData
+            - dropDb
       - deployDemo:
           requires:
             - uiTest
