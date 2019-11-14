@@ -8,13 +8,16 @@ class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
       password: "",
       success: false,
       message: "",
       submitted: false
     };
   }
+
+  onEmailChange = event => {
+    this.props.handleEmailChange(event.target.value);
+  };
 
   onFormChange = event => {
     const { name, value } = event.target;
@@ -26,7 +29,8 @@ class LoginForm extends Component {
   onFormSubmit = async event => {
     try {
       event.preventDefault();
-      const { email, password } = this.state;
+      const { password } = this.state;
+      const { email } = this.props;
       const response = await loginUser(email, password);
       this.props.checkIsLoggedIn(true);
       this.setState({
@@ -61,9 +65,9 @@ class LoginForm extends Component {
             id="email"
             label="Email"
             name="email"
-            onChange={this.onFormChange}
+            onChange={this.onEmailChange}
             type="text"
-            value={this.state.email}
+            value={this.props.email}
             required
           />
           <Input

@@ -27,7 +27,10 @@ describe("Login Form", () => {
   });
 
   it("should fill in the login credentials", () => {
-    const { getByLabelText } = render(<LoginForm />);
+    const handleEmailChange = jest.fn();
+    const { getByLabelText } = render(
+      <LoginForm handleEmailChange={handleEmailChange} />
+    );
     const userEmail = getByLabelText("Email");
     fireEvent.change(userEmail, {
       target: { value: "elson@thoughtworks.com" }
@@ -42,7 +45,7 @@ describe("Login Form", () => {
 
   describe("Confirmation message", () => {
     it("should display an error message when user is logged in", async () => {
-      postSpy.mockReturnValue("Invalid email or password");
+      postSpy.mockReturnValueOnce("Invalid email or password");
 
       const checkIsLoggedIn = () => {};
       const triggerRender = () => {};

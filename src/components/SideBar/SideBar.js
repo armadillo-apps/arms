@@ -57,6 +57,14 @@ const SideBar = props => {
         </NavLink>
         <NavLink
           className="sideBar__heading"
+          to="/changePassword"
+          activeClassName="active"
+        >
+          <svg className="addIcon" />
+          CHANGE PASSWORD
+        </NavLink>
+        <NavLink
+          className="sideBar__heading"
           to="/"
           activeClassName="inactive"
           onClick={props.logout}

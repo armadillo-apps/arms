@@ -190,3 +190,11 @@ export const logoutUser = async () => {
   );
   return logout.data;
 };
+
+export const updatePassword = async (userId, password) => {
+  const requestBody = { password };
+  const response = await axios.patch(`/users/password/${userId}`, requestBody, {
+    withCredentials: true
+  });
+  return response.data;
+};

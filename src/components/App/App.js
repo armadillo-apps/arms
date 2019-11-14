@@ -21,6 +21,7 @@ import ApartmentProfile from "../ApartmentProfile/ApartmentProfile";
 import LoginForm from "../LoginForm/LoginForm";
 import NewUserForm from "../NewUserForm/NewUserForm";
 import UserManagement from "../UserManagement/UserManagement";
+import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
 
 class App extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class App extends Component {
       users: [],
       stays: [],
       isLoggedIn: false,
+      email: "",
       editOccupantModal: {
         isModalOpen: false,
         name: "",
@@ -259,6 +261,12 @@ class App extends Component {
     }
   };
 
+  handleEmailChange = email => {
+    this.setState({
+      email
+    });
+  };
+
   render() {
     if (!this.state.isLoggedIn) {
       return (
@@ -270,6 +278,8 @@ class App extends Component {
                 path="/"
                 render={props => (
                   <LoginForm
+                    email={this.state.email}
+                    handleEmailChange={this.handleEmailChange}
                     triggerRender={this.triggerRender}
                     checkIsLoggedIn={this.checkIsLoggedIn}
                     {...props}
@@ -366,9 +376,21 @@ class App extends Component {
                 )}
               />
               <Route
-                exactpath="/newUser"
+                exact
+                path="/newUser"
                 render={props => (
                   <NewUserForm triggerRender={this.triggerRender} {...props} />
+                )}
+              />
+              <Route
+                exact
+                path="/changePassword"
+                render={props => (
+                  <ChangePasswordForm
+                    email={this.state.email}
+                    triggerRender={this.triggerRender}
+                    {...props}
+                  />
                 )}
               />
             </Switch>
