@@ -28,7 +28,7 @@ const SideBar = props => {
           to="/users"
           activeClassName="active"
         >
-          <svg className="addIcon" />
+          <svg className="userManagementIcon" />
           USER MANAGEMENT
         </NavLink>
         <NavLink

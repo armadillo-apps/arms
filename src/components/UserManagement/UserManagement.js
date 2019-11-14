@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./UserManagement.css";
-import "../UserManagement/UserManagement.css";
 import { fetchUsers, removeUser } from "../../api/api";
 import DeleteUserModal from "../Modal/DeleteUserModal";
 
@@ -44,8 +43,9 @@ class UserManagement extends Component {
 
   render() {
     return (
-      <div>
-        <div>
+      <div className="userManagement">
+        <div className="userManagement__div">
+          <h1 className="userManagement__header1">User Management</h1>
           <DeleteUserModal
             modalIsOpen={this.state.isConfirmationModalOpen}
             closeModal={() => this.closeModal("isConfirmationModalOpen")}
@@ -70,12 +70,13 @@ class UserManagement extends Component {
           <tbody>
             {this.state.usersList.map(user => {
               return (
-                <tr key={user._id}>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.role}</td>
-                  <td>
+                <tr key={user._id} className="userManagementDetails">
+                  <td className="userManagementDetails__td">{user.name}</td>
+                  <td className="userManagementDetails__td">{user.email}</td>
+                  <td className="userManagementDetails__td">{user.role}</td>
+                  <td className="userManagementDetails__td">
                     <button
+                      className="deleteButton"
                       onClick={event => {
                         this.openModal(event);
                         this.setState({ userToDelete: user._id });

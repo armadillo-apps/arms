@@ -46,3 +46,7 @@
   color: var(--sidebar-font-color-active);
   transition: 0.8s;
 }
+
+.userManagementIcon {
+  background: url("../../assets/userManagement.svg") no-repeat;
+}
