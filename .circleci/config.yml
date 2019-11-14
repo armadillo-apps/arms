@@ -45,11 +45,12 @@ jobs:
       - image: circleci/mongo:3.6.12
     steps:
       - run:
-          name: install git
-          command: apt-get install -y git
-      - run:
           name: Drop test database
           command: mongo $HEROKU_TEST_DB -u $HEROKU_TEST_DB_USER -p $HEROKU_TEST_DB_PASSWORD --eval "db.dropDatabase()"
+  seedData:
+    docker:
+      - image: cypress/base:12
+    steps:
       - run:
           name: Pull backend
           command: git clone https://github.com/armadillo-apps/legs.git && cd legs
@@ -143,9 +144,12 @@ workflows:
   testAndDeploy:
     jobs:
       - dropDb
-      - uiTest:
+      - seedData:
           requires:
             - dropDb
+      - uiTest:
+          requires:
+            - seedData
       - deployDemo:
           requires:
             - uiTest
