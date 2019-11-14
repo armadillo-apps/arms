@@ -66,6 +66,16 @@ export const createNewUser = async (name, email, password, role) => {
   return response.data;
 };
 
+export const editUserRole = async (userId, role) => {
+  const requestBody = {
+    role
+  };
+  const response = await axios.patch(`/users/${userId}`, requestBody, {
+    withCredentials: true
+  });
+  return response.data;
+};
+
 export const createStay = async (
   occupantId,
   apartmentId,

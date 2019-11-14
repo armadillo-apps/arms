@@ -66,3 +66,14 @@
   padding: 3.5px 30px;
   margin-left: 34px;
 }
+
+.editButton {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: #4169e1;
+  color: var(--main-row-bg-color);
+  border-radius: 30px;
+  padding: 3.5px 30px;
+  margin-left: 34px;
+}

@@ -28,8 +28,7 @@ class NewUserForm extends Component {
     try {
       event.preventDefault();
       const { name, email, password, role } = this.state;
-      const response = await createNewUser(name, email, password, role);
-      console.log(response);
+      await createNewUser(name, email, password, role);
       this.setState({
         name: "",
         email: "",

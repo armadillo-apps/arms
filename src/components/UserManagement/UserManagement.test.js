@@ -64,7 +64,7 @@ describe("User Management Page", () => {
       expect(modalHeader).not.toBeInTheDocument();
     });
 
-    it("should delete the modal when cancel button is clicked", async () => {
+    it("should delete the user when cancel button is clicked", async () => {
       mockFetchUsers.mockReturnValueOnce(users);
       mockRemoveUser.mockReturnValueOnce();
       const { getByText, queryByText } = render(<UserManagement />);
@@ -78,5 +78,52 @@ describe("User Management Page", () => {
       const userToBeDeleted = await waitForElement(() => queryByText("Bob"));
       expect(userToBeDeleted).not.toBeInTheDocument();
     });
+  });
+
+  describe("edit user function", () => {
+    it("should have a edit button", async () => {
+      mockFetchUsers.mockReturnValueOnce(users);
+      const { getByText } = render(<UserManagement />);
+      const editButton = await waitForElement(() => getByText("Edit Role"));
+      expect(editButton).toBeInTheDocument();
+    });
+
+    it("should open up a modal when delete button is clicked", async () => {
+      mockFetchUsers.mockReturnValueOnce(users);
+      const { getByText } = render(<UserManagement />);
+      const editButton = await waitForElement(() => getByText("Edit Role"));
+      fireEvent.click(editButton);
+      const modalHeader = getByText("Select a role for user:");
+      expect(modalHeader).toBeInTheDocument();
+    });
+  });
+
+  it("should close the modal when cancel button is clicked", async () => {
+    mockFetchUsers.mockReturnValueOnce(users);
+    const { getByText, queryByText } = render(<UserManagement />);
+    const editButton = await waitForElement(() => getByText("Edit Role"));
+    fireEvent.click(editButton);
+    const cancelButton = await waitForElement(() => getByText("Cancel"));
+    fireEvent.click(cancelButton);
+    const modalHeader = queryByText("Select a role for user:");
+    expect(modalHeader).not.toBeInTheDocument();
+  });
+  it("should change the user's role when the confirm button is clicked", async () => {
+    mockFetchUsers.mockReturnValueOnce(users);
+    mockRemoveUser.mockReturnValueOnce();
+    const { getByText, queryByText, getByLabelText, getByTestId } = render(
+      <UserManagement />
+    );
+    const editButton = await waitForElement(() => getByText("Edit Role"));
+    fireEvent.click(editButton);
+    const modalHeader = getByText("Select a role for user:");
+    expect(modalHeader).toBeInTheDocument();
+    const roleSelector = getByTestId("roleSelector");
+    fireEvent.change(roleSelector, { target: { value: "Manager" } });
+    const modalEditButton = await waitForElement(() => getByText("Confirm"));
+    expect(modalEditButton).toBeInTheDocument();
+    fireEvent.click(modalEditButton);
+    const userToBeDeleted = await waitForElement(() => queryByText("Admin"));
+    expect(userToBeDeleted).toBeInTheDocument();
   });
 });

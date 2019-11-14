@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./UserManagement.css";
-import { fetchUsers, removeUser } from "../../api/api";
+import { fetchUsers, removeUser, editUserRole } from "../../api/api";
 import DeleteUserModal from "../Modal/DeleteUserModal";
+import EditUserModal from "../Modal/EditUserModal";
 
 class UserManagement extends Component {
   constructor(props) {
@@ -9,9 +10,12 @@ class UserManagement extends Component {
     this.state = {
       usersList: [],
       userToDelete: "",
+      userToEdit: "",
       isConfirmationModalOpen: false,
+      isEditUserModalOpen: false,
       success: false,
-      message: ""
+      message: "",
+      newRole: ""
     };
   }
 
@@ -28,6 +32,10 @@ class UserManagement extends Component {
     this.setState({ isConfirmationModalOpen: true });
   };
 
+  openEditUserModal = () => {
+    this.setState({ isEditUserModalOpen: true });
+  };
+
   closeModal = id => {
     this.setState({ [id]: false, message: "" });
   };
@@ -41,6 +49,15 @@ class UserManagement extends Component {
     }
   };
 
+  editUser = async role => {
+    try {
+      const newUsersList = await editUserRole(this.state.userToEdit, role);
+      this.setState({ usersList: newUsersList });
+    } catch (err) {
+      this.setState({ message: "Unable to edit user role" });
+    }
+  };
+
   render() {
     return (
       <div className="userManagement">
@@ -51,6 +68,14 @@ class UserManagement extends Component {
             closeModal={() => this.closeModal("isConfirmationModalOpen")}
             deleteUser={this.deleteUser}
             contentLabel="DeleteUserModal"
+            success={this.state.success}
+            message={this.state.message}
+          />
+          <EditUserModal
+            modalIsOpen={this.state.isEditUserModalOpen}
+            closeModal={() => this.closeModal("isEditUserModalOpen")}
+            editUser={this.editUser}
+            contentLabel="EditUserModal"
             success={this.state.success}
             message={this.state.message}
           />
@@ -74,6 +99,17 @@ class UserManagement extends Component {
                   <td className="userManagementDetails__td">{user.name}</td>
                   <td className="userManagementDetails__td">{user.email}</td>
                   <td className="userManagementDetails__td">{user.role}</td>
+                  <td>
+                    <button
+                      className="editButton"
+                      onClick={event => {
+                        this.openEditUserModal(event);
+                        this.setState({ userToEdit: user._id });
+                      }}
+                    >
+                      Edit Role
+                    </button>
+                  </td>
                   <td className="userManagementDetails__td">
                     <button
                       className="deleteButton"
