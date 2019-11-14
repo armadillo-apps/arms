@@ -5,7 +5,24 @@ import SearchBar from "../SearchBar/SearchBar";
 import PropTypes from "prop-types";
 import moment from "moment";
 
-const Apartment = ({ apartments, stays, history }) => {
+export const sortApartmentsByStatus = apartmentList => {
+  const activeApartments = apartmentList.filter(apartment =>
+    apartment.status.includes("Active")
+  );
+
+  activeApartments.sort((firstApartment, secondApartment) => {
+    let apartmentA = moment(new Date(firstApartment.leases[0].leaseEnd));
+    let apartmentB = moment(new Date(secondApartment.leases[0].leaseEnd));
+    return apartmentA - apartmentB;
+  });
+
+  const inactiveApartments = apartmentList.filter(apartment =>
+    apartment.status.includes("Inactive")
+  );
+  return activeApartments.concat(inactiveApartments);
+};
+
+export const Apartment = ({ apartments, stays, history }) => {
   const [apartmentList, setApartmentList] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
@@ -15,23 +32,6 @@ const Apartment = ({ apartments, stays, history }) => {
 
   const handleNewInput = event => {
     setInputValue(event.target.value);
-  };
-
-  const sortApartmentsByStatus = apartmentList => {
-    const activeApartments = apartmentList.filter(apartment =>
-      apartment.status.includes("Active")
-    );
-
-    activeApartments.sort((firstApartment, secondApartment) => {
-      let apartmentA = moment(new Date(firstApartment.leases[0].leaseEnd));
-      let apartmentB = moment(new Date(secondApartment.leases[0].leaseEnd));
-      return apartmentA - apartmentB;
-    });
-
-    const inactiveApartments = apartmentList.filter(apartment =>
-      apartment.status.includes("Inactive")
-    );
-    return activeApartments.concat(inactiveApartments);
   };
 
   const handleApartmentSearch = () => {
@@ -105,5 +105,3 @@ const Apartment = ({ apartments, stays, history }) => {
 Apartment.propTypes = {
   stays: PropTypes.array.isRequired
 };
-
-export default Apartment;

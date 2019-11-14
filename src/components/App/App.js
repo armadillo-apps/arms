@@ -12,7 +12,7 @@ import {
   fetchUsers
 } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
-import Apartment from "../Apartment/Apartment";
+import { Apartment } from "../Apartment/Apartment";
 import Occupant from "../Occupant/Occupant";
 import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
 import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";

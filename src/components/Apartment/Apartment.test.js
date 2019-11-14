@@ -1,10 +1,26 @@
 import React from "react";
-import Apartment from "./Apartment";
+import { Apartment, sortApartmentsByStatus } from "./Apartment";
 import "@testing-library/react/cleanup-after-each";
 import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 const apartments = [
+  {
+    _id: "458",
+    name: "Sentosa Cove",
+    address: "19 Crazy Rich Asians Avenue",
+    bedrooms: 100,
+    capacity: 100,
+    status: "Inactive",
+    leases: [
+      {
+        leaseStart: "26 June 2019",
+        leaseEnd: "23 July 2019",
+        monthlyRent: 30000,
+        currency: "SGD"
+      }
+    ]
+  },
   {
     _id: "123",
     name: "Parc Sophia",
@@ -126,5 +142,13 @@ describe("Apartment", () => {
     fireEvent.change(inputField, { target: { value: " " } });
     expect(parcSophia).toBeInTheDocument();
     expect(seaView).toBeInTheDocument();
+  });
+  describe("Sorting apartment", () => {
+    it("should sort apartment by status and lease dates", () => {
+      const sorted = sortApartmentsByStatus(apartments);
+      expect(sorted[0].name).toBe("Parc Sophia");
+      expect(sorted[1].name).toBe("Sea View");
+      expect(sorted[2].name).toBe("Sentosa Cove");
+    });
   });
 });
