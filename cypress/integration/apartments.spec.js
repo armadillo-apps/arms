@@ -8,13 +8,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.visit(`${baseUrl}`);
     // Visiting baseUrl prevents request from being called twice.
     // visit issue https://github.com/cypress-io/cypress/issues/2777 for more information
-    cy.request("POST", `${Cypress.env("backendUrl")}/users/new`, {
-      email: "baqa@thoughtworks.com",
-      password: "pass1234",
-      role: "admin"
-    })
-      .its("body")
-      .as("seededUser");
   });
 
   beforeEach(() => {
