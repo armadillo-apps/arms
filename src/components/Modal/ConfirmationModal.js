@@ -57,11 +57,7 @@ const ConfirmationModal = ({
           </button>
         </div>
 
-        {message ? (
-          <ConfirmationMessage success={success} message={message} />
-        ) : (
-          ""
-        )}
+        <ConfirmationMessage success={success} message={message} />
       </div>
     </Modal>
   );

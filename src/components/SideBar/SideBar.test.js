@@ -15,4 +15,5 @@ it("renders four links", () => {
   expect(getByText(/occupants/i)).toBeInTheDocument();
   expect(getByText(/new apartment/i)).toBeInTheDocument();
   expect(getByText(/new occupant/i)).toBeInTheDocument();
+  expect(getByText(/logout/i)).toBeInTheDocument();
 });

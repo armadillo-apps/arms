@@ -287,7 +287,7 @@ class App extends Component {
                     handleEmailChange={this.handleEmailChange}
                     triggerRender={this.triggerRender}
                     checkIsLoggedIn={this.checkIsLoggedIn}
-                    setUserRole={this.setUserRole.bind(this)}
+                    setUserRole={this.setUserRole}
                     {...props}
                   />
                 )}
@@ -302,6 +302,7 @@ class App extends Component {
         <section className="app">
           <Router>
             <SideBar
+              data-testid={"sidebar"}
               isLoggedIn={this.state.isLoggedIn}
               logout={this.logout}
               userRole={this.state.userRole}
