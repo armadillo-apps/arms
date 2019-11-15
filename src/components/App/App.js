@@ -31,6 +31,7 @@ class App extends Component {
       occupants: [],
       users: [],
       stays: [],
+      userRole: "",
       isLoggedIn: false,
       email: "",
       editOccupantModal: {
@@ -241,6 +242,10 @@ class App extends Component {
     }
   };
 
+  setUserRole = role => {
+    this.setState({ userRole: role });
+  };
+
   clearConfirmationMessage = () => {
     this.setState({
       editApartmentModal: { success: false, message: "" }
@@ -282,6 +287,7 @@ class App extends Component {
                     handleEmailChange={this.handleEmailChange}
                     triggerRender={this.triggerRender}
                     checkIsLoggedIn={this.checkIsLoggedIn}
+                    setUserRole={this.setUserRole.bind(this)}
                     {...props}
                   />
                 )}
@@ -295,7 +301,11 @@ class App extends Component {
       return (
         <section className="app">
           <Router>
-            <SideBar isLoggedIn={this.state.isLoggedIn} logout={this.logout} />
+            <SideBar
+              isLoggedIn={this.state.isLoggedIn}
+              logout={this.logout}
+              userRole={this.state.userRole}
+            />
             <Switch>
               <Route
                 exact
@@ -348,13 +358,17 @@ class App extends Component {
                   />
                 )}
               />
-              <Route
-                exact
-                path="/users"
-                render={props => (
-                  <UserManagement users={this.state.users} {...props} />
-                )}
-              />
+              {this.state.userRole === "admin" ? (
+                <Route
+                  exact
+                  path="/users"
+                  render={props => (
+                    <UserManagement users={this.state.users} {...props} />
+                  )}
+                />
+              ) : (
+                ""
+              )}
               <Route
                 exact
                 path="/newApartment"
@@ -393,6 +407,19 @@ class App extends Component {
                   />
                 )}
               />
+              {this.state.userRole === "admin" ? (
+                <Route
+                  exactpath="/newUser"
+                  render={props => (
+                    <NewUserForm
+                      triggerRender={this.triggerRender}
+                      {...props}
+                    />
+                  )}
+                />
+              ) : (
+                ""
+              )}
             </Switch>
           </Router>
         </section>

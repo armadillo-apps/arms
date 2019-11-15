@@ -32,6 +32,7 @@ class LoginForm extends Component {
       const { password } = this.state;
       const { email } = this.props;
       const response = await loginUser(email, password);
+      this.props.setUserRole(response);
       this.props.checkIsLoggedIn(true);
       this.setState({
         success: true,

@@ -3,6 +3,7 @@ import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
 
 const SideBar = props => {
+  const userRole = props.userRole;
   return (
     <div className="sideBar__container" data-testid="sideBar">
       <div className="sideBar__headerContainer">
@@ -23,14 +24,18 @@ const SideBar = props => {
           <svg className="occupantsIcon" />
           OCCUPANTS
         </NavLink>
-        <NavLink
-          className="sideBar__heading"
-          to="/users"
-          activeClassName="active"
-        >
-          <svg className="userManagementIcon" />
-          USER MANAGEMENT
-        </NavLink>
+        {userRole === "admin" ? (
+          <NavLink
+            className="sideBar__heading"
+            to="/users"
+            activeClassName="active"
+          >
+            <svg className="userManagementIcon" />
+            USER MANAGEMENT
+          </NavLink>
+        ) : (
+          ""
+        )}
         <NavLink
           className="sideBar__heading"
           to="/newApartment"
@@ -47,14 +52,18 @@ const SideBar = props => {
           <svg className="addIcon" />
           NEW OCCUPANT
         </NavLink>
-        <NavLink
-          className="sideBar__heading"
-          to="/newUser"
-          activeClassName="active"
-        >
-          <svg className="addIcon" />
-          NEW USER
-        </NavLink>
+        {userRole === "admin" ? (
+          <NavLink
+            className="sideBar__heading"
+            to="/newUser"
+            activeClassName="active"
+          >
+            <svg className="addIcon" />
+            NEW USER
+          </NavLink>
+        ) : (
+          ""
+        )}
         <NavLink
           className="sideBar__heading"
           to="/changePassword"
