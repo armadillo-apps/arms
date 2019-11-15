@@ -345,13 +345,11 @@ class ApartmentProfile extends Component {
               <div className="apartmentProfile__landlordDetails">
                 <div className="landlord">
                   <h2>Landlord Name</h2>
-                  <p>{apartment.landlord ? apartment.landlord.name : ""}</p>
+                  <p>{apartment.landlord.name}</p>
                 </div>
                 <div className="landlordAccount">
                   <h2>Landlord A/C No</h2>
-                  <p>
-                    {apartment.landlord ? apartment.landlord.accountNumber : ""}
-                  </p>
+                  <p>{apartment.landlord.accountNumber}</p>
                 </div>
               </div>
             </div>
@@ -478,13 +476,9 @@ class ApartmentProfile extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {apartment.leases.length > 0 ? (
-                      apartment.leases.map(lease => (
-                        <Lease key={lease._id} leaseInfo={lease} />
-                      ))
-                    ) : (
-                      <tr>No Leases yet!</tr>
-                    )}
+                    {apartment.leases.map(lease => (
+                      <Lease key={lease._id} leaseInfo={lease} />
+                    ))}
                   </tbody>
                 </table>
               </div>

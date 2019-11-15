@@ -152,6 +152,19 @@ describe("Apartment Profile", () => {
     expect(getByText("Monthly Rent")).toBeInTheDocument();
   });
 
+  it("should render Loading... if there is no matching apartments", () => {
+    const { getByText } = render(
+      <ApartmentProfile
+        apartments={[]}
+        match={match}
+        editApartmentModal={editApartmentModal}
+        onSubmit={onSubmit}
+      />
+    );
+
+    expect(getByText("Loading...")).toBeInTheDocument();
+  });
+
   it("should render the apartments details", () => {
     const { getByText } = render(
       <ApartmentProfile
