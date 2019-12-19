@@ -16,6 +16,14 @@ export const fetchUsers = async () => {
   return response.data;
 };
 
+export const fetchStays = async queryParams => {
+  const query = queryString.stringify(queryParams);
+  const response = await axios.get(`/stays?${query}`, {
+    withCredentials: true
+  });
+  return response.data;
+};
+
 export const getApartmentProfileHistory = async apartmentId => {
   const response = await axios.get(
     `/stays/apartmentProfileHistory/${apartmentId}`,
@@ -66,16 +74,6 @@ export const createNewUser = async (name, email, password, role) => {
   return response.data;
 };
 
-export const editUserRole = async (userId, role) => {
-  const requestBody = {
-    role
-  };
-  const response = await axios.patch(`/users/${userId}`, requestBody, {
-    withCredentials: true
-  });
-  return response.data;
-};
-
 export const createStay = async (
   occupantId,
   apartmentId,
@@ -96,18 +94,21 @@ export const createStay = async (
   return response.data;
 };
 
-export const removeStay = async stayId => {
-  const response = await axios.delete(`/stays/${stayId}`, {
+export const loginUser = async (email, password) => {
+  const loginDetails = { email, password };
+  const login = await axios.post("/users/login", loginDetails, {
     withCredentials: true
   });
-  return response.data;
+  return login.data;
 };
 
-export const removeUser = async userId => {
-  const response = await axios.delete(`/users/${userId}`, {
-    withCredentials: true
-  });
-  return response.data;
+export const logoutUser = async () => {
+  const logout = await axios.post(
+    "/users/logout",
+    {},
+    { withCredentials: true }
+  );
+  return logout.data;
 };
 
 export const updateOccupant = async (
@@ -166,34 +167,33 @@ export const updateApartment = async (
   return response.data;
 };
 
-export const fetchStays = async queryParams => {
-  const query = queryString.stringify(queryParams);
-  const response = await axios.get(`/stays?${query}`, {
+export const editUserRole = async (userId, role) => {
+  const requestBody = {
+    role
+  };
+  const response = await axios.patch(`/users/${userId}`, requestBody, {
     withCredentials: true
   });
   return response.data;
 };
 
-export const loginUser = async (email, password) => {
-  const loginDetails = { email, password };
-  const login = await axios.post("/users/login", loginDetails, {
-    withCredentials: true
-  });
-  return login.data;
-};
-
-export const logoutUser = async () => {
-  const logout = await axios.post(
-    "/users/logout",
-    {},
-    { withCredentials: true }
-  );
-  return logout.data;
-};
-
 export const updatePassword = async (userId, password) => {
   const requestBody = { password };
   const response = await axios.patch(`/users/password/${userId}`, requestBody, {
+    withCredentials: true
+  });
+  return response.data;
+};
+
+export const removeStay = async stayId => {
+  const response = await axios.delete(`/stays/${stayId}`, {
+    withCredentials: true
+  });
+  return response.data;
+};
+
+export const removeUser = async userId => {
+  const response = await axios.delete(`/users/${userId}`, {
     withCredentials: true
   });
   return response.data;
