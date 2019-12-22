@@ -66,7 +66,8 @@ const ApartmentAssign = ({
         <form className="dateContainer" onSubmit={addStay}>
           <h2>Check-in</h2>
           <input
-            placeholder="Check-in"
+            placeholder="checkInDateSelector"
+            name="checkInDateSelector"
             id="checkInDate"
             type="date"
             required={true}
@@ -74,7 +75,7 @@ const ApartmentAssign = ({
           />
           <h2>Check-out</h2>
           <input
-            placeholder="Check-out"
+            placeholder="checkOutDateSelector"
             id="checkOutDate"
             type="date"
             min={checkInDate}
@@ -85,7 +86,8 @@ const ApartmentAssign = ({
             <input className="modalAssignButton" value="Assign" type="submit" />
             <button
               className="modalCancelButton"
-              onClick={() => {
+              onClick={e => {
+                e.preventDefault();
                 handleClick("", "", "", true);
               }}
             >
