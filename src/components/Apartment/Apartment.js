@@ -35,13 +35,16 @@ export const Apartment = ({ apartments, stays, history }) => {
   };
 
   const handleApartmentSearch = () => {
+    const sortedApartments = sortApartmentsByStatus(apartmentList);
+    const compareStrings = (str1, str2) =>
+      str1.toLowerCase().includes(str2.toLowerCase());
+
     if (inputValue) {
-      return sortApartmentsByStatus(apartmentList).filter(apartment => {
-        return apartment.name.toLowerCase().includes(inputValue.toLowerCase());
-      });
-    } else {
-      return sortApartmentsByStatus(apartmentList);
+      return sortedApartments.filter(apartment =>
+        compareStrings(apartment.name, inputValue)
+      );
     }
+    return sortedApartments;
   };
 
   const calculateVancancy = (apartment, staysForApartment) => {
@@ -80,7 +83,6 @@ export const Apartment = ({ apartments, stays, history }) => {
               <ApartmentDetail
                 key={apartment._id}
                 vacancy={calculateVancancy(apartment, staysForCurrentApartment)}
-                // setAlertBoolean={setAlertBoolean}
                 {...apartment}
                 history={history}
               />
@@ -103,5 +105,7 @@ export const Apartment = ({ apartments, stays, history }) => {
 };
 
 Apartment.propTypes = {
+  apartments: PropTypes.array.isRequired,
+  history: PropTypes.object,
   stays: PropTypes.array.isRequired
 };
