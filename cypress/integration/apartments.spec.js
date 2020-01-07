@@ -12,8 +12,8 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
   beforeEach(() => {
     cy.visit(`${baseUrl}`);
-    cy.get("input[name=email]").type("baqa@thoughtworks.com");
-    cy.get("input[name=password]").type(`${Cypress.env("adminPassword")}`);
+    cy.get("input[name=email]").type(`${Cypress.env("testAdminUser")}`);
+    cy.get("input[name=password]").type(`${Cypress.env("testAdminPassword")}`);
     cy.get("input[type=submit]").click();
   });
 
