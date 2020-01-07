@@ -85,7 +85,7 @@ jobs:
       - checkout
       - run: 
           name: Pull
-          command: git pull origin $$CIRCLE_BRANCH
+          command: git pull https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
       - run:
           name: Deploy to test frontend on Heroku
           command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
