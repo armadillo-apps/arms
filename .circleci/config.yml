@@ -49,7 +49,7 @@ jobs:
           command: mongo $HEROKU_TEST_DB -u $HEROKU_TEST_DB_USER -p $HEROKU_TEST_DB_PASSWORD --eval "db.dropDatabase()"
       - run:
           name: Insert superadmin in test database
-          command: mongo $HEROKU_TEST_DB -u $HEROKU_TEST_DB_USER -p $HEROKU_TEST_DB_PASSWORD --eval "db.users.insertOne({email:'baqa@thoughtworks.com',password:'\$2a\$10\$ObWxLKiGNN0GUsBqFSkpmev7RTDklRroeNhvu8Gmtq/Ia28KjOPI2',role:'admin'})"
+          command: mongo $HEROKU_TEST_DB -u $HEROKU_TEST_DB_USER -p $HEROKU_TEST_DB_PASSWORD --eval "db.users.insertOne({email:'baqa@thoughtworks.com',password:'\$2a\$10\$IGceut2T1G1A8/celqCEFOJw4a2Gen1ljz0fKwPtBJL/OHc75ORlu',role:'admin'})"
   uiTest:
     docker:
       - image: cypress/base:10
