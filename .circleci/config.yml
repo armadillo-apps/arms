@@ -83,12 +83,9 @@ jobs:
       HEROKU_APP_NAME: test-armadillo-arms
     steps:
       - checkout
-      - run: 
-          name: Pull
-          command: git pull https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
       - run:
           name: Deploy to test frontend on Heroku
-          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+          command: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
   deployDemo:
     docker:
       - image: circleci/node:12.6.0
