@@ -136,7 +136,9 @@ workflows:
       - deployTest:
           requires:
             - build
-      - dropDb
+      - dropDb:
+          requires:
+            -pingTestDeploymentServers
       - uiTest:
           requires:
             - dropDb
