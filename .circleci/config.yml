@@ -1,24 +1,15 @@
 version: 2
 jobs:
-  build:
+  pingTestDeploymentServers:
     docker:
       - image: circleci/node:12.6.0-browsers
-
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
       - run:
-          name: Install dependencies
-          command: npm install
-      - save_cache:
-          key: v1-dependencies-{{ checksum "package.json" }}
-          paths:
-            - node_modules
+          name: Ping arms test server
+          command: curl --silent https://test-armadillo-arms.herokuapp.com/
       - run:
-          name: run the build
-          command: npm run build
+          name: Ping legs test server
+          command: curl --silent https://test-armadillo-legs.herokuapp.com/
   unitTest:
     docker:
       - image: circleci/node:12.6.0-browsers
@@ -40,6 +31,24 @@ jobs:
       - run:
           name: Run unit tests
           command: npm run test:coverage
+  build:
+    docker:
+      - image: circleci/node:12.6.0-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Install dependencies
+          command: npm install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: run the build
+          command: npm run build
   dropDb:
     docker:
       - image: circleci/mongo:3.6.12
@@ -86,6 +95,9 @@ jobs:
       - run:
           name: Deploy to test frontend on Heroku
           command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+      - run:
+        name: Check test deployment
+        command: curl --silent https://$HEROKU_APP_NAME.herokuapp.com/
   deployDemo:
     docker:
       - image: circleci/node:12.6.0
@@ -96,6 +108,9 @@ jobs:
       - run:
           name: Deploy to demo frontend on Heroku
           command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+      - run:
+        name: Check demo deployment
+        command: curl --silent https://$HEROKU_APP_NAME.herokuapp.com/
   deployProd:
     docker:
       - image: circleci/node:12.6.0
@@ -107,39 +122,14 @@ jobs:
           name: Deploy to production frontend on Heroku
           command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
       - run:
-          name: Ping test deployment
-          command: curl --fail https://$HEROKU_APP_NAME.herokuapp.com/
-  pingAllDeploymentServers:
-    docker:
-      - image: circleci/node:12.6.0-browsers
-    steps:
-      - run:
-          name: Ping arms test server
-          command: curl --silent https://test-armadillo-arms.herokuapp.com/
-      - run:
-          name: Ping legs test server
-          command: curl --silent https://test-armadillo-legs.herokuapp.com/
-      - run:
-          name: Ping arms demo server
-          command: curl --silent https://demo-armadillo-arms.herokuapp.com/
-      - run:
-          name: Ping legs demo server
-          command: curl --silent https://demo-armadillo-legs.herokuapp.com/
-      - run:
-          name: Ping arms production server
-          command: curl --silent https://armadillo-arms.herokuapp.com/
-      - run:
-          name: Ping legs production server
-          command: curl --silent https://armadillo-legs.herokuapp.com/
-
+          name: Check production deployment
+          command: curl --silent https://$HEROKU_APP_NAME.herokuapp.com/
 workflows:
   version: 2
   testAndDeploy:
     jobs:
-      - pingAllDeploymentServers
+      - pingTestDeploymentServers:
       - unitTest:
-          requires:
-            - pingAllDeploymentServers
       - build:
           requires:
             - unitTest
@@ -147,14 +137,14 @@ workflows:
           requires:
             - build
       - dropDb:
-          requires:
-            - deployTest
       - uiTest:
           requires:
             - dropDb
       - deployDemo:
+          type: approval
           requires:
             - uiTest
       - deployProd:
+          type: approval
           requires:
             - deployDemo
