@@ -6,6 +6,9 @@ jobs:
 
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Install dependencies
           command: npm install
@@ -52,6 +55,9 @@ jobs:
       - image: cypress/base:10
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - cache-{{ checksum "package.json" }}
       - run:
           name: Install dependencies
           command: npm ci
