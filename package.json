@@ -23,7 +23,7 @@
     "eject": "react-scripts eject",
     "cy:open": "cypress open",
     "cy:verify": "cypress verify",
-    "cy:run": "cypress run --browser electron --env backendUrl=$CYPRESS_BACKEND_URL,adminPassword=$ADMIN_PASSWORD",
+    "cy:run": "cypress run --browser electron --env backendUrl=$CYPRESS_BACKEND_URL,testAdminPassword=$TEST_ADMIN_PASSWORD",
     "cy:dev": "cypress run"
   },
   "browserslist": {
