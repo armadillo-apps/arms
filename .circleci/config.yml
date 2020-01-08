@@ -128,15 +128,15 @@ workflows:
   version: 2
   testAndDeploy:
     jobs:
-      - pingTestDeploymentServers:
-      - unitTest:
+      - pingTestDeploymentServers
+      - unitTest
       - build:
           requires:
             - unitTest
       - deployTest:
           requires:
             - build
-      - dropDb:
+      - dropDb
       - uiTest:
           requires:
             - dropDb
