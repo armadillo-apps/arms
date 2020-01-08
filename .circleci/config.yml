@@ -142,6 +142,7 @@ workflows:
       - uiTest:
           requires:
             - dropDb
+            - deployTest
       - deployDemo:
           type: approval
           requires:
