@@ -96,8 +96,8 @@ jobs:
           name: Deploy to test frontend on Heroku
           command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
       - run:
-        name: Check test deployment
-        command: curl --silent https://$HEROKU_APP_NAME.herokuapp.com/
+          name: Check test deployment
+          command: curl --silent https://$HEROKU_APP_NAME.herokuapp.com/
   deployDemo:
     docker:
       - image: circleci/node:12.6.0
@@ -109,8 +109,8 @@ jobs:
           name: Deploy to demo frontend on Heroku
           command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
       - run:
-        name: Check demo deployment
-        command: curl --silent https://$HEROKU_APP_NAME.herokuapp.com/
+          name: Check demo deployment
+          command: curl --silent https://$HEROKU_APP_NAME.herokuapp.com/
   deployProd:
     docker:
       - image: circleci/node:12.6.0
