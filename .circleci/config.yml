@@ -136,6 +136,7 @@ workflows:
       - deployTest:
           requires:
             - build
+            - wakeTestServers
       - resetTestDb:
           requires:
             - wakeTestServers
