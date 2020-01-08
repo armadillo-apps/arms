@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  pingTestDeploymentServers:
+  wakeTestServers:
     docker:
       - image: circleci/node:12.6.0-browsers
     steps:
@@ -49,7 +49,7 @@ jobs:
       - run:
           name: run the build
           command: npm run build
-  dropDb:
+  resetTestDb:
     docker:
       - image: circleci/mongo:3.6.12
     steps:
@@ -57,7 +57,7 @@ jobs:
           name: Drop test database
           command: mongo $HEROKU_TEST_DB -u $HEROKU_TEST_DB_USER -p $HEROKU_TEST_DB_PASSWORD --eval "db.dropDatabase()"
       - run:
-          name: Insert superadmin in test database
+          name: Insert superAdmin in test database
           command: mongo $HEROKU_TEST_DB -u $HEROKU_TEST_DB_USER -p $HEROKU_TEST_DB_PASSWORD --eval "db.users.insertOne({email:'baqa@thoughtworks.com',password:'\$2a\$10\$IGceut2T1G1A8/celqCEFOJw4a2Gen1ljz0fKwPtBJL/OHc75ORlu',role:'admin'})"
   uiTest:
     docker:
@@ -126,9 +126,9 @@ jobs:
           command: curl --silent https://$HEROKU_APP_NAME.herokuapp.com/
 workflows:
   version: 2
-  testAndDeploy:
+  BuildTestDeploy:
     jobs:
-      - pingTestDeploymentServers
+      - wakeTestServers
       - unitTest
       - build:
           requires:
@@ -136,12 +136,12 @@ workflows:
       - deployTest:
           requires:
             - build
-      - dropDb:
+      - resetTestDb:
           requires:
-            - pingTestDeploymentServers
+            - wakeTestServers
       - uiTest:
           requires:
-            - dropDb
+            - resetTestDb
             - deployTest
       - deployDemo:
           type: approval
