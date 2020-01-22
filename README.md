@@ -13,7 +13,7 @@ Create a `cypress.env.json` and add the `baseUrl` , `backendUrl` and `adminPassw
 {
   "baseUrl": "http://localhost:3000",
   "backendUrl": "http://localhost:3005",
-  "adminPassword": "<password of admin you created locally>"
+  "testAdminPassword": "<password of admin you created locally>"
 }
 ```
 
