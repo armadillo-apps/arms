@@ -1,0 +1,33 @@
+export const fillOutApartmentForm = ({
+  apartmentName,
+  address,
+  landlordName,
+  accountNumber,
+  leaseStart,
+  leaseEnd,
+  monthlyRent,
+  currency,
+  capacity,
+  bedrooms,
+  country,
+  status
+}) => {
+  cy.get("input[name=Name]").type(apartmentName);
+  cy.get("input[name=Address]").type(address);
+  cy.get("input[name=LandLordName]").type(landlordName);
+  cy.get("input[name=LandLordAccount]").type(accountNumber);
+  cy.get("input[name=LeaseStart]").type(leaseStart);
+  cy.get("input[name=LeaseEnd]").type(leaseEnd);
+  cy.get("input[name=Rent]").type(monthlyRent);
+  cy.get("select[name=Currency]").select(currency);
+  cy.get("input[name=Capacity]").should("not.be.disabled");
+  cy.get("input[name=Capacity]")
+    .clear()
+    .type(capacity);
+  cy.get("input[name=Bedrooms]")
+    .clear()
+    .type(bedrooms);
+  cy.get("select[name=status]").select(status);
+  cy.get("select[name=Country").select(country);
+  cy.get("textarea[name=Remarks]").type("testing!!!");
+};

@@ -1,7 +1,7 @@
 /* eslint-disable jest/expect-expect */
 import faker from "faker";
-import moment from "moment";
 import { sgdFormatter, thbFormatter } from "../../src/utils/formatMoney";
+import { fillOutApartmentForm } from "../actions/apartmentActions";
 
 describe("Apartments, Occupant, and ApartmentAssign", () => {
   before(() => {
@@ -27,12 +27,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   const monthlyRent = "1000";
   const monthlyRentSgdFormatted = sgdFormatter.format(monthlyRent);
   const monthlyRentThbFormatted = thbFormatter.format(monthlyRent);
-
-  const name = faker.name.firstName();
-  const employeeId = faker.random.uuid();
-
-  const modName = faker.name.firstName();
-  const modEmployeeId = faker.random.uuid();
 
   const invalidNewApartment = {
     apartmentName,
@@ -80,7 +74,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   };
 
   const newApartment2 = {
-    apartmentName2,
+    apartmentName: apartmentName2,
     address,
     landlordName,
     accountNumber,
@@ -108,158 +102,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     country: "Singapore",
     status: "Active"
   };
-
-  const fillOutApartmentForm = ({
-    apartmentName,
-    address,
-    landlordName,
-    accountNumber,
-    leaseStart,
-    leaseEnd,
-    monthlyRent,
-    currency,
-    capacity,
-    bedrooms,
-    country,
-    status
-  }) => {
-    cy.get("input[name=Name]").type(apartmentName);
-    cy.get("input[name=Address]").type(address);
-    cy.get("input[name=LandLordName]").type(landlordName);
-    cy.get("input[name=LandLordAccount]").type(accountNumber);
-    cy.get("input[name=LeaseStart]").type(leaseStart);
-    cy.get("input[name=LeaseEnd]").type(leaseEnd);
-    cy.get("input[name=Rent]").type(monthlyRent);
-    cy.get("select[name=Currency]").select(currency);
-    cy.get("input[name=Capacity]").should("not.be.disabled");
-    cy.get("input[name=Capacity]")
-      .clear()
-      .type(capacity);
-    cy.get("input[name=Bedrooms]")
-      .clear()
-      .type(bedrooms);
-    cy.get("select[name=status]").select(status);
-    cy.get("select[name=Country").select(country);
-    cy.get("textarea[name=Remarks]").type("testing!!!");
-  };
-
-  const fillOutApartmentForm2 = ({
-    apartmentName2,
-    address,
-    landlordName,
-    accountNumber,
-    leaseStart,
-    leaseEnd,
-    monthlyRent,
-    currency,
-    capacity,
-    bedrooms,
-    country,
-    status
-  }) => {
-    cy.get("input[name=Name]").type(apartmentName2);
-    cy.get("input[name=Address]").type(address);
-    cy.get("input[name=LandLordName]").type(landlordName);
-    cy.get("input[name=LandLordAccount]").type(accountNumber);
-    cy.get("input[name=LeaseStart]").type(leaseStart);
-    cy.get("input[name=LeaseEnd]").type(leaseEnd);
-    cy.get("input[name=Rent]").type(monthlyRent);
-    cy.get("select[name=Currency]").select(currency);
-    cy.get("input[name=Capacity]").should("not.be.disabled");
-    cy.get("input[name=Capacity]")
-      .clear()
-      .type(capacity);
-    cy.get("input[name=Bedrooms]")
-      .clear()
-      .type(bedrooms);
-    cy.get("select[name=status]").select(status);
-    cy.get("select[name=Country").select(country);
-    cy.get("textarea[name=Remarks]").type("testing!!!");
-  };
-
-  describe("Create, edit, view, and search Occupant", () => {
-    it("should create a new occupant and show occupant profile", () => {
-      const status = "allocated";
-      const gender = "female";
-
-      cy.get('a[href="/newOccupant"]').click();
-
-      cy.get("h1").contains("Create New Occupant");
-      cy.get("input[name=name]").type(modName);
-      cy.get("input[name=employeeId]").type(modEmployeeId);
-      cy.get("select[name=gender]").select(gender);
-      cy.get("textarea[name=remarks]").type("BAD REMARKS");
-      cy.get("select[name=homeOffice]").select("Australia, Melbourne");
-      cy.get("select[name=status]").select(status);
-      cy.get("input[type=submit]").click();
-      cy.get("input[type=text]").type(modName);
-      cy.get("td")
-        .contains(modEmployeeId)
-        .click();
-      cy.get("h1").contains(modName);
-      cy.get("h2").contains(modEmployeeId);
-      cy.get("h2").contains(gender);
-      cy.get("h2").contains(/Home Office: Australia, Melbourne/i);
-      cy.get("span").contains(status);
-    });
-
-    it("should be able to edit the occupant details", () => {
-      cy.get('a[href="/occupants"]').click();
-
-      cy.get("td")
-        .contains(modEmployeeId)
-        .click();
-      cy.get("button")
-        .contains(/edit/i)
-        .click();
-      cy.get("input[name=name]")
-        .clear()
-        .type(name);
-      cy.get("input[name=employeeId]")
-        .clear()
-        .type(employeeId);
-      cy.get("select[name=gender]").select("male");
-      cy.get("textarea[name=remarks]")
-        .clear()
-        .type("testing");
-      cy.get("select[name=homeOffice]").select("Singapore, Singapore");
-      cy.get("select[name=status]").select("Unallocated");
-      cy.get("input[type=submit]").click();
-      cy.contains(`Successfully updated occupant: ${name}`);
-      cy.get("button")
-        .contains(/close/i)
-        .click();
-      cy.get("h1").contains(name);
-      cy.get("h2").contains(employeeId);
-      cy.get("h2").contains(/Gender: Male/i);
-      cy.get("h2").contains(/Home Office: Singapore, Singapore/i);
-      cy.get("span").contains(/unallocated/i);
-
-      cy.get('a[href="/occupants"]').click();
-
-      cy.contains(name);
-      cy.contains(employeeId);
-    });
-
-    it("should be able to filter occupants using searchbar", () => {
-      const newOccupantname = "Bob";
-
-      cy.get('a[href="/newOccupant"]').click();
-
-      cy.get("h1").contains("Create New Occupant");
-      cy.get("input[name=name]").type(newOccupantname);
-      cy.get("select[name=status]").select("Inactive");
-      cy.get("input[type=submit]").click();
-      cy.get("a")
-        .contains("OCCUPANTS")
-        .click();
-      cy.get("input")
-        .should("have.attr", "placeholder", "Search Occupant")
-        .type(newOccupantname);
-      cy.contains(name).should("not.exist");
-      cy.contains(newOccupantname);
-    });
-  });
 
   describe("Create, edit, and view Apartment", () => {
     it("should be unable to create a new apartment with -ve inputs", () => {
@@ -337,7 +179,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
       cy.get("h1").contains("Create New Apartment");
 
-      fillOutApartmentForm2(newApartment2);
+      fillOutApartmentForm(newApartment2);
 
       cy.get("input[type=submit]").click();
 
@@ -386,121 +228,23 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  describe("Assign occupant to apartment", () => {
-    const checkoutDate = moment(new Date()).add(1, "days");
+  // should this be tested in unit test?
+  // describe("Change apartment status", () => {
+  //   it("should show an error message if status of apartment with an occupant is changed to inactive", () => {
+  //     cy.get('a[href="/apartments"]').click();
+  //     cy.get("input[type=text]").type(apartmentName);
+  //     cy.contains(apartmentName).click();
 
-    it("be able to assign an occupant to apartment", () => {
-      cy.get('a[href="/apartments"]').click();
+  //     cy.get("button")
+  //       .contains("Edit")
+  //       .click();
 
-      cy.contains(apartmentName).click();
-      cy.get("button")
-        .contains("+")
-        .click();
-      cy.get("input[id=occupantToAssign]").type(name);
-      cy.contains("Select").click();
-      cy.get("input[id=checkInDate]").type("2018-05-01");
-      cy.get("input[id=checkOutDate]").type("2000-10-01");
-      cy.get("input[type=submit]").click();
-      cy.get("input[id=checkOutDate]").should("have.focus");
-      cy.contains(`Successfully assigned ${name} to ${apartmentName}`).should(
-        "not.exist"
-      );
-
-      const assignOccupantCheckoutDate = checkoutDate.format("YYYY-MM-DD");
-      cy.get("input[id=checkOutDate]").type(assignOccupantCheckoutDate);
-      cy.get("input[type=submit]").click();
-      cy.contains(`Successfully assigned ${name} to ${apartmentName}`);
-      cy.get("button.modalCloseButton").click();
-
-      cy.get('a[href="/apartments"]').click();
-
-      const vacancy = 0;
-      cy.get("tbody tr")
-        .contains("tr", apartmentName)
-        .contains("td", vacancy)
-        .should("have.class", "inverted");
-    });
-
-    it("be able to cancel the assign operation", () => {
-      cy.get('a[href="/apartments"]').click();
-
-      cy.contains(apartmentName).click();
-      cy.get("button")
-        .contains("+")
-        .click();
-      cy.get("input[id=occupantToAssign]").type(name);
-      cy.contains("Select").click();
-      cy.get("input[id=checkInDate]").type("2016-05-01");
-      cy.get("input[id=checkOutDate]").type("2016-10-01");
-      cy.get("button")
-        .contains("Cancel")
-        .click();
-      cy.get("input").should(
-        "have.attr",
-        "placeholder",
-        "Search occupants here..."
-      );
-      cy.get("button[class=modalCloseButton]")
-        .contains("X")
-        .click();
-      cy.contains("Occupant");
-    });
-
-    const monthlyRentCheckoutDate = checkoutDate.format("D MMM YY");
-    it("should be able to view apartment name, check-in & check-out dates and monthly rent on occupant profile", () => {
-      cy.get('a[href="/occupants"]').click();
-
-      cy.contains(name).click();
-      cy.contains(apartmentName);
-      cy.contains("1 May 18");
-      cy.contains(monthlyRentCheckoutDate);
-      cy.contains(monthlyRentSgdFormatted);
-      cy.get("tbody tr").should("have.length", 1);
-    });
-  });
-
-  describe("Change apartment status", () => {
-    it("should show an error message if status of apartment with an occupant is changed to inactive", () => {
-      cy.get('a[href="/apartments"]').click();
-      cy.get("input[type=text]").type(apartmentName);
-      cy.contains(apartmentName).click();
-
-      cy.get("button")
-        .contains("Edit")
-        .click();
-
-      cy.get("select[name=status]").select("Inactive");
-      cy.contains(
-        "Unable to change to inactive when there are current or future occupants"
-      );
-    });
-  });
-
-  describe("Remove occupant stay from history", () => {
-    it("be able to cancel occupant stay deletion", () => {
-      cy.get('a[href="/apartments"]').click();
-
-      cy.get("input[type=text]").type(apartmentName);
-      cy.contains(apartmentName).click();
-      cy.get('button[id="isConfirmationModalOpen"]').click();
-      cy.get("button")
-        .contains("Cancel")
-        .click();
-      cy.contains(name);
-    });
-
-    it("be able to remove an occupant's stay from an apartment", () => {
-      cy.get('a[href="/apartments"]').click();
-
-      cy.contains(apartmentName).click();
-      cy.get('button[id="isConfirmationModalOpen"]').click();
-      cy.get("button")
-        .contains("Delete")
-        .click();
-      cy.contains(name).should("not.exist");
-      cy.contains("No occupants yet!");
-    });
-  });
+  //     cy.get("select[name=status]").select("Inactive");
+  //     cy.contains(
+  //       "Unable to change to inactive when there are current or future occupants"
+  //     );
+  //   });
+  // });
 
   describe("Edit apartment details", () => {
     it("should be able to edit apartment status to inactive", () => {
