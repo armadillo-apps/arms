@@ -5,15 +5,23 @@
 
 Apartments and Residential Managements System
 
-## Files you need to create
+## Setup
 
-Create a `cypress.env.json` and add the `baseUrl` , `backendUrl` and `adminPassword` to test cypress locally.
+### Install dependencies
+
+```
+npm install
+```
+
+### Setup environment variables
+
+Create a `cypress.env.json` and add the following to test cypress locally.
 
 ```json
 {
-  "baseUrl": "http://localhost:3000",
-  "backendUrl": "http://localhost:3005",
-  "testAdminPassword": "<password of admin you created locally>"
+  "BASE_URL": "http://localhost:3000",
+  "BACKEND_URL": "http://localhost:3005",
+  "TEST_ADMIN_PASSWORD": "testPassword1"
 }
 ```
 
@@ -25,19 +33,19 @@ REACT_APP_URL = "http://localhost:3005"
 
 ## Getting started
 
-To start development
+### Start app
 
 ```
 npm start
 ```
 
-To run the tests
+### Run the tests
 
 ```
 npm test
 ```
 
-To build the app
+### Build the app
 
 ```
 npm run build
