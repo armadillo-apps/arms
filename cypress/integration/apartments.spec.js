@@ -5,19 +5,21 @@ import { sgdFormatter, thbFormatter } from "../../src/utils/formatMoney";
 
 describe("Apartments, Occupant, and ApartmentAssign", () => {
   before(() => {
-    cy.visit(`${baseUrl}`);
-    // Visiting baseUrl prevents request from being called twice.
+    cy.visit(`${BASE_URL}`);
+    // Visiting BASE_URL prevents request from being called twice.
     // visit issue https://github.com/cypress-io/cypress/issues/2777 for more information
   });
 
   beforeEach(() => {
-    cy.visit(`${baseUrl}`);
-    cy.get("input[name=email]").type(`${Cypress.env("testAdminUser")}`);
-    cy.get("input[name=password]").type(`${Cypress.env("testAdminPassword")}`);
+    cy.visit(`${BASE_URL}`);
+    cy.get("input[name=email]").type(`${Cypress.env("TEST_ADMIN_USER")}`);
+    cy.get("input[name=password]").type(
+      `${Cypress.env("TEST_ADMIN_PASSWORD")}`
+    );
     cy.get("input[type=submit]").click();
   });
 
-  const baseUrl = Cypress.env("baseUrl");
+  const BASE_URL = Cypress.env("BASE_URL");
 
   const apartmentName = faker.company.companyName();
   const apartmentName2 = faker.company.companyName();
