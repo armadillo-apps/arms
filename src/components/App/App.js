@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  BrowserRouter as Router,
+  Redirect
+} from "react-router-dom";
 import "./App.css";
 import "../LoginForm/LoginForm.css";
 import {
@@ -278,6 +283,9 @@ class App extends Component {
         <section>
           <Router>
             <Switch>
+              <Route exact path="/apartments">
+                <Redirect to="/" />
+              </Route>
               <Route
                 exact
                 path="/"
@@ -308,6 +316,9 @@ class App extends Component {
               userRole={this.state.userRole}
             />
             <Switch>
+              <Route exact path="/">
+                <Redirect to="/apartments" />
+              </Route>
               <Route
                 exact
                 path="/apartments"
