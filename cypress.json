@@ -1,6 +1,5 @@
 {
   "env": {
-    "BASE_URL": "https://test-armadillo-arms.herokuapp.com",
     "TEST_ADMIN_USER": "baqa@thoughtworks.com"
   }
 }
