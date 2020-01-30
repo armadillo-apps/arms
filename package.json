@@ -8,10 +8,10 @@
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.8.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-modal": "^3.9.1",
-    "react-router-dom": "^5.0.1",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "^3.3.0"
   },
   "scripts": {
@@ -24,7 +24,7 @@
     "eject": "react-scripts eject",
     "cy:open": "cypress open",
     "cy:verify": "cypress verify",
-    "cy:run": "cypress run --browser electron --env BASE_URL=$BASE_URL,BACKEND_URL=$BACKEND_URL,TEST_ADMIN_PASSWORD=$TEST_ADMIN_PASSWORD",
+    "cy:run": "cypress run --browser electron --env BACKEND_URL=$BACKEND_URL,TEST_ADMIN_PASSWORD=$TEST_ADMIN_PASSWORD",
     "cy:dev": "cypress run"
   },
   "browserslist": {
