@@ -20,7 +20,7 @@
     "lint": "eslint src --max-warnings 0",
     "test": "react-scripts test",
     "test:coverage": "npm test -- --coverage --watchAll=false",
-    "test:all": "CI=true npm test src && npm run cy:dev && npm run lint && npm run test:coverage",
+    "test:all": "CI=true npm test src",
     "eject": "react-scripts eject",
     "cy:open": "cypress open",
     "cy:verify": "cypress verify",
@@ -77,7 +77,8 @@
   "husky": {
     "hooks": {
       "post-merge": "bash ./githooks/post-merge-hook.sh",
-      "pre-commit": "npm run lint"
+      "pre-commit": "npm run lint",
+      "pre-push": "bash ./githooks/pre-push-hook.sh"
     }
   }
 }
