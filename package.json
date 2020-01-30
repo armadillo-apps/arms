@@ -73,5 +73,10 @@
         "statements": 73.23
       }
     }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   }
 }
