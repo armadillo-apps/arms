@@ -4,7 +4,9 @@ import moment from "moment";
 import { sgdFormatter, thbFormatter } from "../../src/utils/formatMoney";
 
 describe("Apartments, Occupant, and ApartmentAssign", () => {
+  const BASE_URL = Cypress.env("BASE_URL");
   before(() => {
+    console.log(BASE_URL);
     cy.visit(`${BASE_URL}`);
     // Visiting BASE_URL prevents request from being called twice.
     // visit issue https://github.com/cypress-io/cypress/issues/2777 for more information
@@ -18,8 +20,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     );
     cy.get("input[type=submit]").click();
   });
-
-  const BASE_URL = Cypress.env("BASE_URL");
 
   const apartmentName = faker.company.companyName();
   const apartmentName2 = faker.company.companyName();
