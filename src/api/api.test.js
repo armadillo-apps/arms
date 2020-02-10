@@ -1,4 +1,5 @@
 import {
+  authenticateUser,
   fetchApartments,
   fetchOccupants,
   fetchUsers,
@@ -48,6 +49,15 @@ describe("GET routes", () => {
 
   afterEach(() => {
     spyGet.mockClear();
+  });
+
+  it("should authenticate user and return user info", async () => {
+    const output = await authenticateUser();
+
+    expect(spyGet).toHaveBeenCalledWith("/users/authenticate", {
+      withCredentials: true
+    });
+    expect(output).toEqual({ expected: "output" });
   });
 
   it("should get apartments data", async () => {

@@ -5,7 +5,9 @@ import {
   BrowserRouter as Router,
   Redirect
 } from "react-router-dom";
-import "./App.css";
+import UserContext from "../../context/UserContext";
+import LoginForm from "../LoginForm/LoginForm";
+import "./ArmsRouter.css";
 import "../LoginForm/LoginForm.css";
 import {
   fetchOccupants,
@@ -23,12 +25,13 @@ import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
 import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
 import OccupantProfile from "../OccupantProfile/OccupantProfile";
 import ApartmentProfile from "../ApartmentProfile/ApartmentProfile";
-import LoginForm from "../LoginForm/LoginForm";
+
 import NewUserForm from "../NewUserForm/NewUserForm";
 import UserManagement from "../UserManagement/UserManagement";
 import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
+import { LOGOUT_USER } from "../../reducer/userReducer";
 
-class App extends Component {
+class ArmsRouter extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,8 +63,12 @@ class App extends Component {
 
   componentDidMount = async () => {
     try {
-      const checkSavedState = localStorage.getItem("isLoggedIn");
-      this.setState({ isLoggedIn: checkSavedState });
+      const { state: user } = this.context;
+      this.setState({
+        isLoggedIn: user.isAuthenticated,
+        email: user.email,
+        userRole: user.role
+      });
       const apartments = await fetchApartments();
       this.setState({ apartments });
       const occupants = await fetchOccupants();
@@ -78,6 +85,26 @@ class App extends Component {
   componentDidUpdate = async (prevProps, prevState) => {
     if (this.state.renderToggle !== prevState.renderToggle) {
       try {
+        const apartments = await fetchApartments();
+        this.setState({ apartments });
+        const occupants = await fetchOccupants();
+        this.setState({ occupants });
+        const users = await fetchUsers();
+        this.setState({ users });
+        const stays = await fetchStays();
+        this.setState({ stays });
+      } catch (err) {
+        return err.message;
+      }
+    }
+    const { state: user } = this.context;
+    if (user.isAuthenticated !== prevState.isLoggedIn) {
+      try {
+        this.setState({
+          isLoggedIn: user.isAuthenticated,
+          email: user.email,
+          userRole: user.role
+        });
         const apartments = await fetchApartments();
         this.setState({ apartments });
         const occupants = await fetchOccupants();
@@ -259,13 +286,12 @@ class App extends Component {
 
   logout = async () => {
     try {
+      this.props.dispatch({ type: LOGOUT_USER });
       const logoutMessage = await logoutUser();
       this.setState({
         message: logoutMessage,
         isLoggedIn: false
       });
-      localStorage.removeItem("isLoggedIn");
-      this.props.triggerRender();
     } catch (err) {
       return err.message;
     }
@@ -286,20 +312,7 @@ class App extends Component {
               <Route exact path="/apartments">
                 <Redirect to="/" />
               </Route>
-              <Route
-                exact
-                path="/"
-                render={props => (
-                  <LoginForm
-                    email={this.state.email}
-                    handleEmailChange={this.handleEmailChange}
-                    triggerRender={this.triggerRender}
-                    checkIsLoggedIn={this.checkIsLoggedIn}
-                    setUserRole={this.setUserRole}
-                    {...props}
-                  />
-                )}
-              />
+              <Route exact path="/" render={() => <LoginForm />} />
               <Route component={NoMatchPage} />
             </Switch>
           </Router>
@@ -440,8 +453,10 @@ class App extends Component {
   }
 }
 
+ArmsRouter.contextType = UserContext;
+
 const NoMatchPage = () => {
   return <h1>Path does not exist!</h1>;
 };
 
-export default App;
+export default ArmsRouter;

@@ -1,6 +1,13 @@
 import axios from "./axios";
 import queryString from "query-string";
 
+export const authenticateUser = async () => {
+  const response = await axios.get("/users/authenticate", {
+    withCredentials: true
+  });
+  return response.data;
+};
+
 export const fetchApartments = async () => {
   const response = await axios.get("/apartments", { withCredentials: true });
   return response.data;
