@@ -94,7 +94,7 @@ export const Apartment = ({ apartments, stays, history }) => {
   };
 
   return (
-    <div className="apartments" data-testid="apartment">
+    <div className="apartments" data-testid="apartments">
       <div className="apartments__div">
         <h1 className="apartments__heading">Apartments</h1>
         <SearchBar handleChange={handleNewInput} placeholder="Apartment" />
