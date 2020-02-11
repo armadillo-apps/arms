@@ -20,6 +20,10 @@ describe("Apartments", () => {
     cy.get("input[type=submit]").click();
   });
 
+  afterEach(() => {
+    cy.get('a[href="/"]').click();
+  });
+
   const apartmentName = faker.company.companyName();
   const apartmentNameTH = faker.company.companyName();
   const landlordName = faker.name.firstName();
@@ -323,14 +327,6 @@ describe("Apartments", () => {
       cy.get('a[href="/apartments"]').click();
       cy.reload();
       cy.get("h1").contains("Apartments");
-    });
-  });
-
-  describe("Successfully logout", () => {
-    it("should allow logout for users", () => {
-      cy.get('a[href="/"]').click();
-
-      cy.get("h2").contains("User Login");
     });
   });
 });
