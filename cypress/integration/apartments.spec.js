@@ -21,7 +21,9 @@ describe("Apartments", () => {
   });
 
   afterEach(() => {
-    cy.get('a[href="/"]').click();
+    cy.get("a")
+      .contains("LOGOUT")
+      .click();
   });
 
   const apartmentName = faker.company.companyName();
