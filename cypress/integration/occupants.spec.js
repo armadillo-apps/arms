@@ -16,11 +16,18 @@ describe("Occupant", () => {
 
   beforeEach(() => {
     cy.visit(`${BASE_URL}`);
+
     cy.get("input[name=email]").type(`${Cypress.env("TEST_ADMIN_USER")}`);
     cy.get("input[name=password]").type(
       `${Cypress.env("TEST_ADMIN_PASSWORD")}`
     );
     cy.get("input[type=submit]").click();
+  });
+
+  afterEach(() => {
+    cy.get("a")
+      .contains("LOGOUT")
+      .click();
   });
 
   it("should create a new occupant and show occupant profile", () => {
