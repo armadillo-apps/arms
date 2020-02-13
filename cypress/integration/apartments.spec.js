@@ -10,10 +10,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.visit(`${BASE_URL}`);
     // Visiting BASE_URL prevents request from being called twice.
     // visit issue https://github.com/cypress-io/cypress/issues/2777 for more information
-  });
-
-  beforeEach(() => {
-    cy.visit(`${BASE_URL}`);
     cy.get("input[name=email]").type(`${Cypress.env("TEST_ADMIN_USER")}`);
     cy.get("input[name=password]").type(
       `${Cypress.env("TEST_ADMIN_PASSWORD")}`
@@ -21,10 +17,8 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     cy.get("input[type=submit]").click();
   });
 
-  afterEach(() => {
-    cy.get("a")
-      .contains("LOGOUT")
-      .click();
+  beforeEach(() => {
+    Cypress.Cookies.preserveOnce("token");
   });
 
   const apartmentName = faker.company.companyName();
@@ -324,6 +318,9 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .type(newApartmentForSearchbarTest.apartmentName);
       cy.contains(apartmentName).should("not.exist");
       cy.contains(newApartmentForSearchbarTest.apartmentName);
+      cy.get("input")
+        .should("have.attr", "placeholder", "Search Apartment")
+        .clear();
     });
   });
 
@@ -522,6 +519,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
   describe("Maintain user session after log in", () => {
     it("should remain logged in on the same page after refresh", () => {
+      cy.visit(`${BASE_URL}`);
       cy.get("h1").contains("Apartments");
 
       cy.get('a[href="/occupants"]').click();
