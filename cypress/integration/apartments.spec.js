@@ -6,8 +6,6 @@ import { fillOutApartmentForm } from "../actions/apartmentActions";
 
 describe("Apartments, Occupant, and ApartmentAssign", () => {
   before(() => {
-    cy.clearCookies();
-    cy.reload();
     cy.loginAdmin();
     cy.visitHome();
   });

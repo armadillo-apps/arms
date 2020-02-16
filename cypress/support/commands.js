@@ -41,5 +41,5 @@ Cypress.Commands.add("visitHome", () => {
 });
 
 Cypress.Commands.add("logout", () => {
-  cy.clearCookies();
+  cy.request("POST", `${Cypress.env("BACKEND_URL")}/users/logout`);
 });
