@@ -5,16 +5,9 @@ import { sgdFormatter, thbFormatter } from "../../src/utils/formatMoney";
 import { fillOutApartmentForm } from "../actions/apartmentActions";
 
 describe("Apartments, Occupant, and ApartmentAssign", () => {
-  const BASE_URL = Cypress.env("BASE_URL");
   before(() => {
-    cy.visit(`${BASE_URL}`);
-    // Visiting BASE_URL prevents request from being called twice.
-    // visit issue https://github.com/cypress-io/cypress/issues/2777 for more information
-    cy.get("input[name=email]").type(`${Cypress.env("TEST_ADMIN_USER")}`);
-    cy.get("input[name=password]").type(
-      `${Cypress.env("TEST_ADMIN_PASSWORD")}`
-    );
-    cy.get("input[type=submit]").click();
+    cy.loginAdmin();
+    cy.visitHome();
   });
 
   beforeEach(() => {
@@ -519,7 +512,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
   describe("Maintain user session after log in", () => {
     it("should remain logged in on the same page after refresh", () => {
-      cy.visit(`${BASE_URL}`);
+      cy.visitHome();
       cy.get("h1").contains("Apartments");
 
       cy.get('a[href="/occupants"]').click();

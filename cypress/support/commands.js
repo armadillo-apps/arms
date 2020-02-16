@@ -1,3 +1,5 @@
+import { login } from "../actions/loginActions";
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,8 +25,17 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
 Cypress.Commands.add("waitForServerRequest", () => {
   cy.server();
   cy.route("/*").as("serverRequests");
   cy.wait("@serverRequests");
+});
+
+Cypress.Commands.add("loginAdmin", () => {
+  login(Cypress.env("TEST_ADMIN_USER"), Cypress.env("TEST_ADMIN_PASSWORD"));
+});
+
+Cypress.Commands.add("visitHome", () => {
+  cy.visit(`${Cypress.env("BASE_URL")}`);
 });
