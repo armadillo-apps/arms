@@ -14,6 +14,10 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     Cypress.Cookies.preserveOnce("token");
   });
 
+  after(() => {
+    cy.logout();
+  });
+
   const apartmentName = faker.company.companyName();
   const apartmentName2 = faker.company.companyName();
   const landlordName = faker.name.firstName();

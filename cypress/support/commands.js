@@ -39,3 +39,7 @@ Cypress.Commands.add("loginAdmin", () => {
 Cypress.Commands.add("visitHome", () => {
   cy.visit(`${Cypress.env("BASE_URL")}`);
 });
+
+Cypress.Commands.add("logout", () => {
+  cy.clearCookies();
+});
