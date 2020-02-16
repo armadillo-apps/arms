@@ -127,13 +127,6 @@ class ArmsRouter extends Component {
     });
   };
 
-  checkIsLoggedIn = isLoggedIn => {
-    this.setState({
-      isLoggedIn
-    });
-    localStorage.setItem("isLoggedIn", true);
-  };
-
   getAllStays = async () => {
     try {
       const stays = await fetchStays();
@@ -295,12 +288,6 @@ class ArmsRouter extends Component {
     } catch (err) {
       return err.message;
     }
-  };
-
-  handleEmailChange = email => {
-    this.setState({
-      email
-    });
   };
 
   render() {
