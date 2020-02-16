@@ -1,8 +1,13 @@
 /* eslint-disable jest/expect-expect */
 describe("Login page", () => {
+  before(() => {
+    cy.clearCookies();
+    cy.reload();
+    cy.visitHome();
+  });
+
   beforeEach(() => {
     cy.clearCookies();
-    cy.visitHome();
     cy.get("input[name=email]").type(`${Cypress.env("TEST_ADMIN_USER")}`);
   });
 
