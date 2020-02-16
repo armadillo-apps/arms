@@ -13,7 +13,6 @@ describe("Login page", () => {
     cy.get("input[type=submit]").click();
     cy.waitForServerRequest();
 
-    cy.getCookie("token").should("exist");
     cy.contains(/logout/i);
   });
 
@@ -21,7 +20,6 @@ describe("Login page", () => {
     cy.get("input[name=password]").type("WRONG_PASSWORD");
     cy.get("input[type=submit]").click();
 
-    cy.getCookie("token").should("not.exist");
     cy.contains("Invalid email or password");
   });
 });
