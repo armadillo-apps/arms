@@ -1,7 +1,7 @@
 import React from "react";
 import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
-import { render, wait, act } from "@testing-library/react";
+import { render, wait } from "@testing-library/react";
 import OccupantProfile from "./OccupantProfile";
 import * as data from "../../api/api";
 
@@ -311,12 +311,11 @@ describe("Occupant profile", () => {
       });
     });
 
-    it("should render Loading.. if there are no occupants", () => {
-      act(() => {
-        const { getByText } = render(
-          <OccupantProfile match={match} modalStates={modalStates} />
-        );
-
+    it("should render Loading.. if there are no occupants", async () => {
+      const { getByText } = render(
+        <OccupantProfile match={match} modalStates={modalStates} />
+      );
+      await wait(() => {
         expect(getByText("Loading...")).toBeInTheDocument();
       });
     });
