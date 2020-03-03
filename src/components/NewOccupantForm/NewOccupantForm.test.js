@@ -185,29 +185,31 @@ describe("Redirect upon successful submission", () => {
       <NewOccupantForm history={history} triggerRender={triggerRender} />
     );
 
-    const name = getByLabelText(/name/i);
-    fireEvent.change(name, { target: { value: "Bob" } });
+    await wait(() => {
+      const name = getByLabelText(/name/i);
+      fireEvent.change(name, { target: { value: "Bob" } });
 
-    const employeeId = getByLabelText("Employee ID");
-    fireEvent.change(employeeId, { target: { value: "123" } });
+      const employeeId = getByLabelText("Employee ID");
+      fireEvent.change(employeeId, { target: { value: "123" } });
 
-    const gender = getByLabelText("Gender");
-    fireEvent.change(gender, { target: { value: "male" } });
+      const gender = getByLabelText("Gender");
+      fireEvent.change(gender, { target: { value: "male" } });
 
-    const remarks = getByLabelText("Remarks");
-    fireEvent.change(remarks, { target: { value: "testing" } });
+      const remarks = getByLabelText("Remarks");
+      fireEvent.change(remarks, { target: { value: "testing" } });
 
-    const homeOffice = getByLabelText("Home Office");
-    fireEvent.change(homeOffice, { target: { value: "Australia, Melbourne" } });
+      const homeOffice = getByLabelText("Home Office");
+      fireEvent.change(homeOffice, {
+        target: { value: "Australia, Melbourne" }
+      });
 
-    const status = getByLabelText("Occupant Status*");
-    fireEvent.change(status, { target: { value: "allocated" } });
+      const status = getByLabelText("Occupant Status*");
+      fireEvent.change(status, { target: { value: "allocated" } });
 
-    const button = getByText("Create", { selector: "input[type=submit]" });
+      const button = getByText("Create", { selector: "input[type=submit]" });
 
-    fireEvent.click(button);
-
-    await Promise.resolve();
+      fireEvent.click(button);
+    });
 
     expect(history.push).toHaveBeenCalled();
   });
