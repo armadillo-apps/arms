@@ -36,7 +36,7 @@ const NewUserForm = props => {
       setMessage("Success");
       setSuccess(true);
       setSubmitted(true);
-
+      setFormInputs(emptyForm);
       props.triggerRender();
     } catch (err) {
       setMessage("Unable to create new user :(");

@@ -78,6 +78,7 @@ describe("New User Form", () => {
       const password = getByLabelText("Password*");
       const role = getByLabelText("User Role");
       const createButton = getByText("Create");
+      fireEvent.change(name, { target: { value: "Jane Doe" } });
       fireEvent.click(createButton);
       await wait(() => {
         expect(name.value).toBe("");
