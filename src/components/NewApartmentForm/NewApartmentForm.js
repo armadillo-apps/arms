@@ -62,26 +62,10 @@ const NewApartmentForm = props => {
 
       const output = await createNewApartment(data);
 
-      const clearedForm = {
-        name: "",
-        address: "",
-        bedrooms: 1,
-        capacity: 1,
-        leaseStart: "",
-        leaseEnd: "",
-        rent: "",
-        currency: "",
-        landLordName: "",
-        landLordAccount: "",
-        country: "",
-        remarks: "",
-        status: ""
-      };
-
       setMessage(output);
       setSuccess(true);
       setSubmitted(true);
-      setFormInputs(clearedForm);
+      setFormInputs(emptyForm);
       props.triggerRender();
       props.history.push(`/apartments`);
     } catch (err) {
