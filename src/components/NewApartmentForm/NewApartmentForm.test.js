@@ -118,14 +118,13 @@ describe("apartment form confirmation message", () => {
       <NewApartmentForm history={history} triggerRender={triggerRender} />
     );
 
-    const nameInput = getByLabelText(/apartment name/i);
-    const button = getByText("Create", { selector: "input[type=submit]" });
+    await wait(() => {
+      const nameInput = getByLabelText(/apartment name/i);
+      const button = getByText("Create", { selector: "input[type=submit]" });
 
-    fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
-    fireEvent.click(button);
-
-    await Promise.resolve();
-
+      fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
+      fireEvent.click(button);
+    });
     expect(history.push).toHaveBeenCalled();
   });
 
