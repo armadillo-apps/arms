@@ -16,6 +16,7 @@ const NewUserForm = props => {
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const onFormChange = event => {
     const { name, value } = event.target;
@@ -43,6 +44,10 @@ const NewUserForm = props => {
       setSuccess(false);
       setSubmitted(true);
     }
+  };
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -73,9 +78,21 @@ const NewUserForm = props => {
           name="password"
           onChange={onFormChange}
           value={formInputs.password}
-          type="text"
+          type={showPassword ? "text" : "password"}
           required
         />
+        <label htmlFor="showPassword">
+          <input
+            type="checkbox"
+            id="showPassword"
+            label="Show password"
+            name="showPassword"
+            className="userForm__showPasswordLabel"
+            onClick={handleShowPassword}
+          />
+          Show Password
+        </label>
+
         <section>
           <label htmlFor="role" className="userForm__roleLabel">
             User Role

@@ -56,6 +56,17 @@ describe("New User Form", () => {
       expect(getByDisplayValue("passwordBob123")).toBeInTheDocument();
     });
 
+    it("should toggle between showing and not showing password", () => {
+      const { getByLabelText } = render(<NewUserForm />);
+      const passwordInput = getByLabelText("Password*");
+      const showPasswordCheckbox = getByLabelText("Show Password");
+
+      fireEvent.change(passwordInput, { target: { value: "Passw0rd" } });
+      expect(passwordInput.type).toBe("password");
+      fireEvent.click(showPasswordCheckbox);
+      expect(passwordInput.type).toBe("text");
+    });
+
     it("should render a dropdown selector for role", () => {
       const { getByLabelText, getByDisplayValue } = render(<NewUserForm />);
       const role = getByLabelText("User Role");

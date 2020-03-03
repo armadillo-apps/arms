@@ -26,3 +26,7 @@
   font-size: 1.3rem;
   font-weight: 400;
 }
+
+.userForm__showPasswordLabel {
+  margin-right: 5px;
+}
