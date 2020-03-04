@@ -326,7 +326,6 @@ class ArmsRouter extends Component {
                   <Apartment
                     apartments={this.state.apartments}
                     stays={this.state.stays}
-                    triggerRender={this.triggerRender}
                     {...props}
                   />
                 )}
