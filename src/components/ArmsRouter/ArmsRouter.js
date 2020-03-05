@@ -15,8 +15,7 @@ import {
   updateOccupant,
   updateApartment,
   fetchStays,
-  logoutUser,
-  fetchUsers
+  logoutUser
 } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import { Apartment } from "../Apartment/Apartment";
@@ -37,7 +36,6 @@ class ArmsRouter extends Component {
     this.state = {
       apartments: [],
       occupants: [],
-      users: [],
       stays: [],
       userRole: "",
       isLoggedIn: false,
@@ -73,8 +71,6 @@ class ArmsRouter extends Component {
       this.setState({ apartments });
       const occupants = await fetchOccupants();
       this.setState({ occupants });
-      const users = await fetchUsers();
-      this.setState({ users });
       const stays = await fetchStays();
       this.setState({ stays });
     } catch (err) {
@@ -89,8 +85,6 @@ class ArmsRouter extends Component {
         this.setState({ apartments });
         const occupants = await fetchOccupants();
         this.setState({ occupants });
-        const users = await fetchUsers();
-        this.setState({ users });
         const stays = await fetchStays();
         this.setState({ stays });
       } catch (err) {
@@ -109,8 +103,6 @@ class ArmsRouter extends Component {
         this.setState({ apartments });
         const occupants = await fetchOccupants();
         this.setState({ occupants });
-        const users = await fetchUsers();
-        this.setState({ users });
         const stays = await fetchStays();
         this.setState({ stays });
       } catch (err) {
@@ -373,9 +365,7 @@ class ArmsRouter extends Component {
                 <Route
                   exact
                   path="/users"
-                  render={props => (
-                    <UserManagement users={this.state.users} {...props} />
-                  )}
+                  render={props => <UserManagement {...props} />}
                 />
               ) : (
                 ""
