@@ -16,7 +16,8 @@ import {
   editUserRole,
   updatePassword,
   removeStay,
-  removeUser
+  removeUser,
+  getUserId
 } from "./api";
 import axios from "./axios";
 
@@ -85,6 +86,21 @@ describe("GET routes", () => {
       withCredentials: true
     });
     expect(output).toEqual({ expected: "output" });
+  });
+
+  it("should get user ID by email", async () => {
+    const mockGet = jest.spyOn(axios, "get");
+    mockGet.mockReturnValue({
+      data: [{ email: "user@email.com", _id: "id123" }]
+    });
+
+    const userEmail = "user@email.com";
+    const userId = await getUserId(userEmail);
+
+    expect(mockGet).toHaveBeenCalledWith("/users", {
+      withCredentials: true
+    });
+    expect(userId).toBe("id123");
   });
 
   it("should get stays data", async () => {
@@ -345,12 +361,12 @@ describe("PATCH routes", () => {
   });
 
   it("should update password", async () => {
-    const { userId, password } = testInput;
+    const { userId, password, newPassword } = testInput;
 
-    const output = await updatePassword(userId, password);
+    const output = await updatePassword(userId, password, newPassword);
     expect(spyPatch).toHaveBeenCalledWith(
       `/users/password/${userId}`,
-      { password },
+      { password, newPassword },
       {
         withCredentials: true
       }

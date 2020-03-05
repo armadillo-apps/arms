@@ -1,95 +1,113 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Input from "../Input/Input";
-import { updatePassword, fetchUsers } from "../../api/api";
+import { updatePassword, getUserId } from "../../api/api";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
+import { useUserContext } from "../../context/UserContext";
 import "./ChangePasswordForm.css";
 
-class ChangePasswordForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedInUserId: "",
-      newPassword: "",
-      success: false,
-      message: "",
-      submitted: false
-    };
-  }
+const ChangePasswordForm = props => {
+  const { state } = useUserContext();
 
-  componentDidMount = async () => {
-    try {
-      const usersList = await fetchUsers();
-      const loggedInUserId = usersList.find(
-        user => user.email === this.props.email
-      );
-      this.setState({ loggedInUserId: loggedInUserId._id });
-    } catch (err) {
-      return err.message;
-    }
+  const emptyForm = {
+    loggedInUserId: "",
+    password: "",
+    newPassword: ""
   };
+  const [formInputs, setFormInputs] = useState(emptyForm);
+  const [message, setMessage] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    newPassword: false
+  });
 
-  onFormChange = event => {
+  const onFormChange = event => {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+    setFormInputs({ ...formInputs, [name]: value });
   };
 
-  onFormSubmit = async event => {
+  const onFormSubmit = async event => {
     try {
       event.preventDefault();
-      const { newPassword, loggedInUserId } = this.state;
-      await updatePassword(loggedInUserId, newPassword);
-      this.setState({
-        newPassword: "",
-        success: true,
-        message: "Success",
-        submitted: true
-      });
-      this.props.triggerRender();
+      const userId = await getUserId(state.email);
+      setFormInputs({ ...formInputs, loggedInUserId: userId });
+      await updatePassword(userId, formInputs.password, formInputs.newPassword);
+      setMessage("Success");
+      setSubmitted(true);
+      setSuccess(true);
+      setFormInputs(emptyForm);
+      props.triggerRender();
     } catch (err) {
-      this.setState({
-        success: false,
-        message: "Unable to change password",
-        submitted: true
-      });
+      setSuccess(false);
+      setMessage("Unable to change password ", err);
+      setSubmitted(true);
     }
   };
 
-  render() {
-    return (
-      <form
-        className="changePasswordFormContainer"
-        onSubmit={this.onFormSubmit}
-      >
-        <h1 className="changePasswordForm__heading">Change Password</h1>
-        <div className="changePasswordForm">
-          <Input
-            id="password"
-            label="New Password*"
-            name="newPassword"
-            onChange={this.onFormChange}
-            value={this.state.newPassword}
-            type="text"
-            required
-          />
-        </div>
-        {this.state.submitted ? (
-          <ConfirmationMessage
-            success={this.state.success}
-            message={this.state.message}
-          />
-        ) : (
-          ""
-        )}
-        <input
-          className="changePasswordForm__createButton"
-          value="Submit"
-          type="submit"
+  const handleShowPassword = field => {
+    setShowPassword({ ...showPassword, [field]: !showPassword[field] });
+  };
+
+  return (
+    <form className="changePasswordFormContainer" onSubmit={onFormSubmit}>
+      <h1 className="changePasswordForm__heading">Change Password</h1>
+      <div className="changePasswordForm">
+        <Input
+          id="password"
+          label="Existing Password*"
+          name="password"
+          onChange={onFormChange}
+          value={formInputs.password}
+          type={showPassword.password ? "text" : "password"}
+          required
         />
-      </form>
-    );
-  }
-}
+        <label htmlFor="showPassword">
+          <input
+            type="checkbox"
+            id="showPassword"
+            data-testid="showPassword"
+            label="Show password"
+            name="showPassword"
+            className="changePasswordForm__showPasswordLabel"
+            onClick={() => handleShowPassword("password")}
+          />
+          Show Password
+        </label>
+        <Input
+          id="newPassword"
+          label="New Password*"
+          name="newPassword"
+          onChange={onFormChange}
+          value={formInputs.newPassword}
+          type={showPassword.newPassword ? "text" : "password"}
+          required
+        />
+        <label htmlFor="showNewPassword">
+          <input
+            type="checkbox"
+            id="showNewPassword"
+            data-testid="showNewPassword"
+            label="Show password"
+            name="showNewPassword"
+            className="changePasswordForm__showPasswordLabel"
+            onClick={() => handleShowPassword("newPassword")}
+          />
+          Show Password
+        </label>
+      </div>
+      {submitted ? (
+        <ConfirmationMessage success={success} message={message} />
+      ) : (
+        ""
+      )}
+      <input
+        className="changePasswordForm__createButton"
+        value="Submit"
+        type="submit"
+      />
+    </form>
+  );
+};
 
 export default ChangePasswordForm;

@@ -23,6 +23,12 @@ export const fetchUsers = async () => {
   return response.data;
 };
 
+export const getUserId = async email => {
+  const userList = await fetchUsers();
+  const user = userList.find(user => user.email === email);
+  return user._id;
+};
+
 export const fetchStays = async queryParams => {
   const query = queryString.stringify(queryParams);
   const response = await axios.get(`/stays?${query}`, {
@@ -184,8 +190,9 @@ export const editUserRole = async (userId, role) => {
   return response.data;
 };
 
-export const updatePassword = async (userId, password) => {
-  const requestBody = { password };
+export const updatePassword = async (userId, password, newPassword) => {
+  const requestBody = { password, newPassword };
+
   const response = await axios.patch(`/users/password/${userId}`, requestBody, {
     withCredentials: true
   });
