@@ -190,12 +190,16 @@ export const editUserRole = async (userId, role) => {
   return response.data;
 };
 
-export const updatePassword = async (userId, password, newPassword) => {
+export const updatePassword = async (userEmail, password, newPassword) => {
   const requestBody = { password, newPassword };
 
-  const response = await axios.patch(`/users/password/${userId}`, requestBody, {
-    withCredentials: true
-  });
+  const response = await axios.patch(
+    `/users/password/${userEmail}`,
+    requestBody,
+    {
+      withCredentials: true
+    }
+  );
   return response.data;
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Input from "../Input/Input";
-import { updatePassword, getUserId } from "../../api/api";
+import { updatePassword } from "../../api/api";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import { useUserContext } from "../../context/UserContext";
 import "./ChangePasswordForm.css";
@@ -9,7 +9,7 @@ const ChangePasswordForm = props => {
   const { state } = useUserContext();
 
   const emptyForm = {
-    loggedInUserId: "",
+    loggedInUser: "",
     password: "",
     newPassword: ""
   };
@@ -30,9 +30,12 @@ const ChangePasswordForm = props => {
   const onFormSubmit = async event => {
     try {
       event.preventDefault();
-      const userId = await getUserId(state.email);
-      setFormInputs({ ...formInputs, loggedInUserId: userId });
-      await updatePassword(userId, formInputs.password, formInputs.newPassword);
+      setFormInputs({ ...formInputs, loggedInUser: state.email });
+      await updatePassword(
+        state.email,
+        formInputs.password,
+        formInputs.newPassword
+      );
       setMessage("Success");
       setSubmitted(true);
       setSuccess(true);
