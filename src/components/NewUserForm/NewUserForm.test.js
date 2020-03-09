@@ -72,6 +72,10 @@ describe("New User Form", () => {
       const role = getByLabelText("User Role");
       fireEvent.change(role, { target: { value: "manager" } });
       expect(getByDisplayValue("Manager")).toBeInTheDocument();
+      fireEvent.change(role, { target: { value: "admin" } });
+      expect(getByDisplayValue("Admin")).toBeInTheDocument();
+      fireEvent.change(role, { target: { value: "guest" } });
+      expect(getByDisplayValue("Guest")).toBeInTheDocument();
     });
   });
   describe("Confirmation", () => {
