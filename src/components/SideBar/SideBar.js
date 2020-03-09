@@ -36,22 +36,30 @@ const SideBar = props => {
         ) : (
           ""
         )}
-        <NavLink
-          className="sideBar__heading"
-          to="/newApartment"
-          activeClassName="active"
-        >
-          <svg className="addIcon" />
-          NEW APARTMENT
-        </NavLink>
-        <NavLink
-          className="sideBar__heading"
-          to="/newOccupant"
-          activeClassName="active"
-        >
-          <svg className="addIcon" />
-          NEW OCCUPANT
-        </NavLink>
+        {userRole === "guest" ? (
+          ""
+        ) : (
+          <NavLink
+            className="sideBar__heading"
+            to="/newApartment"
+            activeClassName="active"
+          >
+            <svg className="addIcon" />
+            NEW APARTMENT
+          </NavLink>
+        )}
+        {userRole === "guest" ? (
+          ""
+        ) : (
+          <NavLink
+            className="sideBar__heading"
+            to="/newOccupant"
+            activeClassName="active"
+          >
+            <svg className="addIcon" />
+            NEW OCCUPANT
+          </NavLink>
+        )}
         {userRole === "admin" ? (
           <NavLink
             className="sideBar__heading"
