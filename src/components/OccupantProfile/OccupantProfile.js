@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useUserContext } from "../../context/UserContext";
 import "./OccupantProfile.css";
 import { fetchStays } from "../../api/api";
 import { formatDate } from "../../utils/date";
@@ -19,6 +20,7 @@ const OccupantProfile = ({
   modalStates
 }) => {
   const [stays, setStays] = useState([]);
+  const { state: user } = useUserContext();
 
   useEffect(() => {
     (async () => {
@@ -82,15 +84,17 @@ const OccupantProfile = ({
             <span className={`occupantProfile__status ${occupant.status}`}>
               {occupant.status}
             </span>
-            <button
-              id="editOccupantModal"
-              className="occupantProfile__editDetailsButton"
-              onClick={() => {
-                openModal("editOccupantModal", occupant);
-              }}
-            >
-              Edit
-            </button>
+            {user.role !== "guest" && (
+              <button
+                id="editOccupantModal"
+                className="occupantProfile__editDetailsButton"
+                onClick={() => {
+                  openModal("editOccupantModal", occupant);
+                }}
+              >
+                Edit
+              </button>
+            )}
           </div>
           <div className="occupantProfile__detailsContainer">
             <h2 className="occupantProfile__details">{occupant.employeeId}</h2>

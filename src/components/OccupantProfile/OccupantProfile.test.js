@@ -1,4 +1,5 @@
 import React from "react";
+import { mockUserContext } from "../../../test/utils/mockUserContext";
 import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
 import { render, wait } from "@testing-library/react";
@@ -18,6 +19,7 @@ const occupantDetails = [
     status: "unallocated"
   }
 ];
+const guestUser = { email: "guest@email.com", role: "guest" };
 
 describe("Occupant profile", () => {
   let match, modalStates;
@@ -33,6 +35,35 @@ describe("Occupant profile", () => {
       success: true,
       message: "success"
     };
+    mockUserContext(guestUser);
+  });
+
+  it("should not render Edit button for guest users", () => {
+    const { queryByText } = render(
+      <OccupantProfile
+        occupants={occupantDetails}
+        match={match}
+        stays={[]}
+        modalStates={modalStates}
+      />
+    );
+
+    expect(queryByText("Edit")).not.toBeInTheDocument();
+  });
+
+  it("should render Edit button for non-guest users", () => {
+    const adminUser = { email: "admin@email.com", role: "admin" };
+    mockUserContext(adminUser);
+
+    const { getByText } = render(
+      <OccupantProfile
+        occupants={occupantDetails}
+        match={match}
+        stays={[]}
+        modalStates={modalStates}
+      />
+    );
+    expect(getByText("Edit")).toBeInTheDocument();
   });
 
   it("should render a back button", () => {
