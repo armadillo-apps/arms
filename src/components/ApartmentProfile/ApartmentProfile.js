@@ -44,16 +44,16 @@ class ApartmentProfile extends Component {
   }
 
   componentDidMount = async () => {
-    this.selectLeaseId();
     try {
       const occupantHistory = await getApartmentProfileHistory(
         this.apartmentId
       );
       this.setState({ occupantHistory });
+      this.selectLeaseId();
+      this.organiseOccupants();
     } catch (err) {
       return err.message;
     }
-    this.organiseOccupants();
   };
 
   componentDidUpdate = async (prevProps, prevState) => {
@@ -63,6 +63,7 @@ class ApartmentProfile extends Component {
           this.apartmentId
         );
         this.setState({ occupantHistory });
+        this.selectLeaseId();
         this.organiseOccupants();
       } catch (err) {
         return err.message;
