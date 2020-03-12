@@ -27,7 +27,6 @@ class ApartmentProfile extends Component {
       apartmentId: "",
       checkInDate: "",
       checkOutDate: "",
-      leaseId: "",
       success: false,
       message: "",
       dropdown: true,
@@ -49,7 +48,6 @@ class ApartmentProfile extends Component {
         this.apartmentId
       );
       this.setState({ occupantHistory });
-      this.selectLeaseId();
       this.organiseOccupants();
     } catch (err) {
       return err.message;
@@ -63,7 +61,6 @@ class ApartmentProfile extends Component {
           this.apartmentId
         );
         this.setState({ occupantHistory });
-        this.selectLeaseId();
         this.organiseOccupants();
       } catch (err) {
         return err.message;
@@ -80,19 +77,19 @@ class ApartmentProfile extends Component {
     this.props.getAllStays();
   };
 
-  selectLeaseId = async () => {
+  selectLeaseByDates = async (checkInDate, checkOutDate) => {
     if (this.props.apartments.length > 0) {
       const thisApartment = await this.props.apartments.find(apartment => {
         return apartment._id === this.apartmentId;
       });
       const [foundLease] = thisApartment.leases.filter(lease => {
-        return moment(new Date(lease.leaseEnd)).isSameOrAfter(
-          this.today,
-          "day"
+        return (
+          moment(new Date(lease.leaseEnd)).isSameOrAfter(checkOutDate, "day") &&
+          moment(new Date(lease.leaseStart)).isSameOrBefore(checkInDate, "day")
         );
       });
       if (foundLease) {
-        this.setState({ leaseId: foundLease._id });
+        return foundLease._id;
       }
     }
   };
@@ -124,28 +121,36 @@ class ApartmentProfile extends Component {
   addStay = async event => {
     try {
       event.preventDefault();
-      const response = await createStay(
-        this.state.occupantId,
-        this.state.apartmentId,
+      const leaseId = await this.selectLeaseByDates(
         this.state.checkInDate,
-        this.state.checkOutDate,
-        this.state.leaseId
+        this.state.checkOutDate
       );
-      this.setState({
-        apartmentId: "",
-        occupantId: "",
-        occupantToAssign: "",
-        dropdown: true,
-        success: true,
-        message: response,
-        checkInDate: "",
-        checkOutDate: ""
-      });
-      this.triggerRender();
+      if (leaseId) {
+        const response = await createStay(
+          this.state.occupantId,
+          this.state.apartmentId,
+          this.state.checkInDate,
+          this.state.checkOutDate,
+          leaseId
+        );
+        this.setState({
+          apartmentId: "",
+          occupantId: "",
+          occupantToAssign: "",
+          dropdown: true,
+          success: true,
+          message: response,
+          checkInDate: "",
+          checkOutDate: ""
+        });
+        this.triggerRender();
+      } else {
+        throw new Error("- No lease found for the selected dates");
+      }
     } catch (err) {
       this.setState({
         success: false,
-        message: "Unable to assign occupant to apartment"
+        message: `Unable to assign occupant to apartment ${err.message}`
       });
     }
   };

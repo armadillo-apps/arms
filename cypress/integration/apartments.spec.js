@@ -65,7 +65,9 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     landlordName,
     accountNumber,
     leaseStart: "2019-07-01",
-    leaseEnd: "2020-07-10",
+    leaseEnd: moment(new Date())
+      .add(1, "months")
+      .format("YYYY-MM-DD"),
     monthlyRent,
     currency: "SGD",
     capacity: 1,
@@ -318,7 +320,30 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   });
 
   describe("Assign occupant to apartment", () => {
+    const checkInDate = moment(new Date()).subtract(1, "months");
     const checkoutDate = moment(new Date()).add(1, "days");
+
+    it("should not be able to assign an occupant to apartment if the check-in and out dates not within the lease period", () => {
+      cy.get('a[href="/apartments"]').click();
+
+      cy.contains(apartmentName).click();
+      cy.get("button")
+        .contains("+")
+        .click();
+      cy.get("input[id=occupantToAssign]").type(name);
+      cy.contains("Select").click();
+      cy.get("input[id=checkInDate]").type("2000-01-01");
+      cy.get("input[id=checkOutDate]").type("2000-10-01");
+      cy.get("input[type=submit]").click();
+      cy.contains(`Successfully assigned ${name} to ${apartmentName}`).should(
+        "not.exist"
+      );
+
+      cy.contains(
+        "Unable to assign occupant to apartment - No lease found for the selected dates"
+      );
+      cy.get("button.modalCloseButton").click();
+    });
 
     it("be able to assign an occupant to apartment", () => {
       cy.get('a[href="/apartments"]').click();
@@ -329,7 +354,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .click();
       cy.get("input[id=occupantToAssign]").type(name);
       cy.contains("Select").click();
-      cy.get("input[id=checkInDate]").type("2018-05-01");
+      cy.get("input[id=checkInDate]").type(checkInDate.format("YYYY-MM-DD"));
       cy.get("input[id=checkOutDate]").type("2000-10-01");
       cy.get("input[type=submit]").click();
       cy.get("input[id=checkOutDate]").should("have.focus");
@@ -383,7 +408,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
       cy.contains(name).click();
       cy.contains(apartmentName);
-      cy.contains("1 May 18");
+      cy.contains(checkInDate.format("D MMM YY"));
       cy.contains(monthlyRentCheckoutDate);
       cy.contains(monthlyRentSgdFormatted);
       cy.get("tbody tr").should("have.length", 1);
