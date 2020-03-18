@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import "./NewOccupantForm.css";
+
 import Input from "../Input/Input";
 import TextArea from "../Input/TextArea";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import { createNewOccupant } from "../../api/api";
 import homeOfficeData from "../../assets/HomeOfficeData";
+import styles from "./NewOccupantForm.module.css";
 
 const NewOccupantForm = props => {
   const emptyForm = {
@@ -54,9 +55,9 @@ const NewOccupantForm = props => {
   };
 
   return (
-    <form className="occupantFormContainer" onSubmit={onFormSubmit}>
-      <h1 className="occupantForm__heading">Create New Occupant</h1>
-      <div className="occupantForm">
+    <form className={styles.formContainer} onSubmit={onFormSubmit}>
+      <h1 className={styles.header}>Create New Occupant</h1>
+      <div className={styles.form}>
         <Input
           id="name"
           label="Name*"
@@ -74,9 +75,9 @@ const NewOccupantForm = props => {
           value={formInputs.employeeId}
           type="text"
         />
-        <div className="occupantForm__split">
+        <div className={styles.divided}>
           <section>
-            <label htmlFor="gender" className="occupantForm__genderLabel">
+            <label htmlFor="gender" className={styles.label}>
               Gender
             </label>
             <select
@@ -94,10 +95,7 @@ const NewOccupantForm = props => {
             </select>
           </section>
           <section>
-            <label
-              htmlFor="homeOffice"
-              className="occupantForm__homeOfficeLabel"
-            >
+            <label htmlFor="homeOffice" className={styles.label}>
               Home Office
             </label>
             <select
@@ -125,7 +123,7 @@ const NewOccupantForm = props => {
           </section>
         </div>
         <section>
-          <label htmlFor="status" className="occupantForm__statusLabel">
+          <label htmlFor="status" className={styles.label}>
             Occupant Status*
           </label>
           <select
@@ -145,7 +143,7 @@ const NewOccupantForm = props => {
           id="remarks"
           label="Remarks"
           name="remarks"
-          className="occupantForm__remarks"
+          className={styles.remarks}
           onChange={onFormChange}
           value={formInputs.remarks}
           type="text"
@@ -156,11 +154,7 @@ const NewOccupantForm = props => {
       ) : (
         ""
       )}
-      <input
-        className="occupantForm__createButton"
-        value="Create"
-        type="submit"
-      />
+      <input className={styles.createButton} value="Create" type="submit" />
     </form>
   );
 };
