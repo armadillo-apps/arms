@@ -374,7 +374,8 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("tbody tr")
         .contains("tr", apartmentName)
         .contains("td", vacancy)
-        .should("have.class", "inverted");
+        .invoke("attr", "class")
+        .should("contain", "inverted");
     });
 
     it("be able to cancel the assign operation", () => {
