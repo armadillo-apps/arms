@@ -1,5 +1,6 @@
 import React from "react";
-import "./SearchBar.css";
+
+import styles from "./SearchBar.module.css";
 
 const SearchBar = ({ id, placeholder, handleChange, value }) => {
   return (
@@ -7,7 +8,7 @@ const SearchBar = ({ id, placeholder, handleChange, value }) => {
       <input
         id={id}
         type="text"
-        className="searchInput"
+        className={styles.searchInput}
         placeholder={`Search ${placeholder}`}
         onChange={handleChange}
         value={value}
