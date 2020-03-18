@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import "./UserManagement.css";
+
 import { fetchUsers, removeUser, editUserRole } from "../../api/api";
 import DeleteUserModal from "../Modal/DeleteUserModal";
 import EditUserModal from "../Modal/EditUserModal";
+import styles from "./UserManagement.module.css";
 
 class UserManagement extends Component {
   constructor(props) {
@@ -60,9 +61,9 @@ class UserManagement extends Component {
 
   render() {
     return (
-      <div className="userManagement">
-        <div className="userManagement__div">
-          <h1 className="userManagement__header1">User Management</h1>
+      <div className={styles.container}>
+        <div className={styles.userManagementContainer}>
+          <h1 className={styles.header1}>User Management</h1>
           <DeleteUserModal
             modalIsOpen={this.state.isConfirmationModalOpen}
             closeModal={() => this.closeModal("isConfirmationModalOpen")}
@@ -80,12 +81,8 @@ class UserManagement extends Component {
             message={this.state.message}
           />
         </div>
-        <table
-          className="userManagement__table"
-          cellSpacing="0"
-          cellPadding="0"
-        >
-          <thead className="userManagement__header2">
+        <table className={styles.table} cellSpacing="0" cellPadding="0">
+          <thead className={styles.header2}>
             <tr>
               <th>Name</th>
               <th>Email</th>
@@ -95,13 +92,13 @@ class UserManagement extends Component {
           <tbody>
             {this.state.usersList.map(user => {
               return (
-                <tr key={user._id} className="userManagementDetails">
-                  <td className="userManagementDetails__td">{user.name}</td>
-                  <td className="userManagementDetails__td">{user.email}</td>
-                  <td className="userManagementDetails__td">{user.role}</td>
+                <tr key={user._id} className={styles.details}>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.role}</td>
                   <td>
                     <button
-                      className="editButton"
+                      className={styles.editButton}
                       onClick={event => {
                         this.openEditUserModal(event);
                         this.setState({ userToEdit: user._id });
@@ -110,9 +107,9 @@ class UserManagement extends Component {
                       Edit Role
                     </button>
                   </td>
-                  <td className="userManagementDetails__td">
+                  <td>
                     <button
-                      className="deleteButton"
+                      className={styles.deleteButton}
                       onClick={event => {
                         this.openModal(event);
                         this.setState({ userToDelete: user._id });
