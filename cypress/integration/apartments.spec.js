@@ -242,7 +242,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .contains("tr", apartmentName)
         .contains("td", vacancy);
 
-      const status = "Active";
+      const status = "active";
       cy.get("td").contains(status);
 
       cy.get("td")
@@ -280,7 +280,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .contains("tr", apartmentName2)
         .contains("td", vacancy);
 
-      const status = "Active";
+      const status = "active";
       cy.get("td").contains(status);
 
       cy.get("td")
@@ -470,13 +470,13 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .contains("Edit")
         .click();
 
-      cy.get("select[id=status]").select("Inactive");
+      cy.get("select[name=status]").select("inactive");
       cy.get("input[class=editApartmentForm__updateButton]").click();
       cy.get("button[class=editApartmentForm__closeButton]").click();
 
       cy.get('a[href="/apartments"]').click();
 
-      const status = "Inactive";
+      const status = "inactive";
       cy.get("tbody tr")
         .contains("tr", apartmentName)
         .contains("td", status);

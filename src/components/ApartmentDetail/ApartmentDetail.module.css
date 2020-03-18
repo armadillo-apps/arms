@@ -1,17 +1,18 @@
-.table {
+.tableRow {
   min-width: 550px;
   background: var(--main-row-bg-color);
   text-align: center;
   cursor: pointer;
   transition: 0.3s;
+  text-transform: capitalize;
 }
 
-.table:hover {
+.tableRow:hover {
   box-shadow: 0 2px 5px rgba(228, 228, 228, 0.19),
     0 3px 6px rgba(211, 211, 211, 0.23);
 }
 
-.table td {
+.tableRow td {
   font-size: var(--main-row-font-size);
   color: var(--main-row-color);
   line-height: 17px;
@@ -20,24 +21,24 @@
   border: 0;
 }
 
-.table .inverted {
+.tableRow .inverted {
   color: var(--red-color);
   font-size: 1.4rem;
 }
 
-.table .positive {
+.tableRow .positive {
   color: var(--green-color);
   font-size: 1.4rem;
 }
 
-.table .leaseExpiring {
+.tableRow .leaseExpiring {
   color: var(--red-color);
 }
 
-.table .active {
+.tableRow .active {
   color: var(--green-color);
 }
 
-.table .inactive {
+.tableRow .inactive {
   color: var(--sidebar-font-color-inactive);
 }

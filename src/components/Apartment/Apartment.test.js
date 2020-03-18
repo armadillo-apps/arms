@@ -11,7 +11,7 @@ const apartments = [
     address: "19 Crazy Rich Asians Avenue",
     bedrooms: 100,
     capacity: 100,
-    status: "Inactive",
+    status: "inactive",
     leases: [
       {
         leaseStart: "26 June 2019",
@@ -27,7 +27,7 @@ const apartments = [
     address: "18 Bogus Street #01-01",
     bedrooms: 1,
     capacity: 10,
-    status: "Active",
+    status: "active",
     leases: [
       {
         leaseStart: "25 June 2019",
@@ -43,7 +43,7 @@ const apartments = [
     address: "19 Bogus Street #02-02",
     bedrooms: 2,
     capacity: 5,
-    status: "Active",
+    status: "active",
     leases: [
       {
         leaseStart: "26 June 2018",

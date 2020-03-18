@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 import moment from "moment";
 
 export const sortApartmentsByStatus = apartmentList => {
-  const activeApartments = apartmentList.filter(apartment =>
-    apartment.status.includes("Active")
+  const activeApartments = apartmentList.filter(
+    apartment => apartment.status === "active"
   );
 
   activeApartments.sort((firstApartment, secondApartment) => {
@@ -16,8 +16,8 @@ export const sortApartmentsByStatus = apartmentList => {
     return apartmentA - apartmentB;
   });
 
-  const inactiveApartments = apartmentList.filter(apartment =>
-    apartment.status.includes("Inactive")
+  const inactiveApartments = apartmentList.filter(
+    apartment => apartment.status === "inactive"
   );
   return activeApartments.concat(inactiveApartments);
 };

@@ -228,8 +228,8 @@ const NewApartmentForm = props => {
               onChange={onFormChange}
             >
               <option value="">Select status</option>
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
             </select>
           </section>
         </div>

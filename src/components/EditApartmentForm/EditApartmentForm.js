@@ -125,7 +125,7 @@ const EditApartmentForm = ({
               onChange={event => {
                 setStatus(event.target.value);
                 if (
-                  event.target.value === "Inactive" &&
+                  event.target.value === "inactive" &&
                   (currentOccupants.length > 0 || futureOccupants.length > 0)
                 ) {
                   setError(
@@ -137,8 +137,8 @@ const EditApartmentForm = ({
               }}
             >
               <option value="">Select status</option>
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
             </select>
             {error ? <p className="editApartmentForm__error">{error}</p> : ""}
           </section>

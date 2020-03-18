@@ -30,14 +30,12 @@ const ApartmentDetail = ({ status, vacancy, name, leases, _id, history }) => {
 
   return (
     <tr
-      className={styles.table}
+      className={styles.tableRow}
       onClick={() => {
         history.push(`/apartments/${_id}`);
       }}
     >
-      <td className={status === "Active" ? styles.active : styles.inactive}>
-        {status}
-      </td>
+      <td className={styles[status]}>{status}</td>
       <td className={vacancy <= 0 ? styles.inverted : styles.positive}>
         {vacancy}
       </td>

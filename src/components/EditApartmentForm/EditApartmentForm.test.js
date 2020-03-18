@@ -10,7 +10,7 @@ const apartment = {
   address: "18 Bogus Street #01-01",
   bedrooms: 1,
   capacity: 1,
-  status: "Active",
+  status: "active",
   leases: [
     {
       leaseStart: "2019-11-12",
@@ -218,7 +218,7 @@ describe("EditApartmentForm", () => {
       );
       const status = getByLabelText("Status");
       fireEvent.change(status, {
-        target: { value: "Active" }
+        target: { value: "active" }
       });
       expect(getByDisplayValue("Active")).toBeInTheDocument();
     });
@@ -233,7 +233,7 @@ describe("EditApartmentForm", () => {
       );
 
       const status = getByTestId("editApartment__status");
-      fireEvent.change(status, { target: { value: "Inactive" } });
+      fireEvent.change(status, { target: { value: "inactive" } });
       expect(
         getByText(
           "Unable to change to inactive when there are current or future occupants"
@@ -323,7 +323,7 @@ describe("EditApartmentForm", () => {
       address: "18 Cross Street",
       bedrooms: 1,
       capacity: 2,
-      status: "Active",
+      status: "active",
       country: "Singapore",
       leases: [
         {
@@ -351,7 +351,7 @@ describe("EditApartmentForm", () => {
         address: "18 Cross Street",
         bedrooms: 1,
         capacity: 2,
-        status: "Active",
+        status: "active",
         country: "Singapore",
         leaseStart: "2020-11-12",
         leaseEnd: "2020-11-30",
@@ -389,7 +389,7 @@ describe("EditApartmentForm", () => {
         address: "18 Bogus Street #01-01",
         bedrooms: 1,
         capacity: 1,
-        status: "Active",
+        status: "active",
         leases: [
           {
             leaseStart: "2019-11-12",
