@@ -1,21 +1,21 @@
-.occupantProfile__backButton {
+.container {
+  background-color: var(--main-bg-color);
+}
+
+.profile {
+  margin-left: 6rem;
+  margin-top: 2rem;
+  font-family: var(--font2);
+}
+
+.backButton {
   font-size: var(--main-h2-font-size);
   text-decoration: none;
   color: var(--sidebar-font-color-inactive);
   cursor: pointer;
 }
 
-.occupantProfileContainer {
-  background-color: var(--main-bg-color);
-}
-
-.occupantProfile {
-  margin-left: 6rem;
-  margin-top: 2rem;
-  font-family: var(--font2);
-}
-
-.occupantProfile__header1Container {
+.header1Container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -23,23 +23,44 @@
   text-transform: capitalize;
 }
 
-.occupantProfile__header1Container span {
+.header1Container span {
   margin-left: 1rem;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   background-color: #fff;
   height: auto;
   width: auto;
+  margin-top: 3rem;
 }
 
-.occupantProfile__header1 {
+.header1 {
   font-weight: normal;
   font-size: var(--main-h1-font-size);
   margin: 3rem 0 0 0;
   font-weight: 600;
 }
 
-.occupantProfile__details {
+.header2 {
+  font-size: 2.5rem;
+  margin-top: 10rem;
+  font-weight: 400;
+}
+
+.editButton {
+  margin-top: 3rem;
+  margin-left: 1rem;
+  min-width: 50px;
+  text-align: center;
+  border: none;
+  outline: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background-color: #fff;
+  height: auto;
+  cursor: pointer;
+}
+
+.details h2 {
   font-weight: normal;
   font-size: 1rem;
   color: #767b86;
@@ -47,45 +68,31 @@
   text-transform: capitalize;
 }
 
-.occupantProfile__header2 {
-  font-size: 2.5rem;
-  margin-top: 10rem;
-  font-weight: 400;
-}
-
-.occupantProfile__employeeId {
-  width: 20%;
-}
-
-.stayHistory__table {
+.table {
   border-collapse: separate;
   border-spacing: 0 0.5rem;
 }
 
-.stayHistory__table th {
+.table th {
   font-size: var(--main-h2-font-size);
   margin: 1rem;
   width: 200px;
   font-weight: 600;
 }
 
-.stayHistory__table td {
+.table td {
   font-size: var(--main-h2-font-size);
   text-align: center;
   background-color: white;
   height: 3rem;
 }
 
-.remarks__body {
+.remarks {
   font-size: var(--main-h2-font-size);
   height: 50px;
   padding: 1rem;
   background-color: white;
   width: 50%;
-}
-
-.occupantProfile__status {
-  margin-top: 3rem;
 }
 
 .allocated {
@@ -98,18 +105,4 @@
 
 .inactive {
   color: #b1b9cc;
-}
-
-.occupantProfile__editDetailsButton {
-  margin-top: 3rem;
-  margin-left: 1rem;
-  min-width: 50px;
-  text-align: center;
-  border: none;
-  outline: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  background-color: #fff;
-  height: auto;
-  cursor: pointer;
 }

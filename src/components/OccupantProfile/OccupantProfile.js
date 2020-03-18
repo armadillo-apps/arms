@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
+
 import { useUserContext } from "../../context/UserContext";
-import "./OccupantProfile.css";
 import { fetchStays } from "../../api/api";
 import { formatDate } from "../../utils/date";
 import EditOccupantModal from "../Modal/EditOccupantModal";
 import EditOccupantForm from "../EditOccupantForm/EditOccupantForm";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import { sgdFormatter, thbFormatter } from "../../utils/formatMoney";
+import styles from "./OccupantProfile.module.css";
 
 const OccupantProfile = ({
   occupants,
@@ -44,9 +45,9 @@ const OccupantProfile = ({
 
     if (!occupant) {
       return (
-        <div className="occupantProfileContainer">
-          <div className="occupantProfile" />
-          <h1 className="occupantProfile__header1">Could not find occupant</h1>
+        <div className={styles.container}>
+          <div className={styles.profile} />
+          <h1 className={styles.header1}>Could not find occupant</h1>
         </div>
       );
     }
@@ -71,23 +72,18 @@ const OccupantProfile = ({
     };
 
     return (
-      <div className="occupantProfileContainer">
-        <div className="occupantProfile">
-          <div
-            className="occupantProfile__backButton"
-            onClick={() => history.goBack()}
-          >
+      <div className={styles.container}>
+        <div className={styles.profile}>
+          <div className={styles.backButton} onClick={() => history.goBack()}>
             &lt; Back to Occupant Listings
           </div>
-          <div className="occupantProfile__header1Container">
-            <h1 className="occupantProfile__header1">{occupant.name}</h1>
-            <span className={`occupantProfile__status ${occupant.status}`}>
-              {occupant.status}
-            </span>
+          <div className={styles.header1Container}>
+            <h1 className={styles.header1}>{occupant.name}</h1>
+            <span className={styles[occupant.status]}>{occupant.status}</span>
             {user.role !== "guest" && (
               <button
                 id="editOccupantModal"
-                className="occupantProfile__editDetailsButton"
+                className={styles.editButton}
                 onClick={() => {
                   openModal("editOccupantModal", occupant);
                 }}
@@ -96,18 +92,14 @@ const OccupantProfile = ({
               </button>
             )}
           </div>
-          <div className="occupantProfile__detailsContainer">
-            <h2 className="occupantProfile__details">{occupant.employeeId}</h2>
-            <h2 className="occupantProfile__details">
-              Gender: {occupant.gender}
-            </h2>
-            <h2 className="occupantProfile__details">
-              Home Office: {occupant.homeOffice}
-            </h2>
+          <div className={styles.details}>
+            <h2>{occupant.employeeId}</h2>
+            <h2>Gender: {occupant.gender}</h2>
+            <h2>Home Office: {occupant.homeOffice}</h2>
           </div>
-          <h1 className="occupantProfile__header2">Stay History</h1>
-          <table className="stayHistory__table">
-            <thead className="stayHistory__headers">
+          <h1 className={styles.header2}>Stay History</h1>
+          <table className={styles.table}>
+            <thead>
               <tr>
                 <th>Apartment Name </th>
                 <th>Check In </th>
@@ -131,8 +123,8 @@ const OccupantProfile = ({
                 })}
             </tbody>
           </table>
-          <h1 className="occupantProfile__header2">Remarks</h1>
-          <p className="remarks__body">{occupant.remarks}</p>
+          <h1 className={styles.header2}>Remarks</h1>
+          <p className={styles.remarks}>{occupant.remarks}</p>
         </div>
         <EditOccupantModal
           isModalOpen={isModalOpen}
