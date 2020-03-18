@@ -1,14 +1,14 @@
-.sideBar__container {
+.container {
   background: var(--sidebar-bg-color);
 }
 
-.sideBar__headerContainer {
+.headerContainer {
   display: flex;
   flex-direction: column;
   margin-top: 120px;
 }
 
-.sideBar__headerContainer svg {
+.headerContainer svg {
   width: 16px;
   height: 16px;
   background-size: cover;
@@ -16,7 +16,7 @@
   overflow: visible;
 }
 
-.sideBar__heading {
+.header {
   display: flex;
   text-align: left;
   font-size: var(--sidebar-font-size);
@@ -24,6 +24,11 @@
   cursor: pointer;
   margin: 25px 20%;
   text-decoration: none;
+}
+
+.active {
+  color: var(--sidebar-font-color-active);
+  transition: 0.8s;
 }
 
 .apartmentIcon {
@@ -40,11 +45,6 @@
 
 .logoutIcon {
   background: url("../../assets/logout.svg") no-repeat;
-}
-
-.active {
-  color: var(--sidebar-font-color-active);
-  transition: 0.8s;
 }
 
 .userManagementIcon {

@@ -1,36 +1,37 @@
 import React from "react";
-import "./Sidebar.css";
+
 import { NavLink } from "react-router-dom";
+import styles from "./Sidebar.module.css";
 
 const SideBar = props => {
   const userRole = props.userRole;
   return (
-    <div className="sideBar__container" data-testid="sideBar">
-      <div className="sideBar__headerContainer">
+    <div className={styles.container} data-testid="sideBar">
+      <div className={styles.headerContainer}>
         <NavLink
-          className="sideBar__heading"
+          className={styles.header}
           exact
           to="/apartments"
-          activeClassName="active"
+          activeClassName={styles.active}
         >
-          <svg className="apartmentIcon" />
+          <svg className={styles.apartmentIcon} />
           APARTMENTS
         </NavLink>
         <NavLink
-          className="sideBar__heading"
+          className={styles.header}
           to="/occupants"
-          activeClassName="active"
+          activeClassName={styles.active}
         >
-          <svg className="occupantsIcon" />
+          <svg className={styles.occupantsIcon} />
           OCCUPANTS
         </NavLink>
         {userRole === "admin" ? (
           <NavLink
-            className="sideBar__heading"
+            className={styles.header}
             to="/users"
-            activeClassName="active"
+            activeClassName={styles.active}
           >
-            <svg className="userManagementIcon" />
+            <svg className={styles.userManagementIcon} />
             USER MANAGEMENT
           </NavLink>
         ) : (
@@ -40,11 +41,11 @@ const SideBar = props => {
           ""
         ) : (
           <NavLink
-            className="sideBar__heading"
+            className={styles.header}
             to="/newApartment"
-            activeClassName="active"
+            activeClassName={styles.active}
           >
-            <svg className="addIcon" />
+            <svg className={styles.addIcon} />
             NEW APARTMENT
           </NavLink>
         )}
@@ -52,41 +53,36 @@ const SideBar = props => {
           ""
         ) : (
           <NavLink
-            className="sideBar__heading"
+            className={styles.header}
             to="/newOccupant"
-            activeClassName="active"
+            activeClassName={styles.active}
           >
-            <svg className="addIcon" />
+            <svg className={styles.addIcon} />
             NEW OCCUPANT
           </NavLink>
         )}
         {userRole === "admin" ? (
           <NavLink
-            className="sideBar__heading"
+            className={styles.header}
             to="/newUser"
-            activeClassName="active"
+            activeClassName={styles.active}
           >
-            <svg className="addIcon" />
+            <svg className={styles.addIcon} />
             NEW USER
           </NavLink>
         ) : (
           ""
         )}
         <NavLink
-          className="sideBar__heading"
+          className={styles.header}
           to="/changePassword"
-          activeClassName="active"
+          activeClassName={styles.active}
         >
-          <svg className="addIcon" />
+          <svg className={styles.addIcon} />
           CHANGE PASSWORD
         </NavLink>
-        <NavLink
-          className="sideBar__heading"
-          to="/"
-          activeClassName="inactive"
-          onClick={props.logout}
-        >
-          <svg className="logoutIcon" />
+        <NavLink className={styles.header} to="/" onClick={props.logout}>
+          <svg className={styles.logoutIcon} />
           LOGOUT
         </NavLink>
       </div>
