@@ -1,7 +1,8 @@
-import Modal from "react-modal";
 import React from "react";
+import Modal from "react-modal";
+
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
-import "./ConfirmationModal.css";
+import styles from "./ConfirmationModal.module.css";
 
 Modal.setAppElement("body");
 
@@ -45,9 +46,9 @@ const EditUserModal = ({
       style={customStyles}
       contentLabel="EditUserModal"
     >
-      <div className="DeleteUserModal">
-        <p className="confirmation__Modal">Select a role for user:</p>
-        <section className="roleSelector">
+      <div>
+        <p className={styles.modalText}>Select a role for user:</p>
+        <section className={styles.roleSelector}>
           <select
             id="roles"
             label="roleNames"
@@ -61,8 +62,8 @@ const EditUserModal = ({
             <option value="Manager">Manager</option>
           </select>
         </section>
-        <div className="button__Modal">
-          <button onClick={closeModal} className="cancelDelete__Modal">
+        <div className={styles.modalButtons}>
+          <button onClick={closeModal} className={styles.cancelButton}>
             Cancel
           </button>
           <button
@@ -70,7 +71,7 @@ const EditUserModal = ({
               editUser(newRole);
               setTimeout(() => closeModal(), 1000);
             }}
-            className="confirmDelete__Modal"
+            className={styles.confirmButton}
           >
             Confirm
           </button>
