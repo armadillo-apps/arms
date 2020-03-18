@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import LoginForm from "../LoginForm/LoginForm";
-import "./ArmsRouter.css";
+import styles from "./ArmsRouter.module.css";
 import "../LoginForm/LoginForm.css";
 import {
   fetchOccupants,
@@ -299,7 +299,7 @@ class ArmsRouter extends Component {
       );
     } else {
       return (
-        <section className="app">
+        <section className={styles.app}>
           <Router>
             <SideBar
               data-testid={"sidebar"}
