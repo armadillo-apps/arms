@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import "./NewUserForm.css";
+
 import Input from "../Input/Input";
 import { createNewUser } from "../../api/api";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
+import styles from "./NewUserForm.module.css";
 
 const NewUserForm = props => {
   const emptyForm = {
@@ -51,9 +52,9 @@ const NewUserForm = props => {
   };
 
   return (
-    <form className="newUserFormContainer" onSubmit={onFormSubmit}>
-      <h1 className="newUserForm__heading">Create New User</h1>
-      <div className="newUserForm">
+    <form className={styles.formContainer} onSubmit={onFormSubmit}>
+      <h1 className={styles.header}>Create New User</h1>
+      <div className={styles.form}>
         <Input
           id="name"
           label="Name*"
@@ -87,14 +88,14 @@ const NewUserForm = props => {
             id="showPassword"
             label="Show password"
             name="showPassword"
-            className="userForm__showPasswordLabel"
+            className={styles.checkboxLabel}
             onClick={handleShowPassword}
           />
           Show Password
         </label>
 
         <section>
-          <label htmlFor="role" className="userForm__roleLabel">
+          <label htmlFor="role" className={styles.label}>
             User Role
           </label>
           <select
@@ -116,11 +117,7 @@ const NewUserForm = props => {
       ) : (
         ""
       )}
-      <input
-        className="occupantForm__createButton"
-        value="Create"
-        type="submit"
-      />
+      <input className={styles.createButton} value="Create" type="submit" />
     </form>
   );
 };
