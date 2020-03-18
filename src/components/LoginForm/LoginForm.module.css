@@ -1,0 +1,42 @@
+.container {
+  background: var(--main-bg-color);
+  font-family: var(--font);
+  height: 100vh;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header1 {
+  font-size: var(--main-h1-font-size);
+  color: var(--main-h1-color);
+  margin-bottom: 40px;
+  font-weight: 600;
+  margin-top: 0px;
+  padding-top: 3%;
+  text-align: center;
+}
+
+.header2 {
+  font-size: var(--main-h1-font-size);
+  color: var(--main-h1-color);
+  margin-bottom: 40px;
+  font-weight: 500;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.loginButton {
+  background: var(--green-color);
+  font-size: var(--main-h2-font-size);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  height: 30px;
+  width: 120px;
+  margin-top: 35px;
+  margin-bottom: 50px;
+}

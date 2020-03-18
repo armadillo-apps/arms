@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import "./LoginForm.css";
 import Input from "../Input/Input";
 import { loginUser } from "../../api/api";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import { LOGIN_USER } from "../../reducer/userReducer";
 import { useUserContext } from "../../context/UserContext";
+import styles from "./LoginForm.module.css";
 
 const LoginForm = () => {
   const { dispatch } = useUserContext();
@@ -34,15 +34,15 @@ const LoginForm = () => {
 
   return (
     <form
-      className="loginFormContainer"
+      className={styles.container}
       onSubmit={onSubmit}
       data-testid="loginForm"
     >
-      <h1 className="loginForm__header">
+      <h1 className={styles.header1}>
         Apartments and Residential Management System
       </h1>
-      <h2 className="loginForm__heading">User Login</h2>
-      <div className="loginForm">
+      <h2 className={styles.header2}>User Login</h2>
+      <div className={styles.loginForm}>
         <Input
           id="email"
           label="Email"
@@ -64,7 +64,7 @@ const LoginForm = () => {
         {submitted && (
           <ConfirmationMessage success={success} message={message} />
         )}
-        <input className="loginForm__loginButton" value="Login" type="submit" />
+        <input className={styles.loginButton} value="Login" type="submit" />
       </div>
     </form>
   );
