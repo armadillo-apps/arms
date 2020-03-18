@@ -1,7 +1,6 @@
 import React from "react";
 import moment from "moment";
-
-import "./ApartmentDetail.css";
+import styles from "./ApartmentDetail.module.css";
 import extractDate from "../../utils/ExtractDate";
 import { sgdFormatter, thbFormatter } from "../../utils/formatMoney";
 
@@ -31,26 +30,26 @@ const ApartmentDetail = ({ status, vacancy, name, leases, _id, history }) => {
 
   return (
     <tr
-      className="apartmentDetails"
+      className={styles.table}
       onClick={() => {
         history.push(`/apartments/${_id}`);
       }}
     >
-      <td className={`apartmentDetails__td ${status}`}>{status}</td>
-      <td className={vacancy <= 0 ? "inverted" : "positive"}>{vacancy}</td>
-      <td className="apartmentDetails__td">{name}</td>
-      <td className="apartmentDetails__td">{extractDate(leaseStart)}</td>
+      <td className={status === "Active" ? styles.active : styles.inactive}>
+        {status}
+      </td>
+      <td className={vacancy <= 0 ? styles.inverted : styles.positive}>
+        {vacancy}
+      </td>
+      <td>{name}</td>
+      <td>{extractDate(leaseStart)}</td>
       <td
-        className={`apartmentDetails__td ${
-          isLeaseExpiring ? "leaseExpiring" : ""
-        }`}
+        className={isLeaseExpiring ? styles.leaseExpiring : null}
         data-testid="leaseEndDate"
       >
         {leaseEndDate}
       </td>
-      <td className="apartmentDetails__td">
-        {monthlyRentFormatted(monthlyRent)}
-      </td>
+      <td>{monthlyRentFormatted(monthlyRent)}</td>
     </tr>
   );
 };

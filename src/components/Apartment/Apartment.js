@@ -1,6 +1,6 @@
 import ApartmentDetail from "../ApartmentDetail/ApartmentDetail";
 import React, { useState, useEffect } from "react";
-import "./Apartment.css";
+import styles from "./Apartment.module.css";
 import SearchBar from "../SearchBar/SearchBar";
 import PropTypes from "prop-types";
 import moment from "moment";
@@ -63,8 +63,8 @@ export const Apartment = ({ apartments, stays, history }) => {
 
   const renderTable = () => {
     return (
-      <table className="apartments__table">
-        <thead className="apartments__tableHeaders">
+      <table className={styles.table}>
+        <thead className={styles.tableHeader}>
           <tr>
             <th>Status</th>
             <th>Vacancy</th>
@@ -94,9 +94,9 @@ export const Apartment = ({ apartments, stays, history }) => {
   };
 
   return (
-    <div className="apartments" data-testid="apartments">
-      <div className="apartments__div">
-        <h1 className="apartments__heading">Apartments</h1>
+    <div className={styles.page} data-testid="apartments">
+      <div className={styles.container}>
+        <h1 className={styles.header}>Apartments</h1>
         <SearchBar handleChange={handleNewInput} placeholder="Apartment" />
         {renderTable()}
       </div>

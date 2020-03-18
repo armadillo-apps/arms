@@ -1,15 +1,15 @@
-.apartments {
+.page {
   background-color: var(--main-bg-color);
   width: 100%;
 }
 
-.apartments__div {
+.container {
   padding-left: 6rem;
   padding-right: 6rem;
   font-family: var(--font2);
 }
 
-.apartments__heading {
+.header {
   font-size: var(--main-h1-font-size);
   color: var(--main-h1-color);
   line-height: 43px;
@@ -19,18 +19,14 @@
   margin-bottom: 43px;
 }
 
-.formSearch {
-  display: flex;
-}
-
-.apartments__table {
+.table {
   margin-top: 2.2rem;
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 1rem;
 }
 
-.apartments__table th {
+.tableHeader {
   font-size: 1.3rem;
   font-weight: 600;
 }
