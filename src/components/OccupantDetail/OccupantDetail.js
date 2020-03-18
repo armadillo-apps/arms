@@ -1,5 +1,6 @@
 import React from "react";
-import "./OccupantDetail.css";
+
+import styles from "./OccupantDetail.module.css";
 
 const OccupantDetail = ({
   name,
@@ -11,13 +12,13 @@ const OccupantDetail = ({
 }) => {
   return (
     <tr
-      className="occupantDetails"
+      className={styles.tableRow}
       onClick={() => history.push(`occupants/${occupantId}`)}
     >
-      <td className={`occupantDetails__td ${status}`}>{status}</td>
-      <td className="occupantDetails__td">{name}</td>
-      <td className="occupantDetails__td">{remarks}</td>
-      <td className="occupantDetails__td">{employeeId}</td>
+      <td className={styles[status]}>{status}</td>
+      <td>{name}</td>
+      <td>{remarks}</td>
+      <td>{employeeId}</td>
     </tr>
   );
 };

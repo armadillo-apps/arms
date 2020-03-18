@@ -1,4 +1,4 @@
-.occupantDetails {
+.tableRow {
   min-width: 550px;
   background: white;
   text-align: center;
@@ -6,12 +6,12 @@
   transition: 0.3s;
 }
 
-.occupantDetails:hover {
+.tableRow:hover {
   box-shadow: 0 2px 5px rgba(228, 228, 228, 0.19),
     0 3px 6px rgba(211, 211, 211, 0.23);
 }
 
-.occupantDetails__td {
+.tableRow td {
   font-size: 1.4rem;
   line-height: 17px;
   margin: 0;
