@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+
 import OccupantDetail from "../OccupantDetail/OccupantDetail";
 import SearchBar from "../SearchBar/SearchBar";
-import "./Occupant.css";
+import styles from "./Occupant.module.css";
 
 const Occupant = ({ occupants, history }) => {
   const [filteredOccupants, setFilteredOccupants] = useState([]);
@@ -51,12 +52,12 @@ const Occupant = ({ occupants, history }) => {
   };
 
   return (
-    <div className="occupants" data-testid="occupants">
-      <div className="occupants__div">
-        <h1 className="occupants__header1">Occupants</h1>
+    <div className={styles.container} data-testid="occupants">
+      <div className={styles.occupantsList}>
+        <h1 className={styles.header1}>Occupants</h1>
         <SearchBar handleChange={handleNewInput} placeholder="Occupant" />
-        <table className="occupants__table" cellSpacing="0" cellPadding="0">
-          <thead className="occupants__header2">
+        <table className={styles.table} cellSpacing="0" cellPadding="0">
+          <thead className={styles.header2}>
             <tr>
               <th>Status</th>
               <th>Name</th>
