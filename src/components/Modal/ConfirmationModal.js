@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import React from "react";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
-import "./ConfirmationModal.css";
+import styles from "./ConfirmationModal.module.css";
 
 const ConfirmationModal = ({
   modalIsOpen,
@@ -38,12 +38,12 @@ const ConfirmationModal = ({
       style={customStyles}
       contentLabel="confirmationModal"
     >
-      <div className="confirmationModal">
-        <p className="confirmation__Modal">
+      <div>
+        <p className={styles.modalText}>
           Are you sure you want to delete this entry?
         </p>
-        <div className="button__Modal">
-          <button onClick={closeModal} className="cancelDelete__Modal">
+        <div className={styles.modalButtons}>
+          <button onClick={closeModal} className={styles.cancelButton}>
             Cancel
           </button>
           <button
@@ -51,7 +51,7 @@ const ConfirmationModal = ({
               deleteStay();
               setTimeout(() => closeModal(), 1000);
             }}
-            className="confirmDelete__Modal"
+            className={styles.confirmButton}
           >
             Delete
           </button>

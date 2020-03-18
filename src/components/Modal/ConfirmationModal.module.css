@@ -1,0 +1,32 @@
+.modalText {
+  font-family: var(--font);
+  font-size: var(--form-font-size);
+  text-align: center;
+  margin-top: 30px;
+}
+
+.modalButtons {
+  text-align: center;
+}
+
+.modalButtons button {
+  font-family: var(--font);
+  font-size: var(--main-h2-font-size);
+  outline: none;
+  border: none;
+}
+
+.cancelButton {
+  text-decoration: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.confirmButton {
+  cursor: pointer;
+  background-color: var(--red-color);
+  color: var(--main-row-bg-color);
+  border-radius: 30px;
+  padding: 3.5px 30px;
+  margin-left: 34px;
+}
