@@ -1,7 +1,7 @@
 .editOccupantFormContainer {
   width: 500px;
   height: 500px;
-  font-family: var(--font2);
+  font-family: var(--font);
   margin: 30px;
 }
 
@@ -78,7 +78,7 @@
   overflow: scroll;
   border: 1px solid #e4e5ea;
   font-size: 1.8rem;
-  font-family: var(--font2);
+  font-family: var(--font);
   outline: none;
   padding: 10px 30px;
   margin-bottom: 30px;

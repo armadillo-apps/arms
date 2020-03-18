@@ -21,7 +21,7 @@
   font-family: var(--font);
   margin-bottom: 1rem;
   padding: 5px 30px;
-  font-family: var(--font2);
+  font-family: var(--font);
 }
 
 .input__text::-webkit-datetime-edit {

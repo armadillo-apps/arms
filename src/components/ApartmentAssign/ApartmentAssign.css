@@ -5,7 +5,7 @@
   border-spacing: 0 1rem;
   overflow-y: scroll;
   display: inline-block;
-  font-family: var(--font2);
+  font-family: var(--font);
 }
 
 .apartmentAssignTable__row {

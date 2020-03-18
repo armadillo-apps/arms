@@ -1,3 +1,24 @@
+@font-face {
+  font-family: "Avenir";
+  src: url(/assets/fonts/avenirBook.otf) format("opentype");
+  font-weight: 400;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: url(/assets/fonts/avenirBlack.otf) format("opentype");
+  font-weight: 500;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: url(/assets/fonts/avenirHeavy.ttf) format("truetype");
+  font-weight: 600;
+  font-display: block;
+}
+
 :root {
   --main-bg-color: #f7f8fc;
   --main-h1-color: #3d3d3d;
@@ -8,17 +29,16 @@
   --search-bar-placeholder-color: #b1b9cc;
   --sidebar-bg-color: #f1f4fb;
   --sidebar-font-color-active: #212121;
-  --sidebar-font-color-inactive: #B1B9CC;
+  --sidebar-font-color-inactive: #b1b9cc;
   --green-color: #4acd89;
   --red-color: #fa575a;
-  --font: Varela Round;
-  --font2: Open Sans;
   --main-h1-font-size: 3.6rem;
   --sidebar-font-size: 2rem;
   --searchbar-font-size: 1.1rem;
   --main-h2-font-size: 1.6rem;
   --main-row-font-size: 1.4rem;
   --form-font-size: 1.8rem;
+  --font: Avenir;
   font-size: 62.5%;
 }
 
@@ -26,7 +46,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: var(--font);
+  font-family: var(--font), sans-serif;
   font-style: normal;
   font-weight: normal;
 }

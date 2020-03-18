@@ -1,6 +1,6 @@
 .loginFormContainer {
   background: var(--main-bg-color);
-  font-family: var(--font2);
+  font-family: var(--font);
   height: 100vh;
 }
 

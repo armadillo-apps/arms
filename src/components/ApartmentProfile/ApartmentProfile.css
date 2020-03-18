@@ -1,6 +1,6 @@
 .apartmentProfileContainer {
   background-color: var(--main-bg-color);
-  font-family: var(--font2);
+  font-family: var(--font);
 }
 
 .apartmentProfile {
@@ -72,7 +72,7 @@
 
 .apartmentProfile__header2 {
   font-size: 2.5rem;
-  font-family: var(--font2);
+  font-family: var(--font);
   font-weight: 400;
 }
 
