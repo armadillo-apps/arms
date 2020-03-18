@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+
 import Input from "../Input/Input";
 import TextArea from "../Input/TextArea";
-import "./NewApartmentForm.css";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import { createNewApartment } from "../../api/api";
+import styles from "./NewApartmentForm.module.css";
 
 const NewApartmentForm = props => {
   const emptyForm = {
@@ -76,9 +77,9 @@ const NewApartmentForm = props => {
   };
 
   return (
-    <form className="apartmentForm" onSubmit={onFormSubmit}>
-      <div className="apartmentForm__div">
-        <h1 className="apartmentForm__heading">Create New Apartment</h1>
+    <form className={styles.formContainer} onSubmit={onFormSubmit}>
+      <div className={styles.container}>
+        <h1 className={styles.heading}>Create New Apartment</h1>
         <Input
           id="apartment-name"
           label="Apartment name*"
@@ -97,7 +98,7 @@ const NewApartmentForm = props => {
           type="text"
           required
         />
-        <div className="formDivide">
+        <div className={styles.divided}>
           <Input
             id="landlord-name"
             label="Landlord name*"
@@ -119,7 +120,7 @@ const NewApartmentForm = props => {
             required
           />
         </div>
-        <div className="formDivide">
+        <div className={styles.divided}>
           <Input
             id="lease-start"
             label="Lease start*"
@@ -143,7 +144,7 @@ const NewApartmentForm = props => {
           />
         </div>
 
-        <div className="formDivide">
+        <div className={styles.divided}>
           <section>
             <Input
               id="rental-per-month"
@@ -158,7 +159,7 @@ const NewApartmentForm = props => {
             />
           </section>
           <section>
-            <label htmlFor="currency" className="apartmentForm__currency">
+            <label htmlFor="currency" className={styles.label}>
               Currency*
             </label>
             <select
@@ -176,7 +177,7 @@ const NewApartmentForm = props => {
           </section>
         </div>
 
-        <div className="formDivide">
+        <div className={styles.divided}>
           <Input
             id="capacity"
             label="Capacity*"
@@ -200,7 +201,7 @@ const NewApartmentForm = props => {
             required
           />
           <section>
-            <label htmlFor="country" className="apartmentForm__country">
+            <label htmlFor="country" className={styles.label}>
               Country*
             </label>
             <select
@@ -216,7 +217,7 @@ const NewApartmentForm = props => {
             </select>
           </section>
           <section>
-            <label htmlFor="status" className="apartmentForm__status">
+            <label htmlFor="status" className={styles.label}>
               Apartment Status*
             </label>
             <select
@@ -236,7 +237,7 @@ const NewApartmentForm = props => {
           id="remarks"
           label="Remarks"
           name="Remarks"
-          className="apartmentForm__remarks"
+          className={styles.remarks}
           onChange={onFormChange}
           value={formInputs.remarks}
           type="text"
@@ -246,11 +247,7 @@ const NewApartmentForm = props => {
         ) : (
           ""
         )}
-        <input
-          className="apartmentForm__createButton"
-          value="Create"
-          type="submit"
-        />
+        <input className={styles.createButton} value="Create" type="submit" />
       </div>
     </form>
   );
