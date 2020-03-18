@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import React from "react";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
-import "./ConfirmationModal.css";
+import styles from "./ConfirmationModal.module.css";
 
 Modal.setAppElement("body");
 
@@ -40,12 +40,12 @@ const DeleteUserModal = ({
       style={customStyles}
       contentLabel="DeleteUserModal"
     >
-      <div className="DeleteUserModal">
-        <p className="confirmation__Modal">
+      <div>
+        <p className={styles.modalText}>
           Are you sure you want to delete this user?
         </p>
-        <div className="button__Modal">
-          <button onClick={closeModal} className="cancelDelete__Modal">
+        <div className={styles.modalButtons}>
+          <button onClick={closeModal} className={styles.cancelButton}>
             Cancel
           </button>
           <button
@@ -53,7 +53,7 @@ const DeleteUserModal = ({
               deleteUser();
               setTimeout(() => closeModal(), 1000);
             }}
-            className="confirmDelete__Modal"
+            className={styles.confirmButton}
           >
             Confirm
           </button>
