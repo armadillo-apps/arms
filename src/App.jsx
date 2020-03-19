@@ -3,6 +3,7 @@ import { UserProvider } from "./context/UserContext";
 import { userReducer } from "./reducer/userReducer";
 import { fetchUser } from "./actions/userActions";
 import ArmsRouter from "./components/ArmsRouter/ArmsRouter";
+import { ToastProvider } from "react-toast-notifications";
 
 const App = () => {
   let [state, dispatch] = useReducer(userReducer, {});
@@ -14,9 +15,11 @@ const App = () => {
   return state.loading || state.loading === undefined ? (
     <p>Loading</p>
   ) : (
-    <UserProvider user={state}>
-      <ArmsRouter dispatch={dispatch} />
-    </UserProvider>
+    <ToastProvider autoDismissTimeout={3000}>
+      <UserProvider user={state}>
+        <ArmsRouter dispatch={dispatch} />
+      </UserProvider>
+    </ToastProvider>
   );
 };
 export default App;
