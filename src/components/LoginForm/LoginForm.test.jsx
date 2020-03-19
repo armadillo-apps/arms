@@ -8,15 +8,15 @@ import * as data from "../../api/api";
 const postSpy = jest.spyOn(data, "loginUser");
 
 describe("Login Form", () => {
-  it("should have Login title on page ", () => {
+  it("should have title on page ", () => {
     const { getByText } = render(<LoginForm />);
-    expect(getByText("User Login")).toBeInTheDocument();
+    expect(getByText("ARMS")).toBeInTheDocument();
   });
 
   it("should display the email and password input", () => {
     const { getByLabelText } = render(<LoginForm />);
-    expect(getByLabelText("Email")).toBeInTheDocument();
-    expect(getByLabelText("Password")).toBeInTheDocument();
+    expect(getByLabelText(/email/i)).toBeInTheDocument();
+    expect(getByLabelText(/password/i)).toBeInTheDocument();
   });
 
   it("should display a login button", () => {

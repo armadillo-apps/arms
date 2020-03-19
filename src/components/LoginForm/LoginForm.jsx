@@ -38,14 +38,11 @@ const LoginForm = () => {
       onSubmit={onSubmit}
       data-testid="loginForm"
     >
-      <h1 className={styles.heading1}>
-        Apartments and Residential Management System
-      </h1>
-      <h2 className={styles.heading2}>User Login</h2>
+      <h1 className={styles.heading1}>ARMS</h1>
       <div className={styles.loginForm}>
         <Input
           id="email"
-          label="Email"
+          label="email"
           name="email"
           type="text"
           value={formInputs.email}
@@ -54,7 +51,7 @@ const LoginForm = () => {
         />
         <Input
           id="password"
-          label="Password"
+          label="password"
           name="password"
           type="password"
           value={formInputs.password}

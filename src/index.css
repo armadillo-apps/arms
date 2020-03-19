@@ -1,5 +1,5 @@
 :root {
-  --main-bg-color: #f7f8fc;
+  --main-bg-color: #fbfbfb;
   --main-h1-color: #3d3d3d;
   --main-h2-color: #000000;
   --main-row-color: #212121;
@@ -9,6 +9,8 @@
   --sidebar-bg-color: #f1f4fb;
   --sidebar-font-color-active: #212121;
   --sidebar-font-color-inactive: #b1b9cc;
+  --primary-button-bg-color: #ffffff;
+  --primary-button-text-color: #000000;
   --green-color: #4acd89;
   --red-color: #fa575a;
   --main-h1-font-size: 3.6rem;
