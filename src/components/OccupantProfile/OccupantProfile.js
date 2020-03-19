@@ -47,7 +47,7 @@ const OccupantProfile = ({
       return (
         <div className={styles.container}>
           <div className={styles.profile} />
-          <h1 className={styles.header1}>Could not find occupant</h1>
+          <h1 className={styles.heading1}>Could not find occupant</h1>
         </div>
       );
     }
@@ -77,8 +77,8 @@ const OccupantProfile = ({
           <div className={styles.backButton} onClick={() => history.goBack()}>
             &lt; Back to Occupant Listings
           </div>
-          <div className={styles.header1Container}>
-            <h1 className={styles.header1}>{occupant.name}</h1>
+          <div className={styles.heading1Container}>
+            <h1 className={styles.heading1}>{occupant.name}</h1>
             <span className={styles[occupant.status]}>{occupant.status}</span>
             {user.role !== "guest" && (
               <button
@@ -97,7 +97,7 @@ const OccupantProfile = ({
             <h2>Gender: {occupant.gender}</h2>
             <h2>Home Office: {occupant.homeOffice}</h2>
           </div>
-          <h1 className={styles.header2}>Stay History</h1>
+          <h1 className={styles.heading2}>Stay History</h1>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -123,7 +123,7 @@ const OccupantProfile = ({
                 })}
             </tbody>
           </table>
-          <h1 className={styles.header2}>Remarks</h1>
+          <h1 className={styles.heading2}>Remarks</h1>
           <p className={styles.remarks}>{occupant.remarks}</p>
         </div>
         <EditOccupantModal

@@ -38,10 +38,10 @@ const LoginForm = () => {
       onSubmit={onSubmit}
       data-testid="loginForm"
     >
-      <h1 className={styles.header1}>
+      <h1 className={styles.heading1}>
         Apartments and Residential Management System
       </h1>
-      <h2 className={styles.header2}>User Login</h2>
+      <h2 className={styles.heading2}>User Login</h2>
       <div className={styles.loginForm}>
         <Input
           id="email"

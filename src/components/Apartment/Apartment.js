@@ -96,7 +96,7 @@ export const Apartment = ({ apartments, stays, history }) => {
   return (
     <div className={styles.page} data-testid="apartments">
       <div className={styles.container}>
-        <h1 className={styles.header}>Apartments</h1>
+        <h1 className={styles.heading}>Apartments</h1>
         <SearchBar handleChange={handleNewInput} placeholder="Apartment" />
         {renderTable()}
       </div>

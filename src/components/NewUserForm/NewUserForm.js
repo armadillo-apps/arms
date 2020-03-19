@@ -53,7 +53,7 @@ const NewUserForm = props => {
 
   return (
     <form className={styles.formContainer} onSubmit={onFormSubmit}>
-      <h1 className={styles.header}>Create New User</h1>
+      <h1 className={styles.heading}>Create New User</h1>
       <div className={styles.form}>
         <Input
           id="name"

@@ -63,7 +63,7 @@ class UserManagement extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.userManagementContainer}>
-          <h1 className={styles.header1}>User Management</h1>
+          <h1 className={styles.heading1}>User Management</h1>
           <DeleteUserModal
             modalIsOpen={this.state.isConfirmationModalOpen}
             closeModal={() => this.closeModal("isConfirmationModalOpen")}
@@ -82,7 +82,7 @@ class UserManagement extends Component {
           />
         </div>
         <table className={styles.table} cellSpacing="0" cellPadding="0">
-          <thead className={styles.header2}>
+          <thead className={styles.heading2}>
             <tr>
               <th>Name</th>
               <th>Email</th>

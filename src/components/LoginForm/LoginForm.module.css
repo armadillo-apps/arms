@@ -10,17 +10,17 @@
   align-items: center;
 }
 
-.header1 {
+.heading1 {
   font-size: var(--main-h1-font-size);
   color: var(--main-h1-color);
   margin-bottom: 40px;
-  font-weight: 600;
+  font-weight: bold;
   margin-top: 0px;
   padding-top: 3%;
   text-align: center;
 }
 
-.header2 {
+.heading2 {
   font-size: var(--main-h1-font-size);
   color: var(--main-h1-color);
   margin-bottom: 40px;

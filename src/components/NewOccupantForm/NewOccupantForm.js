@@ -56,7 +56,7 @@ const NewOccupantForm = props => {
 
   return (
     <form className={styles.formContainer} onSubmit={onFormSubmit}>
-      <h1 className={styles.header}>Create New Occupant</h1>
+      <h1 className={styles.heading}>Create New Occupant</h1>
       <div className={styles.form}>
         <Input
           id="name"

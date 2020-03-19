@@ -7,9 +7,9 @@ const SideBar = props => {
   const userRole = props.userRole;
   return (
     <div className={styles.container} data-testid="sideBar">
-      <div className={styles.headerContainer}>
+      <div className={styles.linksContainer}>
         <NavLink
-          className={styles.header}
+          className={styles.links}
           exact
           to="/apartments"
           activeClassName={styles.active}
@@ -18,7 +18,7 @@ const SideBar = props => {
           APARTMENTS
         </NavLink>
         <NavLink
-          className={styles.header}
+          className={styles.links}
           to="/occupants"
           activeClassName={styles.active}
         >
@@ -27,7 +27,7 @@ const SideBar = props => {
         </NavLink>
         {userRole === "admin" ? (
           <NavLink
-            className={styles.header}
+            className={styles.links}
             to="/users"
             activeClassName={styles.active}
           >
@@ -41,7 +41,7 @@ const SideBar = props => {
           ""
         ) : (
           <NavLink
-            className={styles.header}
+            className={styles.links}
             to="/newApartment"
             activeClassName={styles.active}
           >
@@ -53,7 +53,7 @@ const SideBar = props => {
           ""
         ) : (
           <NavLink
-            className={styles.header}
+            className={styles.links}
             to="/newOccupant"
             activeClassName={styles.active}
           >
@@ -63,7 +63,7 @@ const SideBar = props => {
         )}
         {userRole === "admin" ? (
           <NavLink
-            className={styles.header}
+            className={styles.links}
             to="/newUser"
             activeClassName={styles.active}
           >
@@ -74,14 +74,14 @@ const SideBar = props => {
           ""
         )}
         <NavLink
-          className={styles.header}
+          className={styles.links}
           to="/changePassword"
           activeClassName={styles.active}
         >
           <svg className={styles.addIcon} />
           CHANGE PASSWORD
         </NavLink>
-        <NavLink className={styles.header} to="/" onClick={props.logout}>
+        <NavLink className={styles.links} to="/" onClick={props.logout}>
           <svg className={styles.logoutIcon} />
           LOGOUT
         </NavLink>

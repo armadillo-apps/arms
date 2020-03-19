@@ -54,10 +54,10 @@ const Occupant = ({ occupants, history }) => {
   return (
     <div className={styles.container} data-testid="occupants">
       <div className={styles.occupantsList}>
-        <h1 className={styles.header1}>Occupants</h1>
+        <h1 className={styles.heading1}>Occupants</h1>
         <SearchBar handleChange={handleNewInput} placeholder="Occupant" />
         <table className={styles.table} cellSpacing="0" cellPadding="0">
-          <thead className={styles.header2}>
+          <thead className={styles.heading2}>
             <tr>
               <th>Status</th>
               <th>Name</th>

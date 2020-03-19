@@ -9,12 +9,11 @@
   font-family: var(--font);
 }
 
-.header {
+.heading {
   font-size: var(--main-h1-font-size);
   color: var(--main-h1-color);
   line-height: 43px;
-  font-style: normal;
-  font-weight: 600;
+  font-weight: bold;
   margin-top: 64px;
   margin-bottom: 43px;
 }
@@ -28,5 +27,5 @@
 
 .tableHeader {
   font-size: 1.3rem;
-  font-weight: 600;
+  font-weight: bold;
 }

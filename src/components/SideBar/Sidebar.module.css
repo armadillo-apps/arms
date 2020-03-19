@@ -2,13 +2,13 @@
   background: var(--sidebar-bg-color);
 }
 
-.headerContainer {
+.linksContainer {
   display: flex;
   flex-direction: column;
   margin-top: 120px;
 }
 
-.headerContainer svg {
+.linksContainer svg {
   width: 16px;
   height: 16px;
   background-size: cover;
@@ -16,7 +16,7 @@
   overflow: visible;
 }
 
-.header {
+.links {
   display: flex;
   text-align: left;
   font-size: var(--sidebar-font-size);

@@ -3,12 +3,12 @@
   font-family: var(--font);
 }
 
-.header {
+.heading {
   font-size: var(--main-h1-font-size);
   color: var(--main-h1-color);
   margin-left: 60px;
   margin-bottom: 40px;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .form {

@@ -63,7 +63,7 @@
   font-weight: normal;
   font-size: var(--main-h1-font-size);
   margin: 3rem 0 0 0;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .gridContainer {
@@ -84,7 +84,7 @@
 
 .apartmentProfile__occupants th {
   font-size: var(--main-h2-font-size);
-  font-weight: 600;
+  font-weight: bold;
   margin: 1rem;
   padding-bottom: 8px;
   width: 200px;
@@ -178,7 +178,7 @@
 
 .apartmentProfile__leases th {
   font-size: var(--main-h2-font-size);
-  font-weight: 600;
+  font-weight: bold;
   margin: 1rem;
   width: 200px;
   padding-bottom: 8px;
