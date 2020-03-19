@@ -1,21 +1,16 @@
 import React from "react";
-import "./Input.css";
-const TextArea = ({
-  id,
-  label,
-  name,
-  editOccupantLabel,
-  value,
-  ...otherProps
-}) => {
+
+import styles from "./Input.module.css";
+
+const TextArea = ({ id, label, name, value, ...otherProps }) => {
   return (
-    <section className="input">
-      <label className={`input__label ${editOccupantLabel}`} htmlFor={id}>
+    <section className={styles.input}>
+      <label className={styles.label} htmlFor={id}>
         {label}
       </label>
       <textarea
         id={id}
-        className="input__text"
+        className={styles.inputText}
         name={name}
         value={value}
         {...otherProps}
