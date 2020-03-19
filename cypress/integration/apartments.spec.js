@@ -19,9 +19,17 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   const landlordName = faker.name.firstName();
   const address = faker.address.streetAddress();
   const accountNumber = faker.finance.account();
-  const monthlyRent = "1000";
-  const monthlyRentSgdFormatted = sgdFormatter.format(monthlyRent);
-  const monthlyRentThbFormatted = thbFormatter.format(monthlyRent);
+
+  const normaliseWhiteSpace = string => {
+    return string.replace(String.fromCharCode(160), " ");
+  };
+  const monthlyRent = 1000;
+  const monthlyRentSgdFormatted = normaliseWhiteSpace(
+    sgdFormatter.format(monthlyRent)
+  );
+  const monthlyRentThbFormatted = normaliseWhiteSpace(
+    thbFormatter.format(monthlyRent)
+  );
 
   const name = faker.name.firstName();
   const employeeId = faker.random.uuid();
