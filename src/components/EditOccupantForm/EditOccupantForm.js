@@ -33,7 +33,6 @@ const EditOccupantForm = ({
           defaultValue={defaultName}
           type="text"
           width="250px"
-          editOccupantLabel="input__editOccupantLabel"
         />
         <section className="editOccupantForm__gender">
           <label htmlFor="gender" className="editOccupantForm__genderLabel">
@@ -61,7 +60,6 @@ const EditOccupantForm = ({
             defaultValue={defaultId}
             type="text"
             width="250px"
-            editOccupantLabel="input__editOccupantLabel"
           />
           <section className="editOccupantForm__homeOffice">
             <label
@@ -119,7 +117,6 @@ const EditOccupantForm = ({
           onChange={onChange}
           defaultValue={defaultRemarks}
           type="text"
-          editOccupantLabel="input__editOccupantLabel"
         />
       </div>
       <input
