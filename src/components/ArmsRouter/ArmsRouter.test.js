@@ -16,7 +16,7 @@ describe("ArmsRouter", () => {
     ReactDOM.render(<ArmsRouter />, div);
     ReactDOM.unmountComponentAtNode(div);
     const { getByText } = render(<ArmsRouter />);
-    expect(getByText("User Login")).toBeInTheDocument();
+    expect(getByText("ARMS")).toBeInTheDocument();
   });
 
   it("renders Login page on load", () => {

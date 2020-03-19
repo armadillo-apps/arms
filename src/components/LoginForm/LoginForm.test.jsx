@@ -31,12 +31,12 @@ describe("Login Form", () => {
     const { getByLabelText } = render(
       <LoginForm handleEmailChange={handleEmailChange} />
     );
-    const userEmail = getByLabelText("Email");
+    const userEmail = getByLabelText("email");
     fireEvent.change(userEmail, {
       target: { value: "elson@thoughtworks.com" }
     });
 
-    const userPassword = getByLabelText("Password");
+    const userPassword = getByLabelText("password");
     fireEvent.change(userPassword, { target: { value: "pass1234" } });
 
     expect(userEmail.value).toBe("elson@thoughtworks.com");
