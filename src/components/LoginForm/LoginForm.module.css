@@ -1,4 +1,7 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: var(--main-bg-color);
   font-family: var(--font);
   height: 100vh;
@@ -36,4 +39,16 @@
   width: 400px;
   margin-top: 60px;
   margin-bottom: 50px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.004) 0px 2.18613px 3.04398px -3px,
+    rgba(0, 0, 0, 0.008) 0px 5.25358px 7.31511px -3px,
+    rgba(0, 0, 0, 0.01) 0px 9.89203px 13.7737px -3px,
+    rgba(0, 0, 0, 0.01) 0px 17.6457px 24.5699px -3px,
+    rgba(0, 0, 0, 0.016) 0px 33.0043px 45.9554px -3px,
+    rgba(0, 0, 0, 0.02) 0px 79px 110px -3px;
+}
+
+.loginButton:hover {
+  background: linear-gradient(270deg, #1744e3 -54.31%, #a93dff 143.33%);
+  color: var(--primary-button-hover-text-color);
 }

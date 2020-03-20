@@ -25,10 +25,16 @@ describe("Login Form", () => {
     expect(getByLabelText(/password/i)).toBeInTheDocument();
   });
 
+  it("should show a placeholder in email input area", () => {
+    const { getByPlaceholderText } = render(LoginFormWithContext);
+
+    expect(getByPlaceholderText(/john@gmail.com/i)).toBeInTheDocument();
+  });
+
   it("should display a login button", () => {
     const { getByText } = render(LoginFormWithContext);
     expect(
-      getByText("Login", { selector: "input[type=submit]" })
+      getByText(/login/i, { selector: "input[type=submit]" })
     ).toBeInTheDocument();
   });
 
@@ -56,7 +62,7 @@ describe("Login Form", () => {
       const userPassword = getByLabelText("password");
       fireEvent.change(userPassword, { target: { value: "invalid" } });
 
-      const loginButton = getByText("Login", {
+      const loginButton = getByText(/login/i, {
         selector: "input[type=submit]"
       });
       fireEvent.click(loginButton);
@@ -72,7 +78,7 @@ describe("Login Form", () => {
       const { getByText } = render(LoginFormWithContext);
       postSpy.mockReturnValue({});
 
-      const loginButton = getByText("Login", {
+      const loginButton = getByText(/login/i, {
         selector: "input[type=submit]"
       });
       fireEvent.click(loginButton);

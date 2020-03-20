@@ -13,17 +13,21 @@
 }
 
 .inputText {
+  font-size: 1.8rem;
   height: 40px;
   width: 50rem;
   border-color: var(--main-row-border-color);
-  font-size: 1.8rem;
   outline: none;
   border: 1px solid #e4e5ea;
-  font-family: var(--font);
   margin-bottom: 1rem;
   padding: 5px 30px;
   box-sizing: border-box;
-  font-family: var(--font);
+  box-shadow: rgba(0, 0, 0, 0.004) 0px 2.18613px 3.04398px -3px,
+    rgba(0, 0, 0, 0.008) 0px 5.25358px 7.31511px -3px,
+    rgba(0, 0, 0, 0.01) 0px 9.89203px 13.7737px -3px,
+    rgba(0, 0, 0, 0.01) 0px 17.6457px 24.5699px -3px,
+    rgba(0, 0, 0, 0.016) 0px 33.0043px 45.9554px -3px,
+    rgba(0, 0, 0, 0.02) 0px 79px 110px -3px;
 }
 
 .inputText::-webkit-datetime-edit {
@@ -32,4 +36,12 @@
 
 .inputText[type="date"]::-webkit-inner-spin-button {
   display: none;
+}
+
+.inputText::placeholder {
+  color: var(--placeholder-color);
+}
+
+.inputText:focus::placeholder {
+  color: white;
 }

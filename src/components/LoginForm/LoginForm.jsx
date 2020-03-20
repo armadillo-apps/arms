@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useToasts } from "react-toast-notifications";
 
 import Input from "../Input/Input";
+
 import { loginUser } from "../../api/api";
 import { LOGIN_USER } from "../../reducer/userReducer";
 import { useUserContext } from "../../context/UserContext";
@@ -47,6 +48,7 @@ const LoginForm = () => {
           label="email"
           name="email"
           type="text"
+          placeholder="john@gmail.com"
           value={formInputs.email}
           onChange={onChange}
           required
@@ -60,7 +62,7 @@ const LoginForm = () => {
           onChange={onChange}
           required
         />
-        <input className={styles.loginButton} value="Login" type="submit" />
+        <input className={styles.loginButton} value="LOGIN" type="submit" />
       </div>
     </form>
   );

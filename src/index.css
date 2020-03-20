@@ -11,6 +11,8 @@
   --sidebar-font-color-inactive: #b1b9cc;
   --primary-button-bg-color: #ffffff;
   --primary-button-text-color: #000000;
+  --primary-button-hover-text-color: #ffffff;
+  --placeholder-color:#b0b0b0;
   --green-color: #4acd89;
   --red-color: #fa575a;
   --main-h1-font-size: 3.6rem;
@@ -29,4 +31,11 @@ body {
   box-sizing: border-box;
   font-family: var(--font), sans-serif;
   font-weight: normal;
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
 }
