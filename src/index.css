@@ -17,7 +17,7 @@
   --red-color: #fa575a;
   --main-h1-font-size: 3.6rem;
   --sidebar-font-size: 2rem;
-  --searchbar-font-size: 1.1rem;
+  --searchbar-font-size: 1.8rem;
   --main-h2-font-size: 1.6rem;
   --main-row-font-size: 1.4rem;
   --form-font-size: 1.8rem;
@@ -38,4 +38,14 @@ select,
 textarea,
 button {
   font-family: inherit;
+  border: none;
+}
+
+h1 {
+  font-size: var(--main-h1-font-size);
+  margin: 0;
+}
+
+h2 {
+  font-size: var(--main-h2-font-size);
 }
