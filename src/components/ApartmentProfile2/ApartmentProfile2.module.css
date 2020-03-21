@@ -69,14 +69,31 @@
   font-weight: lighter;
 }
 
-.detailsCard {
+.detailsCardContainer {
   background-color: white;
   grid-area: 2 / auto / 3 / auto;
+}
+
+.detailsCard {
+  margin: 35px;
+  display: grid;
+  grid-template-rows: repeat(5, 52px);
+  grid-template-columns: 120px 1fr;
+}
+
+.detailsCard p {
+  overflow-y: scroll;
 }
 
 .remarksCard {
   background-color: white;
   grid-area: 2 / auto / 3 / auto;
+}
+
+.remarksCard p {
+  font-size: var(--main-h2-font-size);
+  line-height: 2.8rem;
+  margin: 35px;
 }
 
 .occupantsCard {

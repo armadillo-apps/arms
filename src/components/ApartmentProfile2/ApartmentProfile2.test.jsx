@@ -1,7 +1,7 @@
 import React from "react";
 import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 
 import ApartmentProfile2 from "./ApartmentProfile2";
 
@@ -50,6 +50,16 @@ describe("Apartment Profile2", () => {
 
       expect(getByTestId("detailsCard")).toBeInTheDocument();
     });
+
+    it("should render detail card headings", () => {
+      const { getByText } = render(<ApartmentProfile2 />);
+
+      expect(getByText(/address :/i)).toBeInTheDocument();
+      expect(getByText(/bedroom\(s\) :/i)).toBeInTheDocument();
+      expect(getByText(/country :/i)).toBeInTheDocument();
+      expect(getByText(/landlord name :/i)).toBeInTheDocument();
+      expect(getByText(/landlord a\/c no\. :/i)).toBeInTheDocument();
+    });
   });
 
   describe("Remarks Card", () => {
@@ -65,6 +75,15 @@ describe("Apartment Profile2", () => {
       const { getByTestId } = render(<ApartmentProfile2 />);
 
       expect(getByTestId("occupantsCard")).toBeInTheDocument();
+    });
+
+    it("should render occupants card headings", () => {
+      const { getByText, getAllByText } = render(<ApartmentProfile2 />);
+
+      expect(getByText(/^NAME/i)).toBeInTheDocument();
+      expect(getByText(/check-in/i)).toBeInTheDocument();
+      expect(getByText(/check-out/i)).toBeInTheDocument();
+      expect(getAllByText(/remarks/i)).toHaveLength(2);
     });
   });
 

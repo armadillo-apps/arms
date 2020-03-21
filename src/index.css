@@ -1,10 +1,15 @@
 :root {
   --main-bg-color: #f6f6f6;
   --main-h1-color: #3d3d3d;
+  --main-h1-font-size: 3.6rem;
   --main-h2-color: #000000;
+  --main-h2-font-size: 1.6rem;
+  --main-h3-font-size: 1rem;
+  --main-p-font-size: 1rem;
   --main-row-color: #212121;
   --main-row-bg-color: #ffffff;
   --main-row-border-color: #f7f8fc;
+  --main-row-font-size: 1.4rem;
   --search-bar-placeholder-color: #b1b9cc;
   --sidebar-bg-color: #ffffff;
   --sidebar-font-color-active: #212121;
@@ -16,11 +21,8 @@
   --placeholder-color: #b0b0b0;
   --green-color: #4acd89;
   --red-color: #fa575a;
-  --main-h1-font-size: 3.6rem;
-  --sidebar-font-size: 2rem;
   --searchbar-font-size: 1.8rem;
-  --main-h2-font-size: 1.6rem;
-  --main-row-font-size: 1.4rem;
+  --sidebar-font-size: 2rem;
   --form-font-size: 1.8rem;
   --font: Avenir;
   font-size: 62.5%;
@@ -49,4 +51,12 @@ h1 {
 
 h2 {
   font-size: var(--main-h2-font-size);
+}
+
+h3 {
+  font-size: var(--main-h3-font-size);
+}
+
+p {
+  font-size: var(--main-p-font-size);
 }
