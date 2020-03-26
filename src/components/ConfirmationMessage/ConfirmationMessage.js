@@ -1,8 +1,10 @@
 import React from "react";
-import "./ConfirmationMessage.css";
+import styles from "./ConfirmationMessage.module.css";
 
 const ConfirmationMessage = ({ message, success }) => {
-  return <p className={success ? "positive" : "inverted"}>{message}</p>;
+  return (
+    <p className={success ? styles.positive : styles.inverted}>{message}</p>
+  );
 };
 
 export default ConfirmationMessage;
