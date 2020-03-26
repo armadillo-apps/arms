@@ -3,7 +3,7 @@ import Input from "../Input/Input";
 import { updatePassword } from "../../api/api";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import { useUserContext } from "../../context/UserContext";
-import "./ChangePasswordForm.css";
+import styles from "./ChangePasswordForm.module.css";
 
 const ChangePasswordForm = props => {
   const { state } = useUserContext();
@@ -53,9 +53,9 @@ const ChangePasswordForm = props => {
   };
 
   return (
-    <form className="changePasswordFormContainer" onSubmit={onFormSubmit}>
-      <h1 className="changePasswordForm__heading">Change Password</h1>
-      <div className="changePasswordForm">
+    <form className={styles.container} onSubmit={onFormSubmit}>
+      <h1 className={styles.heading}>Change Password</h1>
+      <div className={styles.changePasswordForm}>
         <Input
           id="password"
           label="Existing Password*"
@@ -72,7 +72,7 @@ const ChangePasswordForm = props => {
             data-testid="showPassword"
             label="Show password"
             name="showPassword"
-            className="changePasswordForm__showPasswordLabel"
+            className={styles.showPasswordLabel}
             onClick={() => handleShowPassword("password")}
           />
           Show Password
@@ -93,7 +93,7 @@ const ChangePasswordForm = props => {
             data-testid="showNewPassword"
             label="Show password"
             name="showNewPassword"
-            className="changePasswordForm__showPasswordLabel"
+            className={styles.showPasswordLabel}
             onClick={() => handleShowPassword("newPassword")}
           />
           Show Password
@@ -104,11 +104,7 @@ const ChangePasswordForm = props => {
       ) : (
         ""
       )}
-      <input
-        className="changePasswordForm__createButton"
-        value="Submit"
-        type="submit"
-      />
+      <input className={styles.createButton} value="Submit" type="submit" />
     </form>
   );
 };
