@@ -1,9 +1,9 @@
 import React from "react";
 import Input from "../Input/Input.js";
 import TextArea from "../Input/TextArea.js";
-import "./EditOccupantForm.css";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import homeOfficeData from "../../assets/HomeOfficeData";
+import styles from "./EditOccupantForm.module.css";
 
 const EditOccupantForm = ({
   onSubmit,
@@ -22,8 +22,8 @@ const EditOccupantForm = ({
     status: defaultStatus
   } = occupant;
   return (
-    <form className="editOccupantFormContainer" onSubmit={onSubmit}>
-      <h1 className="editOccupantForm__heading">Edit Occupant</h1>
+    <form className={styles.container} onSubmit={onSubmit}>
+      <h1 className={styles.heading}>Edit Occupant</h1>
       <div className="editOccupantForm">
         <Input
           id="name"
@@ -34,8 +34,8 @@ const EditOccupantForm = ({
           type="text"
           width="250px"
         />
-        <section className="editOccupantForm__gender">
-          <label htmlFor="gender" className="editOccupantForm__genderLabel">
+        <section className={styles.gender}>
+          <label htmlFor="gender" className={styles.genderLabel}>
             Gender{" "}
           </label>
           <select
@@ -51,7 +51,7 @@ const EditOccupantForm = ({
             <option value="neutral">Neutral</option>
           </select>
         </section>
-        <div className="editOccupantForm__flex">
+        <div className={styles.flex}>
           <Input
             id="employeeId"
             label="Employee ID"
@@ -61,11 +61,8 @@ const EditOccupantForm = ({
             type="text"
             width="250px"
           />
-          <section className="editOccupantForm__homeOffice">
-            <label
-              htmlFor="homeOffice"
-              className="editOccupantForm__homeOfficeLabel"
-            >
+          <section className={styles.homeOffice}>
+            <label htmlFor="homeOffice" className={styles.homeOfficeLabel}>
               Home Office{" "}
             </label>
             <select
@@ -73,7 +70,7 @@ const EditOccupantForm = ({
               name="homeOffice"
               defaultValue={defaultHomeOffice}
               onChange={onChange}
-              className="editOccupantForm__select"
+              className={styles.selection}
             >
               <option value="">Select Home Office...</option>
               {homeOfficeData.map(homeOffice => {
@@ -92,8 +89,8 @@ const EditOccupantForm = ({
             </select>
           </section>
         </div>
-        <section className="editOccupantForm__status">
-          <label htmlFor="status" className="editOccupantForm__statusLabel">
+        <section className={styles.status}>
+          <label htmlFor="status" className={styles.statusLabel}>
             Occupant Status:{" "}
           </label>
           <select
@@ -101,7 +98,7 @@ const EditOccupantForm = ({
             name="status"
             defaultValue={defaultStatus}
             onChange={onChange}
-            className="editOccupantForm__select"
+            className={styles.selection}
           >
             <option value="">Select...</option>
             <option value="allocated">Allocated</option>
@@ -113,23 +110,19 @@ const EditOccupantForm = ({
           id="remarks"
           label="Remarks"
           name="remarks"
-          className="editOccupantForm__remarks"
+          className={styles.remarks}
           onChange={onChange}
           defaultValue={defaultRemarks}
           type="text"
         />
       </div>
       <input
-        className="editOccupantForm__cancelButton"
+        className={styles.cancelButton}
         type="button"
         value="Cancel"
         onClick={() => closeModal("editOccupantModal")}
       />
-      <input
-        className="editOccupantForm__updateButton"
-        value="Update"
-        type="submit"
-      />
+      <input className={styles.updateButton} value="Update" type="submit" />
       <ConfirmationMessage success={success} message={message} />
     </form>
   );
