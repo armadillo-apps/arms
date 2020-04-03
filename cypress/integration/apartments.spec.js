@@ -438,8 +438,9 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.contains(
         "Unable to change to inactive when there are current or future occupants"
       );
-      cy.get("input[class=editApartmentForm__cancelButton]").scrollIntoView();
-      cy.get("input[class=editApartmentForm__cancelButton]").click();
+
+      cy.get("[data-testid=editApartmentForm__cancelButton]").scrollIntoView();
+      cy.get("[data-testid=editApartmentForm__cancelButton]").click();
     });
   });
 
@@ -479,7 +480,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .click();
 
       cy.get("select[name=status]").select("inactive");
-      cy.get("input[class=editApartmentForm__updateButton]").click();
+      cy.get("[data-testid=editApartmentForm__updateButton]").click();
       cy.get("button[class=editApartmentForm__closeButton]").click();
 
       cy.get('a[href="/apartments"]').click();
@@ -497,10 +498,12 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("button")
         .contains("Edit")
         .click();
-      cy.get("form[class=editApartmentFormContainer]").should("exist");
-      cy.get("input[class=editApartmentForm__cancelButton]").scrollIntoView();
-      cy.get("input[class=editApartmentForm__cancelButton]").click();
-      cy.get("form[class=editApartmentFormContainer]").should("not.exist");
+
+      cy.get("[data-testid=editApartmentForm]").should("exist");
+      cy.get("[data-testid=editApartmentForm__cancelButton]").scrollIntoView();
+      cy.get("[data-testid=editApartmentForm__cancelButton]").click();
+      cy.get("[data-testid=editApartmentForm]").should("not.exist");
+
       cy.get("button")
         .contains("Edit")
         .click();
@@ -537,10 +540,10 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("textarea[id=remarks]")
         .clear()
         .type("Awesome");
-      cy.get("input[class=editApartmentForm__updateButton]").click();
+      cy.get("[data-testid=editApartmentForm__updateButton]").click();
       cy.contains("Successfully updated apartment: The Beacon");
       cy.get("button[class=editApartmentForm__closeButton]").click();
-      cy.get("form[class=editApartmentFormContainer]").should("not.exist");
+      cy.get("[data-testid=editApartmentForm]").should("not.exist");
     });
   });
 

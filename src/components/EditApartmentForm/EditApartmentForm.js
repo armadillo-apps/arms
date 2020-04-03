@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Input from "../Input/Input";
-import "./EditApartmentForm.css";
 import moment from "moment";
 import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
+import styles from "./EditApartmentForm.module.css";
 
 const EditApartmentForm = ({
   apartment,
@@ -54,12 +54,12 @@ const EditApartmentForm = ({
 
   return (
     <form
-      className="editApartmentFormContainer"
+      className={styles.container}
       data-testid="editApartmentForm"
       onSubmit={event => onSubmit(event, updatedApartment)}
     >
-      <h1 className="editApartmentForm__heading">Edit Apartment</h1>
-      <div className="editApartmentForm">
+      <h1 className={styles.heading}>Edit Apartment</h1>
+      <div className={styles.form}>
         <Input
           id="name"
           label="Apartment Name"
@@ -78,13 +78,14 @@ const EditApartmentForm = ({
             setAddress(event.target.value);
           }}
         />
-        <div className="bedroomCapacity__wrapper">
+        <div className={styles.wrapper}>
           <Input
             id="bedrooms"
             label="Bedrooms"
             name="bedrooms"
             type="number"
             min="0"
+            width="80px"
             value={bedrooms}
             onChange={event => {
               setBedrooms(event.target.value);
@@ -96,12 +97,13 @@ const EditApartmentForm = ({
             name="capacity"
             type="number"
             min="0"
+            width="80px"
             value={capacity}
             onChange={event => {
               setCapacity(event.target.value);
             }}
           />
-          <section className="editApartmentForm__country">
+          <section className="editCountry">
             <label htmlFor="country">Country</label>
             <select
               data-testid={"editApartment__country"}
@@ -115,7 +117,7 @@ const EditApartmentForm = ({
               <option value="Thailand">Thailand</option>
             </select>
           </section>
-          <section className="editApartmentForm__status">
+          <section className={styles.statusSection}>
             <label htmlFor="status">Status</label>
             <select
               data-testid="editApartment__status"
@@ -140,10 +142,10 @@ const EditApartmentForm = ({
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
-            {error ? <p className="editApartmentForm__error">{error}</p> : ""}
+            {error ? <p className={styles.error}>{error}</p> : ""}
           </section>
         </div>
-        <div className="lease__wrapper">
+        <div className={styles.leaseWrapper}>
           <Input
             id="leaseStart"
             label="Lease Start"
@@ -165,18 +167,19 @@ const EditApartmentForm = ({
             }}
           />
         </div>
-        <div className="monthlyRent__wrapper">
+        <div className={styles.wrapper}>
           <Input
             id="monthlyRent"
             label="Monthly Rent"
             name="monthlyRent"
             type="number"
+            width="120px"
             value={monthlyRent}
             onChange={event => {
               setMonthlyRent(event.target.value);
             }}
           />
-          <section className="editApartmentForm__currency">
+          <section className="editCurrency">
             <label htmlFor="currency">Currency</label>
             <select
               data-testid={"editApartment__currency"}
@@ -213,7 +216,7 @@ const EditApartmentForm = ({
             setAccountNumber(event.target.value);
           }}
         />
-        <div className="editApartmentForm__remarks">
+        <div className={styles.remarks}>
           <label htmlFor="remarks">Remarks</label>
           <textarea
             id="remarks"
@@ -227,15 +230,17 @@ const EditApartmentForm = ({
           />
         </div>
       </div>
-      <div className="editApartmentForm__buttons">
+      <div className={styles.button}>
         <input
-          className="editApartmentForm__cancelButton"
+          className={styles.cancelButton}
+          data-testid="editApartmentForm__cancelButton"
           type="button"
           value="Cancel"
           onClick={closeModal}
         />
         <input
-          className="editApartmentForm__updateButton"
+          className={styles.updateButton}
+          data-testid="editApartmentForm__updateButton"
           value="Update"
           type="submit"
           disabled={error !== "" ? true : false}

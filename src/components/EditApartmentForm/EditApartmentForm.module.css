@@ -1,35 +1,41 @@
-.editApartmentFormContainer {
+.container {
   width: 500px;
   height: 700px;
   box-sizing: border-box;
   margin: 30px;
 }
 
-.editApartmentForm {
+.heading {
+  text-align: center;
+}
+
+.form {
   font-size: var(--main-h2-font-size);
 }
 
-.editApartmentForm input {
+.form input {
   height: 40px;
   width: auto;
   margin-bottom: 0.5rem;
   padding-left: 30px;
 }
 
-.editApartmentForm label {
+.form label {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
 }
 
-.bedroomCapacity__wrapper,
-.lease__wrapper,
-.monthlyRent__wrapper {
+.wrapper {
   display: flex;
   justify-content: space-between;
 }
 
-.bedroomCapacity__wrapper section,
-.monthlyRent__wrapper section {
+.leaseWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapper section {
   display: flex;
   flex-direction: column;
   padding: 5px 10px;
@@ -38,39 +44,38 @@
   margin-bottom: 12px;
 }
 
-.monthlyRent__wrapper input {
-  width: 30rem;
+.wrapper label {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 7px;
+  text-transform: uppercase;
 }
 
-.bedroomCapacity__wrapper input {
-  width: 35px;
+.wrapper select {
+  font-size: 1.6rem;
 }
 
-.bedroomCapacity__wrapper select {
-  font-size: 1.2rem;
-}
-
-.editApartmentForm__status section {
+.statusSection {
   margin: 10rem, 0;
-  padding-top: 10px;
+  padding-top: 50px;
   font-size: 1.3rem;
 }
 
-.editApartmentForm__status select {
+.section {
   width: 11rem;
   font-size: 1.2rem;
+  font-size: 1.8rem;
+  height: 40px;
   margin-left: 1rem;
 }
 
-#bedrooms {
-  margin-right: 15px;
-}
-
-.editApartmentForm__buttons {
+.button {
   margin: 1rem 0;
 }
 
-.editApartmentForm__cancelButton {
+.cancelButton {
   margin-right: 1rem;
   background-color: white;
   text-decoration: none;
@@ -80,7 +85,7 @@
   cursor: pointer;
 }
 
-.editApartmentForm__updateButton {
+.updateButton {
   background: var(--green-color);
   font-size: var(--main-h2-font-size);
   color: white;
@@ -93,16 +98,16 @@
   cursor: pointer;
 }
 
-.editApartmentForm__remarks {
+.remarks {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
 }
 
-.editApartmentForm__remarks label {
+.remarks label {
   font-size: 1.3rem;
 }
 
-.editApartmentForm__remarks textarea {
+.remarks textarea {
   font-size: 1.8rem;
   outline: none;
 
@@ -114,11 +119,7 @@
   padding: 10px 30px;
 }
 
-.editApartmentForm__heading {
-  text-align: center;
-}
-
-.editApartmentForm__error {
+.error {
   font-size: 1.45rem;
   color: var(--red-color);
 }
