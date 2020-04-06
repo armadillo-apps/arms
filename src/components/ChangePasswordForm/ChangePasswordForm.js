@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import { useToasts } from "react-toast-notifications";
 import Input from "../Input/Input";
 import { updatePassword } from "../../api/api";
-import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import { useUserContext } from "../../context/UserContext";
 import styles from "./ChangePasswordForm.module.css";
 
 const ChangePasswordForm = props => {
   const { state } = useUserContext();
+  const { addToast } = useToasts();
 
   const emptyForm = {
     loggedInUser: "",
@@ -14,9 +15,6 @@ const ChangePasswordForm = props => {
     newPassword: ""
   };
   const [formInputs, setFormInputs] = useState(emptyForm);
-  const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState({
     password: false,
     newPassword: false
@@ -36,15 +34,17 @@ const ChangePasswordForm = props => {
         formInputs.password,
         formInputs.newPassword
       );
-      setMessage("Success");
-      setSubmitted(true);
-      setSuccess(true);
+      addToast("Success", {
+        appearance: "success",
+        autoDismiss: true
+      });
       setFormInputs(emptyForm);
       props.triggerRender();
     } catch (err) {
-      setSuccess(false);
-      setMessage("Unable to change password ", err);
-      setSubmitted(true);
+      addToast("Unable to change password", {
+        appearance: "error",
+        autoDismiss: true
+      });
     }
   };
 
@@ -99,11 +99,6 @@ const ChangePasswordForm = props => {
           Show Password
         </label>
       </div>
-      {submitted ? (
-        <ConfirmationMessage success={success} message={message} />
-      ) : (
-        ""
-      )}
       <input className={styles.createButton} value="Submit" type="submit" />
     </form>
   );
