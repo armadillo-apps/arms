@@ -13,6 +13,13 @@ export const fetchApartments = async () => {
   return response.data;
 };
 
+export const fetchApartmentById = async apartmentId => {
+  const response = await axios.get(`/apartments/${apartmentId}`, {
+    withCredentials: true
+  });
+  return response.data;
+};
+
 export const fetchOccupants = async () => {
   const response = await axios.get("/occupants", { withCredentials: true });
   return response.data;

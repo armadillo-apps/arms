@@ -1,23 +1,24 @@
 import {
   authenticateUser,
-  fetchApartments,
-  fetchOccupants,
-  fetchUsers,
-  fetchStays,
-  getApartmentProfileHistory,
   createNewApartment,
   createNewOccupant,
   createNewUser,
   createStay,
+  editUserRole,
+  fetchApartmentById,
+  fetchApartments,
+  fetchOccupants,
+  fetchStays,
+  fetchUsers,
+  getApartmentProfileHistory,
+  getUserId,
   loginUser,
   logoutUser,
-  updateOccupant,
-  updateApartment,
-  editUserRole,
-  updatePassword,
   removeStay,
   removeUser,
-  getUserId
+  updateApartment,
+  updateOccupant,
+  updatePassword
 } from "./api";
 import axios from "./axios";
 
@@ -65,6 +66,16 @@ describe("GET routes", () => {
     const output = await fetchApartments();
 
     expect(spyGet).toHaveBeenCalledWith("/apartments", {
+      withCredentials: true
+    });
+    expect(output).toEqual({ expected: "output" });
+  });
+
+  it("should get apartment data by id", async () => {
+    const { apartmentId } = testInput;
+    const output = await fetchApartmentById(apartmentId);
+
+    expect(spyGet).toHaveBeenCalledWith(`/apartments/${apartmentId}`, {
       withCredentials: true
     });
     expect(output).toEqual({ expected: "output" });
