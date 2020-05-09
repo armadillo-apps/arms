@@ -1,5 +1,9 @@
 {
-  "plugins": ["cypress", "prettier", "jest"],
+  "plugins": [
+    "cypress",
+    "prettier",
+    "jest"
+  ],
   "env": {
     "browser": true,
     "node": true,
@@ -15,9 +19,9 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": 2,
     "react/prop-types": 0,
-    "no-console": 1,
+    "no-console": 2,
     "no-unused-vars": 2
   },
   "parser": "babel-eslint",
