@@ -1,0 +1,23 @@
+.detailsCardContainer {
+  background-color: white;
+  grid-area: 2 / auto / 3 / auto;
+}
+
+.detailsCard {
+  margin: 35px;
+  display: table;
+  grid-template-rows: repeat(5, 52px);
+  grid-template-columns: 120px 1fr;
+}
+
+.detailsCard p {
+  overflow-y: scroll;
+}
+
+.detailsHeading {
+  display: table-row;
+}
+
+.detailsHeading div {
+  display: table-cell;
+}

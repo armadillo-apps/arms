@@ -21,7 +21,9 @@
   color: var(--green-color);
   padding: 8px 20px;
   margin: 10px 0;
+  width: fit-content;
   font-size: var(--primary-button-font-size);
+  text-transform: uppercase;
 }
 
 .backButton {
@@ -69,21 +71,6 @@
   font-weight: lighter;
 }
 
-.detailsCardContainer {
-  background-color: white;
-  grid-area: 2 / auto / 3 / auto;
-}
-
-.detailsCard {
-  margin: 35px;
-  display: grid;
-  grid-template-rows: repeat(5, 52px);
-  grid-template-columns: 120px 1fr;
-}
-
-.detailsCard p {
-  overflow-y: scroll;
-}
 
 .remarksCard {
   background-color: white;

@@ -1,10 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import SearchBar2 from "../SearchBar/SearchBar2";
 import styles from "./ApartmentProfile2.module.css";
+import DetailsCard from "../DetailsCard/DetailsCard";
+import { useApartmentData } from "../../hooks/useApartmentData";
 
-const ApartmentProfile2 = () => {
-  const capacity = "2";
+const ApartmentProfile2 = props => {
+  const apartmentId = props.match?.params?.apartmentId;
+  const { apartment } = useApartmentData(apartmentId);
   const occupantsCount = "1";
   return (
     <div className={styles.mainContainer}>
@@ -15,39 +19,20 @@ const ApartmentProfile2 = () => {
         </button>
         <button className={styles.editButton}>EDIT</button>
         <div className={styles.mainCard}>
-          <h1>Parc Sophia Unit #01-01</h1>
-          <button className={styles.activeStatus}>ACTIVE</button>
+          <h1>{apartment.name}</h1>
+          <div className={styles.activeStatus}>{apartment.status}</div>
         </div>
         <div className={styles.vacancyCard} data-testid="vacancyCard">
           <h2>VACANCY</h2>
           <span>
             {occupantsCount} <span className={styles.divider}>|</span>{" "}
-            {capacity}
+            {apartment.capacity}
           </span>
         </div>
-        <div className={styles.detailsCardContainer} data-testid="detailsCard">
-          <h2>DETAILS</h2>
-          <div className={styles.detailsCard}>
-            <h3>ADDRESS :</h3>
-            <p>431 Scarlett Pine,431 Scarlett Pine,431 Scarlett Pine</p>
-            <h3>BEDROOM(S) :</h3>
-            <p>2</p>
-            <h3>COUNTRY :</h3>
-            <p>Thailand</p>
-            <h3>LANDLORD NAME :</h3>
-            <p>Cornell</p>
-            <h3>LANDLORD A/C NO. :</h3>
-            <p>01598651</p>
-          </div>
-        </div>
+        <DetailsCard dataTestId="detailsCard" apartment={apartment} />
         <div className={styles.remarksCard} data-testid="remarksCard">
           <h2>REMARKS</h2>
-          <p>
-            Has an amazing garden. Awesomeeee Lorem, ipsum dolor sit amet
-            consectetur adipisicing elit. Laborum expedita sequi, non deserunt
-            rerum ullam enim repudiandae inventore explicabo. Commodi, deleniti.
-            Vitae optio odit atque delectus quibusdam, quo soluta explicabo!
-          </p>
+          <p>{apartment.remarks}</p>
         </div>
         <div className={styles.occupantsCard} data-testid="occupantsCard">
           <h2>OCCUPANTS</h2>
@@ -65,3 +50,7 @@ const ApartmentProfile2 = () => {
 };
 
 export default ApartmentProfile2;
+
+ApartmentProfile2.propTypes = {
+  match: PropTypes.object
+};
