@@ -1,10 +1,10 @@
 import React from "react";
-import ChangePasswordForm from "./ChangePasswordForm";
 import { render, fireEvent, wait } from "@testing-library/react";
-import * as UserContext from "../../context/UserContext";
 import "@testing-library/jest-dom/extend-expect";
-import "@testing-library/react/cleanup-after-each";
+
+import * as UserContext from "../../context/UserContext";
 import * as data from "../../api/api";
+import ChangePasswordForm from "./ChangePasswordForm";
 
 const mockPost = jest.spyOn(data, "updatePassword");
 

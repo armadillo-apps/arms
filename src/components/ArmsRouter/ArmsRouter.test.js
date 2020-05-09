@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { ToastProvider } from "react-toast-notifications";
-import ArmsRouter from "./ArmsRouter";
-import { UserProvider } from "../../context/UserContext";
-import "@testing-library/react/cleanup-after-each";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
+
+import { UserProvider } from "../../context/UserContext";
+import ArmsRouter from "./ArmsRouter";
 
 const ArmsRouterWithToastContext = () => (
   <ToastProvider>

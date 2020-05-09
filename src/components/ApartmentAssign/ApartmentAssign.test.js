@@ -1,6 +1,5 @@
 import React from "react";
 import ApartmentAssign from "./ApartmentAssign";
-import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent } from "@testing-library/react";
 
@@ -44,7 +43,11 @@ describe("ApartmentAssign", () => {
       <ApartmentAssign
         dropdown={true}
         filterList={() => [
-          { name: "Natalie", employeeId: "12345ABC", remarks: "Loves Twisties" }
+          {
+            name: "Natalie",
+            employeeId: "12345ABC",
+            remarks: "Loves Twisties"
+          }
         ]}
       />
     );
@@ -62,7 +65,11 @@ describe("ApartmentAssign", () => {
       <ApartmentAssign
         dropdown={true}
         filterList={() => [
-          { name: "Natalie", employeeId: "12345ABC", remarks: "Loves Twisties" }
+          {
+            name: "Natalie",
+            employeeId: "12345ABC",
+            remarks: "Loves Twisties"
+          }
         ]}
         handleClick={handleClick}
       />

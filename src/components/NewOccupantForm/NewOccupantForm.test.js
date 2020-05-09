@@ -6,11 +6,11 @@ import {
   waitForElement,
   wait
 } from "@testing-library/react";
-import "@testing-library/react/cleanup-after-each";
+import { createMemoryHistory } from "history";
+
 import NewOccupantForm from "./NewOccupantForm";
 import * as data from "../../api/api";
 import Occupant from "../Occupant/Occupant";
-import { createMemoryHistory } from "history";
 
 const mockPost = jest.spyOn(data, "createNewOccupant");
 

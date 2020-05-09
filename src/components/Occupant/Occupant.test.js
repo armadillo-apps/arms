@@ -1,9 +1,9 @@
 import React from "react";
-import Occupant from "./Occupant";
 import { render, fireEvent } from "@testing-library/react";
-import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
+
 import * as data from "../../api/api";
+import Occupant from "./Occupant";
 
 const mockPost = jest.spyOn(data, "fetchOccupants");
 

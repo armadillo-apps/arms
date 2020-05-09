@@ -1,12 +1,12 @@
 import React from "react";
-import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
 import {
-  render,
   cleanup,
-  waitForElement,
-  fireEvent
+  fireEvent,
+  render,
+  waitForElement
 } from "@testing-library/react";
+
 import ApartmentProfile from "./ApartmentProfile";
 import * as data from "../../api/api";
 
@@ -17,6 +17,7 @@ const apartmentDetails = [
     address: "18 Bogus Street #01-01",
     bedrooms: 1,
     capacity: 1,
+    status: "active",
     landlord: {
       name: "Bob",
       accountNumber: "12345"
@@ -44,6 +45,7 @@ const apartmentDetails = [
     address: "10 Another Road #05-10",
     bedrooms: 2,
     capacity: 2,
+    status: "active",
     landlord: {
       name: "Jack",
       accountNumber: "54321"

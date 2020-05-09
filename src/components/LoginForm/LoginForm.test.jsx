@@ -2,7 +2,7 @@ import React from "react";
 import { ToastProvider } from "react-toast-notifications";
 import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent, waitForElement } from "@testing-library/react";
-import "@testing-library/react/cleanup-after-each";
+
 import LoginForm from "./LoginForm";
 import * as data from "../../api/api";
 

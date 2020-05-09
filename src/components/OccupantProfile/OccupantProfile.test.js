@@ -1,10 +1,10 @@
 import React from "react";
-import { mockUserContext } from "../../../test/utils/mockUserContext";
-import "@testing-library/react/cleanup-after-each";
 import "@testing-library/jest-dom/extend-expect";
 import { render, wait } from "@testing-library/react";
-import OccupantProfile from "./OccupantProfile";
+
+import { mockUserContext } from "../../../test/utils/mockUserContext";
 import * as data from "../../api/api";
+import OccupantProfile from "./OccupantProfile";
 
 const fetchStays = jest.spyOn(data, "fetchStays");
 

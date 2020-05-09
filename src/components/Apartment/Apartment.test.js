@@ -1,6 +1,5 @@
 import React from "react";
 import { Apartment, sortApartmentsByStatus } from "./Apartment";
-import "@testing-library/react/cleanup-after-each";
 import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
