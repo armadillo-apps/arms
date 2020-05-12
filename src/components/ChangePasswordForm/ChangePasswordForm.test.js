@@ -1,12 +1,7 @@
 import React from "react";
 
 import { ToastProvider } from "react-toast-notifications";
-import {
-  render,
-  fireEvent,
-  wait,
-  waitForElement
-} from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 import * as UserContext from "../../context/UserContext";
@@ -113,7 +108,7 @@ describe("Change Password Form", () => {
       const submitButton = getByText("Submit");
       fireEvent.click(submitButton);
 
-      await wait(() => {
+      await waitFor(() => {
         expect(newPassword.value).toBe("");
       });
     });
@@ -137,7 +132,7 @@ describe("Change Password Form", () => {
       const submitButton = getByText("Submit");
       fireEvent.click(submitButton);
 
-      const errorMessage = await waitForElement(() =>
+      const errorMessage = await waitFor(() =>
         getByText("Unable to change password")
       );
 
@@ -151,7 +146,7 @@ describe("Change Password Form", () => {
       const submitButton = getByText("Submit");
       fireEvent.click(submitButton);
 
-      const successMessage = await waitForElement(() => getByText("Success"));
+      const successMessage = await waitFor(() => getByText("Success"));
 
       expect(successMessage).toBeInTheDocument();
     });
