@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-
+import { useToasts } from "react-toast-notifications";
 import Input from "../Input/Input";
 import TextArea from "../Input/TextArea";
-import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import { createNewApartment } from "../../api/api";
 import styles from "./NewApartmentForm.module.css";
 
@@ -24,9 +23,7 @@ const NewApartmentForm = props => {
   };
 
   const [formInputs, setFormInputs] = useState(emptyForm);
-  const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const { addToast } = useToasts();
 
   const onFormChange = event => {
     const { name, value } = event.target;
@@ -63,16 +60,18 @@ const NewApartmentForm = props => {
 
       const output = await createNewApartment(data);
 
-      setMessage(output);
-      setSuccess(true);
-      setSubmitted(true);
+      addToast(output, {
+        appearance: "success",
+        autoDismiss: true
+      });
       setFormInputs(emptyForm);
       props.triggerRender();
       props.history.push(`/apartments`);
     } catch (err) {
-      setMessage("Unable to create new apartment :(");
-      setSuccess(false);
-      setSubmitted(true);
+      addToast("Unable to create new apartment :(", {
+        appearance: "error",
+        autoDismiss: true
+      });
     }
   };
 
@@ -242,11 +241,7 @@ const NewApartmentForm = props => {
           value={formInputs.remarks}
           type="text"
         />
-        {submitted ? (
-          <ConfirmationMessage message={message} success={success} />
-        ) : (
-          ""
-        )}
+
         <input className={styles.createButton} value="Create" type="submit" />
       </div>
     </form>
