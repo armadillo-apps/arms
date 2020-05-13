@@ -1,7 +1,7 @@
 import React from "react";
 import { ToastProvider } from "react-toast-notifications";
 import "@testing-library/jest-dom/extend-expect";
-import { render, waitForElement, wait } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { fireEvent } from "@testing-library/react/dist";
 import * as data from "../../api/api";
 
@@ -112,7 +112,7 @@ describe("apartment form confirmation message", () => {
     fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
     fireEvent.click(button);
 
-    await wait(() => expect(nameInput.value).toBe(""));
+    await waitFor(() => expect(nameInput.value).toBe(""));
   });
 
   it("should redirect to Apartments Page on creation", async () => {
@@ -131,7 +131,7 @@ describe("apartment form confirmation message", () => {
 
     fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
     fireEvent.click(button);
-    await wait(() => {
+    await waitFor(() => {
       expect(history.push).toHaveBeenCalled();
     });
   });
@@ -145,7 +145,7 @@ describe("apartment form confirmation message", () => {
     fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
     fireEvent.click(button);
 
-    const failureMessage = await waitForElement(() =>
+    const failureMessage = await waitFor(() =>
       getByText("Unable to create new apartment :(")
     );
     expect(failureMessage).toBeInTheDocument();
