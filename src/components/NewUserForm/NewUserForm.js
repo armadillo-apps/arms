@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-
+import { useToasts } from "react-toast-notifications";
 import Input from "../Input/Input";
 import { createNewUser } from "../../api/api";
-import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import styles from "./NewUserForm.module.css";
 
 const NewUserForm = props => {
@@ -14,9 +13,7 @@ const NewUserForm = props => {
   };
 
   const [formInputs, setFormInputs] = useState(emptyForm);
-  const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const { addToast } = useToasts();
   const [showPassword, setShowPassword] = useState(false);
 
   const onFormChange = event => {
@@ -35,15 +32,17 @@ const NewUserForm = props => {
         formInputs.role
       );
 
-      setMessage("Success");
-      setSuccess(true);
-      setSubmitted(true);
+      addToast("Success", {
+        appearance: "success",
+        autoDismiss: true
+      });
       setFormInputs(emptyForm);
       props.triggerRender();
     } catch (err) {
-      setMessage("Unable to create new user :(");
-      setSuccess(false);
-      setSubmitted(true);
+      addToast("Unable to create new user :(", {
+        appearance: "error",
+        autoDismiss: true
+      });
     }
   };
 
@@ -112,11 +111,6 @@ const NewUserForm = props => {
           </select>
         </section>
       </div>
-      {submitted ? (
-        <ConfirmationMessage success={success} message={message} />
-      ) : (
-        ""
-      )}
       <input className={styles.createButton} value="Create" type="submit" />
     </form>
   );
