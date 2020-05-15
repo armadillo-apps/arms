@@ -1,12 +1,7 @@
 import React from "react";
 import { ToastProvider } from "react-toast-notifications";
 import "@testing-library/jest-dom/extend-expect";
-import {
-  render,
-  fireEvent,
-  waitForElement,
-  wait
-} from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 
 import NewOccupantForm from "./NewOccupantForm";
@@ -125,7 +120,7 @@ describe("Confirmation message", () => {
     expect(submitButton).toBeInTheDocument();
     fireEvent.click(submitButton);
 
-    await wait(() => {
+    await waitFor(() => {
       expect(name.value).toBe("");
       expect(employeeId.value).toBe("");
       expect(gender.value).toBe("");
@@ -145,7 +140,7 @@ describe("Confirmation message", () => {
     fireEvent.change(nameInput, { target: { value: "James Corden" } });
     fireEvent.click(button);
 
-    await wait(() => {
+    await waitFor(() => {
       expect(nameInput.value).toEqual("");
     });
   });
@@ -164,7 +159,7 @@ describe("Confirmation message", () => {
 
     const { getByTestId } = renderApp();
 
-    const OccupantsPage = await waitForElement(() => getByTestId("occupants"));
+    const OccupantsPage = await waitFor(() => getByTestId("occupants"));
     expect(OccupantsPage).toBeInTheDocument();
   });
 
@@ -177,7 +172,7 @@ describe("Confirmation message", () => {
     fireEvent.change(nameInput, { target: { value: "James Corden" } });
     fireEvent.click(button);
 
-    const failureMessage = await waitForElement(() =>
+    const failureMessage = await waitFor(() =>
       getByText("Unable to create new occupant :(")
     );
 
@@ -220,7 +215,7 @@ describe("Redirect upon successful submission", () => {
     const button = getByText("Create", { selector: "input[type=submit]" });
 
     fireEvent.click(button);
-    await wait(() => {
+    await waitFor(() => {
       expect(history.push).toHaveBeenCalled();
     });
   });
