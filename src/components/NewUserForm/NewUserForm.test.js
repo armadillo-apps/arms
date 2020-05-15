@@ -1,6 +1,6 @@
 import React from "react";
 import { ToastProvider } from "react-toast-notifications";
-import { render, fireEvent, wait } from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 import * as data from "../../api/api";
@@ -109,7 +109,7 @@ describe("New User Form", () => {
       const createButton = getByText("Create");
       fireEvent.change(name, { target: { value: "Jane Doe" } });
       fireEvent.click(createButton);
-      await wait(() => {
+      await waitFor(() => {
         expect(name.value).toBe("");
         expect(email.value).toBe("");
         expect(password.value).toBe("");
