@@ -1,4 +1,5 @@
 import React from "react";
+import { ToastProvider } from "react-toast-notifications";
 import "@testing-library/jest-dom/extend-expect";
 import {
   render,
@@ -13,52 +14,59 @@ import * as data from "../../api/api";
 import Occupant from "../Occupant/Occupant";
 
 const mockPost = jest.spyOn(data, "createNewOccupant");
+const NewOccupantFormWithContext = (
+  <ToastProvider>
+    <NewOccupantForm />
+  </ToastProvider>
+);
 
 describe("Input form", () => {
   it("should contain correct title", () => {
-    const { getByText } = render(<NewOccupantForm />);
+    const { getByText } = render(NewOccupantFormWithContext);
     expect(getByText("Create New Occupant")).toBeInTheDocument();
   });
 
   it("should have input text for name", () => {
-    const { getByLabelText } = render(<NewOccupantForm />);
+    const { getByLabelText } = render(NewOccupantFormWithContext);
     expect(getByLabelText(/name/i)).toBeInTheDocument();
   });
 
   it("should have input text for employee id", () => {
-    const { getByLabelText } = render(<NewOccupantForm />);
+    const { getByLabelText } = render(NewOccupantFormWithContext);
     expect(getByLabelText("Employee ID")).toBeInTheDocument();
   });
 
   it("should have input text for gender", () => {
-    const { getByLabelText } = render(<NewOccupantForm />);
+    const { getByLabelText } = render(NewOccupantFormWithContext);
     expect(getByLabelText("Gender")).toBeInTheDocument();
   });
 
   it("should have input text for remarks", () => {
-    const { getByLabelText } = render(<NewOccupantForm />);
+    const { getByLabelText } = render(NewOccupantFormWithContext);
     expect(getByLabelText("Remarks")).toBeInTheDocument();
   });
 
   it("should have dropdown for Home Office", () => {
-    const { getByLabelText } = render(<NewOccupantForm />);
+    const { getByLabelText } = render(NewOccupantFormWithContext);
     expect(getByLabelText("Home Office")).toBeInTheDocument();
   });
 
   it("should have dropdown for status", () => {
-    const { getByLabelText } = render(<NewOccupantForm />);
+    const { getByLabelText } = render(NewOccupantFormWithContext);
     expect(getByLabelText("Occupant Status*")).toBeInTheDocument();
   });
 
   it("should have text", () => {
-    const { getByDisplayValue, getByLabelText } = render(<NewOccupantForm />);
+    const { getByDisplayValue, getByLabelText } = render(
+      NewOccupantFormWithContext
+    );
     const name = getByLabelText(/name/i);
     fireEvent.change(name, { target: { value: "Bob" } });
     expect(getByDisplayValue("Bob")).toBeInTheDocument();
   });
 
   it("should fill up input text fields", () => {
-    const { getByLabelText } = render(<NewOccupantForm />);
+    const { getByLabelText } = render(NewOccupantFormWithContext);
 
     const name = getByLabelText(/name/i);
     fireEvent.change(name, { target: { value: "Bob" } });
@@ -90,7 +98,7 @@ describe("Input form", () => {
 describe("Confirmation message", () => {
   it("should clear input text when submit button is clicked", async () => {
     mockPost.mockReturnValueOnce("");
-    const { getByText, getByLabelText } = render(<NewOccupantForm />);
+    const { getByText, getByLabelText } = render(NewOccupantFormWithContext);
 
     const name = getByLabelText(/name/i);
     fireEvent.change(name, { target: { value: "Bob" } });
@@ -129,7 +137,7 @@ describe("Confirmation message", () => {
 
   it("should clear form after hitting submit", async () => {
     mockPost.mockReturnValueOnce("");
-    const { getByLabelText, getByText } = render(<NewOccupantForm />);
+    const { getByLabelText, getByText } = render(NewOccupantFormWithContext);
 
     const nameInput = getByLabelText(/name/i);
     const button = getByText("Create", { selector: "input[type=submit]" });
@@ -147,7 +155,9 @@ describe("Confirmation message", () => {
       const history = createMemoryHistory();
       return render(
         <Occupant history={history} occupants={[]}>
-          <NewOccupantForm />
+          <ToastProvider>
+            <NewOccupantForm />
+          </ToastProvider>
         </Occupant>
       );
     };
@@ -159,7 +169,7 @@ describe("Confirmation message", () => {
   });
 
   it("should display failure message when there is an error", async () => {
-    const { getByLabelText, getByText } = render(<NewOccupantForm />);
+    const { getByLabelText, getByText } = render(NewOccupantFormWithContext);
 
     const nameInput = getByLabelText(/name/i);
     const button = getByText("Create", { selector: "input[type=submit]" });
@@ -182,35 +192,36 @@ describe("Redirect upon successful submission", () => {
     mockPost.mockReturnValueOnce("");
 
     const { getByLabelText, getByText } = render(
-      <NewOccupantForm history={history} triggerRender={triggerRender} />
+      <ToastProvider>
+        <NewOccupantForm history={history} triggerRender={triggerRender} />
+      </ToastProvider>
     );
 
-    await wait(() => {
-      const name = getByLabelText(/name/i);
-      fireEvent.change(name, { target: { value: "Bob" } });
+    const name = getByLabelText(/name/i);
+    fireEvent.change(name, { target: { value: "Bob" } });
 
-      const employeeId = getByLabelText("Employee ID");
-      fireEvent.change(employeeId, { target: { value: "123" } });
+    const employeeId = getByLabelText("Employee ID");
+    fireEvent.change(employeeId, { target: { value: "123" } });
 
-      const gender = getByLabelText("Gender");
-      fireEvent.change(gender, { target: { value: "male" } });
+    const gender = getByLabelText("Gender");
+    fireEvent.change(gender, { target: { value: "male" } });
 
-      const remarks = getByLabelText("Remarks");
-      fireEvent.change(remarks, { target: { value: "testing" } });
+    const remarks = getByLabelText("Remarks");
+    fireEvent.change(remarks, { target: { value: "testing" } });
 
-      const homeOffice = getByLabelText("Home Office");
-      fireEvent.change(homeOffice, {
-        target: { value: "Australia, Melbourne" }
-      });
-
-      const status = getByLabelText("Occupant Status*");
-      fireEvent.change(status, { target: { value: "allocated" } });
-
-      const button = getByText("Create", { selector: "input[type=submit]" });
-
-      fireEvent.click(button);
+    const homeOffice = getByLabelText("Home Office");
+    fireEvent.change(homeOffice, {
+      target: { value: "Australia, Melbourne" }
     });
 
-    expect(history.push).toHaveBeenCalled();
+    const status = getByLabelText("Occupant Status*");
+    fireEvent.change(status, { target: { value: "allocated" } });
+
+    const button = getByText("Create", { selector: "input[type=submit]" });
+
+    fireEvent.click(button);
+    await wait(() => {
+      expect(history.push).toHaveBeenCalled();
+    });
   });
 });
