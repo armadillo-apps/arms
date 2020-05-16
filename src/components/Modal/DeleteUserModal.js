@@ -1,17 +1,11 @@
 import Modal from "react-modal";
 import React from "react";
-import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
+import { useToasts } from "react-toast-notifications";
 import styles from "./ConfirmationModal.module.css";
 
 Modal.setAppElement("body");
 
-const DeleteUserModal = ({
-  modalIsOpen,
-  closeModal,
-  deleteUser,
-  success,
-  message
-}) => {
+const DeleteUserModal = ({ modalIsOpen, closeModal, deleteUser }) => {
   const customStyles = {
     content: {
       top: "50%",
@@ -32,6 +26,8 @@ const DeleteUserModal = ({
     }
   };
 
+  const { addToast } = useToasts();
+
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -50,15 +46,26 @@ const DeleteUserModal = ({
           </button>
           <button
             onClick={() => {
-              deleteUser();
-              setTimeout(() => closeModal(), 1000);
+              try {
+                deleteUser();
+                setTimeout(() => closeModal(), 1000);
+
+                addToast("The user has been succesfully deleted", {
+                  appearance: "success",
+                  autoDismiss: true
+                });
+              } catch (err) {
+                addToast("Unable to delete the user :(", {
+                  appearance: "error",
+                  autoDismiss: true
+                });
+              }
             }}
             className={styles.confirmButton}
           >
             Confirm
           </button>
         </div>
-        <ConfirmationMessage success={success} message={message} />
       </div>
     </Modal>
   );
