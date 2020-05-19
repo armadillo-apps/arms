@@ -157,4 +157,19 @@ describe("apartment form confirmation message", () => {
     );
     expect(failureMessage).toBeInTheDocument();
   });
+
+  it("should display success notification message when there is no error", async () => {
+    const successMessage = "Successfully added new apartment: Garden Shack";
+    mockPost.mockReturnValue(successMessage);
+    const { getByLabelText, getByText } = render(NewApartmentFormWithContext);
+
+    const nameInput = getByLabelText(/apartment name/i);
+    const button = getByText("Create", { selector: "input[type=submit]" });
+
+    fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
+    fireEvent.click(button);
+
+    const notificationMessage = await waitFor(() => getByText(successMessage));
+    expect(notificationMessage).toBeInTheDocument();
+  });
 });
