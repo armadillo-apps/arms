@@ -2,12 +2,7 @@ import React from "react";
 import { ToastProvider } from "react-toast-notifications";
 import * as UserContext from "../../context/UserContext";
 import "@testing-library/jest-dom/extend-expect";
-import {
-  render,
-  fireEvent,
-  waitFor,
-  waitForElement
-} from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 
 import LoginForm from "./LoginForm";
 import * as data from "../../api/api";
@@ -73,7 +68,7 @@ describe("Login Form", () => {
       });
       fireEvent.click(loginButton);
 
-      const loginErrorNotification = await waitForElement(() =>
+      const loginErrorNotification = await waitFor(() =>
         getByText("Invalid email or password")
       );
 
