@@ -2,17 +2,20 @@ import React from "react";
 
 import { ToastProvider } from "react-toast-notifications";
 import { render, fireEvent, waitFor } from "@testing-library/react";
+import { mockUserContext } from "../../../test/utils/mockUserContext";
 import "@testing-library/jest-dom/extend-expect";
-
-import * as UserContext from "../../context/UserContext";
 import * as data from "../../api/api";
 import ChangePasswordForm from "./ChangePasswordForm";
 
 const mockPost = jest.spyOn(data, "updatePassword");
+const triggerRender = jest.fn();
+
+const user = { email: "user@email.com" };
+mockUserContext(user);
 
 const ChangePasswordFormWithContext = (
   <ToastProvider>
-    <ChangePasswordForm />
+    <ChangePasswordForm triggerRender={triggerRender} />
   </ToastProvider>
 );
 
@@ -89,11 +92,6 @@ describe("Change Password Form", () => {
     });
 
     it("should clear all input values when Submit button is clicked", async () => {
-      const user = { email: "user@email.com" };
-
-      jest.spyOn(UserContext, "useUserContext").mockImplementation(() => ({
-        state: { user }
-      }));
       const mockGetUserId = jest.spyOn(data, "getUserId");
       mockGetUserId.mockReturnValueOnce({ id: "123" });
 
@@ -116,18 +114,9 @@ describe("Change Password Form", () => {
 
   describe("Notification", () => {
     it("should show error notification", async () => {
-      const { getByText, getByLabelText } = render(
-        ChangePasswordFormWithContext
-      );
-      const passwordInput = getByLabelText("Existing Password*");
-      fireEvent.change(passwordInput, {
-        target: { value: "password1234" }
-      });
+      mockPost.mockRejectedValue({});
 
-      const newPasswordInput = getByLabelText("New Password*");
-      fireEvent.change(newPasswordInput, {
-        target: { value: "newPassword123" }
-      });
+      const { getByText } = render(ChangePasswordFormWithContext);
 
       const submitButton = getByText("Submit");
       fireEvent.click(submitButton);
@@ -140,8 +129,8 @@ describe("Change Password Form", () => {
     });
 
     it("should show success notification", async () => {
-      const { getByText } = render(ChangePasswordFormWithContext);
       mockPost.mockReturnValue({});
+      const { getByText } = render(ChangePasswordFormWithContext);
 
       const submitButton = getByText("Submit");
       fireEvent.click(submitButton);
