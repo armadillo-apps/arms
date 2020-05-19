@@ -1,7 +1,13 @@
 import React from "react";
 import { ToastProvider } from "react-toast-notifications";
+import * as UserContext from "../../context/UserContext";
 import "@testing-library/jest-dom/extend-expect";
-import { render, fireEvent, waitForElement } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  waitFor,
+  waitForElement
+} from "@testing-library/react";
 
 import LoginForm from "./LoginForm";
 import * as data from "../../api/api";
@@ -75,19 +81,28 @@ describe("Login Form", () => {
     });
 
     it("should show success notification when user successfully logs in", async () => {
+      const user = {
+        email: "test@email.com",
+        role: "admin"
+      };
+      postSpy.mockReturnValue(user);
+
+      jest.spyOn(UserContext, "useUserContext").mockImplementation(() => ({
+        state: user,
+        dispatch: jest.fn()
+      }));
+
       const { getByText } = render(LoginFormWithContext);
-      postSpy.mockReturnValue({});
 
       const loginButton = getByText(/login/i, {
         selector: "input[type=submit]"
       });
       fireEvent.click(loginButton);
 
-      const loginErrorMessage = await waitForElement(() =>
+      const loginSuccessMessage = await waitFor(() =>
         getByText("Welcome back!")
       );
-
-      expect(loginErrorMessage).toBeInTheDocument();
+      expect(loginSuccessMessage).toBeInTheDocument();
     });
   });
 });
