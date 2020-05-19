@@ -3,14 +3,22 @@ import { ToastProvider } from "react-toast-notifications";
 import "@testing-library/jest-dom/extend-expect";
 import { render, waitFor } from "@testing-library/react";
 import { fireEvent } from "@testing-library/react/dist";
+import { mockUserContext } from "../../../test/utils/mockUserContext";
 import * as data from "../../api/api";
 
 import NewApartmentForm from "./NewApartmentForm";
 
 const mockPost = jest.spyOn(data, "createNewApartment");
+
+const history = { push: jest.fn() };
+const triggerRender = jest.fn();
+
+const user = { email: "user@email.com" };
+mockUserContext(user);
+
 const NewApartmentFormWithContext = (
   <ToastProvider>
-    <NewApartmentForm />
+    <NewApartmentForm history={history} triggerRender={triggerRender} />
   </ToastProvider>
 );
 
@@ -116,8 +124,6 @@ describe("apartment form confirmation message", () => {
   });
 
   it("should redirect to Apartments Page on creation", async () => {
-    const history = { push: jest.fn() };
-    const triggerRender = jest.fn();
     mockPost.mockReturnValueOnce("");
 
     const { getByLabelText, getByText } = render(
@@ -137,6 +143,7 @@ describe("apartment form confirmation message", () => {
   });
 
   it("should display failure message when there is an error", async () => {
+    mockPost.mockRejectedValue({});
     const { getByLabelText, getByText } = render(NewApartmentFormWithContext);
 
     const nameInput = getByLabelText(/apartment name/i);
