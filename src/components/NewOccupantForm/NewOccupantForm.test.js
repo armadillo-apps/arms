@@ -1,6 +1,5 @@
 import React from "react";
 import { ToastProvider } from "react-toast-notifications";
-import { mockUserContext } from "../../../test/utils/mockUserContext";
 import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import { createMemoryHistory } from "history";
@@ -12,9 +11,6 @@ const mockPost = jest.spyOn(data, "createNewOccupant");
 
 const history = { push: jest.fn() };
 const triggerRender = jest.fn();
-
-const user = { email: "user@email.com" };
-mockUserContext(user);
 
 const NewOccupantFormWithContext = (
   <ToastProvider>
