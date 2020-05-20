@@ -1,17 +1,24 @@
 import React from "react";
 import { ToastProvider } from "react-toast-notifications";
+import { mockUserContext } from "../../../test/utils/mockUserContext";
 import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import { createMemoryHistory } from "history";
-
 import NewOccupantForm from "./NewOccupantForm";
 import * as data from "../../api/api";
 import Occupant from "../Occupant/Occupant";
 
 const mockPost = jest.spyOn(data, "createNewOccupant");
+
+const history = { push: jest.fn() };
+const triggerRender = jest.fn();
+
+const user = { email: "user@email.com" };
+mockUserContext(user);
+
 const NewOccupantFormWithContext = (
   <ToastProvider>
-    <NewOccupantForm />
+    <NewOccupantForm history={history} triggerRender={triggerRender} />
   </ToastProvider>
 );
 
@@ -164,6 +171,7 @@ describe("Confirmation message", () => {
   });
 
   it("should display failure message when there is an error", async () => {
+    mockPost.mockRejectedValue({});
     const { getByLabelText, getByText } = render(NewOccupantFormWithContext);
 
     const nameInput = getByLabelText(/name/i);
@@ -177,6 +185,22 @@ describe("Confirmation message", () => {
     );
 
     expect(failureMessage).toBeInTheDocument();
+  });
+
+  it("should display success notification when there is no error", async () => {
+    const successMessage = "Successfully added new occupant: James Corden";
+    mockPost.mockReturnValue(successMessage);
+    const { getByLabelText, getByText } = render(NewOccupantFormWithContext);
+
+    const nameInput = getByLabelText(/name/i);
+    const button = getByText("Create", { selector: "input[type=submit]" });
+
+    fireEvent.change(nameInput, { target: { value: "James Corden" } });
+    fireEvent.click(button);
+
+    const notificationMessage = await waitFor(() => getByText(successMessage));
+
+    expect(notificationMessage).toBeInTheDocument();
   });
 });
 
