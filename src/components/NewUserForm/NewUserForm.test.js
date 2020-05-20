@@ -7,9 +7,13 @@ import * as data from "../../api/api";
 import NewUserForm from "./NewUserForm";
 
 const mockPost = jest.spyOn(data, "createNewUser");
+
+const history = { push: jest.fn() };
+const triggerRender = jest.fn();
+
 const NewUserFormWithContext = (
   <ToastProvider>
-    <NewUserForm />
+    <NewUserForm history={history} triggerRender={triggerRender} />
   </ToastProvider>
 );
 
@@ -115,6 +119,31 @@ describe("New User Form", () => {
         expect(password.value).toBe("");
         expect(role.value).toBe("");
       });
+    });
+
+    it("should display failure message when there is an error", async () => {
+      mockPost.mockRejectedValue({});
+      const { getByText } = render(NewUserFormWithContext);
+
+      const createButton = getByText("Create");
+      fireEvent.click(createButton);
+
+      const failureMessage = await waitFor(() =>
+        getByText("Unable to create new user :(")
+      );
+      expect(failureMessage).toBeInTheDocument();
+    });
+
+    it("should display success message when there is no error", async () => {
+      mockPost.mockReturnValue({});
+
+      const { getByText } = render(NewUserFormWithContext);
+
+      const createButton = getByText("Create");
+      fireEvent.click(createButton);
+
+      const notificationMessage = await waitFor(() => getByText("Success"));
+      expect(notificationMessage).toBeInTheDocument();
     });
   });
 });
