@@ -1,9 +1,7 @@
 import React from "react";
 import { ToastProvider } from "react-toast-notifications";
 import "@testing-library/jest-dom/extend-expect";
-import { render, waitFor } from "@testing-library/react";
-import { fireEvent } from "@testing-library/react/dist";
-import { mockUserContext } from "../../../test/utils/mockUserContext";
+import { render, waitFor, fireEvent } from "@testing-library/react";
 import * as data from "../../api/api";
 
 import NewApartmentForm from "./NewApartmentForm";
@@ -12,9 +10,6 @@ const mockPost = jest.spyOn(data, "createNewApartment");
 
 const history = { push: jest.fn() };
 const triggerRender = jest.fn();
-
-const user = { email: "user@email.com" };
-mockUserContext(user);
 
 const NewApartmentFormWithContext = (
   <ToastProvider>
