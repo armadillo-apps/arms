@@ -58,8 +58,9 @@ const EditUserModal = ({
             data-testid="roleSelector"
           >
             <option value="">Select role</option>
-            <option value="Admin">Admin</option>
-            <option value="Manager">Manager</option>
+            <option value="admin">Admin</option>
+            <option value="manager">Manager</option>
+            <option value="guest">Guest</option>
           </select>
         </section>
         <div className={styles.modalButtons}>
