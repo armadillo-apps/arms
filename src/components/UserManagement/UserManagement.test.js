@@ -13,6 +13,7 @@ import * as data from "../../api/api";
 
 const mockFetchUsers = jest.spyOn(data, "fetchUsers");
 const mockRemoveUser = jest.spyOn(data, "removeUser");
+const mockEditUser = jest.spyOn(data, "editUserRole");
 
 const UserManagementWithContext = (
   <ToastProvider>
@@ -123,20 +124,21 @@ describe("User Management Page", () => {
   it("should change the user's role when the confirm button is clicked", async () => {
     mockFetchUsers.mockResolvedValueOnce(users);
     mockRemoveUser.mockResolvedValueOnce([]);
-    const { getByText, queryByText, getByTestId } = render(
-      UserManagementWithContext
-    );
+    mockEditUser.mockResolvedValueOnce([]);
+
+    const { getByText, getByTestId } = render(UserManagementWithContext);
     const editButton = await waitFor(() => getByText("Edit Role"));
     fireEvent.click(editButton);
     const modalHeader = getByText("Select a role for user:");
     expect(modalHeader).toBeInTheDocument();
     const roleSelector = getByTestId("roleSelector");
-    fireEvent.change(roleSelector, { target: { value: "Manager" } });
+    fireEvent.change(roleSelector, { target: { value: "manager" } });
     const modalEditButton = await waitFor(() => getByText("Confirm"));
     expect(modalEditButton).toBeInTheDocument();
     fireEvent.click(modalEditButton);
     await waitForElementToBeRemoved(() => getByText("Confirm"));
-    const userToBeDeleted = await waitFor(() => queryByText("admin"));
-    expect(userToBeDeleted).toBeInTheDocument();
+
+    expect(mockEditUser).toHaveBeenCalledTimes(1);
+    expect(mockEditUser).toHaveBeenCalledWith("1234", "manager");
   });
 });
