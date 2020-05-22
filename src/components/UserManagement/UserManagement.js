@@ -1,131 +1,131 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import { fetchUsers, removeUser, editUserRole } from "../../api/api";
 import DeleteUserModal from "../Modal/DeleteUserModal";
 import EditUserModal from "../Modal/EditUserModal";
 import styles from "./UserManagement.module.css";
 
-class UserManagement extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      usersList: [],
-      userToDelete: "",
-      userToEdit: "",
-      isConfirmationModalOpen: false,
-      isEditUserModalOpen: false,
-      success: false,
-      message: "",
-      newRole: ""
+const UserManagement = () => {
+  const [usersList, setUsersList] = useState([]);
+  const [userToDelete, setUserToDelete] = useState("");
+  const [userToEdit, setUserToEdit] = useState("");
+  const [dialogOpen, setDialogOpen] = useState({
+    isConfirmationModalOpen: false,
+    isEditUserModalOpen: false
+  });
+
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let users;
+      try {
+        users = await fetchUsers();
+        setUsersList(users);
+      } catch (err) {
+        setSuccess(false);
+      }
     };
-  }
+    fetchData();
+  }, []);
 
-  componentDidMount = async () => {
+  const openConfirmationModal = () => {
+    setDialogOpen({ isConfirmationModalOpen: true });
+  };
+
+  const openEditUserModal = () => {
+    setDialogOpen({ isEditUserModalOpen: true });
+  };
+
+  const closeModal = id => {
+    setDialogOpen({ [id]: false });
+    setMessage("");
+  };
+
+  const deleteUser = async () => {
     try {
-      const usersList = await fetchUsers();
-      this.setState({ usersList });
+      const newUsersList = await removeUser(userToDelete);
+      setUsersList(newUsersList);
     } catch (err) {
-      return err.message;
+      setMessage("Unable to delete user");
     }
   };
 
-  openModal = () => {
-    this.setState({ isConfirmationModalOpen: true });
-  };
-
-  openEditUserModal = () => {
-    this.setState({ isEditUserModalOpen: true });
-  };
-
-  closeModal = id => {
-    this.setState({ [id]: false, message: "" });
-  };
-
-  deleteUser = async () => {
+  const editUser = async role => {
     try {
-      const newUsersList = await removeUser(this.state.userToDelete);
-      this.setState({ usersList: newUsersList });
+      const newUsersList = await editUserRole(userToEdit, role);
+      setUsersList(newUsersList);
     } catch (err) {
-      this.setState({ message: "Unable to delete user" });
+      setMessage("Unable to edit user role");
     }
   };
 
-  editUser = async role => {
-    try {
-      const newUsersList = await editUserRole(this.state.userToEdit, role);
-      this.setState({ usersList: newUsersList });
-    } catch (err) {
-      this.setState({ message: "Unable to edit user role" });
-    }
-  };
-
-  render() {
-    return (
-      <div className={styles.container}>
-        <div className={styles.userManagementContainer}>
-          <h1 className={styles.heading1}>User Management</h1>
-          <DeleteUserModal
-            modalIsOpen={this.state.isConfirmationModalOpen}
-            closeModal={() => this.closeModal("isConfirmationModalOpen")}
-            deleteUser={this.deleteUser}
-            contentLabel="DeleteUserModal"
-            success={this.state.success}
-            message={this.state.message}
-          />
-          <EditUserModal
-            modalIsOpen={this.state.isEditUserModalOpen}
-            closeModal={() => this.closeModal("isEditUserModalOpen")}
-            editUser={this.editUser}
-            contentLabel="EditUserModal"
-            success={this.state.success}
-            message={this.state.message}
-          />
-        </div>
-        <table className={styles.table} cellSpacing="0" cellPadding="0">
-          <thead className={styles.heading2}>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.usersList.map(user => {
-              return (
-                <tr key={user._id} className={styles.details}>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.role}</td>
-                  <td>
-                    <button
-                      className={styles.editButton}
-                      onClick={event => {
-                        this.openEditUserModal(event);
-                        this.setState({ userToEdit: user._id });
-                      }}
-                    >
-                      Edit Role
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      className={styles.deleteButton}
-                      onClick={event => {
-                        this.openModal(event);
-                        this.setState({ userToDelete: user._id });
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+  return (
+    <div className={styles.container}>
+      <div className={styles.userManagementContainer}>
+        <h1 className={styles.heading1}>User Management</h1>
+        <DeleteUserModal
+          modalIsOpen={dialogOpen.isConfirmationModalOpen}
+          closeModal={() => closeModal("isConfirmationModalOpen")}
+          deleteUser={deleteUser}
+          contentLabel="DeleteUserModal"
+          success={success}
+          message={message}
+        />
+        <EditUserModal
+          modalIsOpen={dialogOpen.isEditUserModalOpen}
+          closeModal={() => closeModal("isEditUserModalOpen")}
+          editUser={editUser}
+          contentLabel="EditUserModal"
+          success={success}
+          message={message}
+        />
       </div>
-    );
-  }
-}
+      <table className={styles.table} cellSpacing="0" cellPadding="0">
+        <thead className={styles.heading2}>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          {usersList.map(user => {
+            return (
+              <tr key={user._id} className={styles.details}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+                <td>
+                  <button
+                    className={styles.editButton}
+                    onClick={event => {
+                      openEditUserModal(event);
+                      setUserToEdit(user._id);
+                    }}
+                  >
+                    Edit Role
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className={styles.deleteButton}
+                    onClick={event => {
+                      openConfirmationModal(event);
+                      setUserToDelete(user._id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
 export default UserManagement;
