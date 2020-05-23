@@ -30,12 +30,9 @@ const UserManagement = () => {
     fetchData();
   }, []);
 
-  const openConfirmationModal = () => {
-    setDialogOpen({ isConfirmationModalOpen: true });
-  };
-
-  const openEditUserModal = () => {
-    setDialogOpen({ isEditUserModalOpen: true });
+  const openModal = id => {
+    setDialogOpen({ [id]: true });
+    setMessage("");
   };
 
   const closeModal = id => {
@@ -100,8 +97,8 @@ const UserManagement = () => {
                 <td>
                   <button
                     className={styles.editButton}
-                    onClick={event => {
-                      openEditUserModal(event);
+                    onClick={() => {
+                      openModal("isEditUserModalOpen");
                       setUserToEdit(user._id);
                     }}
                   >
@@ -111,8 +108,8 @@ const UserManagement = () => {
                 <td>
                   <button
                     className={styles.deleteButton}
-                    onClick={event => {
-                      openConfirmationModal(event);
+                    onClick={() => {
+                      openModal("isConfirmationModalOpen");
                       setUserToDelete(user._id);
                     }}
                   >
