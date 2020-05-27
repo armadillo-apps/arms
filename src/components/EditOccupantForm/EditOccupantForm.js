@@ -1,18 +1,10 @@
 import React from "react";
 import Input from "../Input/Input.js";
 import TextArea from "../Input/TextArea.js";
-import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import homeOfficeData from "../../assets/HomeOfficeData";
 import styles from "./EditOccupantForm.module.css";
 
-const EditOccupantForm = ({
-  onSubmit,
-  onChange,
-  occupant,
-  message,
-  success,
-  closeModal
-}) => {
+const EditOccupantForm = ({ onSubmit, onChange, occupant, closeModal }) => {
   const {
     name: defaultName,
     employeeId: defaultId,
@@ -123,7 +115,6 @@ const EditOccupantForm = ({
         onClick={() => closeModal("editOccupantModal")}
       />
       <input className={styles.updateButton} value="Update" type="submit" />
-      <ConfirmationMessage success={success} message={message} />
     </form>
   );
 };

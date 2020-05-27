@@ -5,7 +5,6 @@ import { fetchStays } from "../../api/api";
 import { formatDate } from "../../utils/date";
 import EditOccupantModal from "../Modal/EditOccupantModal";
 import EditOccupantForm from "../EditOccupantForm/EditOccupantForm";
-import ConfirmationMessage from "../ConfirmationMessage/ConfirmationMessage";
 import { sgdFormatter, thbFormatter } from "../../utils/formatMoney";
 import styles from "./OccupantProfile.module.css";
 
@@ -130,25 +129,13 @@ const OccupantProfile = ({
           isModalOpen={isModalOpen}
           closeModal={() => closeModal("editOccupantModal")}
         >
-          {modalStates.success ? (
-            <div>
-              <ConfirmationMessage
-                success={modalStates.success}
-                message={modalStates.message}
-              />
-              <button onClick={() => closeModal("editOccupantModal")}>
-                Close
-              </button>
-            </div>
-          ) : (
-            <EditOccupantForm
-              onSubmit={onSubmit}
-              onChange={onChange}
-              occupant={occupant}
-              {...modalStates}
-              closeModal={closeModal}
-            />
-          )}
+          <EditOccupantForm
+            onSubmit={onSubmit}
+            onChange={onChange}
+            occupant={occupant}
+            {...modalStates}
+            closeModal={closeModal}
+          />
         </EditOccupantModal>
       </div>
     );

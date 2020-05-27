@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
   Redirect
 } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 import UserContext from "../../context/UserContext";
 import LoginForm from "../LoginForm/LoginForm";
 import styles from "./ArmsRouter.module.css";
@@ -28,6 +29,13 @@ import NewUserForm from "../NewUserForm/NewUserForm";
 import UserManagement from "../UserManagement/UserManagement";
 import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
 import { LOGOUT_USER } from "../../reducer/userReducer";
+
+function withToast(Component) {
+  return function WrappedComponent(props) {
+    const toastFuncs = useToasts();
+    return <Component {...props} {...toastFuncs} />;
+  };
+}
 
 class ArmsRouter extends Component {
   constructor(props) {
@@ -195,6 +203,7 @@ class ArmsRouter extends Component {
         occupants,
         editOccupantModal: {
           ...this.state.editOccupantModal,
+          isModalOpen: false,
           name: "",
           employeeId: "",
           gender: "",
@@ -205,6 +214,10 @@ class ArmsRouter extends Component {
           success: true
         }
       });
+      this.props.addToast(response, {
+        appearance: "success",
+        autoDismiss: true
+      });
     } catch (err) {
       this.setState({
         editOccupantModal: {
@@ -212,6 +225,10 @@ class ArmsRouter extends Component {
           success: false,
           message: "Unable to update occupant"
         }
+      });
+      this.props.addToast("Unable to update occupant", {
+        appearance: "error",
+        autoDismiss: true
       });
     }
   };
@@ -434,4 +451,4 @@ const NoMatchPage = () => {
   return <h1>Path does not exist!</h1>;
 };
 
-export default ArmsRouter;
+export default withToast(ArmsRouter);

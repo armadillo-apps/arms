@@ -90,20 +90,6 @@ describe("EditOccupantForm", () => {
     expect(cancelButton).toBeInTheDocument();
   });
 
-  it("should render a confirmation message", () => {
-    const { getByText } = render(
-      <EditOccupantForm
-        message="Successfully update new occupant: Bob"
-        success={true}
-        occupant={occupants[0]}
-      />
-    );
-
-    expect(
-      getByText("Successfully update new occupant: Bob")
-    ).toBeInTheDocument();
-  });
-
   it("should render country, city when Home office is selected", () => {
     const { getByText } = render(<EditOccupantForm occupant={occupants[1]} />);
     expect(getByText("Australia, Brisbane")).toBeInTheDocument();
