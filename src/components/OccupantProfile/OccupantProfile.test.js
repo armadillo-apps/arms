@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, wait } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 
 import { mockUserContext } from "../../../test/utils/mockUserContext";
 import * as data from "../../api/api";
@@ -284,7 +284,7 @@ describe("Occupant profile", () => {
         />
       );
 
-      await wait(() => {
+      await waitFor(() => {
         expect(getByText("Parc Sophia")).toBeInTheDocument();
         expect(getByText("The Beacon Condo")).toBeInTheDocument();
       });
@@ -301,7 +301,7 @@ describe("Occupant profile", () => {
         />
       );
 
-      await wait(() => {
+      await waitFor(() => {
         expect(getByText("25 Dec 09")).toBeInTheDocument();
         expect(getByText("25 Dec 19")).toBeInTheDocument();
         expect(getByText("25 Dec 01")).toBeInTheDocument();
@@ -320,7 +320,7 @@ describe("Occupant profile", () => {
         />
       );
 
-      await wait(() => {
+      await waitFor(() => {
         expect(getByText("THB 6,000.00")).toBeInTheDocument();
         expect(getByText("SGD 8,000.00")).toBeInTheDocument();
       });
@@ -337,7 +337,7 @@ describe("Occupant profile", () => {
         />
       );
 
-      await wait(() => {
+      await waitFor(() => {
         expect(getByText("Lease not allocated")).toBeInTheDocument();
       });
     });
@@ -346,7 +346,7 @@ describe("Occupant profile", () => {
       const { getByText } = render(
         <OccupantProfile match={match} modalStates={modalStates} />
       );
-      await wait(() => {
+      await waitFor(() => {
         expect(getByText("Loading...")).toBeInTheDocument();
       });
     });
