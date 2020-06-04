@@ -238,7 +238,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
       cy.get("input[type=submit]").click();
 
-      cy.get("input[type=text]")
+      cy.get("[data-testid=Apartment__searchBar]")
         .should("have.attr", "placeholder", "Search Apartment")
         .type(apartmentName);
 
@@ -276,7 +276,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
       cy.get("input[type=submit]").click();
 
-      cy.get("input[type=text]")
+      cy.get("[data-testid=Apartment__searchBar]")
         .should("have.attr", "placeholder", "Search Apartment")
         .type(apartmentName2);
 
@@ -313,12 +313,12 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
       cy.get('a[href="/apartments"]').click();
 
-      cy.get("input")
+      cy.get("[data-testid=Apartment__searchBar]")
         .should("have.attr", "placeholder", "Search Apartment")
         .type(newApartmentForSearchbarTest.apartmentName);
       cy.contains(apartmentName).should("not.exist");
       cy.contains(newApartmentForSearchbarTest.apartmentName);
-      cy.get("input")
+      cy.get("[data-testid=Apartment__searchBar]")
         .should("have.attr", "placeholder", "Search Apartment")
         .clear();
     });
@@ -424,7 +424,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   describe("Change apartment status", () => {
     it("should show an error message if status of apartment with an occupant is changed to inactive", () => {
       cy.get('a[href="/apartments"]').click();
-      cy.get("input[type=text]").type(apartmentName);
+      cy.get("[data-testid=Apartment__searchBar]").type(apartmentName);
       cy.contains(apartmentName).click();
 
       cy.get("button")
@@ -445,7 +445,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     it("be able to cancel occupant stay deletion", () => {
       cy.get('a[href="/apartments"]').click();
 
-      cy.get("input[type=text]").type(apartmentName);
+      cy.get("[data-testid=Apartment__searchBar]").type(apartmentName);
       cy.contains(apartmentName).click();
       cy.get('button[id="isConfirmationModalOpen"]').click();
       cy.get("button")

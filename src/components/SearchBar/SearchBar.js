@@ -8,6 +8,7 @@ const SearchBar = ({ id, placeholder, handleChange, value }) => {
       <input
         id={id}
         type="text"
+        data-testid={`${placeholder}__searchBar`}
         className={styles.searchInput}
         placeholder={`Search ${placeholder}`}
         onChange={handleChange}
