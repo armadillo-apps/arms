@@ -1,9 +1,12 @@
 import ApartmentDetail from "../ApartmentDetail/ApartmentDetail";
 import React, { useState, useEffect } from "react";
-import styles from "./Apartment.module.css";
 import SearchBar from "../SearchBar/SearchBar";
 import PropTypes from "prop-types";
 import moment from "moment";
+import "react-dates/initialize";
+import "react-dates/lib/css/_datepicker.css";
+import { DateRangePicker } from "react-dates";
+import styles from "./Apartment.module.css";
 
 export const sortApartmentsByStatus = apartmentList => {
   const activeApartments = apartmentList.filter(
@@ -25,6 +28,9 @@ export const sortApartmentsByStatus = apartmentList => {
 export const Apartment = ({ apartments, stays, history }) => {
   const [apartmentList, setApartmentList] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [focusedInput, setFocusedInput] = useState(null);
 
   useEffect(() => {
     setApartmentList(apartments);
@@ -36,15 +42,34 @@ export const Apartment = ({ apartments, stays, history }) => {
 
   const handleApartmentSearch = () => {
     const sortedApartments = sortApartmentsByStatus(apartmentList);
+
     const compareStrings = (str1, str2) =>
       str1.toLowerCase().includes(str2.toLowerCase());
 
-    if (inputValue) {
-      return sortedApartments.filter(apartment =>
-        compareStrings(apartment.name, inputValue)
+    const apartmentListByName = sortedApartments.filter(apartment =>
+      compareStrings(apartment.name, inputValue)
+    );
+
+    if (startDate && endDate) {
+      return apartmentListByName.filter(
+        apartment =>
+          moment(new Date(apartment.leases[0].leaseStart)).isSameOrBefore(
+            moment.max(startDate, moment(new Date(0))),
+            "day"
+          ) &&
+          moment(new Date(apartment.leases[0].leaseEnd)).isSameOrAfter(
+            endDate,
+            "day"
+          )
       );
     }
-    return sortedApartments;
+
+    return apartmentListByName;
+  };
+
+  const handleDateChange = ({ startDate, endDate }) => {
+    setStartDate(startDate);
+    setEndDate(endDate);
   };
 
   const calculateVancancy = (apartment, staysForApartment) => {
@@ -97,7 +122,25 @@ export const Apartment = ({ apartments, stays, history }) => {
     <div className={styles.page} data-testid="apartments">
       <div className={styles.container}>
         <h1 className={styles.heading}>Apartments</h1>
-        <SearchBar handleChange={handleNewInput} placeholder="Apartment" />
+        <div className={styles.searchBarContainer}>
+          <SearchBar handleChange={handleNewInput} placeholder="Apartment" />
+          <DateRangePicker
+            noBorder={true}
+            small={true}
+            displayFormat={() => "DD/MM/YYYY"}
+            showClearDates={true}
+            startDate={startDate ? moment(startDate) : null}
+            startDateId="startDateId"
+            startDatePlaceholderText="Start Date"
+            endDate={endDate ? moment(endDate) : null}
+            endDateId="endDateId"
+            endDatePlaceholderText=" End Date"
+            isOutsideRange={() => null}
+            onDatesChange={handleDateChange}
+            focusedInput={focusedInput}
+            onFocusChange={focusedInput => setFocusedInput(focusedInput)}
+          />
+        </div>
         {renderTable()}
       </div>
     </div>

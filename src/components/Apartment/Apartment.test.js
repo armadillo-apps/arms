@@ -136,12 +136,40 @@ describe("Apartment", () => {
       <Apartment apartments={apartments} stays={[]} />
     );
     const inputField = getByPlaceholderText(/search apartment/i);
+    const startDateInput = getByPlaceholderText(/start date/i);
+    const endDateInput = getByPlaceholderText(/end date/i);
+    const sentosa = getByText("Sentosa Cove");
     const parcSophia = getByText("Parc Sophia");
     const seaView = getByText("Sea View");
+
     fireEvent.change(inputField, { target: { value: " " } });
+    fireEvent.change(startDateInput, { target: { value: " " } });
+    fireEvent.change(endDateInput, { target: { value: " " } });
+
+    expect(sentosa).toBeInTheDocument();
     expect(parcSophia).toBeInTheDocument();
     expect(seaView).toBeInTheDocument();
   });
+
+  it("should be able to filter apartments using date picker correctly", () => {
+    const { getByPlaceholderText, getByText } = render(
+      <Apartment apartments={apartments} stays={[]} />
+    );
+
+    const startDateInput = getByPlaceholderText(/start date/i);
+    const endDateInput = getByPlaceholderText(/end date/i);
+    const sentosa = getByText("Sentosa Cove");
+    const parcSophia = getByText("Parc Sophia");
+    const seaView = getByText("Sea View");
+
+    fireEvent.change(startDateInput, { target: { value: "01/01/2021" } });
+    fireEvent.change(endDateInput, { target: { value: "23/06/2021" } });
+
+    expect(sentosa).not.toBeInTheDocument();
+    expect(parcSophia).not.toBeInTheDocument();
+    expect(seaView).toBeInTheDocument();
+  });
+
   describe("Sorting apartment", () => {
     it("should sort apartment by status and lease dates", () => {
       const sorted = sortApartmentsByStatus(apartments);
