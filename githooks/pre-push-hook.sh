@@ -7,7 +7,7 @@ if [[ -n $(git status -s) ]] ; then
 fi
 
 test_return_code=0
-if ! npm run test:all ; then
+if ! npm run test:cov ; then
     test_return_code=1
     echo "Unit test failed"
 fi

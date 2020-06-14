@@ -21,8 +21,7 @@
     "build": "react-scripts build",
     "lint": "eslint src --max-warnings 0",
     "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
-    "test:coverage": "npm test -- --coverage --watchAll=false --env=jest-environment-jsdom-sixteen",
-    "test:all": "CI=true npm test -- --silent src",
+    "test:cov": "npm test -- --coverage --watchAll=false --silent --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject",
     "cy:open": "cypress open",
     "cy:verify": "cypress verify",
@@ -72,10 +71,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 71.03,
-        "functions": 72.19,
-        "lines": 73.32,
-        "statements": 73.23
+        "statements": 81.2,
+        "branches": 76.56,
+        "functions": 79.3,
+        "lines": 81.32
       }
     }
   },
