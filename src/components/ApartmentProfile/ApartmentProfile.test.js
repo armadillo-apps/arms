@@ -1,11 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import {
-  cleanup,
-  fireEvent,
-  render,
-  waitForElement
-} from "@testing-library/react";
+import { cleanup, fireEvent, render } from "@testing-library/react";
 
 import ApartmentProfile from "./ApartmentProfile";
 import * as data from "../../api/api";
@@ -202,7 +197,7 @@ describe("Apartment Profile", () => {
 
   it("should render occupant history", async () => {
     getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
-    const { getByText } = render(
+    const { findByText } = render(
       <ApartmentProfile
         apartments={apartmentDetails}
         match={match}
@@ -210,10 +205,10 @@ describe("Apartment Profile", () => {
         onSubmit={onSubmit}
       />
     );
-    const occupantName1 = await waitForElement(() => getByText("John"));
-    const occupantName2 = await waitForElement(() => getByText("Tim"));
-    const checkInDate1 = await waitForElement(() => getByText("1 Jan 10"));
-    const checkOutDate2 = await waitForElement(() => getByText("1 Jan 11"));
+    const occupantName1 = await findByText("John");
+    const occupantName2 = await findByText("Tim");
+    const checkInDate1 = await findByText("1 Jan 10");
+    const checkOutDate2 = await findByText("1 Jan 11");
 
     expect(occupantName1).toBeInTheDocument();
     expect(occupantName2).toBeInTheDocument();
@@ -223,7 +218,7 @@ describe("Apartment Profile", () => {
 
   it("should display the modal with the delete confirmation message when X is clicked", async () => {
     getApartmentProfileHistory.mockReturnValueOnce(occupantToBeDeleted);
-    const { getByText } = render(
+    const { getByText, findByText } = render(
       <ApartmentProfile
         apartments={apartmentDetails}
         match={match}
@@ -231,7 +226,7 @@ describe("Apartment Profile", () => {
         onSubmit={onSubmit}
       />
     );
-    const occupantName = await waitForElement(() => getByText("Jane"));
+    const occupantName = await findByText("Jane");
     expect(occupantName).toBeInTheDocument();
     const xButton = getByText("X");
     fireEvent.click(xButton);
@@ -242,7 +237,7 @@ describe("Apartment Profile", () => {
 
   it("should render message when occupant history is empty", async () => {
     getApartmentProfileHistory.mockReturnValueOnce([]);
-    const { getByText } = render(
+    const { findByText } = render(
       <ApartmentProfile
         apartments={apartmentDetails}
         match={match}
@@ -250,14 +245,14 @@ describe("Apartment Profile", () => {
         onSubmit={onSubmit}
       />
     );
-    const message = await waitForElement(() => getByText("No occupants yet!"));
+    const message = await findByText("No occupants yet!");
 
     expect(message).toBeInTheDocument();
   });
 
   it("should be able to update the number of occupants", async () => {
     getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <ApartmentProfile
         apartments={apartmentDetails}
         match={match}
@@ -265,16 +260,14 @@ describe("Apartment Profile", () => {
         onSubmit={onSubmit}
       />
     );
-    const noOccupants = await waitForElement(() =>
-      getByTestId("occupantsCount")
-    );
+    const noOccupants = await findByTestId("occupantsCount");
     expect(noOccupants).toBeInTheDocument();
     expect(noOccupants.textContent).toEqual("1");
   });
 
   it("should sort occupants by check-in date", async () => {
     getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
-    const { getAllByTestId } = render(
+    const { findAllByTestId } = render(
       <ApartmentProfile
         apartments={apartmentDetails}
         match={match}
@@ -282,7 +275,7 @@ describe("Apartment Profile", () => {
         onSubmit={onSubmit}
       />
     );
-    const occupants = await waitForElement(() => getAllByTestId("tableRow"));
+    const occupants = await findAllByTestId("tableRow");
     expect(occupants[0]).toHaveClass("futureOccupants");
     expect(JSON.stringify(occupants[0].innerHTML)).toMatch("Tim");
     expect(occupants[1]).toHaveClass("currentOccupants");
