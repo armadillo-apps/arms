@@ -29,8 +29,8 @@ jobs:
           name: Run eslint
           command: npm run lint
       - run:
-          name: Run unit tests
-          command: npm run test:coverage
+          name: Run unit tests and check coverage
+          command: npm run test:cov
   build:
     docker:
       - image: circleci/node:12.6.0-browsers
