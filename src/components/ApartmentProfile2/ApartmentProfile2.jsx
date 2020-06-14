@@ -5,17 +5,23 @@ import SearchBar2 from "../SearchBar/SearchBar2";
 import styles from "./ApartmentProfile2.module.css";
 import DetailsCard from "../DetailsCard/DetailsCard";
 import { useApartmentData } from "../../hooks/useApartmentData";
+import { useHistory, useParams } from "react-router-dom";
+import routes from "../../router/RouterPaths";
 
-const ApartmentProfile2 = props => {
-  const apartmentId = props.match?.params?.apartmentId;
+const ApartmentProfile2 = () => {
+  const history = useHistory();
+  const { apartmentId } = useParams();
   const { apartment } = useApartmentData(apartmentId);
   const occupantsCount = "1";
   return (
     <div className={styles.mainContainer}>
       <SearchBar2 placeholder="Search here" />
       <div className={styles.profileContainer}>
-        <button className={styles.backButton}>
-          &lt; Back to Apartment Listings
+        <button
+          className={styles.backButton}
+          onClick={() => history.push(routes.APARTMENTS)}
+        >
+          &lt; Back
         </button>
         <button className={styles.editButton}>EDIT</button>
         <div className={styles.mainCard}>

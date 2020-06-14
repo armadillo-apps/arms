@@ -1,12 +1,19 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import ApartmentProfile2 from "./ApartmentProfile2";
 import { useApartmentData } from "../../hooks/useApartmentData";
 import { mockApartment } from "../../mocks/mockData";
+import routes from "../../router/RouterPaths";
 
 jest.mock("../../hooks/useApartmentData");
+
+const mockHistory = jest.fn();
+jest.mock("react-router-dom", () => ({
+  useParams: () => jest.fn(),
+  useHistory: () => ({ push: mockHistory })
+}));
 
 describe("Apartment Profile2", () => {
   beforeEach(() => {
@@ -34,11 +41,15 @@ describe("Apartment Profile2", () => {
   });
 
   it("should render Back button", () => {
-    render(<ApartmentProfile2 />);
+    render(<ApartmentProfile2 {...history} />);
 
-    expect(
-      screen.getByText(/< Back to Apartment Listings/i)
-    ).toBeInTheDocument();
+    const backButton = screen.getByRole("button", { name: /< Back/i });
+    expect(backButton).toBeInTheDocument();
+
+    fireEvent.click(backButton);
+
+    expect(mockHistory).toBeCalledTimes(1);
+    expect(mockHistory).toBeCalledWith(routes.APARTMENTS);
   });
 
   it("should render Edit button", () => {
