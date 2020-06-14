@@ -6,10 +6,15 @@ if [[ -n $(git status -s) ]] ; then
     echo "Pushing local changes to git stash"
 fi
 
-npm_test_return=0
+test_return_code=0
 if ! npm run test:all ; then
-    npm_test_return=1
-    echo "tests failed"
+    test_return_code=1
+    echo "Unit test failed"
+fi
+
+if ! npm run cy:dev ; then
+    test_return_code=1
+    echo "UI test failed"
 fi
 
 stash_id=$(git stash list | grep $stash_name | cut -d: -f1)
@@ -18,4 +23,4 @@ if [[ -n $stash_id ]] ; then
     echo "Popped pre-push stash from git stash"
 fi
 
-exit ${npm_test_return}
+exit ${test_return_code}

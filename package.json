@@ -22,7 +22,7 @@
     "lint": "eslint src --max-warnings 0",
     "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
     "test:coverage": "npm test -- --coverage --watchAll=false --env=jest-environment-jsdom-sixteen",
-    "test:all": "CI=true npm test -- --silent src & npm run cy:dev",
+    "test:all": "CI=true npm test -- --silent src",
     "eject": "react-scripts eject",
     "cy:open": "cypress open",
     "cy:verify": "cypress verify",
