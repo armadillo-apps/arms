@@ -19,7 +19,7 @@ import {
 } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import { Apartment } from "../Apartment/Apartment";
-import Occupant from "../Occupant/Occupant";
+import Occupant from "../../containers/OccupantsPage";
 import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
 import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
 import OccupantProfile from "../OccupantProfile/OccupantProfile";

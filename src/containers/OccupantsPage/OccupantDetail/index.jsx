@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "./OccupantDetail.module.css";
+import styles from "./index.module.css";
 
 const OccupantDetail = ({
   name,
