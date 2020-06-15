@@ -1,40 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import OccupantDetail from "../OccupantDetail/OccupantDetail";
 import SearchBar from "../SearchBar/SearchBar";
-import styles from "./Occupant.module.css";
+import styles from "./Occupant.module.scss";
+import { useFetch } from "../../hooks/useFetch";
+import { fetchOccupants } from "../../api/api";
+import { useHistory } from "react-router-dom";
+import OccupantDetail from "../OccupantDetail/OccupantDetail";
 
-const Occupant = ({ occupants, history }) => {
+const Occupant = () => {
+  const history = useHistory();
   const [filteredOccupants, setFilteredOccupants] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const { data: occupants } = useFetch(fetchOccupants);
 
   useEffect(() => {
-    const sortedOccupants = occupants.reduce(
-      (accumulator, occupant) => {
-        switch (occupant.status) {
-          case "inactive":
-            accumulator.inactive.push(occupant);
-            return accumulator;
-          case "unallocated":
-            accumulator.unallocated.push(occupant);
-            return accumulator;
-          case "allocated":
-            accumulator.allocated.push(occupant);
-            return accumulator;
-          default:
-            return accumulator;
-        }
-      },
-      { inactive: [], unallocated: [], allocated: [] }
-    );
-
-    const sortedOccupantsArray = [
-      ...sortedOccupants.unallocated,
-      ...sortedOccupants.allocated,
-      ...sortedOccupants.inactive
-    ];
-
-    setFilteredOccupants(sortedOccupantsArray);
+    if (occupants?.length > 0) {
+      const sortedOccupants = occupants?.reduce(
+        (accumulator, occupant) => {
+          switch (occupant.status) {
+            case "inactive":
+              accumulator.inactive.push(occupant);
+              return accumulator;
+            case "unallocated":
+              accumulator.unallocated.push(occupant);
+              return accumulator;
+            case "allocated":
+              accumulator.allocated.push(occupant);
+              return accumulator;
+            default:
+              return accumulator;
+          }
+        },
+        { inactive: [], unallocated: [], allocated: [] }
+      );
+      const sortedOccupantsArray = [
+        ...sortedOccupants.unallocated,
+        ...sortedOccupants.allocated,
+        ...sortedOccupants.inactive
+      ];
+      setFilteredOccupants(sortedOccupantsArray);
+    }
   }, [occupants]);
 
   const handleNewInput = event => {

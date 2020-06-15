@@ -19,3 +19,24 @@ export const mockApartment = {
     }
   ]
 };
+
+export const mockOccupants = [
+  {
+    _id: "5d36b4ade2a0d50eff851283",
+    name: "Bob",
+    employeeId: "1234561b",
+    remarks: "testing for Bob",
+    homeOffice: "Singapore, Singapore",
+    status: "allocated"
+  },
+  {
+    _id: "5d36b4ade2a0d50eff851284",
+    name: "Jason",
+    status: "unallocated"
+  },
+  {
+    _id: "5d36b4ade2a0d50eff851285",
+    name: "Tim",
+    status: "inactive"
+  }
+];

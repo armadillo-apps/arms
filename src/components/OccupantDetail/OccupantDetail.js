@@ -13,7 +13,7 @@ const OccupantDetail = ({
   return (
     <tr
       className={styles.tableRow}
-      onClick={() => history.push(`occupants/${occupantId}`)}
+      onClick={() => history.push(`/occupants/${occupantId}`)}
     >
       <td className={styles[status]}>{status}</td>
       <td>{name}</td>
