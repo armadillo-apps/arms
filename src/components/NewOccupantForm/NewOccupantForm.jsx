@@ -4,9 +4,12 @@ import Input from "../Input/Input";
 import TextArea from "../Input/TextArea";
 import { createNewOccupant } from "../../api/api";
 import homeOfficeData from "../../assets/HomeOfficeData";
-import styles from "./NewOccupantForm.module.css";
+import styles from "./NewOccupantForm.module.scss";
+import { useHistory } from "react-router-dom";
+import routes from "../../router/RouterPaths";
 
-const NewOccupantForm = props => {
+const NewOccupantForm = () => {
+  const history = useHistory();
   const emptyForm = {
     name: "",
     employeeId: "",
@@ -42,14 +45,13 @@ const NewOccupantForm = props => {
         autoDismiss: true
       });
       setFormInputs(emptyForm);
-
-      props.triggerRender();
-      props.history.push(`/occupants`);
     } catch (err) {
       addToast("Unable to create new occupant :(", {
         appearance: "error",
         autoDismiss: true
       });
+    } finally {
+      history.push(routes.OCCUPANTS);
     }
   };
 
