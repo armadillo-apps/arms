@@ -1,0 +1,47 @@
+.mainContainer {
+  background-color: var(--main-bg-color);
+  padding: 30px;
+}
+
+.profileContainer {
+  display: flex;
+  align-content: flex-start;
+  flex-flow: row wrap;
+  height: 100vh;
+
+
+  h2 {
+    margin-top: -28px;
+  }
+
+  > div {
+    background-color: white;
+    margin: 30px 0 30px 30px;
+    min-height: 260px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.07);
+  }
+}
+
+
+.remarksCard {
+  flex: 1 1 20%;
+  max-width: 360px;
+  height: 260px;
+
+  p {
+    font-size: var(--main-h2-font-size);
+    line-height: 2.8rem;
+    margin: 35px;
+  }
+}
+
+.occupantsCard {
+  flex: 3 1 80%;
+  max-width: 830px;
+  margin: 30px 30px 30px 0;
+}
+
+.leaseCard {
+  flex: 1 1 20%;
+  max-width: 360px;
+}

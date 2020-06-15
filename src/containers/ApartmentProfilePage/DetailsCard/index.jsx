@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./DetailsCard.module.css";
+import styles from "./index.module.scss";
 
 const apartmentDetails = [
   { property: "address", key: "address" },

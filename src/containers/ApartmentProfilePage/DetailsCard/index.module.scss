@@ -1,0 +1,23 @@
+.detailsCardContainer {
+  background-color: white;
+  display: flex;
+  flex: 3 1 80%;
+  max-width: 830px;
+  margin: 30px 30px 30px 0;
+}
+
+.detailsCard {
+  margin: 35px;
+
+  p {
+    overflow-y: scroll;
+  }
+}
+
+.detailsHeading {
+  display: table-row;
+
+  div {
+    display: table-cell;
+  }
+}

@@ -2,8 +2,8 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
-import DetailsCard from "./DetailsCard";
-import { mockApartment } from "../../mocks/mockData";
+import DetailsCard from "./index";
+import { mockApartment } from "../../../mocks/mockData";
 
 describe("Details Card", () => {
   it("should render details card", () => {
