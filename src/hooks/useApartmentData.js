@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { fetchApartmentById } from "../api/api";
 
-// Todo: Test this hook
 export const useApartmentData = apartmentId => {
   const [apartment, setApartment] = useState({});
   const [isLoading, setIsLoading] = useState(false);
