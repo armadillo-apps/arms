@@ -29,7 +29,19 @@
   font-weight: bold;
 }
 
-.searchBarContainer {
+.topBarContainer {
   display: flex;
   justify-content: space-between;
+}
+
+.dateRangeContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.addApartmentButton {
+  margin-right: 30px;
+  font-size: 1.5rem;
+  background-color: var(--main-bg-color);
+  padding-top: 5px;
 }

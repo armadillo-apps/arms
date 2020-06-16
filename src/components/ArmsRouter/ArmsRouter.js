@@ -334,6 +334,7 @@ class ArmsRouter extends Component {
                   <Apartment
                     apartments={this.state.apartments}
                     stays={this.state.stays}
+                    userRole={this.state.userRole}
                     {...props}
                   />
                 )}

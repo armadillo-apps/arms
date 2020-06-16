@@ -25,7 +25,7 @@ export const sortApartmentsByStatus = apartmentList => {
   return activeApartments.concat(inactiveApartments);
 };
 
-export const Apartment = ({ apartments, stays, history }) => {
+export const Apartment = ({ apartments, stays, history, userRole }) => {
   const [apartmentList, setApartmentList] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [startDate, setStartDate] = useState(null);
@@ -122,24 +122,37 @@ export const Apartment = ({ apartments, stays, history }) => {
     <div className={styles.page} data-testid="apartments">
       <div className={styles.container}>
         <h1 className={styles.heading}>Apartments</h1>
-        <div className={styles.searchBarContainer}>
+        <div className={styles.topBarContainer}>
           <SearchBar handleChange={handleNewInput} placeholder="Apartment" />
-          <DateRangePicker
-            noBorder={true}
-            small={true}
-            displayFormat={() => "DD/MM/YYYY"}
-            showClearDates={true}
-            startDate={startDate ? moment(startDate) : null}
-            startDateId="startDateId"
-            startDatePlaceholderText="Start Date"
-            endDate={endDate ? moment(endDate) : null}
-            endDateId="endDateId"
-            endDatePlaceholderText=" End Date"
-            isOutsideRange={() => null}
-            onDatesChange={handleDateChange}
-            focusedInput={focusedInput}
-            onFocusChange={focusedInput => setFocusedInput(focusedInput)}
-          />
+          <div className={styles.dateRangeContainer}>
+            <div>
+              {userRole === "admin" && (
+                <button
+                  className={styles.addApartmentButton}
+                  onClick={() => history.push("/newApartment")}
+                >
+                  + Add Apartment
+                </button>
+              )}
+            </div>
+
+            <DateRangePicker
+              noBorder={true}
+              small={true}
+              displayFormat={() => "DD/MM/YYYY"}
+              showClearDates={true}
+              startDate={startDate ? moment(startDate) : null}
+              startDateId="startDateId"
+              startDatePlaceholderText="Start Date"
+              endDate={endDate ? moment(endDate) : null}
+              endDateId="endDateId"
+              endDatePlaceholderText=" End Date"
+              isOutsideRange={() => null}
+              onDatesChange={handleDateChange}
+              focusedInput={focusedInput}
+              onFocusChange={focusedInput => setFocusedInput(focusedInput)}
+            />
+          </div>
         </div>
         {renderTable()}
       </div>

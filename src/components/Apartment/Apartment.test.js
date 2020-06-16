@@ -170,6 +170,35 @@ describe("Apartment", () => {
     expect(seaView).toBeInTheDocument();
   });
 
+  it("should not show guest the link to create new apartment page", () => {
+    const { queryByText } = render(
+      <Apartment apartments={apartments} stays={[]} userRole="guest" />
+    );
+
+    const addApartmentButton = queryByText("+ Add Apartment");
+
+    expect(addApartmentButton).not.toBeInTheDocument();
+  });
+
+  it("should redirect to create new apartment page on click", () => {
+    const history = { push: jest.fn() };
+
+    const { getByText } = render(
+      <Apartment
+        apartments={apartments}
+        stays={[]}
+        history={history}
+        userRole="admin"
+      />
+    );
+
+    const addApartmentButton = getByText("+ Add Apartment");
+
+    fireEvent.click(addApartmentButton);
+
+    expect(history.push).toHaveBeenCalled();
+  });
+
   describe("Sorting apartment", () => {
     it("should sort apartment by status and lease dates", () => {
       const sorted = sortApartmentsByStatus(apartments);
