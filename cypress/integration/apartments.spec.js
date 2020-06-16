@@ -197,9 +197,14 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   });
 
   describe("Create, edit, and view Apartment", () => {
-    it("should be unable to create a new apartment with -ve inputs", () => {
-      cy.get('a[href="/newApartment"]').click();
+    beforeEach(() => {
+      cy.visitHome();
+      cy.get("button")
+        .contains("+ Add Apartment")
+        .click();
+    });
 
+    it("should be unable to create a new apartment with -ve inputs", () => {
       cy.get("h1").contains("Create New Apartment");
 
       fillOutApartmentForm(invalidNewApartment);
@@ -214,8 +219,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
 
     it("should be unable to create a new apartment with lease end before lease start date", () => {
-      cy.get('a[href="/newApartment"]').click();
-
       cy.get("h1").contains("Create New Apartment");
 
       fillOutApartmentForm(invalidNewApartment2);
@@ -230,8 +233,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
 
     it("should create a new apartment in Singapore and show apartment profile", () => {
-      cy.get('a[href="/newApartment"]').click();
-
       cy.get("h1").contains("Create New Apartment");
 
       fillOutApartmentForm(newApartment);
@@ -268,8 +269,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
 
     it("should create a new apartment in Thailand and show apartment profile", () => {
-      cy.get('a[href="/newApartment"]').click();
-
       cy.get("h1").contains("Create New Apartment");
 
       fillOutApartmentForm(newApartment2);
@@ -306,8 +305,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
 
     it("should be able to filter apartments using searchbar", () => {
-      cy.get('a[href="/newApartment"]').click();
-
       fillOutApartmentForm(newApartmentForSearchbarTest);
       cy.get("input[type=submit]").click();
 
@@ -549,13 +546,16 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.visitHome();
       cy.get("h1").contains("Apartments");
 
+      cy.visitHome();
+      cy.get("button")
+        .contains("+ Add Apartment")
+        .click();
+      cy.reload();
+      cy.get("h1").contains("Create New Apartment");
+
       cy.get('a[href="/occupants"]').click();
       cy.reload();
       cy.get("h1").contains("Occupants");
-
-      cy.get('a[href="/newApartment"]').click();
-      cy.reload();
-      cy.get("h1").contains("Create New Apartment");
 
       cy.get('a[href="/newOccupant"]').click();
       cy.reload();
