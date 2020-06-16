@@ -408,13 +408,6 @@ class ArmsRouter extends Component {
               />
               <Route
                 exact
-                path="/newUser"
-                render={props => (
-                  <NewUserForm triggerRender={this.triggerRender} {...props} />
-                )}
-              />
-              <Route
-                exact
                 path="/changePassword"
                 render={props => (
                   <ChangePasswordForm

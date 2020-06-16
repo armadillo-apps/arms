@@ -49,18 +49,6 @@ const SideBar = props => {
             NEW OCCUPANT
           </NavLink>
         )}
-        {userRole === "admin" ? (
-          <NavLink
-            className={styles.links}
-            to="/newUser"
-            activeClassName={styles.active}
-          >
-            <svg className={styles.addIcon} />
-            NEW USER
-          </NavLink>
-        ) : (
-          ""
-        )}
         <NavLink
           className={styles.links}
           to="/changePassword"

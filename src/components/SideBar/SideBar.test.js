@@ -18,7 +18,7 @@ it("renders four links for guest role", () => {
   expect(getByText(/logout/i)).toBeInTheDocument();
 });
 
-it("renders seven links for admin role", () => {
+it("renders six links for admin role", () => {
   const { getByText } = render(
     <Router>
       <SideBar userRole="admin" />
@@ -29,7 +29,6 @@ it("renders seven links for admin role", () => {
   expect(getByText(/occupants/i)).toBeInTheDocument();
   expect(getByText(/user management/i)).toBeInTheDocument();
   expect(getByText(/new occupant/i)).toBeInTheDocument();
-  expect(getByText(/new user/i)).toBeInTheDocument();
   expect(getByText(/change password/i)).toBeInTheDocument();
   expect(getByText(/logout/i)).toBeInTheDocument();
 });
