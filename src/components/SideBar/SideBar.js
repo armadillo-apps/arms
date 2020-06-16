@@ -42,18 +42,6 @@ const SideBar = props => {
         ) : (
           <NavLink
             className={styles.links}
-            to="/newApartment"
-            activeClassName={styles.active}
-          >
-            <svg className={styles.addIcon} />
-            NEW APARTMENT
-          </NavLink>
-        )}
-        {userRole === "guest" ? (
-          ""
-        ) : (
-          <NavLink
-            className={styles.links}
             to="/newOccupant"
             activeClassName={styles.active}
           >
