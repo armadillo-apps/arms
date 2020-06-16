@@ -5,7 +5,7 @@ import DeleteUserModal from "../Modal/DeleteUserModal";
 import EditUserModal from "../Modal/EditUserModal";
 import styles from "./UserManagement.module.css";
 
-const UserManagement = () => {
+const UserManagement = ({ history }) => {
   const [usersList, setUsersList] = useState([]);
   const [userToDelete, setUserToDelete] = useState("");
   const [userToEdit, setUserToEdit] = useState("");
@@ -62,6 +62,14 @@ const UserManagement = () => {
     <div className={styles.container}>
       <div className={styles.userManagementContainer}>
         <h1 className={styles.heading1}>User Management</h1>
+        <div className={styles.addUserContainer}>
+          <button
+            className={styles.addUserButton}
+            onClick={() => history.push("/newUser")}
+          >
+            + Add User
+          </button>
+        </div>
         <DeleteUserModal
           modalIsOpen={dialogOpen.isConfirmationModalOpen}
           closeModal={() => closeModal("isConfirmationModalOpen")}

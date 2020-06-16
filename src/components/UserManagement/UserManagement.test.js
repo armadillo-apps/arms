@@ -15,9 +15,11 @@ const mockFetchUsers = jest.spyOn(data, "fetchUsers");
 const mockRemoveUser = jest.spyOn(data, "removeUser");
 const mockEditUser = jest.spyOn(data, "editUserRole");
 
+const history = { push: jest.fn() };
+
 const UserManagementWithContext = (
   <ToastProvider>
-    <UserManagement />
+    <UserManagement history={history} />
   </ToastProvider>
 );
 
@@ -36,6 +38,18 @@ describe("User Management Page", () => {
     expect(getByText("Name")).toBeInTheDocument();
     expect(getByText("Email")).toBeInTheDocument();
     expect(getByText("Role")).toBeInTheDocument();
+  });
+
+  it("should redirect to create new user page on click", async () => {
+    mockFetchUsers.mockReturnValueOnce(users);
+
+    const { getByText } = render(UserManagementWithContext);
+
+    const addUserButton = await waitFor(() => getByText("+ Add User"));
+    expect(addUserButton).toBeInTheDocument();
+
+    fireEvent.click(addUserButton);
+    expect(history.push).toHaveBeenCalled();
   });
 
   it("should render name of user", async () => {

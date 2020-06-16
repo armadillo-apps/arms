@@ -23,7 +23,7 @@
 
 .table {
   margin-top: 2rem;
-  width: 80%;
+  width: 100%;
   border-collapse: separate;
   border-spacing: 0 1rem;
   padding: 0 6rem;
@@ -75,4 +75,14 @@
   border-radius: 30px;
   padding: 3.5px 30px;
   margin-left: 34px;
+}
+
+.addUserContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.addUserButton {
+  font-size: 1.5rem;
+  background-color: var(--main-bg-color);
 }
