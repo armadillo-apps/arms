@@ -1,5 +1,5 @@
 /* eslint-disable jest/expect-expect */
-describe("Login page", () => {
+describe("Login", () => {
   beforeEach(() => {
     cy.server();
     cy.route("/**").as("GetRequest");
@@ -23,5 +23,13 @@ describe("Login page", () => {
     cy.get("input[type=submit]").click();
 
     cy.contains("Invalid email or password");
+  });
+});
+
+describe("Logout", () => {
+  it("should log user out and redirect them to login page", () => {
+    cy.loginAdmin();
+    cy.logout();
+    cy.contains("LOGIN");
   });
 });
