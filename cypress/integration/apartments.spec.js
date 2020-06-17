@@ -12,6 +12,8 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
   beforeEach(() => {
     Cypress.Cookies.preserveOnce("token");
+    cy.server();
+    cy.route("/**").as("GetRequest");
   });
 
   const apartmentName = faker.company.companyName();
@@ -129,11 +131,9 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("select[name=homeOffice]").select("Australia, Melbourne");
       cy.get("select[name=status]").select(status);
       cy.get("input[type=submit]").click();
-      cy.waitForServerRequest();
+      cy.wait("@GetRequest");
       cy.get("[data-testid=Occupant__searchBar]").type(modName);
-      cy.get("td")
-        .contains(modName)
-        .click();
+      cy.get("td").contains(modName).click();
       cy.get("h1").contains(modName);
       cy.get("h2").contains(modEmployeeId);
       cy.get("h2").contains(gender);
@@ -163,13 +163,13 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("select[name=homeOffice]").select("Singapore, Singapore");
       cy.get("select[name=status]").select("Unallocated");
       cy.get("input[type=submit]").click();
+      cy.wait("@GetRequest");
       cy.contains(`Successfully updated occupant: ${name}`);
-      // Skipped until new EditOccupantForm is done
-      // cy.get("h1").contains(name);
-      // cy.get("h2").contains(employeeId);
-      // cy.get("h2").contains(/Gender: Male/i);
-      // cy.get("h2").contains(/Home Office: Singapore, Singapore/i);
-      // cy.get("span").contains(/unallocated/i);
+      cy.contains(name);
+      cy.get("h2").contains(employeeId);
+      cy.get("h2").contains(/Gender: Male/i);
+      cy.get("h2").contains(/Home Office: Singapore, Singapore/i);
+      cy.get("span").contains(/unallocated/i);
 
       cy.get('a[href="/occupants"]').click();
 

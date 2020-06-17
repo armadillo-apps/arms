@@ -1,6 +1,8 @@
 /* eslint-disable jest/expect-expect */
 describe("Login page", () => {
   beforeEach(() => {
+    cy.server();
+    cy.route("/**").as("GetRequest");
     cy.logout();
     cy.visitHome();
     cy.get("input[name=email]").type(`${Cypress.env("TEST_ADMIN_USER")}`);
@@ -11,7 +13,7 @@ describe("Login page", () => {
       `${Cypress.env("TEST_ADMIN_PASSWORD")}`
     );
     cy.get("input[type=submit]").click();
-    cy.waitForServerRequest();
+    cy.wait("@GetRequest");
 
     cy.contains(/logout/i);
   });
