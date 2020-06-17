@@ -129,6 +129,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("select[name=homeOffice]").select("Australia, Melbourne");
       cy.get("select[name=status]").select(status);
       cy.get("input[type=submit]").click();
+      cy.waitForServerRequest();
       cy.get("[data-testid=Occupant__searchBar]").type(modName);
       cy.get("td")
         .contains(modName)
