@@ -1,10 +1,14 @@
 import React from "react";
+import { mockUserContext } from "../../../test/utils/mockUserContext";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@testing-library/react";
 import { fireEvent } from "@testing-library/react/dist";
 
 import { Apartment } from "../Apartment/Apartment";
 import * as data from "../../api/api";
+
+const user = {};
+mockUserContext(user);
 
 const mockPost = jest.spyOn(data, "fetchApartments");
 const testDate = new Date("2020-05-26T11:00:00.135Z").valueOf();

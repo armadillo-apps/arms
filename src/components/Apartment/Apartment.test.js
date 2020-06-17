@@ -1,7 +1,11 @@
 import React from "react";
 import { Apartment, sortApartmentsByStatus } from "./Apartment";
 import { render, fireEvent } from "@testing-library/react";
+import { mockUserContext } from "../../../test/utils/mockUserContext";
 import "@testing-library/jest-dom/extend-expect";
+
+const user = {};
+mockUserContext(user);
 
 const apartments = [
   {
@@ -170,26 +174,14 @@ describe("Apartment", () => {
     expect(seaView).toBeInTheDocument();
   });
 
-  it("should not show guest the link to create new apartment page", () => {
-    const { queryByText } = render(
-      <Apartment apartments={apartments} stays={[]} userRole="guest" />
-    );
+  it("should redirect admin to create new apartment page on click", () => {
+    const adminUser = { role: "admin" };
+    mockUserContext(adminUser);
 
-    const addApartmentButton = queryByText("+ Add Apartment");
-
-    expect(addApartmentButton).not.toBeInTheDocument();
-  });
-
-  it("should redirect to create new apartment page on click", () => {
     const history = { push: jest.fn() };
 
     const { getByText } = render(
-      <Apartment
-        apartments={apartments}
-        stays={[]}
-        history={history}
-        userRole="admin"
-      />
+      <Apartment apartments={apartments} stays={[]} history={history} />
     );
 
     const addApartmentButton = getByText("+ Add Apartment");
@@ -197,6 +189,19 @@ describe("Apartment", () => {
     fireEvent.click(addApartmentButton);
 
     expect(history.push).toHaveBeenCalled();
+  });
+
+  it("should not show guest the link to create new apartment page", () => {
+    const guestUser = { role: "guest" };
+    mockUserContext(guestUser);
+
+    const { queryByText } = render(
+      <Apartment apartments={apartments} stays={[]} />
+    );
+
+    const addApartmentButton = queryByText("+ Add Apartment");
+
+    expect(addApartmentButton).not.toBeInTheDocument();
   });
 
   describe("Sorting apartment", () => {
