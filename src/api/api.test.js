@@ -7,6 +7,7 @@ import {
   editUserRole,
   fetchApartmentById,
   fetchApartments,
+  fetchOccupantById,
   fetchOccupants,
   fetchStays,
   fetchUsers,
@@ -80,11 +81,20 @@ describe("GET routes", () => {
     });
     expect(output).toEqual({ expected: "output" });
   });
-
   it("should get occupants data", async () => {
     const output = await fetchOccupants();
 
     expect(spyGet).toHaveBeenCalledWith("/occupants", {
+      withCredentials: true
+    });
+    expect(output).toEqual({ expected: "output" });
+  });
+
+  it("should get occupant data by id", async () => {
+    const { occupantId } = testInput;
+    const output = await fetchOccupantById(occupantId);
+
+    expect(spyGet).toHaveBeenCalledWith(`/occupants/${occupantId}`, {
       withCredentials: true
     });
     expect(output).toEqual({ expected: "output" });

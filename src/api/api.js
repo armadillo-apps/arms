@@ -25,6 +25,13 @@ export const fetchOccupants = async () => {
   return response.data;
 };
 
+export const fetchOccupantById = async occupantId => {
+  const response = await axios.get(`/occupants/${occupantId}`, {
+    withCredentials: true
+  });
+  return response.data;
+};
+
 export const fetchUsers = async () => {
   const response = await axios.get("/users", { withCredentials: true });
   return response.data;
