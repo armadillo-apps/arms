@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import Occupant from "./index";
+import Occupants from "./index";
 import { useFetch } from "../../hooks/useFetch";
 import { mockOccupants } from "../../mocks/mockData";
 import routes from "../../router/RouterPaths";
@@ -19,26 +19,26 @@ describe("Occupant", () => {
   });
 
   it("renders the name of occupant", () => {
-    const { getByText } = render(<Occupant />);
+    const { getByText } = render(<Occupants />);
 
     expect(getByText("Name")).toBeInTheDocument();
     expect(getByText("Bob")).toBeInTheDocument();
   });
 
   it("renders the employee ID of occupant", () => {
-    const { getByText } = render(<Occupant />);
+    const { getByText } = render(<Occupants />);
     expect(getByText("Employee ID")).toBeInTheDocument();
     expect(getByText("1234561b")).toBeInTheDocument();
   });
 
   it("renders the remarks of occupant", () => {
-    const { getByText } = render(<Occupant />);
+    const { getByText } = render(<Occupants />);
     expect(getByText("Remarks")).toBeInTheDocument();
     expect(getByText("testing for Bob")).toBeInTheDocument();
   });
 
   it("renders the status of occupant", () => {
-    const { getByText } = render(<Occupant />);
+    const { getByText } = render(<Occupants />);
     expect(getByText("Status")).toBeInTheDocument();
     expect(getByText("allocated")).toBeInTheDocument();
     expect(getByText("unallocated")).toBeInTheDocument();
@@ -46,27 +46,27 @@ describe("Occupant", () => {
   });
 
   it("render row when employeeId is not present", () => {
-    const { getByText } = render(<Occupant />);
+    const { getByText } = render(<Occupants />);
     expect(getByText("Jason")).toBeInTheDocument();
   });
 
   it("should attach allocated class to status ", () => {
-    const { getByText } = render(<Occupant />);
+    const { getByText } = render(<Occupants />);
     expect(getByText("allocated")).toHaveClass("allocated");
   });
 
   it("should attach unallocated class to status", () => {
-    const { getByText } = render(<Occupant />);
+    const { getByText } = render(<Occupants />);
     expect(getByText("unallocated")).toHaveClass("unallocated");
   });
 
   it("should attach inactive class to status", () => {
-    const { getByText } = render(<Occupant />);
+    const { getByText } = render(<Occupants />);
     expect(getByText("inactive")).toHaveClass("inactive");
   });
 
   it("should be able to filter occupants using searchbar correctly", () => {
-    const { getByPlaceholderText, getByText } = render(<Occupant />);
+    const { getByPlaceholderText, getByText } = render(<Occupants />);
     const inputField = getByPlaceholderText(/search occupant/i);
     const bob = getByText("Bob");
     const jason = getByText("Jason");
@@ -76,7 +76,7 @@ describe("Occupant", () => {
   });
 
   it("should redirect to Occupant Details Page on selection", async () => {
-    const { getByText } = render(<Occupant />);
+    const { getByText } = render(<Occupants />);
     const occupantName = getByText("Bob");
 
     fireEvent.click(occupantName);

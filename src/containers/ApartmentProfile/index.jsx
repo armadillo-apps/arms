@@ -8,7 +8,7 @@ import { useApartmentData } from "../../hooks/useApartmentData";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
 
-const ApartmentProfilePage = () => {
+const ApartmentProfile = () => {
   const { apartmentId } = useParams();
   const { apartment } = useApartmentData(apartmentId);
   return (
@@ -38,8 +38,8 @@ const ApartmentProfilePage = () => {
   );
 };
 
-export default ApartmentProfilePage;
+export default ApartmentProfile;
 
-ApartmentProfilePage.propTypes = {
+ApartmentProfile.propTypes = {
   match: PropTypes.object
 };

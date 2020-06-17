@@ -19,16 +19,16 @@ import {
 } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import { Apartment } from "../Apartment/Apartment";
-import Occupant from "../../containers/OccupantsPage";
 import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
 import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
-import OccupantProfile from "../OccupantProfile/OccupantProfile";
 import ApartmentProfile from "../ApartmentProfile/ApartmentProfile";
 
 import NewUserForm from "../NewUserForm/NewUserForm";
 import UserManagement from "../UserManagement/UserManagement";
 import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
 import { LOGOUT_USER } from "../../reducer/userReducer";
+import Occupants from "../../containers/Occupants";
+import OccupantProfile from "../../containers/OccupantProfile";
 
 function withToast(Component) {
   return function WrappedComponent(props) {
@@ -343,7 +343,7 @@ class ArmsRouter extends Component {
                 exact
                 path="/occupants"
                 render={props => (
-                  <Occupant occupants={this.state.occupants} {...props} />
+                  <Occupants occupants={this.state.occupants} {...props} />
                 )}
               />
               <Route

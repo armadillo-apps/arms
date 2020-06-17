@@ -7,7 +7,7 @@ import { fetchOccupants } from "../../api/api";
 import { useHistory } from "react-router-dom";
 import OccupantDetail from "./OccupantDetail";
 
-const Occupant = () => {
+const Occupants = () => {
   const history = useHistory();
   const [filteredOccupants, setFilteredOccupants] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -91,4 +91,4 @@ const Occupant = () => {
   );
 };
 
-export default Occupant;
+export default Occupants;

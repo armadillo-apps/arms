@@ -3,7 +3,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, waitFor } from "@testing-library/react";
 
 import { mockUserContext } from "../../../test/utils/mockUserContext";
-import OccupantProfile from "./OccupantProfile";
+import OccupantProfile from "./index";
 import {
   guestUser,
   mockOccupantDetails,

@@ -1,8 +1,8 @@
 import React from "react";
-import Input from "../Input/Input.js";
-import TextArea from "../Input/TextArea.js";
-import homeOfficeData from "../../assets/HomeOfficeData";
-import styles from "./EditOccupantForm.module.css";
+import Input from "../../../components/Input/Input.js";
+import TextArea from "../../../components/Input/TextArea.js";
+import homeOfficeData from "../../../assets/HomeOfficeData";
+import styles from "./index.module.scss";
 
 const EditOccupantForm = ({ onSubmit, onChange, occupant, closeModal }) => {
   const {

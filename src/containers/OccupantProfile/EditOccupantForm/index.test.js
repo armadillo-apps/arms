@@ -2,7 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@testing-library/react";
 
-import EditOccupantForm from "./EditOccupantForm";
+import EditOccupantForm from "../EditOccupantForm";
 
 const occupants = [
   {
@@ -26,7 +26,7 @@ const occupants = [
   }
 ];
 
-describe("EditOccupantForm", () => {
+describe("Index", () => {
   it("should contain correct title", () => {
     const { getByText } = render(<EditOccupantForm occupant={occupants[0]} />);
     expect(getByText("Edit Occupant")).toBeInTheDocument();
