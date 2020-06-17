@@ -177,9 +177,8 @@ class ArmsRouter extends Component {
     });
   };
 
-  onEditOccupantFormSubmit = async event => {
+  onEditOccupantFormSubmit = async () => {
     try {
-      event.preventDefault();
       const {
         _id,
         name,

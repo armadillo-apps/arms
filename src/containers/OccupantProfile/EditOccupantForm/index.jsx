@@ -4,7 +4,19 @@ import TextArea from "../../../components/Input/TextArea.js";
 import homeOfficeData from "../../../assets/HomeOfficeData";
 import styles from "./index.module.scss";
 
-const EditOccupantForm = ({ onSubmit, onChange, occupant, closeModal }) => {
+const EditOccupantForm = ({
+  onSubmit,
+  onChange,
+  occupant,
+  closeModal,
+  fetchData
+}) => {
+  const onSubmitWithFetch = async event => {
+    event.preventDefault();
+    await onSubmit();
+    await fetchData();
+  };
+
   const {
     name: defaultName,
     employeeId: defaultId,
@@ -13,8 +25,9 @@ const EditOccupantForm = ({ onSubmit, onChange, occupant, closeModal }) => {
     homeOffice: defaultHomeOffice,
     status: defaultStatus
   } = occupant;
+
   return (
-    <form className={styles.container} onSubmit={onSubmit}>
+    <form className={styles.container} onSubmit={onSubmitWithFetch}>
       <h1 className={styles.heading}>Edit Occupant</h1>
       <div className="editOccupantForm">
         <Input

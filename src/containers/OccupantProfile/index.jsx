@@ -22,7 +22,7 @@ const OccupantProfile = ({
   const { occupantId } = useParams();
   const [stays, setStays] = useState([]);
   const { state: user } = useUserContext();
-  const { data: occupant, isError, isFetching } = useFetchWithParam(
+  const { data: occupant, isError, isFetching, fetchData } = useFetchWithParam(
     fetchOccupantById,
     occupantId
   );
@@ -127,6 +127,7 @@ const OccupantProfile = ({
         closeModal={() => closeModal("editOccupantModal")}
       >
         <EditOccupantForm
+          fetchData={fetchData}
           onSubmit={onSubmit}
           onChange={onChange}
           occupant={occupant}
