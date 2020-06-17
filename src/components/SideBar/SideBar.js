@@ -13,6 +13,7 @@ const SideBar = props => {
           exact
           to="/apartments"
           activeClassName={styles.active}
+          data-testid="sideBar-apartments"
         >
           <svg className={styles.apartmentIcon} />
           APARTMENTS
@@ -21,6 +22,7 @@ const SideBar = props => {
           className={styles.links}
           to="/occupants"
           activeClassName={styles.active}
+          data-testid="sideBar-occupants"
         >
           <svg className={styles.occupantsIcon} />
           OCCUPANTS
@@ -30,6 +32,7 @@ const SideBar = props => {
             className={styles.links}
             to="/users"
             activeClassName={styles.active}
+            data-testid="sideBar-users"
           >
             <svg className={styles.userManagementIcon} />
             USER MANAGEMENT
@@ -53,6 +56,7 @@ const SideBar = props => {
           className={styles.links}
           to="/changePassword"
           activeClassName={styles.active}
+          data-testid="sideBar-changePassword"
         >
           <svg className={styles.addIcon} />
           CHANGE PASSWORD
