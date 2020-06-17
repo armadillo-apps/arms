@@ -2,9 +2,11 @@ import React from "react";
 
 import { NavLink } from "react-router-dom";
 import styles from "./Sidebar.module.css";
+import { useUserContext } from "../../context/UserContext";
 
 const SideBar = props => {
-  const userRole = props.userRole;
+  const { state } = useUserContext();
+  const userRole = state.role;
   return (
     <div className={styles.container} data-testid="sideBar">
       <div className={styles.linksContainer}>

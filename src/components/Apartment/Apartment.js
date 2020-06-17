@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import PropTypes from "prop-types";
 import moment from "moment";
+import { useUserContext } from "../../context/UserContext";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import { DateRangePicker } from "react-dates";
@@ -25,13 +26,15 @@ export const sortApartmentsByStatus = apartmentList => {
   return activeApartments.concat(inactiveApartments);
 };
 
-export const Apartment = ({ apartments, stays, history, userRole }) => {
+export const Apartment = ({ apartments, stays, history }) => {
   const [apartmentList, setApartmentList] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState(null);
 
+  const { state } = useUserContext();
+  const userRole = state.role;
   useEffect(() => {
     setApartmentList(apartments);
   }, [apartments]);

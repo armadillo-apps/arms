@@ -320,7 +320,6 @@ class ArmsRouter extends Component {
               data-testid={"sidebar"}
               isLoggedIn={this.state.isLoggedIn}
               logout={this.logout}
-              userRole={this.state.userRole}
             />
             <Switch>
               <Route exact path="/">
@@ -333,7 +332,6 @@ class ArmsRouter extends Component {
                   <Apartment
                     apartments={this.state.apartments}
                     stays={this.state.stays}
-                    userRole={this.state.userRole}
                     {...props}
                   />
                 )}
