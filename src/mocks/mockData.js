@@ -40,3 +40,99 @@ export const mockOccupants = [
     status: "inactive"
   }
 ];
+
+export const mockOccupantDetails = [
+  {
+    _id: "12345abc",
+    name: "Tom",
+    employeeId: "1234567a",
+    remarks: "might extend stay",
+    homeOffice: "Melbourne, Australia",
+    gender: "male",
+    status: "unallocated"
+  }
+];
+
+export const guestUser = { email: "guest@email.com", role: "guest" };
+
+export const modalStates = {
+  success: true,
+  message: "success"
+};
+
+export const mockStays = [
+  {
+    _id: "123",
+    apartment: {
+      name: "Parc Sophia",
+      leases: [
+        {
+          _id: "5d401557d855f9677f345692",
+          leaseStart: "2008-10-25T00:00:00.000Z",
+          leaseEnd: "2004-12-25T00:00:00.000Z",
+          monthlyRent: "6000",
+          currency: "THB"
+        },
+        {
+          _id: "5d40fb0fe45a8c76d1061ebd",
+          leaseStart: "2009-11-25T00:00:00.000Z",
+          leaseEnd: "2003-11-25T00:00:00.000Z",
+          monthlyRent: "7000",
+          currency: "SGD"
+        }
+      ]
+    },
+    leaseId: "5d401557d855f9677f345692",
+    checkInDate: "2009-12-25T00:00:00.000Z",
+    checkOutDate: "2019-12-25T00:00:00.000Z"
+  },
+  {
+    _id: "234",
+    apartment: {
+      name: "Parc El'Royale",
+      leases: [
+        {
+          _id: "5d401557d855f9677f345692",
+          leaseStart: "2002-9-25T00:00:00.000Z",
+          leaseEnd: "2003-12-25T00:00:00.000Z",
+          monthlyRent: "8000",
+          currency: "SGD"
+        },
+        {
+          _id: "5d40fb0fe45a8c76d1061ebd",
+          leaseStart: "2009-11-25T00:00:00.000Z",
+          leaseEnd: "2003-11-25T00:00:00.000Z",
+          monthlyRent: "7000",
+          currency: "SGD"
+        }
+      ]
+    },
+    leaseId: "5d401557d855f9677f345692",
+    checkInDate: "2002-12-25T00:00:00.000Z",
+    checkOutDate: "2003-12-25T00:00:00.000Z"
+  },
+  {
+    _id: "456",
+    checkInDate: "2001-12-25T00:00:00.000Z",
+    checkOutDate: "2004-12-25T00:00:00.000Z",
+    apartment: {
+      name: "The Beacon Condo",
+      leases: [
+        {
+          _id: "5d401557d855f9677f345693",
+          leaseStart: "2008-10-25T00:00:00.000Z",
+          leaseEnd: "2004-12-25T00:00:00.000Z",
+          monthlyRent: "6000",
+          currency: "SGD"
+        },
+        {
+          _id: "5d40fb0fe45a8c76d1061eb4",
+          leaseStart: "2009-11-25T00:00:00.000Z",
+          leaseEnd: "2003-11-25T00:00:00.000Z",
+          monthlyRent: "7000",
+          currency: "THB"
+        }
+      ]
+    }
+  }
+];
