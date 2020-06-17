@@ -1,8 +1,5 @@
 # Arms
 
-![CircleCI](https://img.shields.io/circleci/build/github/armadillo-apps/arms2.svg)
-![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/armadillo-apps/arms.svg)
-
 Apartments and Residential Managements System
 
 ## Setup
