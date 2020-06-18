@@ -44,7 +44,6 @@ class ArmsRouter extends Component {
       apartments: [],
       occupants: [],
       stays: [],
-      userRole: "",
       isLoggedIn: false,
       email: "",
       editOccupantModal: {
@@ -71,8 +70,7 @@ class ArmsRouter extends Component {
       const { state: user } = this.context;
       this.setState({
         isLoggedIn: user.isAuthenticated,
-        email: user.email,
-        userRole: user.role
+        email: user.email
       });
       const apartments = await fetchApartments();
       this.setState({ apartments });
@@ -103,8 +101,7 @@ class ArmsRouter extends Component {
       try {
         this.setState({
           isLoggedIn: user.isAuthenticated,
-          email: user.email,
-          userRole: user.role
+          email: user.email
         });
         const apartments = await fetchApartments();
         this.setState({ apartments });
@@ -274,10 +271,6 @@ class ArmsRouter extends Component {
     }
   };
 
-  setUserRole = role => {
-    this.setState({ userRole: role });
-  };
-
   clearConfirmationMessage = () => {
     this.setState({
       editApartmentModal: { success: false, message: "" }
@@ -313,6 +306,7 @@ class ArmsRouter extends Component {
         </section>
       );
     } else {
+      const { state: user } = this.context;
       return (
         <section className={styles.app}>
           <Router>
@@ -375,12 +369,8 @@ class ArmsRouter extends Component {
                   />
                 )}
               />
-              {this.state.userRole === "admin" ? (
-                <Route
-                  exact
-                  path="/users"
-                  render={props => <UserManagement {...props} />}
-                />
+              {user.role === "admin" ? (
+                <Route exact path="/users" component={UserManagement} />
               ) : (
                 ""
               )}
@@ -415,7 +405,7 @@ class ArmsRouter extends Component {
                   />
                 )}
               />
-              {this.state.userRole === "admin" ? (
+              {user.role === "admin" ? (
                 <Route
                   exactpath="/newUser"
                   render={props => (
