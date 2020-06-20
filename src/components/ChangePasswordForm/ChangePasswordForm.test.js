@@ -60,8 +60,8 @@ describe("Change Password Form", () => {
       });
       expect(passwordInput.type).toBe("password");
 
-      const passwordToggleCheckbox = getByTestId("toggle-password");
-      fireEvent.click(passwordToggleCheckbox);
+      const passwordToggle = getByTestId("toggle-password");
+      fireEvent.click(passwordToggle);
       expect(passwordInput.type).toBe("text");
       expect(newPasswordInput.type).toBe("password");
     });
@@ -77,8 +77,8 @@ describe("Change Password Form", () => {
       });
       expect(newPasswordInput.type).toBe("password");
 
-      const newPasswordToggleCheckbox = getByTestId("toggle-newPassword");
-      fireEvent.click(newPasswordToggleCheckbox);
+      const newPasswordToggle = getByTestId("toggle-newPassword");
+      fireEvent.click(newPasswordToggle);
       expect(passwordInput.type).toBe("password");
       expect(newPasswordInput.type).toBe("text");
     });
