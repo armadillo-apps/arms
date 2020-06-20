@@ -39,3 +39,7 @@
 .inputText:focus::placeholder {
   color: white;
 }
+
+i {
+  margin-left: -30px;
+}

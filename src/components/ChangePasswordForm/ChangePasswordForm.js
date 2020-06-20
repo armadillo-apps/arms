@@ -15,10 +15,6 @@ const ChangePasswordForm = props => {
     newPassword: ""
   };
   const [formInputs, setFormInputs] = useState(emptyForm);
-  const [showPassword, setShowPassword] = useState({
-    password: false,
-    newPassword: false
-  });
 
   const onFormChange = event => {
     const { name, value } = event.target;
@@ -48,10 +44,6 @@ const ChangePasswordForm = props => {
     }
   };
 
-  const handleShowPassword = field => {
-    setShowPassword({ ...showPassword, [field]: !showPassword[field] });
-  };
-
   return (
     <form className={styles.container} onSubmit={onFormSubmit}>
       <h1 className={styles.heading}>Change Password</h1>
@@ -62,42 +54,18 @@ const ChangePasswordForm = props => {
           name="password"
           onChange={onFormChange}
           value={formInputs.password}
-          type={showPassword.password ? "text" : "password"}
+          isPassword={true}
           required
         />
-        <label htmlFor="showPassword">
-          <input
-            type="checkbox"
-            id="showPassword"
-            data-testid="showPassword"
-            label="Show password"
-            name="showPassword"
-            className={styles.showPasswordLabel}
-            onClick={() => handleShowPassword("password")}
-          />
-          Show Password
-        </label>
         <Input
           id="newPassword"
           label="New Password*"
           name="newPassword"
           onChange={onFormChange}
           value={formInputs.newPassword}
-          type={showPassword.newPassword ? "text" : "password"}
+          isPassword={true}
           required
         />
-        <label htmlFor="showNewPassword">
-          <input
-            type="checkbox"
-            id="showNewPassword"
-            data-testid="showNewPassword"
-            label="Show password"
-            name="showNewPassword"
-            className={styles.showPasswordLabel}
-            onClick={() => handleShowPassword("newPassword")}
-          />
-          Show Password
-        </label>
       </div>
       <input className={styles.createButton} value="Submit" type="submit" />
     </form>

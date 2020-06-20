@@ -1,21 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./Input.module.css";
 
-const Input = ({ id, label, name, width, value, ...otherProps }) => {
+const Input = ({
+  id,
+  label,
+  name,
+  width,
+  value,
+  isPassword = false,
+  ...otherProps
+}) => {
+  const [showPassword, setShowPassword] = useState(isPassword);
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <section className={styles.input}>
       <label className={styles.label} htmlFor={id}>
         {label}
       </label>
-      <input
-        id={id}
-        className={styles.inputText}
-        style={{ width }}
-        name={name}
-        value={value}
-        {...otherProps}
-      />
+      <div>
+        <input
+          id={id}
+          className={styles.inputText}
+          style={{ width }}
+          name={name}
+          value={value}
+          type={showPassword ? "password" : "text"}
+          {...otherProps}
+        />
+        {isPassword ? (
+          <i
+            className={showPassword ? "far fa-eye" : "far fa-eye-slash"}
+            data-testid={`toggle-${id}`}
+            id="showPassword"
+            onClick={() => handleShowPassword()}
+          ></i>
+        ) : null}
+      </div>
     </section>
   );
 };
