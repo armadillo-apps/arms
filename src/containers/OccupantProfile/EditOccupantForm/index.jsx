@@ -1,33 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../../../components/Input/Input.js";
 import TextArea from "../../../components/Input/TextArea.js";
 import homeOfficeData from "../../../assets/HomeOfficeData";
 import styles from "./index.module.scss";
+import { updateOccupant } from "../../../api/api";
+import { useToasts } from "react-toast-notifications";
+import useDeepCompareEffect from "use-deep-compare-effect";
 
-const EditOccupantForm = ({
-  onSubmit,
-  onChange,
-  occupant,
-  closeModal,
-  fetchData
-}) => {
-  const onSubmitWithFetch = async event => {
-    event.preventDefault();
-    await onSubmit();
-    await fetchData();
+const EditOccupantForm = ({ occupant, closeModal, fetchData }) => {
+  const [formInputs, setFormInputs] = useState({});
+  const { addToast } = useToasts();
+
+  const { _id, ...attributes } = occupant;
+
+  const onChange = event => {
+    setFormInputs({
+      ...formInputs,
+      [event.target.id]: event.target.value
+    });
   };
 
-  const {
-    name: defaultName,
-    employeeId: defaultId,
-    gender: defaultGender,
-    remarks: defaultRemarks,
-    homeOffice: defaultHomeOffice,
-    status: defaultStatus
-  } = occupant;
+  const onSubmit = async event => {
+    event.preventDefault();
+    try {
+      const response = await updateOccupant({ _id, ...formInputs });
+      addToast(response, {
+        appearance: "success",
+        autoDismiss: true
+      });
+      closeModal();
+      await fetchData();
+    } catch (err) {
+      addToast("Unable to update occupant", {
+        appearance: "error",
+        autoDismiss: true
+      });
+    }
+  };
+
+  useDeepCompareEffect(() => {
+    setFormInputs(attributes);
+  }, [attributes]);
 
   return (
-    <form className={styles.container} onSubmit={onSubmitWithFetch}>
+    <form className={styles.container} onSubmit={onSubmit}>
       <h1 className={styles.heading}>Edit Occupant</h1>
       <div className="editOccupantForm">
         <Input
@@ -35,7 +51,7 @@ const EditOccupantForm = ({
           label="Name"
           name="name"
           onChange={onChange}
-          defaultValue={defaultName}
+          defaultValue={attributes.name}
           type="text"
           width="250px"
         />
@@ -46,7 +62,7 @@ const EditOccupantForm = ({
           <select
             id="gender"
             name="gender"
-            defaultValue={defaultGender}
+            defaultValue={attributes.gender}
             onChange={onChange}
             className="editOccupantForm__select"
           >
@@ -62,7 +78,7 @@ const EditOccupantForm = ({
             label="Employee ID"
             name="employeeId"
             onChange={onChange}
-            defaultValue={defaultId}
+            defaultValue={attributes.employeeId}
             type="text"
             width="250px"
           />
@@ -73,7 +89,7 @@ const EditOccupantForm = ({
             <select
               id="homeOffice"
               name="homeOffice"
-              defaultValue={defaultHomeOffice}
+              defaultValue={attributes.homeOffice}
               onChange={onChange}
               className={styles.selection}
             >
@@ -101,7 +117,7 @@ const EditOccupantForm = ({
           <select
             id="status"
             name="status"
-            defaultValue={defaultStatus}
+            defaultValue={attributes.status}
             onChange={onChange}
             className={styles.selection}
           >
@@ -117,7 +133,7 @@ const EditOccupantForm = ({
           name="remarks"
           className={styles.remarks}
           onChange={onChange}
-          defaultValue={defaultRemarks}
+          defaultValue={attributes.remarks}
           type="text"
         />
       </div>
@@ -127,7 +143,12 @@ const EditOccupantForm = ({
         value="Cancel"
         onClick={() => closeModal("editOccupantModal")}
       />
-      <input className={styles.updateButton} value="Update" type="submit" />
+      <input
+        className={styles.updateButton}
+        data-testid="submitButton"
+        value="Update"
+        type="submit"
+      />
     </form>
   );
 };

@@ -10,17 +10,11 @@ import styles from "./index.module.scss";
 import { useHistory, useParams } from "react-router-dom";
 import { useFetchWithParam } from "../../hooks/useFetchWithParam";
 
-const OccupantProfile = ({
-  onSubmit,
-  onChange,
-  openModal,
-  isModalOpen,
-  closeModal,
-  modalStates
-}) => {
+const OccupantProfile = () => {
   const history = useHistory();
   const { occupantId } = useParams();
   const [stays, setStays] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { state: user } = useUserContext();
   const { data: occupant, isError, isFetching, fetchData } = useFetchWithParam(
     fetchOccupantById,
@@ -70,6 +64,9 @@ const OccupantProfile = ({
     );
   }
 
+  const closeModal = () => setIsModalOpen(false);
+  const openModal = () => setIsModalOpen(true);
+
   return (
     <div className={styles.container}>
       <div className={styles.profile}>
@@ -83,9 +80,7 @@ const OccupantProfile = ({
             <button
               id="editOccupantModal"
               className={styles.editButton}
-              onClick={() => {
-                openModal("editOccupantModal", occupant);
-              }}
+              onClick={openModal}
             >
               Edit
             </button>
@@ -122,16 +117,10 @@ const OccupantProfile = ({
         <h1 className={styles.heading2}>Remarks</h1>
         <p className={styles.remarks}>{occupant.remarks}</p>
       </div>
-      <EditOccupantModal
-        isModalOpen={isModalOpen}
-        closeModal={() => closeModal("editOccupantModal")}
-      >
+      <EditOccupantModal isModalOpen={isModalOpen} closeModal={closeModal}>
         <EditOccupantForm
           fetchData={fetchData}
-          onSubmit={onSubmit}
-          onChange={onChange}
           occupant={occupant}
-          {...modalStates}
           closeModal={closeModal}
         />
       </EditOccupantModal>

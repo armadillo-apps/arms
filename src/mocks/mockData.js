@@ -25,6 +25,7 @@ export const mockOccupants = [
     _id: "5d36b4ade2a0d50eff851283",
     name: "Bob",
     employeeId: "1234561b",
+    gender: "male",
     remarks: "testing for Bob",
     homeOffice: "Singapore, Singapore",
     status: "allocated"
@@ -32,7 +33,8 @@ export const mockOccupants = [
   {
     _id: "5d36b4ade2a0d50eff851284",
     name: "Jason",
-    status: "unallocated"
+    status: "unallocated",
+    homeOffice: "North America, Dallas"
   },
   {
     _id: "5d36b4ade2a0d50eff851285",

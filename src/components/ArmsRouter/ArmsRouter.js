@@ -1,21 +1,20 @@
 import React, { Component } from "react";
 import {
-  Switch,
-  Route,
   BrowserRouter as Router,
-  Redirect
+  Redirect,
+  Route,
+  Switch
 } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import UserContext from "../../context/UserContext";
 import LoginForm from "../LoginForm/LoginForm";
 import styles from "./ArmsRouter.module.css";
 import {
-  fetchOccupants,
   fetchApartments,
-  updateOccupant,
-  updateApartment,
+  fetchOccupants,
   fetchStays,
-  logoutUser
+  logoutUser,
+  updateApartment
 } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import { Apartment } from "../Apartment/Apartment";
@@ -46,17 +45,6 @@ class ArmsRouter extends Component {
       stays: [],
       isLoggedIn: false,
       email: "",
-      editOccupantModal: {
-        isModalOpen: false,
-        name: "",
-        employeeId: "",
-        gender: "",
-        remarks: "",
-        homeOffice: "",
-        status: "",
-        message: "",
-        success: false
-      },
       editApartmentModal: {
         success: false,
         message: ""
@@ -132,30 +120,6 @@ class ArmsRouter extends Component {
     }
   };
 
-  openEditOccupantModal = (id, occupant) => {
-    const {
-      _id,
-      name,
-      employeeId,
-      gender,
-      homeOffice,
-      remarks,
-      status
-    } = occupant;
-    this.setState({
-      [id]: {
-        _id,
-        name,
-        employeeId,
-        gender,
-        homeOffice,
-        remarks,
-        status,
-        isModalOpen: true
-      }
-    });
-  };
-
   closeModal = id => {
     this.setState({
       [id]: {
@@ -163,70 +127,6 @@ class ArmsRouter extends Component {
         message: ""
       }
     });
-  };
-
-  onEditOccupantFormChange = event => {
-    this.setState({
-      editOccupantModal: {
-        ...this.state.editOccupantModal,
-        [event.target.id]: event.target.value
-      }
-    });
-  };
-
-  onEditOccupantFormSubmit = async () => {
-    try {
-      const {
-        _id,
-        name,
-        employeeId,
-        gender,
-        remarks,
-        homeOffice,
-        status
-      } = this.state.editOccupantModal;
-      const response = await updateOccupant(
-        _id,
-        name,
-        employeeId,
-        gender,
-        remarks,
-        homeOffice,
-        status
-      );
-      const occupants = await fetchOccupants();
-      this.setState({
-        occupants,
-        editOccupantModal: {
-          ...this.state.editOccupantModal,
-          isModalOpen: false,
-          name: "",
-          employeeId: "",
-          gender: "",
-          remarks: "",
-          homeOffice: "",
-          status: "",
-          message: response,
-          success: true
-        }
-      });
-      this.props.addToast(response, {
-        appearance: "success",
-        autoDismiss: true
-      });
-    } catch (err) {
-      this.setState({
-        editOccupantModal: {
-          isModalOpen: true,
-          success: false,
-          message: "Unable to update occupant"
-        }
-      });
-      this.props.addToast("Unable to update occupant", {
-        appearance: "error",
-        autoDismiss: true
-      });
-    }
   };
 
   onEditApartmentFormSubmit = async (event, updatedApartment) => {
@@ -330,13 +230,7 @@ class ArmsRouter extends Component {
                   />
                 )}
               />
-              <Route
-                exact
-                path="/occupants"
-                render={props => (
-                  <Occupants occupants={this.state.occupants} {...props} />
-                )}
-              />
+              <Route exact path="/occupants" render={() => <Occupants />} />
               <Route
                 path="/apartments/:apartmentId"
                 render={props => (
@@ -355,19 +249,7 @@ class ArmsRouter extends Component {
               />
               <Route
                 path="/occupants/:occupantId"
-                render={props => (
-                  <OccupantProfile
-                    occupants={this.state.occupants}
-                    updateOccupantDetails={this.updateOccupantDetails}
-                    onSubmit={this.onEditOccupantFormSubmit}
-                    openModal={this.openEditOccupantModal}
-                    closeModal={this.closeModal}
-                    isModalOpen={this.state.editOccupantModal.isModalOpen}
-                    onChange={this.onEditOccupantFormChange}
-                    modalStates={this.state.editOccupantModal}
-                    {...props}
-                  />
-                )}
+                render={() => <OccupantProfile />}
               />
               {user.role === "admin" ? (
                 <Route exact path="/users" component={UserManagement} />
