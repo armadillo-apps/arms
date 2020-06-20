@@ -138,8 +138,7 @@ export const logoutUser = async () => {
   return logout.data;
 };
 
-export const updateOccupant = async (
-  occupantId,
+export const updateOccupant = async ({
   name,
   employeeId,
   gender,
@@ -147,7 +146,7 @@ export const updateOccupant = async (
   homeOffice,
   status,
   _id
-) => {
+}) => {
   const requestBody = {
     _id,
     name,
@@ -158,7 +157,7 @@ export const updateOccupant = async (
     status
   };
 
-  const response = await axios.put(`/occupants/${occupantId}`, requestBody, {
+  const response = await axios.put(`/occupants/${_id}`, requestBody, {
     withCredentials: true
   });
   return response.data;

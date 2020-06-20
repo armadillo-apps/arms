@@ -271,7 +271,6 @@ describe("PUT routes", () => {
 
   it("should update occupant details", async () => {
     const {
-      occupantId,
       name,
       employeeId,
       gender,
@@ -281,8 +280,7 @@ describe("PUT routes", () => {
       _id
     } = testInput;
 
-    const output = await updateOccupant(
-      occupantId,
+    const output = await updateOccupant({
       name,
       employeeId,
       gender,
@@ -290,9 +288,9 @@ describe("PUT routes", () => {
       homeOffice,
       status,
       _id
-    );
+    });
     expect(spyPut).toHaveBeenCalledWith(
-      `/occupants/${occupantId}`,
+      `/occupants/${_id}`,
       {
         _id,
         name,
