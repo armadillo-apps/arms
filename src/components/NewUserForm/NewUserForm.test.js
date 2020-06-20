@@ -73,13 +73,12 @@ describe("New User Form", () => {
     });
 
     it("should toggle between showing and not showing password", () => {
-      const { getByLabelText } = render(NewUserFormWithContext);
+      const { getByLabelText, getByTestId } = render(NewUserFormWithContext);
       const passwordInput = getByLabelText("Password*");
-      const showPasswordCheckbox = getByLabelText("Show Password");
-
       fireEvent.change(passwordInput, { target: { value: "Passw0rd" } });
       expect(passwordInput.type).toBe("password");
-      fireEvent.click(showPasswordCheckbox);
+      const passwordToggle = getByTestId("toggle-password");
+      fireEvent.click(passwordToggle);
       expect(passwordInput.type).toBe("text");
     });
 
