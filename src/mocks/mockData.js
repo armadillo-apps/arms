@@ -20,6 +20,57 @@ export const mockApartment = {
   ]
 };
 
+export const mockApartments = [
+  {
+    _id: "458",
+    name: "Sentosa Cove",
+    address: "19 Crazy Rich Asians Avenue",
+    bedrooms: 100,
+    capacity: 100,
+    status: "inactive",
+    leases: [
+      {
+        leaseStart: "26 June 2019",
+        leaseEnd: "23 July 2019",
+        monthlyRent: 30000,
+        currency: "SGD"
+      }
+    ]
+  },
+  {
+    _id: "123",
+    name: "Parc Sophia",
+    address: "18 Bogus Street #01-01",
+    bedrooms: 1,
+    capacity: 10,
+    status: "active",
+    leases: [
+      {
+        leaseStart: "25 June 2019",
+        leaseEnd: "24 June 2020",
+        monthlyRent: 5000,
+        currency: "THB"
+      }
+    ]
+  },
+  {
+    _id: "456",
+    name: "Sea View",
+    address: "19 Bogus Street #02-02",
+    bedrooms: 2,
+    capacity: 5,
+    status: "active",
+    leases: [
+      {
+        leaseStart: "26 June 2018",
+        leaseEnd: "23 June 2021",
+        monthlyRent: 4000,
+        currency: "SGD"
+      }
+    ]
+  }
+];
+
 export const mockOccupants = [
   {
     _id: "5d36b4ade2a0d50eff851283",

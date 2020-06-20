@@ -1,67 +1,18 @@
 import React from "react";
-import { Apartment, sortApartmentsByStatus } from "./Apartment";
+import { Apartment } from "./Apartment";
 import { render, fireEvent } from "@testing-library/react";
 import { mockUserContext } from "../../../test/utils/mockUserContext";
 import "@testing-library/jest-dom/extend-expect";
+import { mockApartments } from "../../mocks/mockData";
+import { sortApartmentsByStatus } from "./utils";
 
 const user = {};
 mockUserContext(user);
 
-const apartments = [
-  {
-    _id: "458",
-    name: "Sentosa Cove",
-    address: "19 Crazy Rich Asians Avenue",
-    bedrooms: 100,
-    capacity: 100,
-    status: "inactive",
-    leases: [
-      {
-        leaseStart: "26 June 2019",
-        leaseEnd: "23 July 2019",
-        monthlyRent: 30000,
-        currency: "SGD"
-      }
-    ]
-  },
-  {
-    _id: "123",
-    name: "Parc Sophia",
-    address: "18 Bogus Street #01-01",
-    bedrooms: 1,
-    capacity: 10,
-    status: "active",
-    leases: [
-      {
-        leaseStart: "25 June 2019",
-        leaseEnd: "24 June 2020",
-        monthlyRent: 5000,
-        currency: "THB"
-      }
-    ]
-  },
-  {
-    _id: "456",
-    name: "Sea View",
-    address: "19 Bogus Street #02-02",
-    bedrooms: 2,
-    capacity: 5,
-    status: "active",
-    leases: [
-      {
-        leaseStart: "26 June 2018",
-        leaseEnd: "23 June 2021",
-        monthlyRent: 4000,
-        currency: "SGD"
-      }
-    ]
-  }
-];
-
 describe("Apartment", () => {
   it("renders the name of the apartment", () => {
     const { getByText } = render(
-      <Apartment apartments={apartments} stays={[]} />
+      <Apartment apartments={mockApartments} stays={[]} />
     );
     expect(getByText("Apartment Name")).toBeInTheDocument();
     expect(getByText("Parc Sophia")).toBeInTheDocument();
@@ -70,7 +21,7 @@ describe("Apartment", () => {
 
   it("renders the monthly rent of the apartment", () => {
     const { getByText } = render(
-      <Apartment apartments={apartments} stays={[]} />
+      <Apartment apartments={mockApartments} stays={[]} />
     );
     expect(getByText("Rental Per Month")).toBeInTheDocument();
     expect(getByText("THB 5,000.00")).toBeInTheDocument();
@@ -79,7 +30,7 @@ describe("Apartment", () => {
 
   it("renders the lease start of the apartment", () => {
     const { getByText } = render(
-      <Apartment apartments={apartments} stays={[]} />
+      <Apartment apartments={mockApartments} stays={[]} />
     );
     expect(getByText("Lease Start")).toBeInTheDocument();
     expect(getByText("25 June 2019")).toBeInTheDocument();
@@ -87,7 +38,7 @@ describe("Apartment", () => {
 
   it("renders the lease end of the apartment", () => {
     const { getByText } = render(
-      <Apartment apartments={apartments} stays={[]} />
+      <Apartment apartments={mockApartments} stays={[]} />
     );
     expect(getByText("Lease End")).toBeInTheDocument();
     expect(getByText("24 June 2020")).toBeInTheDocument();
@@ -117,7 +68,7 @@ describe("Apartment", () => {
     ];
 
     const { getByText } = render(
-      <Apartment apartments={apartments} stays={stays} />
+      <Apartment apartments={mockApartments} stays={stays} />
     );
     expect(getByText("Vacancy")).toBeInTheDocument();
     expect(getByText("9")).toBeInTheDocument();
@@ -125,7 +76,7 @@ describe("Apartment", () => {
 
   it("should be able to filter apartments using searchbar correctly", () => {
     const { getByPlaceholderText, getByText } = render(
-      <Apartment apartments={apartments} stays={[]} />
+      <Apartment apartments={mockApartments} stays={[]} />
     );
     const inputField = getByPlaceholderText(/search apartment/i);
     const parcSophia = getByText("Parc Sophia");
@@ -137,7 +88,7 @@ describe("Apartment", () => {
 
   it("should return all apartments if searchbar is not used", () => {
     const { getByPlaceholderText, getByText } = render(
-      <Apartment apartments={apartments} stays={[]} />
+      <Apartment apartments={mockApartments} stays={[]} />
     );
     const inputField = getByPlaceholderText(/search apartment/i);
     const startDateInput = getByPlaceholderText(/start date/i);
@@ -157,7 +108,7 @@ describe("Apartment", () => {
 
   it("should be able to filter apartments using date picker correctly", () => {
     const { getByPlaceholderText, getByText } = render(
-      <Apartment apartments={apartments} stays={[]} />
+      <Apartment apartments={mockApartments} stays={[]} />
     );
 
     const startDateInput = getByPlaceholderText(/start date/i);
@@ -181,7 +132,7 @@ describe("Apartment", () => {
     const history = { push: jest.fn() };
 
     const { getByText } = render(
-      <Apartment apartments={apartments} stays={[]} history={history} />
+      <Apartment apartments={mockApartments} stays={[]} history={history} />
     );
 
     const addApartmentButton = getByText("+ Add Apartment");
@@ -196,7 +147,7 @@ describe("Apartment", () => {
     mockUserContext(guestUser);
 
     const { queryByText } = render(
-      <Apartment apartments={apartments} stays={[]} />
+      <Apartment apartments={mockApartments} stays={[]} />
     );
 
     const addApartmentButton = queryByText("+ Add Apartment");
@@ -206,7 +157,7 @@ describe("Apartment", () => {
 
   describe("Sorting apartment", () => {
     it("should sort apartment by status and lease dates", () => {
-      const sorted = sortApartmentsByStatus(apartments);
+      const sorted = sortApartmentsByStatus(mockApartments);
       expect(sorted[0].name).toBe("Parc Sophia");
       expect(sorted[1].name).toBe("Sea View");
       expect(sorted[2].name).toBe("Sentosa Cove");

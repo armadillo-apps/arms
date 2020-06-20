@@ -1,5 +1,5 @@
 import ApartmentDetail from "../ApartmentDetail/ApartmentDetail";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import PropTypes from "prop-types";
 import moment from "moment";
@@ -8,23 +8,7 @@ import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import { DateRangePicker } from "react-dates";
 import styles from "./Apartment.module.css";
-
-export const sortApartmentsByStatus = apartmentList => {
-  const activeApartments = apartmentList.filter(
-    apartment => apartment.status === "active"
-  );
-
-  activeApartments.sort((firstApartment, secondApartment) => {
-    let apartmentA = moment(new Date(firstApartment.leases[0].leaseEnd));
-    let apartmentB = moment(new Date(secondApartment.leases[0].leaseEnd));
-    return apartmentA - apartmentB;
-  });
-
-  const inactiveApartments = apartmentList.filter(
-    apartment => apartment.status === "inactive"
-  );
-  return activeApartments.concat(inactiveApartments);
-};
+import { sortApartmentsByStatus } from "./utils";
 
 export const Apartment = ({ apartments, stays, history }) => {
   const [apartmentList, setApartmentList] = useState([]);
