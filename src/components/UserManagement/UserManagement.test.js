@@ -33,27 +33,32 @@ const users = [
 ];
 
 describe("User Management Page", () => {
-  it("should render table heading", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockFetchUsers.mockResolvedValue(users);
+  });
+
+  it("should render correctly", async () => {
     const { getByText } = render(UserManagementWithContext);
     expect(getByText("Name")).toBeInTheDocument();
     expect(getByText("Email")).toBeInTheDocument();
     expect(getByText("Role")).toBeInTheDocument();
+
+    const name = await waitFor(() => getByText("Bob"));
+    expect(name).toBeInTheDocument();
   });
 
   it("should redirect to create new user page on click", async () => {
-    mockFetchUsers.mockReturnValueOnce(users);
-
     const { getByText } = render(UserManagementWithContext);
 
     const addUserButton = await waitFor(() => getByText("+ Add User"));
     expect(addUserButton).toBeInTheDocument();
 
     fireEvent.click(addUserButton);
-    expect(history.push).toHaveBeenCalled();
+    expect(history.push).toHaveBeenCalledWith("/newUser");
   });
 
   it("should render name of user", async () => {
-    mockFetchUsers.mockReturnValueOnce(users);
     const { getByText } = render(UserManagementWithContext);
     const name = await waitFor(() => getByText("Bob"));
     expect(name).toBeInTheDocument();
@@ -61,14 +66,12 @@ describe("User Management Page", () => {
 
   describe("delete user function", () => {
     it("should have a delete button", async () => {
-      mockFetchUsers.mockResolvedValueOnce(users);
       const { getByText } = render(UserManagementWithContext);
       const deleteButton = await waitFor(() => getByText("Delete"));
       expect(deleteButton).toBeInTheDocument();
     });
 
     it("should open up a modal when delete button is clicked", async () => {
-      mockFetchUsers.mockResolvedValueOnce(users);
       const { getByText } = render(UserManagementWithContext);
       const deleteButton = await waitFor(() => getByText("Delete"));
       fireEvent.click(deleteButton);
@@ -79,7 +82,6 @@ describe("User Management Page", () => {
     });
 
     it("should close the modal when cancel button is clicked", async () => {
-      mockFetchUsers.mockResolvedValueOnce(users);
       const { getByText, queryByText } = render(UserManagementWithContext);
       const deleteButton = await waitFor(() => getByText("Delete"));
       fireEvent.click(deleteButton);
@@ -92,7 +94,6 @@ describe("User Management Page", () => {
     });
 
     it("should delete the user when cancel button is clicked", async () => {
-      mockFetchUsers.mockResolvedValueOnce(users);
       mockRemoveUser.mockResolvedValueOnce([]);
       const { getByText, queryByText } = render(UserManagementWithContext);
       const deleteButton = await waitFor(() => getByText("Delete"));
@@ -108,14 +109,12 @@ describe("User Management Page", () => {
 
   describe("edit user function", () => {
     it("should have a edit button", async () => {
-      mockFetchUsers.mockResolvedValueOnce(users);
       const { getByText } = render(UserManagementWithContext);
       const editButton = await waitFor(() => getByText("Edit Role"));
       expect(editButton).toBeInTheDocument();
     });
 
     it("should open up a modal when delete button is clicked", async () => {
-      mockFetchUsers.mockResolvedValueOnce(users);
       const { getByText } = render(UserManagementWithContext);
       const editButton = await waitFor(() => getByText("Edit Role"));
       fireEvent.click(editButton);
@@ -125,7 +124,6 @@ describe("User Management Page", () => {
   });
 
   it("should close the modal when cancel button is clicked", async () => {
-    mockFetchUsers.mockResolvedValueOnce(users);
     const { getByText, queryByText } = render(UserManagementWithContext);
     const editButton = await waitFor(() => getByText("Edit Role"));
     fireEvent.click(editButton);
@@ -136,7 +134,6 @@ describe("User Management Page", () => {
   });
 
   it("should change the user's role when the confirm button is clicked", async () => {
-    mockFetchUsers.mockResolvedValueOnce(users);
     mockRemoveUser.mockResolvedValueOnce([]);
     mockEditUser.mockResolvedValueOnce([]);
 
