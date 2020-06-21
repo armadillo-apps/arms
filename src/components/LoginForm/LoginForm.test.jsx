@@ -55,8 +55,10 @@ describe("Login Form", () => {
 
   describe("Notification", () => {
     it("should show error notification when user submits an invalid email or password", async () => {
+      postSpy.mockRejectedValueOnce({});
       const { getByText, getByLabelText } = render(LoginFormWithContext);
       const userEmail = getByLabelText("email");
+
       fireEvent.change(userEmail, {
         target: { value: "invalid" }
       });
