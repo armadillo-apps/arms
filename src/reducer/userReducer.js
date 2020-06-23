@@ -17,6 +17,8 @@ export const userReducer = (state, action) => {
       };
     case LOGOUT_USER:
       return {
+        email: "",
+        role: "",
         loading: false,
         error: false,
         isAuthenticated: false

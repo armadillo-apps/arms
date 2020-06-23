@@ -40,12 +40,13 @@ describe("userReducer", () => {
       error: false,
       isAuthenticated: true
     };
-    const payload = { email: "userA", role: "admin" };
 
-    expect(userReducer(state, { type: LOGOUT_USER, payload })).toEqual({
+    expect(userReducer(state, { type: LOGOUT_USER })).toEqual({
       loading: false,
       error: false,
-      isAuthenticated: false
+      isAuthenticated: false,
+      email: "",
+      role: ""
     });
   });
 });
