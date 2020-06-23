@@ -4,7 +4,7 @@ import { useToasts } from "react-toast-notifications";
 import Input from "../Input/Input";
 
 import { loginUser } from "../../api/api";
-import { LOGIN_USER } from "../../reducer/userReducer";
+import { LOGIN_USER, LOGOUT_USER } from "../../reducer/userReducer";
 import { useUserContext } from "../../context/UserContext";
 import styles from "./LoginForm.module.css";
 
@@ -28,6 +28,9 @@ const LoginForm = () => {
       });
       dispatch({ type: LOGIN_USER, payload: user });
     } catch (err) {
+      dispatch({
+        type: LOGOUT_USER
+      });
       addToast("Invalid email or password", {
         appearance: "error",
         autoDismiss: true

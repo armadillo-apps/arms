@@ -183,7 +183,11 @@ class ArmsRouter extends Component {
       const logoutMessage = await logoutUser();
       this.setState({
         message: logoutMessage,
-        isLoggedIn: false
+        isLoggedIn: false,
+        email: "",
+        apartments: [],
+        occupants: [],
+        stays: []
       });
     } catch (err) {
       return err.message;
