@@ -8,6 +8,7 @@ const Input = ({
   name,
   width,
   value,
+  type,
   isPassword = false,
   ...otherProps
 }) => {
@@ -29,7 +30,7 @@ const Input = ({
           style={{ width }}
           name={name}
           value={value}
-          type={showPassword ? "password" : "text"}
+          type={showPassword ? "password" : type}
           {...otherProps}
         />
         {isPassword ? (

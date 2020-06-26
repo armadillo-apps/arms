@@ -63,7 +63,7 @@ const NewUserForm = () => {
           name="email"
           onChange={onFormChange}
           value={formInputs.email}
-          type="text"
+          type="email"
           required
         />
         <Input
