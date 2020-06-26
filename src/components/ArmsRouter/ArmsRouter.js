@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch
-} from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import UserContext from "../../context/UserContext";
 import LoginForm from "../LoginForm/LoginForm";
@@ -198,115 +193,109 @@ class ArmsRouter extends Component {
     if (!this.state.isLoggedIn) {
       return (
         <section>
-          <Router>
-            <Switch>
-              <Route exact path="/apartments">
-                <Redirect to="/" />
-              </Route>
-              <Route exact path="/" render={() => <LoginForm />} />
-              <Route component={NoMatchPage} />
-            </Switch>
-          </Router>
+          <Switch>
+            <Route exact path="/apartments">
+              <Redirect to="/" />
+            </Route>
+            <Route exact path="/" render={() => <LoginForm />} />
+            <Route component={NoMatchPage} />
+          </Switch>
         </section>
       );
     } else {
       const { state: user } = this.context;
       return (
         <section className={styles.app}>
-          <Router>
-            <SideBar
-              data-testid={"sidebar"}
-              isLoggedIn={this.state.isLoggedIn}
-              logout={this.logout}
-            />
-            <Switch>
-              <Route exact path="/">
-                <Redirect to="/apartments" />
-              </Route>
-              <Route
-                exact
-                path="/apartments"
-                render={props => (
-                  <Apartment
-                    apartments={this.state.apartments}
-                    stays={this.state.stays}
-                    {...props}
-                  />
-                )}
-              />
-              <Route exact path="/occupants" render={() => <Occupants />} />
-              <Route
-                path="/apartments/:apartmentId"
-                render={props => (
-                  <ApartmentProfile
-                    apartments={this.state.apartments}
-                    occupants={this.state.occupants}
-                    apartmentAssignModal={this.state.apartmentAssignModal}
-                    confirmationModal={this.state.confirmationModal}
-                    onSubmit={this.onEditApartmentFormSubmit}
-                    editApartmentModal={this.state.editApartmentModal}
-                    getAllStays={this.getAllStays}
-                    clearConfirmationMessage={this.clearConfirmationMessage}
-                    {...props}
-                  />
-                )}
-              />
-              <Route
-                path="/occupants/:occupantId"
-                render={() => <OccupantProfile />}
-              />
-              {user.role === "admin" ? (
-                <Route exact path="/users" component={UserManagement} />
-              ) : (
-                ""
-              )}
-              <Route
-                exact
-                path="/newApartment"
-                render={props => (
-                  <NewApartmentForm
-                    triggerRender={this.triggerRender}
-                    {...props}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/newOccupant"
-                render={props => (
-                  <NewOccupantForm
-                    triggerRender={this.triggerRender}
-                    {...props}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/changePassword"
-                render={props => (
-                  <ChangePasswordForm
-                    email={this.state.email}
-                    triggerRender={this.triggerRender}
-                    {...props}
-                  />
-                )}
-              />
-              {user.role === "admin" ? (
-                <Route
-                  exact
-                  path="/newUser"
-                  render={props => (
-                    <NewUserForm
-                      triggerRender={this.triggerRender}
-                      {...props}
-                    />
-                  )}
+          <SideBar
+            data-testid={"sidebar"}
+            isLoggedIn={this.state.isLoggedIn}
+            logout={this.logout}
+          />
+          <Switch>
+            <Route exact path="/">
+              <Redirect to="/apartments" />
+            </Route>
+            <Route
+              exact
+              path="/apartments"
+              render={props => (
+                <Apartment
+                  apartments={this.state.apartments}
+                  stays={this.state.stays}
+                  {...props}
                 />
-              ) : (
-                ""
               )}
-            </Switch>
-          </Router>
+            />
+            <Route exact path="/occupants" render={() => <Occupants />} />
+            <Route
+              path="/apartments/:apartmentId"
+              render={props => (
+                <ApartmentProfile
+                  apartments={this.state.apartments}
+                  occupants={this.state.occupants}
+                  apartmentAssignModal={this.state.apartmentAssignModal}
+                  confirmationModal={this.state.confirmationModal}
+                  onSubmit={this.onEditApartmentFormSubmit}
+                  editApartmentModal={this.state.editApartmentModal}
+                  getAllStays={this.getAllStays}
+                  clearConfirmationMessage={this.clearConfirmationMessage}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/occupants/:occupantId"
+              render={() => <OccupantProfile />}
+            />
+            {user.role === "admin" ? (
+              <Route exact path="/users" component={UserManagement} />
+            ) : (
+              ""
+            )}
+            <Route
+              exact
+              path="/newApartment"
+              render={props => (
+                <NewApartmentForm
+                  triggerRender={this.triggerRender}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/newOccupant"
+              render={props => (
+                <NewOccupantForm
+                  triggerRender={this.triggerRender}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/changePassword"
+              render={props => (
+                <ChangePasswordForm
+                  email={this.state.email}
+                  triggerRender={this.triggerRender}
+                  {...props}
+                />
+              )}
+            />
+            {user.role === "admin" ? (
+              <Route
+                exact
+                path="/newUser"
+                render={props => (
+                  <NewUserForm triggerRender={this.triggerRender} {...props} />
+                )}
+              />
+            ) : (
+              ""
+            )}
+            <Route component={NoMatchPage} />
+          </Switch>
         </section>
       );
     }

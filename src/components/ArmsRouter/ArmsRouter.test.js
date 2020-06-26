@@ -2,15 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ToastProvider } from "react-toast-notifications";
 import { render, fireEvent } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
-
 import { UserProvider } from "../../context/UserContext";
 import ArmsRouter from "./ArmsRouter";
 
 const ArmsRouterWithToastContext = () => (
-  <ToastProvider>
-    <ArmsRouter />
-  </ToastProvider>
+  <MemoryRouter initialEntries={["/"]}>
+    <ToastProvider>
+      <ArmsRouter />
+    </ToastProvider>
+  </MemoryRouter>
 );
 
 describe("ArmsRouter", () => {
@@ -126,5 +128,25 @@ describe("ArmsRouter", () => {
       fireEvent.click(sidebarLink);
       expect(getByText(entry.textInPage)).toBeInTheDocument();
     });
+  });
+
+  it("shows message: path does not exist when landing on a bad page", async () => {
+    const loggedInState = {
+      loading: false,
+      error: false,
+      isAuthenticated: true,
+      role: "guest"
+    };
+
+    const { getByText } = render(
+      <ToastProvider>
+        <UserProvider user={loggedInState}>
+          <MemoryRouter initialEntries={["/badroute"]}>
+            <ArmsRouter />
+          </MemoryRouter>
+        </UserProvider>
+      </ToastProvider>
+    );
+    expect(getByText("Path does not exist!")).toBeInTheDocument();
   });
 });
