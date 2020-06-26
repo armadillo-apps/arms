@@ -293,7 +293,8 @@ class ArmsRouter extends Component {
               />
               {user.role === "admin" ? (
                 <Route
-                  exactpath="/newUser"
+                  exact
+                  path="/newUser"
                   render={props => (
                     <NewUserForm
                       triggerRender={this.triggerRender}
