@@ -233,7 +233,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.contains(apartmentName).should("not.exist");
     });
 
-    it("should create a new apartment in Singapore and show apartment profile", () => {
+    xit("should create a new apartment in Singapore and show apartment profile", () => {
       cy.get("h1").contains("Create New Apartment");
 
       fillOutApartmentForm(newApartment);
@@ -269,7 +269,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("span").contains(/Active/i);
     });
 
-    it("should create a new apartment in Thailand and show apartment profile", () => {
+    xit("should create a new apartment in Thailand and show apartment profile", () => {
       cy.get("h1").contains("Create New Apartment");
 
       fillOutApartmentForm(newApartment2);
@@ -322,7 +322,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  describe("Assign occupant to apartment", () => {
+  xdescribe("Assign occupant to apartment", () => {
     const checkInDate = moment(new Date()).subtract(1, "months");
     const checkoutDate = moment(new Date()).add(1, "days");
 
@@ -419,7 +419,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  describe("Change apartment status", () => {
+  xdescribe("Change apartment status", () => {
     it("should show an error message if status of apartment with an occupant is changed to inactive", () => {
       cy.get('a[href="/apartments"]').click();
       cy.get("[data-testid=Apartment__searchBar]").type(apartmentName);
@@ -439,7 +439,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  describe("Remove occupant stay from history", () => {
+  xdescribe("Remove occupant stay from history", () => {
     it("be able to cancel occupant stay deletion", () => {
       cy.get('a[href="/apartments"]').click();
 
@@ -465,7 +465,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  describe("Edit apartment details", () => {
+  xdescribe("Edit apartment details", () => {
     it("should be able to edit apartment status to inactive", () => {
       cy.get('a[href="/apartments"]').click();
 
