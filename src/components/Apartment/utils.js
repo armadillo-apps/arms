@@ -16,3 +16,17 @@ export const sortApartmentsByStatus = apartmentList => {
   );
   return activeApartments.concat(inactiveApartments);
 };
+
+export const calculateVacancy = (apartment, staysForApartment) => {
+  const today = new Date();
+
+  const currentStays = staysForApartment
+    .filter(stay =>
+      moment(today).isSameOrBefore(new Date(stay.checkOutDate), "day")
+    )
+    .filter(stay =>
+      moment(today).isSameOrAfter(new Date(stay.checkInDate), "day")
+    ).length;
+
+  return apartment.capacity - currentStays;
+};
