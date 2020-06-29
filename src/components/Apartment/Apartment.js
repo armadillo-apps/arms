@@ -1,44 +1,43 @@
 import ApartmentDetail from "../ApartmentDetail/ApartmentDetail";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SearchBar from "../SearchBar/SearchBar";
-import PropTypes from "prop-types";
 import moment from "moment";
 import { useUserContext } from "../../context/UserContext";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import { DateRangePicker } from "react-dates";
 import styles from "./Apartment.module.css";
-import { sortApartmentsByStatus } from "./utils";
+import { calculateVacancy, sortApartmentsByStatus } from "./utils";
+import { useHistory } from "react-router-dom";
+import { useFetch } from "../../hooks/useFetch";
+import { fetchApartments } from "../../api/api";
+import routes from "../../router/RouterPaths";
 
-export const Apartment = ({ apartments, stays, history }) => {
-  const [apartmentList, setApartmentList] = useState([]);
+export const Apartment = () => {
+  const { data: apartments } = useFetch(fetchApartments);
+  const history = useHistory();
+  const { state } = useUserContext();
+  const userRole = state.role;
   const [inputValue, setInputValue] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState(null);
-
-  const { state } = useUserContext();
-  const userRole = state.role;
-  useEffect(() => {
-    setApartmentList(apartments);
-  }, [apartments]);
 
   const handleNewInput = event => {
     setInputValue(event.target.value);
   };
 
   const handleApartmentSearch = () => {
-    const sortedApartments = sortApartmentsByStatus(apartmentList);
-
+    const sortedApartments = sortApartmentsByStatus(apartments ?? []);
     const compareStrings = (str1, str2) =>
       str1.toLowerCase().includes(str2.toLowerCase());
 
-    const apartmentListByName = sortedApartments.filter(apartment =>
+    const apartmentListByName = sortedApartments?.filter(apartment =>
       compareStrings(apartment.name, inputValue)
     );
 
     if (startDate && endDate) {
-      return apartmentListByName.filter(
+      return apartmentListByName?.filter(
         apartment =>
           moment(new Date(apartment.leases[0].leaseStart)).isSameOrBefore(
             moment.max(startDate, moment(new Date(0))),
@@ -50,7 +49,6 @@ export const Apartment = ({ apartments, stays, history }) => {
           )
       );
     }
-
     return apartmentListByName;
   };
 
@@ -59,21 +57,8 @@ export const Apartment = ({ apartments, stays, history }) => {
     setEndDate(endDate);
   };
 
-  const calculateVancancy = (apartment, staysForApartment) => {
-    const today = new Date();
-
-    const currentStays = staysForApartment
-      .filter(stay =>
-        moment(today).isSameOrBefore(new Date(stay.checkOutDate), "day")
-      )
-      .filter(stay =>
-        moment(today).isSameOrAfter(new Date(stay.checkInDate), "day")
-      ).length;
-
-    return apartment.capacity - currentStays;
-  };
-
   const renderTable = () => {
+    const sortedApartments = handleApartmentSearch();
     return (
       <table className={styles.table}>
         <thead className={styles.tableHeader}>
@@ -87,16 +72,12 @@ export const Apartment = ({ apartments, stays, history }) => {
           </tr>
         </thead>
         <tbody>
-          {handleApartmentSearch().map(apartment => {
-            const staysForCurrentApartment = stays.filter(
-              stay => stay.apartmentId === apartment._id
-            );
+          {sortedApartments.map(apartment => {
             return (
               <ApartmentDetail
                 key={apartment._id}
-                vacancy={calculateVancancy(apartment, staysForCurrentApartment)}
-                {...apartment}
-                history={history}
+                vacancy={calculateVacancy(apartment, apartment.stays)}
+                apartment={apartment}
               />
             );
           })}
@@ -116,7 +97,7 @@ export const Apartment = ({ apartments, stays, history }) => {
               {userRole === "admin" && (
                 <button
                   className={styles.addApartmentButton}
-                  onClick={() => history.push("/newApartment")}
+                  onClick={() => history.push(routes.NEW_APARTMENT)}
                 >
                   + Add Apartment
                 </button>
@@ -145,10 +126,4 @@ export const Apartment = ({ apartments, stays, history }) => {
       </div>
     </div>
   );
-};
-
-Apartment.propTypes = {
-  apartments: PropTypes.array.isRequired,
-  history: PropTypes.object,
-  stays: PropTypes.array.isRequired
 };

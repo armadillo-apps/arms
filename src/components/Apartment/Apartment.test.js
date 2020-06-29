@@ -1,18 +1,34 @@
 import React from "react";
 import { Apartment } from "./Apartment";
-import { render, fireEvent } from "@testing-library/react";
-import { mockUserContext } from "../../../test/utils/mockUserContext";
+import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { mockApartments } from "../../mocks/mockData";
 import { sortApartmentsByStatus } from "./utils";
+import routes from "../../router/RouterPaths";
+import { useFetch } from "../../hooks/useFetch";
+import { UserProvider } from "../../context/UserContext";
 
-const user = {};
-mockUserContext(user);
+jest.mock("../../hooks/useFetch");
+const adminUser = { role: "admin" };
+const mockHistory = jest.fn();
+jest.mock("react-router-dom", () => ({
+  useHistory: () => ({ push: mockHistory })
+}));
 
+const ApartmentsWithContext = () => (
+  <UserProvider user={adminUser}>
+    <Apartment />
+  </UserProvider>
+);
 describe("Apartment", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+    useFetch.mockReturnValue({ data: mockApartments });
+  });
+
   it("renders the name of the apartment", () => {
     const { getByText } = render(
-      <Apartment apartments={mockApartments} stays={[]} />
+      <ApartmentsWithContext apartments={mockApartments} stays={[]} />
     );
     expect(getByText("Apartment Name")).toBeInTheDocument();
     expect(getByText("Parc Sophia")).toBeInTheDocument();
@@ -21,7 +37,7 @@ describe("Apartment", () => {
 
   it("renders the monthly rent of the apartment", () => {
     const { getByText } = render(
-      <Apartment apartments={mockApartments} stays={[]} />
+      <ApartmentsWithContext apartments={mockApartments} stays={[]} />
     );
     expect(getByText("Rental Per Month")).toBeInTheDocument();
     expect(getByText("THB 5,000.00")).toBeInTheDocument();
@@ -30,7 +46,7 @@ describe("Apartment", () => {
 
   it("renders the lease start of the apartment", () => {
     const { getByText } = render(
-      <Apartment apartments={mockApartments} stays={[]} />
+      <ApartmentsWithContext apartments={mockApartments} stays={[]} />
     );
     expect(getByText("Lease Start")).toBeInTheDocument();
     expect(getByText("25 June 2019")).toBeInTheDocument();
@@ -38,57 +54,26 @@ describe("Apartment", () => {
 
   it("renders the lease end of the apartment", () => {
     const { getByText } = render(
-      <Apartment apartments={mockApartments} stays={[]} />
+      <ApartmentsWithContext apartments={mockApartments} stays={[]} />
     );
     expect(getByText("Lease End")).toBeInTheDocument();
     expect(getByText("24 June 2020")).toBeInTheDocument();
   });
 
-  it("calculates vacancy of an apartment based on its capacity and current stays", () => {
-    const today = new Date();
-    const oneMonthFromToday = today.setMonth(today.getMonth() + 1);
-    const twoMonthsFromToday = today.setMonth(today.getMonth() + 2);
-
-    const stays = [
-      {
-        apartmentId: "123",
-        checkInDate: new Date("2017-01-01"),
-        checkOutDate: new Date("2017-12-01")
-      },
-      {
-        apartmentId: "123",
-        checkInDate: new Date("2018-01-01"),
-        checkOutDate: oneMonthFromToday
-      },
-      {
-        apartmentId: "123",
-        checkInDate: oneMonthFromToday,
-        checkOutDate: twoMonthsFromToday
-      }
-    ];
-
-    const { getByText } = render(
-      <Apartment apartments={mockApartments} stays={stays} />
-    );
-    expect(getByText("Vacancy")).toBeInTheDocument();
-    expect(getByText("9")).toBeInTheDocument();
-  });
-
   it("should be able to filter apartments using searchbar correctly", () => {
-    const { getByPlaceholderText, getByText } = render(
-      <Apartment apartments={mockApartments} stays={[]} />
-    );
-    const inputField = getByPlaceholderText(/search apartment/i);
-    const parcSophia = getByText("Parc Sophia");
-    const seaView = getByText("Sea View");
+    render(<ApartmentsWithContext />);
+
+    const inputField = screen.getByPlaceholderText(/search apartment/i);
+
     fireEvent.change(inputField, { target: { value: "p" } });
-    expect(parcSophia).toBeInTheDocument();
-    expect(seaView).not.toBeInTheDocument();
+
+    expect(screen.getByText("Parc Sophia")).toBeInTheDocument();
+    expect(screen.queryByText("Sea View")).not.toBeInTheDocument();
   });
 
   it("should return all apartments if searchbar is not used", () => {
     const { getByPlaceholderText, getByText } = render(
-      <Apartment apartments={mockApartments} stays={[]} />
+      <ApartmentsWithContext apartments={mockApartments} stays={[]} />
     );
     const inputField = getByPlaceholderText(/search apartment/i);
     const startDateInput = getByPlaceholderText(/start date/i);
@@ -108,7 +93,7 @@ describe("Apartment", () => {
 
   it("should be able to filter apartments using date picker correctly", () => {
     const { getByPlaceholderText, getByText } = render(
-      <Apartment apartments={mockApartments} stays={[]} />
+      <ApartmentsWithContext apartments={mockApartments} stays={[]} />
     );
 
     const startDateInput = getByPlaceholderText(/start date/i);
@@ -126,29 +111,27 @@ describe("Apartment", () => {
   });
 
   it("should redirect admin to create new apartment page on click", () => {
-    const adminUser = { role: "admin" };
-    mockUserContext(adminUser);
-
-    const history = { push: jest.fn() };
-
     const { getByText } = render(
-      <Apartment apartments={mockApartments} stays={[]} history={history} />
+      <ApartmentsWithContext apartments={mockApartments} stays={[]} />
     );
 
     const addApartmentButton = getByText("+ Add Apartment");
 
     fireEvent.click(addApartmentButton);
 
-    expect(history.push).toHaveBeenCalled();
+    expect(mockHistory).toBeCalledTimes(1);
+    expect(mockHistory).toBeCalledWith(routes.NEW_APARTMENT);
   });
 
   it("should not show guest the link to create new apartment page", () => {
     const guestUser = { role: "guest" };
-    mockUserContext(guestUser);
-
-    const { queryByText } = render(
-      <Apartment apartments={mockApartments} stays={[]} />
+    const ApartmentsWithGuestUserContext = () => (
+      <UserProvider user={guestUser}>
+        <Apartment />
+      </UserProvider>
     );
+
+    const { queryByText } = render(<ApartmentsWithGuestUserContext />);
 
     const addApartmentButton = queryByText("+ Add Apartment");
 
