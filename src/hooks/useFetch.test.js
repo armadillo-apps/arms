@@ -16,7 +16,7 @@ describe("useFetch", () => {
 
     expect(mockApi).toHaveBeenCalledTimes(1);
     expect(result.current.isFetching).toBe(true);
-    expect(result.current.data).toEqual({});
+    expect(result.current.data).toEqual(undefined);
 
     await waitForNextUpdate();
 
