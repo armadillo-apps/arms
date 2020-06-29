@@ -25,7 +25,7 @@ describe("Header", () => {
   });
 
   it("should render Back button", () => {
-    render(<Header apartment={mockApartment} {...history} />);
+    render(<Header apartment={mockApartment} />);
 
     const backButton = screen.getByRole("button", { name: /< Back/i });
     expect(backButton).toBeInTheDocument();

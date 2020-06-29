@@ -11,6 +11,7 @@ import Header from "./Header";
 const ApartmentProfile = () => {
   const { apartmentId } = useParams();
   const { apartment } = useApartmentData(apartmentId);
+
   return (
     <div>
       <SearchBar2 placeholder="Search here" />
