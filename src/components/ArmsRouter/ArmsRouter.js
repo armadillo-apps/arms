@@ -1,10 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { useToasts } from "react-toast-notifications";
-import UserContext from "../../context/UserContext";
+import { useUserContext } from "../../context/UserContext";
 import LoginForm from "../LoginForm/LoginForm";
 import styles from "./ArmsRouter.module.css";
-import { fetchApartments, updateApartment } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import { Apartment } from "../Apartment/Apartment";
 import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
@@ -16,156 +14,78 @@ import UserManagement from "../UserManagement/UserManagement";
 import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
 import Occupants from "../../containers/Occupants";
 import OccupantProfile from "../../containers/OccupantProfile";
+import routes from "../../router/RouterPaths";
 
-function withToast(Component) {
-  return function WrappedComponent(props) {
-    const toastFuncs = useToasts();
-    return <Component {...props} {...toastFuncs} />;
-  };
-}
+const ArmsRouter = () => {
+  const { state: user } = useUserContext();
 
-class ArmsRouter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editApartmentModal: {
-        success: false,
-        message: ""
-      }
-    };
-  }
-
-  onEditApartmentFormSubmit = async (event, updatedApartment) => {
-    try {
-      event.preventDefault();
-      const {
-        apartmentId,
-        name,
-        address,
-        bedrooms,
-        capacity,
-        country,
-        status,
-        leases,
-        landlord,
-        remarks
-      } = updatedApartment;
-      const response = await updateApartment(
-        apartmentId,
-        name,
-        address,
-        bedrooms,
-        capacity,
-        country,
-        status,
-        leases,
-        landlord,
-        remarks
-      );
-      this.setState({
-        editApartmentModal: { success: true, message: response }
-      });
-      const apartments = await fetchApartments();
-      this.setState({ apartments });
-    } catch (err) {
-      this.setState({
-        editApartmentModal: {
-          success: false,
-          message: "Unable to update apartment"
-        }
-      });
-    }
-  };
-
-  clearConfirmationMessage = () => {
-    this.setState({
-      editApartmentModal: { success: false, message: "" }
-    });
-  };
-
-  render() {
-    const { state: user } = this.context;
-    if (user?.isAuthenticated) {
-      return (
-        <section className={styles.app}>
-          <SideBar
-            data-testid={"sidebar"}
-            isLoggedIn={this.state.isLoggedIn}
-            logout={this.logout}
-          />
-          <Switch>
-            <Route exact path="/">
-              <Redirect to="/apartments" />
-            </Route>
-            <Route exact path="/apartments" render={() => <Apartment />} />
-            <Route exact path="/occupants" render={() => <Occupants />} />
-            <Route
-              path="/apartments/:apartmentId"
-              render={props => (
-                <ApartmentProfile
-                  apartments={this.state.apartments}
-                  occupants={this.state.occupants}
-                  apartmentAssignModal={this.state.apartmentAssignModal}
-                  confirmationModal={this.state.confirmationModal}
-                  onSubmit={this.onEditApartmentFormSubmit}
-                  editApartmentModal={this.state.editApartmentModal}
-                  clearConfirmationMessage={this.clearConfirmationMessage}
-                  {...props}
-                />
-              )}
-            />
-            <Route
-              path="/occupants/:occupantId"
-              render={() => <OccupantProfile />}
-            />
-            {user.role === "admin" ? (
-              <Route exact path="/users" component={UserManagement} />
-            ) : (
-              ""
-            )}
-            <Route
-              exact
-              path="/newApartment"
-              render={() => <NewApartmentForm />}
-            />
-            <Route
-              exact
-              path="/newOccupant"
-              render={() => <NewOccupantForm />}
-            />
-            <Route
-              exact
-              path="/changePassword"
-              render={() => <ChangePasswordForm />}
-            />
-            {user.role === "admin" ? (
-              <Route exact path="/newUser" render={() => <NewUserForm />} />
-            ) : (
-              ""
-            )}
-            <Route component={NoMatchPage} />
-          </Switch>
-        </section>
-      );
-    }
+  if (user?.isAuthenticated) {
     return (
-      <section>
+      <section className={styles.app}>
+        <SideBar />
         <Switch>
-          <Route exact path="/apartments">
-            <Redirect to="/" />
+          <Route exact path={routes.MAIN}>
+            <Redirect to={routes.APARTMENTS} />
           </Route>
-          <Route exact path="/" render={() => <LoginForm />} />
+          <Route exact path={routes.APARTMENTS} render={() => <Apartment />} />
+          <Route exact path={routes.OCCUPANTS} render={() => <Occupants />} />
+          <Route
+            path={`${routes.APARTMENTS}/:apartmentId`}
+            render={() => <ApartmentProfile />}
+          />
+          <Route
+            path={`${routes.OCCUPANTS}/:occupantId`}
+            render={() => <OccupantProfile />}
+          />
+          {user.role === "admin" ? (
+            <Route exact path={routes.USERS} component={UserManagement} />
+          ) : (
+            ""
+          )}
+          <Route
+            exact
+            path={routes.NEW_APARTMENT}
+            render={() => <NewApartmentForm />}
+          />
+          <Route
+            exact
+            path={routes.NEW_OCCUPANT}
+            render={() => <NewOccupantForm />}
+          />
+          <Route
+            exact
+            path={routes.CHANGE_PASSWORD}
+            render={() => <ChangePasswordForm />}
+          />
+          {user.role === "admin" ? (
+            <Route
+              exact
+              path={routes.NEW_USER}
+              render={() => <NewUserForm />}
+            />
+          ) : (
+            ""
+          )}
           <Route component={NoMatchPage} />
         </Switch>
       </section>
     );
   }
-}
-
-ArmsRouter.contextType = UserContext;
+  return (
+    <section>
+      <Switch>
+        <Route exact path={routes.APARTMENTS}>
+          <Redirect to={routes.MAIN} />
+        </Route>
+        <Route exact path={routes.MAIN} render={() => <LoginForm />} />
+        <Route component={NoMatchPage} />
+      </Switch>
+    </section>
+  );
+};
 
 const NoMatchPage = () => {
   return <h1>Path does not exist!</h1>;
 };
 
-export default withToast(ArmsRouter);
+export default ArmsRouter;
