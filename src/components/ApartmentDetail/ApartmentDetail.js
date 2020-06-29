@@ -1,38 +1,28 @@
 import React from "react";
-import moment from "moment";
 import styles from "./ApartmentDetail.module.css";
 import extractDate from "../../utils/ExtractDate";
-import { sgdFormatter, thbFormatter } from "../../utils/formatMoney";
+import { useHistory } from "react-router-dom";
+import { checkLeaseExpiry } from "../../utils/checkLeaseExpiry";
+import { formatRentWithCurrency } from "../../utils/formatRentWithCurrency";
+import routes from "../../router/RouterPaths";
 
-const ApartmentDetail = ({ status, vacancy, name, leases, _id, history }) => {
-  const [firstLease] = leases;
+const ApartmentDetail = ({ apartment, vacancy }) => {
+  const history = useHistory();
+  const { status, name, leases, _id } = apartment;
 
-  const { leaseStart, leaseEnd, monthlyRent, currency } = firstLease;
+  const latestLeast = leases[0];
+  const { leaseStart, leaseEnd, monthlyRent, currency } = latestLeast;
 
   const leaseEndDate = extractDate(leaseEnd);
+  const isLeaseExpiring = checkLeaseExpiry(leaseEnd);
 
-  const monthBeforeLeaseEnd = moment(new Date(leaseEndDate))
-    .subtract(1, "months")
-    .format("YYYY-MM-DD");
-
-  const isLeaseExpiring = moment(new Date(Date.now())).isBetween(
-    monthBeforeLeaseEnd,
-    new Date(leaseEndDate)
-  );
-
-  const monthlyRentFormatted = monthlyRent => {
-    if (currency === "SGD") {
-      return sgdFormatter.format(monthlyRent);
-    } else if (currency === "THB") {
-      return thbFormatter.format(monthlyRent);
-    }
-  };
+  const rentWithCurrency = formatRentWithCurrency(monthlyRent, currency);
 
   return (
     <tr
       className={styles.tableRow}
       onClick={() => {
-        history.push(`/apartments/${_id}`);
+        history.push(`${routes.APARTMENTS}/${_id}`);
       }}
     >
       <td className={styles[status]}>{status}</td>
@@ -47,7 +37,7 @@ const ApartmentDetail = ({ status, vacancy, name, leases, _id, history }) => {
       >
         {leaseEndDate}
       </td>
-      <td>{monthlyRentFormatted(monthlyRent)}</td>
+      <td>{rentWithCurrency}</td>
     </tr>
   );
 };

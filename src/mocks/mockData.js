@@ -12,10 +12,23 @@ export const mockApartment = {
   leases: [
     {
       _id: "5555tyu",
-      leaseStart: "25 Jun 19",
-      leaseEnd: "25 Jun 22",
-      monthlyRent: 1000,
-      currency: "SGD"
+      leaseStart: "25 June 2019",
+      leaseEnd: "24 June 2021",
+      monthlyRent: 5000,
+      currency: "THB"
+    }
+  ],
+  stays: []
+};
+
+export const mockExpiringApartment = {
+  ...mockApartment,
+  leases: [
+    {
+      leaseStart: "25 June 2019",
+      leaseEnd: "24 June 2020",
+      monthlyRent: 5000,
+      currency: "THB"
     }
   ]
 };
@@ -35,7 +48,8 @@ export const mockApartments = [
         monthlyRent: 30000,
         currency: "SGD"
       }
-    ]
+    ],
+    stays: []
   },
   {
     _id: "123",
@@ -51,7 +65,8 @@ export const mockApartments = [
         monthlyRent: 5000,
         currency: "THB"
       }
-    ]
+    ],
+    stays: []
   },
   {
     _id: "456",
@@ -67,7 +82,8 @@ export const mockApartments = [
         monthlyRent: 4000,
         currency: "SGD"
       }
-    ]
+    ],
+    stays: []
   }
 ];
 

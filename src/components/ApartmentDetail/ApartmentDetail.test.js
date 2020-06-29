@@ -1,97 +1,51 @@
 import React from "react";
-import { mockUserContext } from "../../../test/utils/mockUserContext";
 import "@testing-library/jest-dom/extend-expect";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { fireEvent } from "@testing-library/react/dist";
+import ApartmentDetail from "./ApartmentDetail";
+import { mockApartment, mockExpiringApartment } from "../../mocks/mockData";
+import routes from "../../router/RouterPaths";
 
-import { Apartment } from "../Apartment/Apartment";
-import * as data from "../../api/api";
+const mockHistory = jest.fn();
+jest.mock("react-router-dom", () => ({
+  useHistory: () => ({ push: mockHistory })
+}));
 
-const user = {};
-mockUserContext(user);
-
-const mockPost = jest.spyOn(data, "fetchApartments");
 const testDate = new Date("2020-05-26T11:00:00.135Z").valueOf();
 jest.spyOn(global.Date, "now").mockReturnValue(testDate);
 
-const apartments = [
-  {
-    _id: "123",
-    name: "The Forest",
-    address: "18 Bogus Street #01-01",
-    bedrooms: 1,
-    capacity: 10,
-    status: "active",
-    leases: [
-      {
-        leaseStart: "25 June 2019",
-        leaseEnd: "24 June 2021",
-        monthlyRent: 5000,
-        currency: "THB"
-      }
-    ]
-  }
-];
+describe("ApartmentDetail", () => {
+  const ApartmentDetailWithTable = (apartment, vacancy) => (
+    <table>
+      <tbody>
+        <ApartmentDetail apartment={apartment} vacancy={vacancy} />
+      </tbody>
+    </table>
+  );
 
-const expiringApartments = [
-  {
-    _id: "123",
-    name: "The Forest",
-    address: "18 Bogus Street #01-01",
-    bedrooms: 1,
-    capacity: 10,
-    status: "active",
-    leases: [
-      {
-        leaseStart: "25 June 2019",
-        leaseEnd: "24 June 2020",
-        monthlyRent: 5000,
-        currency: "THB"
-      }
-    ]
-  }
-];
+  it("should redirect to Apartment Profile Page when clicked", () => {
+    render(ApartmentDetailWithTable(mockApartment, 1));
 
-describe("Redirect to apartment profile page", () => {
-  it("should redirect to Apartment Profile Page on selection", async () => {
-    const history = { push: jest.fn() };
-    const triggerRender = jest.fn();
-    mockPost.mockReturnValueOnce("");
+    fireEvent.click(screen.getByText(mockApartment.name));
 
-    const { getByText } = render(
-      <Apartment
-        apartments={apartments}
-        stays={[]}
-        history={history}
-        triggerRender={triggerRender}
-      />
+    expect(mockHistory).toBeCalledTimes(1);
+    expect(mockHistory).toBeCalledWith(
+      `${routes.APARTMENTS}/${mockApartment._id}`
     );
-
-    const apartmentName = getByText("The Forest");
-
-    fireEvent.click(apartmentName);
-
-    await Promise.resolve();
-
-    expect(history.push).toHaveBeenCalled();
   });
-});
 
-describe("Lease expiry logic", () => {
   it("should show Lease End in red colour when lease is expiring in 1 month", () => {
-    const { getByTestId } = render(
-      <Apartment apartments={expiringApartments} stays={[]} history={history} />
-    );
-    const leaseEndDate = getByTestId("leaseEndDate");
+    render(ApartmentDetailWithTable(mockExpiringApartment, 1));
+
+    const leaseEndDate = screen.getByTestId("leaseEndDate");
 
     expect(leaseEndDate).toHaveClass("leaseExpiring");
   });
 
   it("should not show Lease End in red colour when lease is not expiring in 1 month", () => {
-    const { getByTestId } = render(
-      <Apartment apartments={apartments} stays={[]} history={history} />
-    );
-    const leaseEndDate = getByTestId("leaseEndDate");
+    render(ApartmentDetailWithTable(mockApartment, 1));
+
+    const leaseEndDate = screen.getByTestId("leaseEndDate");
 
     expect(leaseEndDate).not.toHaveClass("leaseExpiring");
   });
