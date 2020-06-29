@@ -1,19 +1,21 @@
 import React from "react";
 import { ToastProvider } from "react-toast-notifications";
 import "@testing-library/jest-dom/extend-expect";
-import { render, waitFor, fireEvent } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import * as data from "../../api/api";
 
 import NewApartmentForm from "./NewApartmentForm";
 
 const mockPost = jest.spyOn(data, "createNewApartment");
 
-const history = { push: jest.fn() };
-const triggerRender = jest.fn();
+const mockHistory = jest.fn();
+jest.mock("react-router-dom", () => ({
+  useHistory: () => ({ push: mockHistory })
+}));
 
 const NewApartmentFormWithContext = (
   <ToastProvider>
-    <NewApartmentForm history={history} triggerRender={triggerRender} />
+    <NewApartmentForm />
   </ToastProvider>
 );
 
@@ -118,12 +120,12 @@ describe("apartment form confirmation message", () => {
     await waitFor(() => expect(nameInput.value).toBe(""));
   });
 
-  it("should redirect to Apartments Page on creation", async () => {
+  it("should redirect to Apartments Page on creation", () => {
     mockPost.mockReturnValueOnce("");
 
     const { getByLabelText, getByText } = render(
       <ToastProvider>
-        <NewApartmentForm history={history} triggerRender={triggerRender} />
+        <NewApartmentForm />
       </ToastProvider>
     );
 
@@ -132,9 +134,8 @@ describe("apartment form confirmation message", () => {
 
     fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
     fireEvent.click(button);
-    await waitFor(() => {
-      expect(history.push).toHaveBeenCalled();
-    });
+
+    expect(mockHistory).toHaveBeenCalled();
   });
 
   it("should display failure message when there is an error", async () => {

@@ -5,8 +5,10 @@ import { updatePassword } from "../../api/api";
 import { useUserContext } from "../../context/UserContext";
 import styles from "./ChangePasswordForm.module.css";
 
-const ChangePasswordForm = props => {
-  const { state } = useUserContext();
+const ChangePasswordForm = () => {
+  const {
+    state: { email }
+  } = useUserContext();
   const { addToast } = useToasts();
 
   const emptyForm = {
@@ -24,18 +26,13 @@ const ChangePasswordForm = props => {
   const onFormSubmit = async event => {
     try {
       event.preventDefault();
-      setFormInputs({ ...formInputs, loggedInUser: state.email });
-      await updatePassword(
-        state.email,
-        formInputs.password,
-        formInputs.newPassword
-      );
+      setFormInputs({ ...formInputs, loggedInUser: email });
+      await updatePassword(email, formInputs.password, formInputs.newPassword);
       addToast("Success", {
         appearance: "success",
         autoDismiss: true
       });
       setFormInputs(emptyForm);
-      props.triggerRender();
     } catch (err) {
       addToast("Unable to change password", {
         appearance: "error",

@@ -3,10 +3,18 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 import { useUserContext } from "../../context/UserContext";
+import { LOGOUT_USER } from "../../reducer/userReducer";
+import { logoutUser } from "../../api/api";
 
-const SideBar = props => {
-  const { state } = useUserContext();
+const SideBar = () => {
+  const { state, dispatch } = useUserContext();
   const userRole = state.role;
+
+  const onLogout = async () => {
+    dispatch({ type: LOGOUT_USER });
+    await logoutUser();
+  };
+
   return (
     <div className={styles.container} data-testid="sideBar">
       <div className={styles.linksContainer}>
@@ -63,7 +71,7 @@ const SideBar = props => {
           <svg className={styles.addIcon} />
           CHANGE PASSWORD
         </NavLink>
-        <NavLink className={styles.links} to="/" onClick={props.logout}>
+        <NavLink className={styles.links} to="/" onClick={onLogout}>
           <svg className={styles.logoutIcon} />
           LOGOUT
         </NavLink>

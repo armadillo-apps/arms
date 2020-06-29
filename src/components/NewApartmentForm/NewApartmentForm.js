@@ -4,8 +4,10 @@ import Input from "../Input/Input";
 import TextArea from "../Input/TextArea";
 import { createNewApartment } from "../../api/api";
 import styles from "./NewApartmentForm.module.css";
+import { useHistory } from "react-router-dom";
+import routes from "../../router/RouterPaths";
 
-const NewApartmentForm = props => {
+const NewApartmentForm = () => {
   const emptyForm = {
     name: "",
     address: "",
@@ -22,6 +24,7 @@ const NewApartmentForm = props => {
     status: ""
   };
 
+  const history = useHistory();
   const [formInputs, setFormInputs] = useState(emptyForm);
   const { addToast } = useToasts();
 
@@ -65,8 +68,7 @@ const NewApartmentForm = props => {
         autoDismiss: true
       });
       setFormInputs(emptyForm);
-      props.triggerRender();
-      props.history.push(`/apartments`);
+      history.push(routes.APARTMENTS);
     } catch (err) {
       addToast("Unable to create new apartment :(", {
         appearance: "error",

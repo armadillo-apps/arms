@@ -4,7 +4,7 @@ import Input from "../Input/Input";
 import { createNewUser } from "../../api/api";
 import styles from "./NewUserForm.module.css";
 
-const NewUserForm = props => {
+const NewUserForm = () => {
   const emptyForm = {
     name: "",
     email: "",
@@ -36,7 +36,6 @@ const NewUserForm = props => {
         autoDismiss: true
       });
       setFormInputs(emptyForm);
-      props.triggerRender();
     } catch (err) {
       addToast("Unable to create new user :(", {
         appearance: "error",
