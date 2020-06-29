@@ -4,23 +4,16 @@ import { useToasts } from "react-toast-notifications";
 import UserContext from "../../context/UserContext";
 import LoginForm from "../LoginForm/LoginForm";
 import styles from "./ArmsRouter.module.css";
-import {
-  fetchApartments,
-  fetchOccupants,
-  fetchStays,
-  logoutUser,
-  updateApartment
-} from "../../api/api";
+import { fetchApartments, updateApartment } from "../../api/api";
 import SideBar from "../SideBar/SideBar";
 import { Apartment } from "../Apartment/Apartment";
 import NewOccupantForm from "../NewOccupantForm/NewOccupantForm";
 import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
-import ApartmentProfile from "../ApartmentProfile/ApartmentProfile";
+import ApartmentProfile from "../../containers/ApartmentProfile";
 
 import NewUserForm from "../NewUserForm/NewUserForm";
 import UserManagement from "../UserManagement/UserManagement";
 import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
-import { LOGOUT_USER } from "../../reducer/userReducer";
 import Occupants from "../../containers/Occupants";
 import OccupantProfile from "../../containers/OccupantProfile";
 
@@ -35,94 +28,12 @@ class ArmsRouter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      apartments: [],
-      occupants: [],
-      stays: [],
-      isLoggedIn: false,
-      email: "",
       editApartmentModal: {
         success: false,
         message: ""
-      },
-      renderToggle: false
+      }
     };
   }
-
-  componentDidMount = async () => {
-    try {
-      const { state: user } = this.context;
-      this.setState({
-        isLoggedIn: user.isAuthenticated,
-        email: user.email
-      });
-      const apartments = await fetchApartments();
-      this.setState({ apartments });
-      const occupants = await fetchOccupants();
-      this.setState({ occupants });
-      const stays = await fetchStays();
-      this.setState({ stays });
-    } catch (err) {
-      return err.message;
-    }
-  };
-
-  componentDidUpdate = async (prevProps, prevState) => {
-    if (this.state.renderToggle !== prevState.renderToggle) {
-      try {
-        const apartments = await fetchApartments();
-        this.setState({ apartments });
-        const occupants = await fetchOccupants();
-        this.setState({ occupants });
-        const stays = await fetchStays();
-        this.setState({ stays });
-      } catch (err) {
-        return err.message;
-      }
-    }
-    const { state: user } = this.context;
-    if (user.isAuthenticated !== prevState.isLoggedIn) {
-      try {
-        this.setState({
-          isLoggedIn: user.isAuthenticated,
-          email: user.email
-        });
-        const apartments = await fetchApartments();
-        this.setState({ apartments });
-        const occupants = await fetchOccupants();
-        this.setState({ occupants });
-        const stays = await fetchStays();
-        this.setState({ stays });
-      } catch (err) {
-        return err.message;
-      }
-    }
-  };
-
-  triggerRender = () => {
-    this.setState(prev => {
-      return {
-        renderToggle: !prev.renderToggle
-      };
-    });
-  };
-
-  getAllStays = async () => {
-    try {
-      const stays = await fetchStays();
-      this.setState({ stays });
-    } catch (err) {
-      return err.message;
-    }
-  };
-
-  closeModal = id => {
-    this.setState({
-      [id]: {
-        isModalOpen: false,
-        message: ""
-      }
-    });
-  };
 
   onEditApartmentFormSubmit = async (event, updatedApartment) => {
     try {
@@ -172,38 +83,9 @@ class ArmsRouter extends Component {
     });
   };
 
-  logout = async () => {
-    try {
-      this.props.dispatch({ type: LOGOUT_USER });
-      const logoutMessage = await logoutUser();
-      this.setState({
-        message: logoutMessage,
-        isLoggedIn: false,
-        email: "",
-        apartments: [],
-        occupants: [],
-        stays: []
-      });
-    } catch (err) {
-      return err.message;
-    }
-  };
-
   render() {
-    if (!this.state.isLoggedIn) {
-      return (
-        <section>
-          <Switch>
-            <Route exact path="/apartments">
-              <Redirect to="/" />
-            </Route>
-            <Route exact path="/" render={() => <LoginForm />} />
-            <Route component={NoMatchPage} />
-          </Switch>
-        </section>
-      );
-    } else {
-      const { state: user } = this.context;
+    const { state: user } = this.context;
+    if (user?.isAuthenticated) {
       return (
         <section className={styles.app}>
           <SideBar
@@ -215,17 +97,7 @@ class ArmsRouter extends Component {
             <Route exact path="/">
               <Redirect to="/apartments" />
             </Route>
-            <Route
-              exact
-              path="/apartments"
-              render={props => (
-                <Apartment
-                  apartments={this.state.apartments}
-                  stays={this.state.stays}
-                  {...props}
-                />
-              )}
-            />
+            <Route exact path="/apartments" render={() => <Apartment />} />
             <Route exact path="/occupants" render={() => <Occupants />} />
             <Route
               path="/apartments/:apartmentId"
@@ -237,7 +109,6 @@ class ArmsRouter extends Component {
                   confirmationModal={this.state.confirmationModal}
                   onSubmit={this.onEditApartmentFormSubmit}
                   editApartmentModal={this.state.editApartmentModal}
-                  getAllStays={this.getAllStays}
                   clearConfirmationMessage={this.clearConfirmationMessage}
                   {...props}
                 />
@@ -255,42 +126,20 @@ class ArmsRouter extends Component {
             <Route
               exact
               path="/newApartment"
-              render={props => (
-                <NewApartmentForm
-                  triggerRender={this.triggerRender}
-                  {...props}
-                />
-              )}
+              render={() => <NewApartmentForm />}
             />
             <Route
               exact
               path="/newOccupant"
-              render={props => (
-                <NewOccupantForm
-                  triggerRender={this.triggerRender}
-                  {...props}
-                />
-              )}
+              render={() => <NewOccupantForm />}
             />
             <Route
               exact
               path="/changePassword"
-              render={props => (
-                <ChangePasswordForm
-                  email={this.state.email}
-                  triggerRender={this.triggerRender}
-                  {...props}
-                />
-              )}
+              render={() => <ChangePasswordForm />}
             />
             {user.role === "admin" ? (
-              <Route
-                exact
-                path="/newUser"
-                render={props => (
-                  <NewUserForm triggerRender={this.triggerRender} {...props} />
-                )}
-              />
+              <Route exact path="/newUser" render={() => <NewUserForm />} />
             ) : (
               ""
             )}
@@ -299,6 +148,17 @@ class ArmsRouter extends Component {
         </section>
       );
     }
+    return (
+      <section>
+        <Switch>
+          <Route exact path="/apartments">
+            <Redirect to="/" />
+          </Route>
+          <Route exact path="/" render={() => <LoginForm />} />
+          <Route component={NoMatchPage} />
+        </Switch>
+      </section>
+    );
   }
 }
 
