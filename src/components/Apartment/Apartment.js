@@ -5,13 +5,13 @@ import moment from "moment";
 import { useUserContext } from "../../context/UserContext";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
-import { DateRangePicker } from "react-dates";
 import styles from "./Apartment.module.css";
 import { calculateVacancy, sortApartmentsByStatus } from "./utils";
 import { useHistory } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
 import { fetchApartments } from "../../api/api";
 import routes from "../../router/RouterPaths";
+import { DateRangeInput } from "../Input/DateRangeInput";
 
 export const Apartment = () => {
   const { data: apartments } = useFetch(fetchApartments);
@@ -21,7 +21,6 @@ export const Apartment = () => {
   const [inputValue, setInputValue] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [focusedInput, setFocusedInput] = useState(null);
 
   const handleNewInput = event => {
     setInputValue(event.target.value);
@@ -103,22 +102,10 @@ export const Apartment = () => {
                 </button>
               )}
             </div>
-
-            <DateRangePicker
-              noBorder={true}
-              small={true}
-              displayFormat={() => "DD/MM/YYYY"}
-              showClearDates={true}
-              startDate={startDate ? moment(startDate) : null}
-              startDateId="startDateId"
-              startDatePlaceholderText="Start Date"
-              endDate={endDate ? moment(endDate) : null}
-              endDateId="endDateId"
-              endDatePlaceholderText=" End Date"
-              isOutsideRange={() => null}
-              onDatesChange={handleDateChange}
-              focusedInput={focusedInput}
-              onFocusChange={focusedInput => setFocusedInput(focusedInput)}
+            <DateRangeInput
+              startDate={startDate}
+              endDate={endDate}
+              handleDateChange={handleDateChange}
             />
           </div>
         </div>
