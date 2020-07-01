@@ -31,16 +31,17 @@ const NewUserForm = () => {
         formInputs.role
       );
 
-      addToast(response.message, {
-        appearance: response.success ? "success" : "error",
-        autoDismiss: true
-      });
-
       if (response.success) {
+        addToast(response.message, {
+          appearance: "success",
+          autoDismiss: true
+        });
         setFormInputs(emptyForm);
+      } else {
+        throw new Error(response.message);
       }
     } catch (err) {
-      addToast("Unable to create new user :(", {
+      addToast(`Unable to create new user :( ${err.message}`, {
         appearance: "error",
         autoDismiss: true
       });

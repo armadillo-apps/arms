@@ -121,14 +121,17 @@ describe("New User Form", () => {
     });
 
     it("should display failure message when there is an error", async () => {
-      mockPost.mockRejectedValue({});
+      mockPost.mockReturnValueOnce({
+        success: false,
+        message: "Something went wrong"
+      });
       const { getByText } = render(NewUserFormWithContext);
 
       const createButton = getByText("Create");
       fireEvent.click(createButton);
 
       const failureMessage = await waitFor(() =>
-        getByText("Unable to create new user :(")
+        getByText("Unable to create new user :( Something went wrong")
       );
       expect(failureMessage).toBeInTheDocument();
     });
