@@ -24,18 +24,21 @@ const NewUserForm = () => {
     try {
       event.preventDefault();
 
-      await createNewUser(
+      const response = await createNewUser(
         formInputs.name,
         formInputs.email,
         formInputs.password,
         formInputs.role
       );
 
-      addToast("Success", {
-        appearance: "success",
+      addToast(response.message, {
+        appearance: response.success ? "success" : "error",
         autoDismiss: true
       });
-      setFormInputs(emptyForm);
+
+      if (response.success) {
+        setFormInputs(emptyForm);
+      }
     } catch (err) {
       addToast("Unable to create new user :(", {
         appearance: "error",
@@ -82,6 +85,7 @@ const NewUserForm = () => {
           <select
             id="role"
             name="role"
+            required
             onChange={onFormChange}
             value={formInputs.role}
             type="text"

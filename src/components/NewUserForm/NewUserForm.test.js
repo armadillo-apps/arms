@@ -103,7 +103,7 @@ describe("New User Form", () => {
     });
 
     it("should clear all input values when Create button is clicked", async () => {
-      mockPost.mockReturnValueOnce("");
+      mockPost.mockReturnValueOnce({ success: true });
       const { getByText, getByLabelText } = render(NewUserFormWithContext);
       const name = getByLabelText("Name*");
       const email = getByLabelText("Email*");
@@ -134,14 +134,19 @@ describe("New User Form", () => {
     });
 
     it("should display success message when there is no error", async () => {
-      mockPost.mockReturnValue({});
+      mockPost.mockReturnValue({
+        success: true,
+        message: "User created successfully"
+      });
 
       const { getByText } = render(NewUserFormWithContext);
 
       const createButton = getByText("Create");
       fireEvent.click(createButton);
 
-      const notificationMessage = await waitFor(() => getByText("Success"));
+      const notificationMessage = await waitFor(() =>
+        getByText("User created successfully")
+      );
       expect(notificationMessage).toBeInTheDocument();
     });
   });
