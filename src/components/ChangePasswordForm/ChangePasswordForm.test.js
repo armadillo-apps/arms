@@ -95,7 +95,7 @@ describe("Change Password Form", () => {
       const mockGetUserId = jest.spyOn(data, "getUserId");
       mockGetUserId.mockReturnValueOnce({ id: "123" });
 
-      mockPost.mockReturnValueOnce("");
+      mockPost.mockReturnValueOnce({ success: true });
 
       const { getByText, getByLabelText } = render(
         ChangePasswordFormWithContext
@@ -114,7 +114,10 @@ describe("Change Password Form", () => {
 
   describe("Notification", () => {
     it("should show error notification", async () => {
-      mockPost.mockRejectedValue({});
+      mockPost.mockRejectedValue({
+        success: false,
+        message: "Something went wrong!"
+      });
 
       const { getByText } = render(ChangePasswordFormWithContext);
 
@@ -122,20 +125,25 @@ describe("Change Password Form", () => {
       fireEvent.click(submitButton);
 
       const errorMessage = await waitFor(() =>
-        getByText("Unable to change password")
+        getByText("Unable to change password :( Something went wrong!")
       );
 
       expect(errorMessage).toBeInTheDocument();
     });
 
     it("should show success notification", async () => {
-      mockPost.mockReturnValue({});
+      mockPost.mockReturnValue({
+        success: true,
+        message: "Password updated successfully"
+      });
       const { getByText } = render(ChangePasswordFormWithContext);
 
       const submitButton = getByText("Submit");
       fireEvent.click(submitButton);
 
-      const successMessage = await waitFor(() => getByText("Success"));
+      const successMessage = await waitFor(() =>
+        getByText("Password updated successfully")
+      );
 
       expect(successMessage).toBeInTheDocument();
     });

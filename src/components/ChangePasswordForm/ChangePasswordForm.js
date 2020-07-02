@@ -27,14 +27,22 @@ const ChangePasswordForm = () => {
     try {
       event.preventDefault();
       setFormInputs({ ...formInputs, loggedInUser: email });
-      await updatePassword(email, formInputs.password, formInputs.newPassword);
-      addToast("Success", {
-        appearance: "success",
-        autoDismiss: true
-      });
-      setFormInputs(emptyForm);
+      const response = await updatePassword(
+        email,
+        formInputs.password,
+        formInputs.newPassword
+      );
+      if (response.success) {
+        addToast(response.message, {
+          appearance: "success",
+          autoDismiss: true
+        });
+        setFormInputs(emptyForm);
+      } else {
+        throw new Error(response.message);
+      }
     } catch (err) {
-      addToast("Unable to change password", {
+      addToast(`Unable to change password :( ${err.message}`, {
         appearance: "error",
         autoDismiss: true
       });
