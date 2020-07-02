@@ -144,35 +144,71 @@ describe("User Management Page", () => {
       const modalHeader = getByText("Select a role for user:");
       expect(modalHeader).toBeInTheDocument();
     });
-  });
 
-  it("should close the modal when cancel button is clicked", async () => {
-    const { getByText, queryByText } = render(UserManagementWithContext);
-    const editButton = await waitFor(() => getByText("Edit Role"));
-    fireEvent.click(editButton);
-    const cancelButton = await waitFor(() => getByText("Cancel"));
-    fireEvent.click(cancelButton);
-    const modalHeader = queryByText("Select a role for user:");
-    expect(modalHeader).not.toBeInTheDocument();
-  });
+    it("should close the modal when cancel button is clicked", async () => {
+      const { getByText, queryByText } = render(UserManagementWithContext);
+      const editButton = await waitFor(() => getByText("Edit Role"));
+      fireEvent.click(editButton);
+      const cancelButton = await waitFor(() => getByText("Cancel"));
+      fireEvent.click(cancelButton);
+      const modalHeader = queryByText("Select a role for user:");
+      expect(modalHeader).not.toBeInTheDocument();
+    });
 
-  it("should change the user's role when the confirm button is clicked", async () => {
-    mockRemoveUser.mockResolvedValueOnce([]);
-    mockEditUser.mockResolvedValueOnce([]);
+    it("should change the user's role when the confirm button is clicked", async () => {
+      mockEditUser.mockResolvedValueOnce({
+        success: true,
+        data: [
+          {
+            name: "Bob",
+            email: "bob@thoughtworks.com",
+            role: "manager",
+            _id: "1234"
+          }
+        ]
+      });
 
-    const { getByText, getByTestId } = render(UserManagementWithContext);
-    const editButton = await waitFor(() => getByText("Edit Role"));
-    fireEvent.click(editButton);
-    const modalHeader = getByText("Select a role for user:");
-    expect(modalHeader).toBeInTheDocument();
-    const roleSelector = getByTestId("roleSelector");
-    fireEvent.change(roleSelector, { target: { value: "manager" } });
-    const modalEditButton = await waitFor(() => getByText("Confirm"));
-    expect(modalEditButton).toBeInTheDocument();
-    fireEvent.click(modalEditButton);
-    await waitForElementToBeRemoved(() => getByText("Confirm"));
+      const { getByText, getByTestId } = render(UserManagementWithContext);
+      const editButton = await waitFor(() => getByText("Edit Role"));
+      fireEvent.click(editButton);
+      const modalHeader = getByText("Select a role for user:");
+      expect(modalHeader).toBeInTheDocument();
+      const roleSelector = getByTestId("roleSelector");
+      fireEvent.change(roleSelector, { target: { value: "manager" } });
+      const modalEditButton = await waitFor(() => getByText("Confirm"));
+      expect(modalEditButton).toBeInTheDocument();
+      fireEvent.click(modalEditButton);
+      await waitForElementToBeRemoved(() => getByText("Confirm"));
 
-    expect(mockEditUser).toHaveBeenCalledTimes(1);
-    expect(mockEditUser).toHaveBeenCalledWith("1234", "manager");
+      expect(mockEditUser).toHaveBeenCalledTimes(1);
+      expect(mockEditUser).toHaveBeenCalledWith("1234", "manager");
+      expect(getByText(/manager/i)).toBeInTheDocument();
+    });
+
+    it("should notify and not edit user when error", async () => {
+      mockEditUser.mockResolvedValueOnce({
+        success: false,
+        message: "Something went wrong!"
+      });
+
+      const { getByText, getByTestId } = render(UserManagementWithContext);
+      const editButton = await waitFor(() => getByText("Edit Role"));
+      fireEvent.click(editButton);
+      const modalHeader = getByText("Select a role for user:");
+      expect(modalHeader).toBeInTheDocument();
+      const roleSelector = getByTestId("roleSelector");
+      fireEvent.change(roleSelector, { target: { value: "manager" } });
+      const modalEditButton = await waitFor(() => getByText("Confirm"));
+      expect(modalEditButton).toBeInTheDocument();
+      fireEvent.click(modalEditButton);
+      await waitForElementToBeRemoved(() => getByText("Confirm"));
+
+      const failureMessage = await waitFor(() =>
+        getByText("Unable to edit user :( Something went wrong!")
+      );
+      expect(failureMessage).toBeInTheDocument();
+
+      expect(getByText(/admin/i)).toBeInTheDocument();
+    });
   });
 });

@@ -1,6 +1,5 @@
 import React from "react";
 import Modal from "react-modal";
-import { useToasts } from "react-toast-notifications";
 import styles from "./ConfirmationModal.module.css";
 
 Modal.setAppElement("body");
@@ -29,8 +28,6 @@ const EditUserModal = ({ modalIsOpen, closeModal, editUser, newRole }) => {
   const onFormChange = event => {
     newRole = event.target.value;
   };
-
-  const { addToast } = useToasts();
 
   return (
     <Modal
@@ -63,19 +60,8 @@ const EditUserModal = ({ modalIsOpen, closeModal, editUser, newRole }) => {
           </button>
           <button
             onClick={() => {
-              try {
-                editUser(newRole);
-                setTimeout(() => closeModal(), 1000);
-                addToast("The user has been succesfully edited", {
-                  appearance: "success",
-                  autoDismiss: true
-                });
-              } catch (err) {
-                addToast("Unable to edit the user :(", {
-                  appearance: "error",
-                  autoDismiss: true
-                });
-              }
+              editUser(newRole);
+              setTimeout(() => closeModal(), 1000);
             }}
             className={styles.confirmButton}
           >

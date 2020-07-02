@@ -62,10 +62,21 @@ const UserManagement = ({ history }) => {
 
   const editUser = async role => {
     try {
-      const newUsersList = await editUserRole(userToEdit, role);
-      setUsersList(newUsersList);
+      const response = await editUserRole(userToEdit, role);
+      if (response.success) {
+        setUsersList(response.data);
+        addToast(response.message, {
+          appearance: "success",
+          autoDismiss: true
+        });
+      } else {
+        throw new Error(response.message);
+      }
     } catch (err) {
-      setMessage("Unable to edit user role");
+      addToast(`Unable to edit user :( ${err.message}`, {
+        appearance: "error",
+        autoDismiss: true
+      });
     }
   };
 
