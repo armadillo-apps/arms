@@ -93,8 +93,8 @@ describe("User Management Page", () => {
       expect(modalHeader).not.toBeInTheDocument();
     });
 
-    it("should delete the user when cancel button is clicked", async () => {
-      mockRemoveUser.mockResolvedValueOnce([]);
+    it("should delete the user when confirm button is clicked", async () => {
+      mockRemoveUser.mockResolvedValueOnce({ success: true, data: [] });
       const { getByText, queryByText } = render(UserManagementWithContext);
       const deleteButton = await waitFor(() => getByText("Delete"));
       fireEvent.click(deleteButton);
@@ -104,6 +104,29 @@ describe("User Management Page", () => {
       await waitForElementToBeRemoved(() => getByText("Confirm"));
       const userToBeDeleted = queryByText("Bob");
       expect(userToBeDeleted).not.toBeInTheDocument();
+    });
+
+    it("should notify and not delete user when error", async () => {
+      mockRemoveUser.mockResolvedValueOnce({
+        success: false,
+        message: "Something went wrong!",
+        data: []
+      });
+      const { getByText } = render(UserManagementWithContext);
+      const deleteButton = await waitFor(() => getByText("Delete"));
+      fireEvent.click(deleteButton);
+      const modalDeleteButton = await waitFor(() => getByText("Confirm"));
+      expect(modalDeleteButton).toBeInTheDocument();
+      fireEvent.click(modalDeleteButton);
+      await waitForElementToBeRemoved(() => getByText("Confirm"));
+
+      const failureMessage = await waitFor(() =>
+        getByText("Unable to delete user :( Something went wrong!")
+      );
+      expect(failureMessage).toBeInTheDocument();
+
+      const userToBeDeleted = getByText("Bob");
+      expect(userToBeDeleted).toBeInTheDocument();
     });
   });
 

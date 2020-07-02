@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { useToasts } from "react-toast-notifications";
 import { fetchUsers, removeUser, editUserRole } from "../../api/api";
 import DeleteUserModal from "../Modal/DeleteUserModal";
 import EditUserModal from "../Modal/EditUserModal";
@@ -13,7 +13,7 @@ const UserManagement = ({ history }) => {
     isConfirmationModalOpen: false,
     isEditUserModalOpen: false
   });
-
+  const { addToast } = useToasts();
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -42,10 +42,21 @@ const UserManagement = ({ history }) => {
 
   const deleteUser = async () => {
     try {
-      const newUsersList = await removeUser(userToDelete);
-      setUsersList(newUsersList);
+      const response = await removeUser(userToDelete);
+      if (response.success) {
+        setUsersList(response.data);
+        addToast(response.message, {
+          appearance: "success",
+          autoDismiss: true
+        });
+      } else {
+        throw new Error(response.message);
+      }
     } catch (err) {
-      setMessage("Unable to delete user");
+      addToast(`Unable to delete user :( ${err.message}`, {
+        appearance: "error",
+        autoDismiss: true
+      });
     }
   };
 
@@ -75,8 +86,6 @@ const UserManagement = ({ history }) => {
           closeModal={() => closeModal("isConfirmationModalOpen")}
           deleteUser={deleteUser}
           contentLabel="DeleteUserModal"
-          success={success}
-          message={message}
         />
         <EditUserModal
           modalIsOpen={dialogOpen.isEditUserModalOpen}
