@@ -114,7 +114,7 @@ describe("Change Password Form", () => {
 
   describe("Notification", () => {
     it("should show error notification", async () => {
-      mockPost.mockRejectedValue({
+      mockPost.mockResolvedValueOnce({
         success: false,
         message: "Something went wrong!"
       });
