@@ -1,54 +1,48 @@
 import ApartmentDetail from "../ApartmentDetail/ApartmentDetail";
 import React, { useState } from "react";
 import SearchBar from "../SearchBar/SearchBar";
-import moment from "moment";
 import { useUserContext } from "../../context/UserContext";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import styles from "./Apartment.module.css";
-import { calculateVacancy, sortApartmentsByStatus } from "./utils";
+import {
+  calculateVacancy,
+  filterApartmentsByDate,
+  filterApartmentsByName,
+  sortApartmentsByStatus
+} from "./utils";
 import { useHistory } from "react-router-dom";
-import { useFetch } from "../../hooks/useFetch";
 import { fetchApartments } from "../../api/api";
 import routes from "../../router/RouterPaths";
 import { DateRangeInput } from "../Input/DateRangeInput";
+import { useFetch } from "../../hooks/useFetch";
+import { isEmpty } from "../../utils/utils";
 
 export const Apartment = () => {
   const { data: apartments } = useFetch(fetchApartments);
   const history = useHistory();
   const { state } = useUserContext();
   const userRole = state.role;
-  const [inputValue, setInputValue] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
   const handleNewInput = event => {
-    setInputValue(event.target.value);
+    setSearchInput(event.target.value);
   };
 
   const handleApartmentSearch = () => {
-    const sortedApartments = sortApartmentsByStatus(apartments ?? []);
-    const compareStrings = (str1, str2) =>
-      str1.toLowerCase().includes(str2.toLowerCase());
-
-    const apartmentListByName = sortedApartments?.filter(apartment =>
-      compareStrings(apartment.name, inputValue)
+    const apartmentList = isEmpty(apartments) ? [] : apartments;
+    const filteredApartments = filterApartmentsByName(
+      apartmentList,
+      searchInput
     );
+    const sortedApartments = sortApartmentsByStatus(filteredApartments);
 
     if (startDate && endDate) {
-      return apartmentListByName?.filter(
-        apartment =>
-          moment(new Date(apartment.leases[0].leaseStart)).isSameOrBefore(
-            moment.max(startDate, moment(new Date(0))),
-            "day"
-          ) &&
-          moment(new Date(apartment.leases[0].leaseEnd)).isSameOrAfter(
-            endDate,
-            "day"
-          )
-      );
+      return filterApartmentsByDate(sortedApartments, startDate, endDate);
     }
-    return apartmentListByName;
+    return sortedApartments;
   };
 
   const handleDateChange = ({ startDate, endDate }) => {

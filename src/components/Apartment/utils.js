@@ -1,7 +1,8 @@
 import moment from "moment";
+import { compareStrings } from "../../utils/utils";
 
-export const sortApartmentsByStatus = apartmentList => {
-  const activeApartments = apartmentList.filter(
+export const sortApartmentsByStatus = apartments => {
+  const activeApartments = apartments.filter(
     apartment => apartment.status === "active"
   );
 
@@ -11,7 +12,7 @@ export const sortApartmentsByStatus = apartmentList => {
     return apartmentA - apartmentB;
   });
 
-  const inactiveApartments = apartmentList.filter(
+  const inactiveApartments = apartments.filter(
     apartment => apartment.status === "inactive"
   );
   return activeApartments.concat(inactiveApartments);
@@ -29,4 +30,21 @@ export const calculateVacancy = (apartment, staysForApartment) => {
     ).length;
 
   return apartment.capacity - currentStays;
+};
+
+export const filterApartmentsByName = (apartments, name) =>
+  apartments.filter(apartment => compareStrings(apartment.name, name));
+
+export const filterApartmentsByDate = (apartments, startDate, endDate) => {
+  return apartments?.filter(
+    apartment =>
+      moment(new Date(apartment.leases[0].leaseStart)).isSameOrBefore(
+        moment.max(startDate, moment(new Date(0))),
+        "day"
+      ) &&
+      moment(new Date(apartment.leases[0].leaseEnd)).isSameOrAfter(
+        endDate,
+        "day"
+      )
+  );
 };
