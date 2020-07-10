@@ -4,13 +4,14 @@ import PropTypes from "prop-types";
 import SearchBar2 from "../../components/SearchBar/SearchBar2";
 import styles from "./index.module.scss";
 import DetailsCard from "./DetailsCard";
-import { useApartmentData } from "../../hooks/useApartmentData";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
+import { fetchApartments } from "../../api/api";
+import { useFetchWithParam } from "../../hooks/useFetchWithParam";
 
 const ApartmentProfile = () => {
   const { apartmentId } = useParams();
-  const { apartment } = useApartmentData(apartmentId);
+  const { data: apartment } = useFetchWithParam(fetchApartments, apartmentId);
 
   return (
     <div>

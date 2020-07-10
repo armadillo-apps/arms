@@ -18,7 +18,9 @@ export const mockApartment = {
       currency: "THB"
     }
   ],
-  stays: []
+  stays: [],
+  remarks: "testing",
+  country: "Singapore"
 };
 
 export const mockExpiringApartment = {
@@ -49,7 +51,9 @@ export const mockApartments = [
         currency: "SGD"
       }
     ],
-    stays: []
+    stays: [],
+    remarks: "testing",
+    country: "Singapore"
   },
   {
     _id: "123",
@@ -66,7 +70,9 @@ export const mockApartments = [
         currency: "THB"
       }
     ],
-    stays: []
+    stays: [],
+    remarks: "testing",
+    country: "Thailand"
   },
   {
     _id: "456",
@@ -83,7 +89,9 @@ export const mockApartments = [
         currency: "SGD"
       }
     ],
-    stays: []
+    stays: [],
+    remarks: "testing",
+    country: "Singapore"
   }
 ];
 
