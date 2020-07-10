@@ -18,7 +18,7 @@
     background-color: white;
     margin: 30px 0 30px 30px;
     min-height: 260px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.07);
+    box-shadow: var(--main-shadow);
   }
 }
 

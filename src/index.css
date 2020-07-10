@@ -1,5 +1,5 @@
 :root {
-  --main-bg-color: #f6f6f6;
+  --main-bg-color: #fafafa;
   --main-h1-color: #3d3d3d;
   --main-h1-font-size: 3.6rem;
   --main-h2-color: #000000;
@@ -21,6 +21,7 @@
   --placeholder-color: #b0b0b0;
   --green-color: #4acd89;
   --red-color: #fa575a;
+  --main-shadow: 0 5px 14px 0 rgba(0,0,0,0.05);
   --searchbar-font-size: 1.8rem;
   --sidebar-font-size: 2rem;
   --form-font-size: 1.8rem;

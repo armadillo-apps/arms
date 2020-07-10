@@ -1,35 +1,37 @@
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 60px;
-    padding: 0 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 60px;
+  padding: 0 30px;
 }
 
 .title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .activeStatus {
-    border: none;
-    background-color: rgba(74, 205, 137, 0.1);
-    color: var(--green-color);
-    padding: 8px 20px;
-    margin: 0 10px;
-    font-size: var(--primary-button-font-size);
-    text-transform: uppercase;
+  border: none;
+  background-color: rgba(74, 205, 137, 0.1);
+  color: var(--green-color);
+  padding: 8px 20px;
+  margin: 0 10px;
+  font-size: var(--primary-button-font-size);
+  text-transform: uppercase;
 }
 
 .primaryButton {
-    width: 110px;
-    height: 40px;
-    font-weight: bold;
-    font-size: 1.8rem;
-    padding: 8px 20px;
-    cursor: pointer;
+  width: 110px;
+  height: 40px;
+  font-weight: bold;
+  font-size: 1.8rem;
+  padding: 8px 20px;
+  cursor: pointer;
+  box-shadow: var(--main-shadow);
+  background-color: #fff;
 }
 
 
