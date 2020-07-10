@@ -8,7 +8,7 @@ import EditOccupantForm from "./EditOccupantForm";
 import { sgdFormatter, thbFormatter } from "../../utils/formatMoney";
 import styles from "./index.module.scss";
 import { useHistory, useParams } from "react-router-dom";
-import { useFetchWithParam } from "../../hooks/useFetchWithParam";
+import { useFetch } from "../../hooks/useFetch";
 
 const OccupantProfile = () => {
   const history = useHistory();
@@ -16,7 +16,7 @@ const OccupantProfile = () => {
   const [stays, setStays] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { state: user } = useUserContext();
-  const { data: occupant, isError, isFetching, fetchData } = useFetchWithParam(
+  const { data: occupant, isError, isFetching, fetchData } = useFetch(
     fetchOccupantById,
     occupantId
   );

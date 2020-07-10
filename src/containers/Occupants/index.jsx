@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 
 import SearchBar from "../../components/SearchBar/SearchBar";
 import styles from "./index.module.scss";
-import { useFetch } from "../../hooks/useFetch";
 import { fetchOccupants } from "../../api/api";
 import { useHistory } from "react-router-dom";
 import OccupantDetail from "./OccupantDetail";
+import { useFetch } from "../../hooks/useFetch";
 
 const Occupants = () => {
   const history = useHistory();

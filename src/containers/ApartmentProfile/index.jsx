@@ -7,11 +7,11 @@ import DetailsCard from "./DetailsCard";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
 import { fetchApartments } from "../../api/api";
-import { useFetchWithParam } from "../../hooks/useFetchWithParam";
+import { useFetch } from "../../hooks/useFetch";
 
 const ApartmentProfile = () => {
   const { apartmentId } = useParams();
-  const { data: apartment } = useFetchWithParam(fetchApartments, apartmentId);
+  const { data: apartment } = useFetch(fetchApartments, apartmentId);
 
   return (
     <div>

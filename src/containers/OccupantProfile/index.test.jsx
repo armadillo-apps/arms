@@ -10,11 +10,11 @@ import {
   mockStays,
   modalStates
 } from "../../mocks/mockData";
-import { useFetchWithParam } from "../../hooks/useFetchWithParam";
+import { useFetch } from "../../hooks/useFetch";
 import * as api from "../../api/api";
 
 const mockHistory = jest.fn();
-jest.mock("../../hooks/useFetchWithParam");
+jest.mock("../../hooks/useFetch");
 jest.mock("react-router-dom", () => ({
   useHistory: () => ({ push: mockHistory }),
   useParams: () => ({
@@ -26,7 +26,7 @@ describe("Occupant profile", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockUserContext(guestUser);
-    useFetchWithParam.mockReturnValue({
+    useFetch.mockReturnValue({
       data: mockOccupantDetails[0],
       isFetching: false,
       isError: false
@@ -104,7 +104,7 @@ describe("Occupant profile", () => {
     jest.spyOn(api, "fetchStays").mockReturnValue(mockStays);
     beforeEach(() => {
       jest.clearAllMocks();
-      useFetchWithParam.mockReturnValue({
+      useFetch.mockReturnValue({
         data: mockOccupantDetails[0],
         isFetching: false,
         isError: false
@@ -169,7 +169,7 @@ describe("Occupant profile", () => {
     });
 
     it("should render Loading.. if there are no occupants", async () => {
-      useFetchWithParam.mockReturnValue({
+      useFetch.mockReturnValue({
         data: mockOccupantDetails[0],
         isFetching: true,
         isError: false
