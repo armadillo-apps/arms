@@ -21,3 +21,17 @@
     display: table-cell;
   }
 }
+
+.detailsGroupContainer {
+  display: flex;
+
+  .detailsGroupWithIcons {
+    display: flex;
+    flex-direction: column;
+
+    div {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

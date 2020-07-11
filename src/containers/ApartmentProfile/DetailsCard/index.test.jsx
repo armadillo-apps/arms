@@ -6,26 +6,48 @@ import DetailsCard from "./index";
 import { mockApartment } from "../../../mocks/mockData";
 
 describe("Details Card", () => {
-  it("should render details card", () => {
+  it("should attach data-testid when passed as a prop details card", () => {
     render(<DetailsCard dataTestId="detailsCard" apartment={mockApartment} />);
 
     expect(screen.getByTestId("detailsCard")).toBeInTheDocument();
   });
 
-  it("should render detail card headings", () => {
+  it("should render vacancy info", () => {
     render(<DetailsCard apartment={mockApartment} />);
 
-    expect(screen.getByText(/address :/i)).toBeInTheDocument();
-    expect(screen.getByText(/bedroom\(s\) :/i)).toBeInTheDocument();
-    expect(screen.getByText(/country :/i)).toBeInTheDocument();
-    expect(screen.getByText(/landlord name :/i)).toBeInTheDocument();
-    expect(screen.getByText(/landlord a\/c no\. :/i)).toBeInTheDocument();
+    expect(screen.getByTestId("vacancy")).toBeInTheDocument();
   });
 
-  it("should render detail card property description", () => {
+  it("should render bedrooms info", () => {
     render(<DetailsCard apartment={mockApartment} />);
 
-    expect(screen.getByText("10 Another Road #05-10")).toBeInTheDocument();
-    expect(screen.getByText("Jack")).toBeInTheDocument();
+    expect(
+      screen.getByText(`${mockApartment.bedrooms} Bedrooms`)
+    ).toBeInTheDocument();
+  });
+
+  it("should render landlord info", () => {
+    render(<DetailsCard apartment={mockApartment} />);
+
+    expect(
+      screen.getByText(`Landlord Name : ${mockApartment.landlord.name}`)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        `Landlord A/C No. : ${mockApartment.landlord.accountNumber}`
+      )
+    ).toBeInTheDocument();
+  });
+
+  it("should render address info", () => {
+    render(<DetailsCard apartment={mockApartment} />);
+
+    expect(screen.getByText(`${mockApartment.address}`)).toBeInTheDocument();
+  });
+
+  it("should render country info", () => {
+    render(<DetailsCard apartment={mockApartment} />);
+
+    expect(screen.getByText(`${mockApartment.country}`)).toBeInTheDocument();
   });
 });
