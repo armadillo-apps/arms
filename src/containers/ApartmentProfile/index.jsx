@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import Header from "./Header";
 import { fetchApartmentById } from "../../api/api";
 import { useFetch } from "../../hooks/useFetch";
+import OccupantsCard from "./OccupantsCard";
 
 const ApartmentProfile = () => {
   const { apartmentId } = useParams();
@@ -23,13 +24,7 @@ const ApartmentProfile = () => {
             <h2>REMARKS</h2>
             <p>{apartment.remarks}</p>
           </div>
-          <div className={styles.occupantsCard} data-testid="occupantsCard">
-            <h2>OCCUPANTS</h2>
-            <h3>NAME</h3>
-            <h3>CHECK-IN</h3>
-            <h3>CHECK-OUT</h3>
-            <h3>REMARKS</h3>
-          </div>
+          <OccupantsCard stays={apartment?.stays} dataTestId="occupantsCard" />
           <div className={styles.leaseCard} data-testid="leaseCard">
             <h2>LEASE</h2>
           </div>
