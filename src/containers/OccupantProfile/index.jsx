@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 
 import { useUserContext } from "../../context/UserContext";
 import { fetchOccupantById, fetchStays } from "../../api/api";
-import { formatDate } from "../../utils/date";
 import EditOccupantModal from "../../components/Modal/EditOccupantModal";
 import EditOccupantForm from "./EditOccupantForm";
 import { sgdFormatter, thbFormatter } from "../../utils/formatMoney";
 import styles from "./index.module.scss";
 import { useHistory, useParams } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
+import { formatDate } from "../../utils/utils";
 
 const OccupantProfile = () => {
   const history = useHistory();
