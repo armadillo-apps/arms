@@ -5,13 +5,17 @@ import styles from "./index.module.scss";
 import DetailsCard from "./DetailsCard";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
-import { fetchApartmentById } from "../../api/api";
+import { fetchApartmentById, getApartmentProfileHistory } from "../../api/api";
 import { useFetch } from "../../hooks/useFetch";
 import OccupantsCard from "./OccupantsCard";
 
 const ApartmentProfile = () => {
   const { apartmentId } = useParams();
   const { data: apartment } = useFetch(fetchApartmentById, apartmentId);
+  const { data: stayHistory } = useFetch(
+    getApartmentProfileHistory,
+    apartmentId
+  );
 
   return (
     <div>
@@ -24,7 +28,7 @@ const ApartmentProfile = () => {
             <h2>REMARKS</h2>
             <p>{apartment.remarks}</p>
           </div>
-          <OccupantsCard stays={apartment?.stays} dataTestId="occupantsCard" />
+          <OccupantsCard stayHistory={stayHistory} dataTestId="occupantsCard" />
           <div className={styles.leaseCard} data-testid="leaseCard">
             <h2>LEASE</h2>
           </div>

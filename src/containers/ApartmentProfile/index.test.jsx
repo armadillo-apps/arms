@@ -1,12 +1,13 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 
 import ApartmentProfile from "./index";
-import { mockApartment } from "../../mocks/mockData";
+import { mockApartment, mockStayHistory } from "../../mocks/mockData";
 import { useFetch } from "../../hooks/useFetch";
 
 jest.mock("../../hooks/useFetch");
+
 const mockHistory = jest.fn();
 jest.mock("react-router-dom", () => ({
   useParams: () => jest.fn(),
@@ -16,7 +17,8 @@ jest.mock("react-router-dom", () => ({
 describe("Apartment Profile2", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    useFetch.mockReturnValue({ data: mockApartment });
+    useFetch.mockReturnValueOnce({ data: mockApartment });
+    useFetch.mockReturnValueOnce({ data: mockStayHistory });
   });
 
   it("should render searchbar", () => {
