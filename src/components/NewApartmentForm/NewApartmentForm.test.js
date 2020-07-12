@@ -5,6 +5,7 @@ import { fireEvent, render, waitFor } from "@testing-library/react";
 import * as data from "../../api/api";
 
 import NewApartmentForm from "./NewApartmentForm";
+import routes from "../../router/RouterPaths";
 
 const mockPost = jest.spyOn(data, "createNewApartment");
 
@@ -112,10 +113,12 @@ describe("apartment form confirmation message", () => {
     const { getByLabelText, getByText } = render(NewApartmentFormWithContext);
 
     const nameInput = getByLabelText(/apartment name/i);
-    const button = getByText("Create", { selector: "input[type=submit]" });
+    const createButton = getByText("Create", {
+      selector: "input[type=submit]"
+    });
 
     fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
-    fireEvent.click(button);
+    fireEvent.click(createButton);
 
     await waitFor(() => expect(nameInput.value).toBe(""));
   });
@@ -130,12 +133,15 @@ describe("apartment form confirmation message", () => {
     );
 
     const nameInput = getByLabelText(/apartment name/i);
-    const button = getByText("Create", { selector: "input[type=submit]" });
+    const createButton = getByText("Create", {
+      selector: "input[type=submit]"
+    });
 
     fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
-    fireEvent.click(button);
+    fireEvent.click(createButton);
 
-    expect(mockHistory).toHaveBeenCalled();
+    expect(mockHistory).toHaveBeenCalledTimes(1);
+    expect(mockHistory).toHaveBeenCalledWith(routes.APARTMENTS);
   });
 
   it("should display failure message when there is an error", async () => {
@@ -143,10 +149,12 @@ describe("apartment form confirmation message", () => {
     const { getByLabelText, getByText } = render(NewApartmentFormWithContext);
 
     const nameInput = getByLabelText(/apartment name/i);
-    const button = getByText("Create", { selector: "input[type=submit]" });
+    const createButton = getByText("Create", {
+      selector: "input[type=submit]"
+    });
 
     fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
-    fireEvent.click(button);
+    fireEvent.click(createButton);
 
     const failureMessage = await waitFor(() =>
       getByText("Unable to create new apartment :(")
@@ -160,10 +168,12 @@ describe("apartment form confirmation message", () => {
     const { getByLabelText, getByText } = render(NewApartmentFormWithContext);
 
     const nameInput = getByLabelText(/apartment name/i);
-    const button = getByText("Create", { selector: "input[type=submit]" });
+    const createButton = getByText("Create", {
+      selector: "input[type=submit]"
+    });
 
     fireEvent.change(nameInput, { target: { value: "Garden Shack" } });
-    fireEvent.click(button);
+    fireEvent.click(createButton);
 
     const notificationMessage = await waitFor(() => getByText(successMessage));
     expect(notificationMessage).toBeInTheDocument();

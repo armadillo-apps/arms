@@ -60,14 +60,13 @@ const NewApartmentForm = () => {
         country: formInputs.country,
         remarks: formInputs.remarks
       };
-
+      setFormInputs(emptyForm);
       const output = await createNewApartment(data);
 
       addToast(output, {
         appearance: "success",
         autoDismiss: true
       });
-      setFormInputs(emptyForm);
       history.push(routes.APARTMENTS);
     } catch (err) {
       addToast("Unable to create new apartment :(", {
