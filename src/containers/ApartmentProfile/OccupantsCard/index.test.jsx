@@ -7,7 +7,7 @@ import { formatDate } from "../../../utils/utils";
 import { occupantsCardContent as content } from "../constants";
 
 describe("Occupants Card", () => {
-  it("should attach data-testid when passed as a prop details card", () => {
+  it("should attach data-testid when passed as a prop", () => {
     render(<OccupantsCard dataTestId="occupantsCard" />);
 
     expect(screen.getByTestId("occupantsCard")).toBeInTheDocument();
