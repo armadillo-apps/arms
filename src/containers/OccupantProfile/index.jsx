@@ -21,7 +21,7 @@ const OccupantProfile = () => {
   );
   const memoisedParam = useMemo(() => {
     return { occupantId };
-  }, []);
+  }, [occupantId]);
   const { data: stays } = useFetch(fetchStays, memoisedParam);
 
   const rentFromLease = (stayLeaseId, apartmentLeaseId) => {
