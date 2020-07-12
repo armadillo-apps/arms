@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { act, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 import ApartmentProfile from "./index";
 import { mockApartment, mockStayHistory } from "../../mocks/mockData";
@@ -21,7 +21,7 @@ describe("Apartment Profile2", () => {
     useFetch.mockReturnValueOnce({ data: mockStayHistory });
   });
 
-  it("should render searchbar", () => {
+  it("should render the searchbar", () => {
     render(<ApartmentProfile />);
 
     expect(screen.getByPlaceholderText("Search here")).toBeInTheDocument();
@@ -39,36 +39,21 @@ describe("Apartment Profile2", () => {
     expect(screen.getByTestId("detailsCard")).toBeInTheDocument();
   });
 
-  describe("Remarks Card", () => {
-    it("should render remarks card", () => {
-      render(<ApartmentProfile />);
+  it("should render Remarks card", () => {
+    render(<ApartmentProfile />);
 
-      expect(screen.getByTestId("remarksCard")).toBeInTheDocument();
-    });
+    expect(screen.getByTestId("remarksCard")).toBeInTheDocument();
   });
 
-  describe("Occupants Card", () => {
-    it("should render occupants card", () => {
-      render(<ApartmentProfile />);
+  it("should render Occupants card", () => {
+    render(<ApartmentProfile />);
 
-      expect(screen.getByTestId("occupantsCard")).toBeInTheDocument();
-    });
-
-    it("should render occupants card headings", () => {
-      render(<ApartmentProfile />);
-
-      expect(screen.getByText(/^NAME/i)).toBeInTheDocument();
-      expect(screen.getByText(/check-in/i)).toBeInTheDocument();
-      expect(screen.getByText(/check-out/i)).toBeInTheDocument();
-      expect(screen.getAllByText(/remarks/i)).toHaveLength(2);
-    });
+    expect(screen.getByTestId("occupantsCard")).toBeInTheDocument();
   });
 
-  describe("Lease Card", () => {
-    it("should render lease card", () => {
-      render(<ApartmentProfile />);
+  it("should render Lease card", () => {
+    render(<ApartmentProfile />);
 
-      expect(screen.getByTestId("leaseCard")).toBeInTheDocument();
-    });
+    expect(screen.getByTestId("leaseCard")).toBeInTheDocument();
   });
 });
