@@ -132,6 +132,8 @@ export const mockOccupantDetails = [
 
 export const guestUser = { email: "guest@email.com", role: "guest" };
 
+export const adminUser = { email: "admin@email.com", role: "admin" };
+
 export const modalStates = {
   success: true,
   message: "success"
@@ -214,7 +216,7 @@ export const mockStays = [
   }
 ];
 
-export const mockStayingHistory = [
+export const mockStayHistory = [
   {
     _id: "67890123",
     apartmentId: "12345abc",
@@ -222,16 +224,18 @@ export const mockStayingHistory = [
     checkInDate: new Date("01-01-2010"),
     checkOutDate: new Date("01-01-2011"),
     leaseId: "e83724nht8",
-    occupantName: "John"
+    occupantName: "John",
+    occupantRemarks: "remarks1"
   },
   {
     _id: "67890124",
     apartmentId: "12345abc",
     occupantId: "5d2ef34111ead80017be1234",
     checkInDate: new Date("01-01-2200"),
-    checkOutDate: new Date("01-01-2300"),
+    checkOutDate: new Date("01-02-2300"),
     leaseId: "e83724nht8",
-    occupantName: "Tim"
+    occupantName: "Tim",
+    occupantRemarks: "remarks2"
   },
   {
     _id: "67890125",
@@ -240,6 +244,7 @@ export const mockStayingHistory = [
     checkInDate: new Date("01-01-2018"),
     checkOutDate: new Date(),
     leaseId: "e83724nht8",
-    occupantName: "Kai"
+    occupantName: "Kai",
+    occupantRemarks: "remarks3"
   }
 ];

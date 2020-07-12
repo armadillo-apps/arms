@@ -4,7 +4,7 @@ import { cleanup, fireEvent, render } from "@testing-library/react";
 
 import ApartmentProfile from "./ApartmentProfile";
 import * as data from "../../api/api";
-import { mockStayingHistory } from "../../mocks/mockData";
+import { mockStayHistory } from "../../mocks/mockData";
 
 const apartmentDetails = [
   {
@@ -167,7 +167,7 @@ describe("Apartment Profile", () => {
   });
 
   it("should render occupant history", async () => {
-    getApartmentProfileHistory.mockReturnValueOnce(mockStayingHistory);
+    getApartmentProfileHistory.mockReturnValueOnce(mockStayHistory);
     const { findByText } = render(
       <ApartmentProfile
         apartments={apartmentDetails}
@@ -222,7 +222,7 @@ describe("Apartment Profile", () => {
   });
 
   it("should be able to update the number of occupants", async () => {
-    getApartmentProfileHistory.mockReturnValueOnce(mockStayingHistory);
+    getApartmentProfileHistory.mockReturnValueOnce(mockStayHistory);
     const { findByTestId } = render(
       <ApartmentProfile
         apartments={apartmentDetails}
@@ -237,7 +237,7 @@ describe("Apartment Profile", () => {
   });
 
   it("should sort occupants by check-in date", async () => {
-    getApartmentProfileHistory.mockReturnValueOnce(mockStayingHistory);
+    getApartmentProfileHistory.mockReturnValueOnce(mockStayHistory);
     const { findAllByTestId } = render(
       <ApartmentProfile
         apartments={apartmentDetails}
