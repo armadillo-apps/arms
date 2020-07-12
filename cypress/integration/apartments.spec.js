@@ -133,6 +133,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("input[type=submit]").click();
       cy.wait("@GetRequest");
       cy.get("[data-testid=Occupant__searchBar]").type(modName);
+      cy.get(".react-toast-notifications__toast__dismiss-icon > path").click();
       cy.get("td").contains(modName).click();
       cy.get("h1").contains(modName);
       cy.get("h2").contains(modEmployeeId);
