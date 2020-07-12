@@ -37,10 +37,8 @@ const ArmsRouter = () => {
             path={`${routes.OCCUPANTS}/:occupantId`}
             render={() => <OccupantProfile />}
           />
-          {user.role === "admin" ? (
+          {user.role === "admin" && (
             <Route exact path={routes.USERS} component={UserManagement} />
-          ) : (
-            ""
           )}
           <Route
             exact
@@ -57,14 +55,12 @@ const ArmsRouter = () => {
             path={routes.CHANGE_PASSWORD}
             render={() => <ChangePasswordForm />}
           />
-          {user.role === "admin" ? (
+          {user.role === "admin" && (
             <Route
               exact
               path={routes.NEW_USER}
               render={() => <NewUserForm />}
             />
-          ) : (
-            ""
           )}
           <Route component={NoMatchPage} />
         </Switch>
