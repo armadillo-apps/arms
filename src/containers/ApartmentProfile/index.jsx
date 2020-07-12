@@ -8,6 +8,7 @@ import Header from "./Header";
 import { fetchApartmentById, getApartmentProfileHistory } from "../../api/api";
 import { useFetch } from "../../hooks/useFetch";
 import OccupantsCard from "./OccupantsCard";
+import LeaseCard from "./LeaseCard";
 
 const ApartmentProfile = () => {
   const { apartmentId } = useParams();
@@ -29,9 +30,7 @@ const ApartmentProfile = () => {
             <p>{apartment.remarks}</p>
           </div>
           <OccupantsCard stayHistory={stayHistory} dataTestId="occupantsCard" />
-          <div className={styles.leaseCard} data-testid="leaseCard">
-            <h2>LEASE</h2>
-          </div>
+          <LeaseCard leases={apartment.leases} dataTestId="leaseCard" />
         </div>
       </div>
     </div>
