@@ -213,3 +213,33 @@ export const mockStays = [
     }
   }
 ];
+
+export const mockStayingHistory = [
+  {
+    _id: "67890123",
+    apartmentId: "12345abc",
+    occupantId: "5d2ef34111ead80017be83df",
+    checkInDate: new Date("01-01-2010"),
+    checkOutDate: new Date("01-01-2011"),
+    leaseId: "e83724nht8",
+    occupantName: "John"
+  },
+  {
+    _id: "67890124",
+    apartmentId: "12345abc",
+    occupantId: "5d2ef34111ead80017be1234",
+    checkInDate: new Date("01-01-2200"),
+    checkOutDate: new Date("01-01-2300"),
+    leaseId: "e83724nht8",
+    occupantName: "Tim"
+  },
+  {
+    _id: "67890125",
+    apartmentId: "12345abc",
+    occupantId: "5d2ef34111ead80016be1324",
+    checkInDate: new Date("01-01-2018"),
+    checkOutDate: new Date(),
+    leaseId: "e83724nht8",
+    occupantName: "Kai"
+  }
+];

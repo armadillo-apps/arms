@@ -4,6 +4,7 @@ import { cleanup, fireEvent, render } from "@testing-library/react";
 
 import ApartmentProfile from "./ApartmentProfile";
 import * as data from "../../api/api";
+import { mockStayingHistory } from "../../mocks/mockData";
 
 const apartmentDetails = [
   {
@@ -54,36 +55,6 @@ const apartmentDetails = [
         currency: "SGD"
       }
     ]
-  }
-];
-
-const stayingHistory = [
-  {
-    _id: "67890123",
-    apartmentId: "12345abc",
-    occupantId: "5d2ef34111ead80017be83df",
-    checkInDate: new Date("01-01-2010"),
-    checkOutDate: new Date("01-01-2011"),
-    leaseId: "e83724nht8",
-    occupantName: "John"
-  },
-  {
-    _id: "67890124",
-    apartmentId: "12345abc",
-    occupantId: "5d2ef34111ead80017be1234",
-    checkInDate: new Date("01-01-2200"),
-    checkOutDate: new Date("01-01-2300"),
-    leaseId: "e83724nht8",
-    occupantName: "Tim"
-  },
-  {
-    _id: "67890125",
-    apartmentId: "12345abc",
-    occupantId: "5d2ef34111ead80016be1324",
-    checkInDate: new Date("01-01-2018"),
-    checkOutDate: new Date(),
-    leaseId: "e83724nht8",
-    occupantName: "Kai"
   }
 ];
 
@@ -196,7 +167,7 @@ describe("Apartment Profile", () => {
   });
 
   it("should render occupant history", async () => {
-    getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
+    getApartmentProfileHistory.mockReturnValueOnce(mockStayingHistory);
     const { findByText } = render(
       <ApartmentProfile
         apartments={apartmentDetails}
@@ -251,7 +222,7 @@ describe("Apartment Profile", () => {
   });
 
   it("should be able to update the number of occupants", async () => {
-    getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
+    getApartmentProfileHistory.mockReturnValueOnce(mockStayingHistory);
     const { findByTestId } = render(
       <ApartmentProfile
         apartments={apartmentDetails}
@@ -266,7 +237,7 @@ describe("Apartment Profile", () => {
   });
 
   it("should sort occupants by check-in date", async () => {
-    getApartmentProfileHistory.mockReturnValueOnce(stayingHistory);
+    getApartmentProfileHistory.mockReturnValueOnce(mockStayingHistory);
     const { findAllByTestId } = render(
       <ApartmentProfile
         apartments={apartmentDetails}
