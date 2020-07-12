@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 import { mockUserContext } from "../../../test/utils/mockUserContext";
 import OccupantProfile from "./index";
@@ -11,7 +11,6 @@ import {
   modalStates
 } from "../../mocks/mockData";
 import { useFetch } from "../../hooks/useFetch";
-import * as api from "../../api/api";
 
 const mockHistory = jest.fn();
 jest.mock("../../hooks/useFetch");
@@ -23,163 +22,173 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("Occupant profile", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-    mockUserContext(guestUser);
-    useFetch.mockReturnValue({
-      data: mockOccupantDetails[0],
-      isFetching: false,
-      isError: false
-    });
-  });
-
-  it("should not render Edit button for guest users", () => {
-    const { queryByText } = render(
-      <OccupantProfile modalStates={modalStates} />
-    );
-    expect(queryByText("Edit")).not.toBeInTheDocument();
-  });
-
-  it("should render Edit button for non-guest users", () => {
-    const adminUser = { email: "admin@email.com", role: "admin" };
-    mockUserContext(adminUser);
-
-    const { getByText } = render(<OccupantProfile modalStates={modalStates} />);
-    expect(getByText("Edit")).toBeInTheDocument();
-  });
-
-  it("should render a back button", () => {
-    const { getByText } = render(<OccupantProfile modalStates={modalStates} />);
-
-    expect(getByText("< Back to Occupant Listings")).toBeInTheDocument();
-  });
-
-  it("should render occupant name as header", () => {
-    const { getByText } = render(<OccupantProfile modalStates={modalStates} />);
-
-    expect(getByText("Tom")).toBeInTheDocument();
-  });
-
-  it("should render occupant employeeId", () => {
-    const { getByText } = render(<OccupantProfile modalStates={modalStates} />);
-
-    expect(getByText("1234567a")).toBeInTheDocument();
-  });
-
-  it("should render occupant gender", () => {
-    const { getByText } = render(<OccupantProfile modalStates={modalStates} />);
-
-    expect(getByText(/gender/i)).toBeInTheDocument();
-    expect(getByText(/male/i)).toBeInTheDocument();
-  });
-
-  it("should render occupant Home Office", () => {
-    const { getByText } = render(<OccupantProfile modalStates={modalStates} />);
-
-    expect(getByText(/Home Office/i)).toBeInTheDocument();
-    expect(getByText(/Melbourne, Australia/i)).toBeInTheDocument();
-  });
-
-  it("should render stay history", () => {
-    const { getByText } = render(<OccupantProfile modalStates={modalStates} />);
-
-    expect(getByText("Stay History")).toBeInTheDocument();
-  });
-
-  it("should render occupant remarks", () => {
-    const { getByText } = render(<OccupantProfile modalStates={modalStates} />);
-    expect(getByText("Remarks")).toBeInTheDocument();
-    expect(getByText("might extend stay")).toBeInTheDocument();
-  });
-
-  it("should render occupant status", () => {
-    const { getByText } = render(<OccupantProfile modalStates={modalStates} />);
-
-    expect(getByText("unallocated")).toBeInTheDocument();
-  });
-
-  // skipped to suppress warnings for `not wrapped in act(...)` to fix, requires updating to React 16.9; https://github.com/testing-library/react-testing-library/issues/281#issuecomment-482718350
-
-  describe("render the occupant staying history", () => {
-    jest.spyOn(api, "fetchStays").mockReturnValue(mockStays);
+  describe("Profile details", () => {
     beforeEach(() => {
       jest.clearAllMocks();
-      useFetch.mockReturnValue({
+      mockUserContext(guestUser);
+      useFetch.mockReturnValueOnce({
         data: mockOccupantDetails[0],
         isFetching: false,
         isError: false
       });
+      useFetch.mockReturnValueOnce({
+        data: mockStays
+      });
+    });
+
+    it("should not render Edit button for guest users", () => {
+      render(<OccupantProfile modalStates={modalStates} />);
+
+      expect(screen.queryByText("Edit")).not.toBeInTheDocument();
+    });
+
+    it("should render Edit button for non-guest users", () => {
+      const adminUser = { email: "admin@email.com", role: "admin" };
+      mockUserContext(adminUser);
+
+      render(<OccupantProfile modalStates={modalStates} />);
+
+      expect(screen.getByText("Edit")).toBeInTheDocument();
+    });
+
+    it("should render a back button", () => {
+      render(<OccupantProfile modalStates={modalStates} />);
+
+      expect(
+        screen.getByText("< Back to Occupant Listings")
+      ).toBeInTheDocument();
+    });
+
+    it("should render occupant name as header", () => {
+      render(<OccupantProfile modalStates={modalStates} />);
+
+      expect(screen.getByText("Tom")).toBeInTheDocument();
+    });
+
+    it("should render occupant employeeId", () => {
+      render(<OccupantProfile modalStates={modalStates} />);
+
+      expect(screen.getByText("1234567a")).toBeInTheDocument();
+    });
+
+    it("should render occupant gender", () => {
+      render(<OccupantProfile modalStates={modalStates} />);
+
+      expect(screen.getByText(/gender/i)).toBeInTheDocument();
+      expect(screen.getByText(/male/i)).toBeInTheDocument();
+    });
+
+    it("should render occupant Home Office", () => {
+      render(<OccupantProfile modalStates={modalStates} />);
+
+      expect(screen.getByText(/Home Office/i)).toBeInTheDocument();
+      expect(screen.getByText(/Melbourne, Australia/i)).toBeInTheDocument();
+    });
+
+    it("should render stay history", () => {
+      render(<OccupantProfile modalStates={modalStates} />);
+
+      expect(screen.getByText("Stay History")).toBeInTheDocument();
+    });
+
+    it("should render occupant remarks", () => {
+      render(<OccupantProfile modalStates={modalStates} />);
+
+      expect(screen.getByText("Remarks")).toBeInTheDocument();
+      expect(screen.getByText("might extend stay")).toBeInTheDocument();
+    });
+
+    it("should render occupant status", () => {
+      render(<OccupantProfile modalStates={modalStates} />);
+
+      expect(screen.getByText("unallocated")).toBeInTheDocument();
+    });
+  });
+
+  describe("Stay history", () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+      useFetch.mockReturnValueOnce({
+        data: mockOccupantDetails[0],
+        isFetching: false,
+        isError: false
+      });
+      useFetch.mockReturnValueOnce({
+        data: mockStays
+      });
     });
 
     it("should render stay history headers", () => {
-      const { getByText } = render(
-        <OccupantProfile modalStates={modalStates} />
-      );
+      render(<OccupantProfile modalStates={modalStates} />);
 
-      expect(getByText("Apartment Name")).toBeInTheDocument();
-      expect(getByText("Check In")).toBeInTheDocument();
-      expect(getByText("Check Out")).toBeInTheDocument();
-      expect(getByText("Monthly Rental")).toBeInTheDocument();
-      expect(getByText("Remarks")).toBeInTheDocument();
+      expect(screen.getByText("Apartment Name")).toBeInTheDocument();
+      expect(screen.getByText("Check In")).toBeInTheDocument();
+      expect(screen.getByText("Check Out")).toBeInTheDocument();
+      expect(screen.getByText("Monthly Rental")).toBeInTheDocument();
+      expect(screen.getByText("Remarks")).toBeInTheDocument();
     });
 
     it("should render occupant's stay history with apartment name", async () => {
-      const { getByText } = render(
-        <OccupantProfile modalStates={modalStates} />
-      );
+      render(<OccupantProfile modalStates={modalStates} />);
 
-      await waitFor(() => {
-        expect(getByText("Parc Sophia")).toBeInTheDocument();
-        expect(getByText("The Beacon Condo")).toBeInTheDocument();
-      });
+      expect(screen.getByText("Parc Sophia")).toBeInTheDocument();
+      expect(screen.getByText("The Beacon Condo")).toBeInTheDocument();
     });
 
     it("should render occupant's check-in and check-out dates", async () => {
-      const { getByText } = render(
-        <OccupantProfile modalStates={modalStates} />
-      );
+      render(<OccupantProfile modalStates={modalStates} />);
 
-      await waitFor(() => {
-        expect(getByText("25 Dec 09")).toBeInTheDocument();
-        expect(getByText("25 Dec 19")).toBeInTheDocument();
-        expect(getByText("25 Dec 01")).toBeInTheDocument();
-        expect(getByText("25 Dec 02")).toBeInTheDocument();
-      });
+      expect(screen.getByText("25 Dec 09")).toBeInTheDocument();
+      expect(screen.getByText("25 Dec 19")).toBeInTheDocument();
+      expect(screen.getByText("25 Dec 01")).toBeInTheDocument();
+      expect(screen.getByText("25 Dec 02")).toBeInTheDocument();
     });
 
     it("should render occupant's monthly rent", async () => {
-      const { getByText } = render(
-        <OccupantProfile modalStates={modalStates} />
-      );
+      render(<OccupantProfile modalStates={modalStates} />);
 
-      await waitFor(() => {
-        expect(getByText("THB 6,000.00")).toBeInTheDocument();
-        expect(getByText("SGD 8,000.00")).toBeInTheDocument();
-      });
+      expect(screen.getByText("THB 6,000.00")).toBeInTheDocument();
+      expect(screen.getByText("SGD 8,000.00")).toBeInTheDocument();
     });
 
     it("should display rent or error message if lease not allocated", async () => {
-      const { getByText } = render(
-        <OccupantProfile modalStates={modalStates} />
-      );
+      render(<OccupantProfile modalStates={modalStates} />);
 
-      await waitFor(() => {
-        expect(getByText("Lease not allocated")).toBeInTheDocument();
-      });
+      expect(screen.getByText("Lease not allocated")).toBeInTheDocument();
     });
+  });
 
-    it("should render Loading.. if there are no occupants", async () => {
+  describe("Loading state", () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
       useFetch.mockReturnValue({
-        data: mockOccupantDetails[0],
+        data: {},
         isFetching: true,
         isError: false
       });
-      const { getByText } = render(
-        <OccupantProfile modalStates={modalStates} />
-      );
-      await waitFor(() => {
-        expect(getByText("Loading...")).toBeInTheDocument();
+    });
+
+    it("should render loading state when data is fetching", async () => {
+      render(<OccupantProfile modalStates={modalStates} />);
+
+      expect(screen.getByText("Loading...")).toBeInTheDocument();
+    });
+  });
+
+  describe("Error state", () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+      useFetch.mockReturnValue({
+        data: {},
+        isFetching: false,
+        isError: true
       });
+    });
+
+    it("should show message when occupant could not be found", async () => {
+      render(<OccupantProfile modalStates={modalStates} />);
+
+      expect(screen.getByText("Could not find occupant")).toBeInTheDocument();
     });
   });
 });

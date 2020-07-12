@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import { useUserContext } from "../../context/UserContext";
 import { fetchOccupantById, fetchStays } from "../../api/api";
@@ -8,29 +8,21 @@ import { sgdFormatter, thbFormatter } from "../../utils/formatMoney";
 import styles from "./index.module.scss";
 import { useHistory, useParams } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
-import { formatDate } from "../../utils/utils";
+import { formatDate, isEmpty } from "../../utils/utils";
 
 const OccupantProfile = () => {
   const history = useHistory();
   const { occupantId } = useParams();
-  const [stays, setStays] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { state: user } = useUserContext();
   const { data: occupant, isError, isFetching, fetchData } = useFetch(
     fetchOccupantById,
     occupantId
   );
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await fetchStays({ occupantId });
-        setStays(data);
-      } catch (err) {
-        return err;
-      }
-    })();
-  }, [occupantId]);
+  const memoisedParam = useMemo(() => {
+    return { occupantId };
+  }, []);
+  const { data: stays } = useFetch(fetchStays, memoisedParam);
 
   const rentFromLease = (stayLeaseId, apartmentLeaseId) => {
     try {
@@ -102,16 +94,19 @@ const OccupantProfile = () => {
             </tr>
           </thead>
           <tbody>
-            {stays?.map(stay => {
-              return (
-                <tr key={stay._id}>
-                  <td>{stay.apartment.name}</td>
-                  <td>{formatDate(stay.checkInDate)}</td>
-                  <td>{formatDate(stay.checkOutDate)}</td>
-                  <td>{rentFromLease(stay.leaseId, stay.apartment.leases)}</td>
-                </tr>
-              );
-            })}
+            {!isEmpty(stays) &&
+              stays.map(stay => {
+                return (
+                  <tr key={stay._id}>
+                    <td>{stay.apartment.name}</td>
+                    <td>{formatDate(stay.checkInDate)}</td>
+                    <td>{formatDate(stay.checkOutDate)}</td>
+                    <td>
+                      {rentFromLease(stay.leaseId, stay.apartment.leases)}
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
         <h1 className={styles.heading2}>Remarks</h1>
