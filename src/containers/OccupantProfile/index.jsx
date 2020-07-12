@@ -43,10 +43,12 @@ const OccupantProfile = () => {
     }
   };
 
+  const closeModal = () => setIsModalOpen(false);
+  const openModal = () => setIsModalOpen(true);
+
   if (isFetching) {
     return <h1>Loading...</h1>;
   }
-
   if (isError) {
     return (
       <div className={styles.container}>
@@ -55,9 +57,6 @@ const OccupantProfile = () => {
       </div>
     );
   }
-
-  const closeModal = () => setIsModalOpen(false);
-  const openModal = () => setIsModalOpen(true);
 
   return (
     <div className={styles.container}>
