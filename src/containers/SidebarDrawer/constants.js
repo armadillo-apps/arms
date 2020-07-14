@@ -17,7 +17,7 @@ export const PUBLIC_MENU = [
   },
   {
     pathname: "/changePassword",
-    text: "Password",
+    text: "Change Password",
     imgUrl: ChangePasswordLogo,
     imgAlt: "change password"
   }

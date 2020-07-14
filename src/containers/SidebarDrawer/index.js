@@ -62,7 +62,9 @@ const SidebarDrawer = () => {
             data-testid="sideBar-users"
           >
             <img src={UsersLogo} alt="user management" />
-            <span className={visible ? null : styles.linkTextHidden}>User</span>
+            <span className={visible ? null : styles.linkTextHidden}>
+              User Management
+            </span>
           </NavLink>
         ) : (
           ""
