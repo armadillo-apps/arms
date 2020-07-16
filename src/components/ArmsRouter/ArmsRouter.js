@@ -6,7 +6,7 @@ import routes from "../../router/RouterPaths";
 import LoginForm from "../LoginForm/LoginForm";
 import Main from "../Main/Main";
 
-const Routes = () => {
+const ArmsRouter = () => {
   const { state: user } = useUserContext();
   if (user?.isAuthenticated) {
     return (
@@ -30,4 +30,4 @@ const Routes = () => {
   );
 };
 
-export default Routes;
+export default ArmsRouter;

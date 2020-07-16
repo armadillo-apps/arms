@@ -2,7 +2,7 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import Routes from "./Routes";
+import ArmsRouter from "./ArmsRouter";
 import * as UserContext from "../../context/UserContext";
 
 jest.mock("react-toast-notifications", () => ({
@@ -30,7 +30,7 @@ describe("Routes", () => {
 
     const { queryByTestId, getByText } = render(
       <MemoryRouter initialEntries={["/"]}>
-        <Routes />
+        <ArmsRouter />
       </MemoryRouter>
     );
 
@@ -53,7 +53,7 @@ describe("Routes", () => {
 
     const { getByTestId } = render(
       <MemoryRouter initialEntries={["/"]}>
-        <Routes history={history} />
+        <ArmsRouter history={history} />
       </MemoryRouter>
     );
 
