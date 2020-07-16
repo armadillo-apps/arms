@@ -121,7 +121,10 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       const status = "allocated";
       const gender = "female";
 
-      cy.get('a[href="/newOccupant"]').click();
+      cy.get('a[href="/occupants"]').click();
+      cy.get("button")
+        .contains("+ Add Occupant")
+        .click();
 
       cy.get("h1").contains("Create New Occupant");
       cy.get("input[name=name]").type(modName);
@@ -134,7 +137,9 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.wait("@GetRequest");
       cy.get("[data-testid=Occupant__searchBar]").type(modName);
       cy.get(".react-toast-notifications__toast__dismiss-icon > path").click();
-      cy.get("td").contains(modName).click();
+      cy.get("td")
+        .contains(modName)
+        .click();
       cy.get("h1").contains(modName);
       cy.get("h2").contains(modEmployeeId);
       cy.get("h2").contains(gender);
@@ -181,14 +186,17 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     it("should be able to filter occupants using searchbar", () => {
       const newOccupantname = "Bob";
 
-      cy.get('a[href="/newOccupant"]').click();
+      cy.get('a[href="/occupants"]').click();
+      cy.get("button")
+        .contains("+ Add Occupant")
+        .click();
 
       cy.get("h1").contains("Create New Occupant");
       cy.get("input[name=name]").type(newOccupantname);
       cy.get("select[name=status]").select("Inactive");
       cy.get("input[type=submit]").click();
       cy.get("a")
-        .contains("OCCUPANTS")
+        .contains(/occupants/i)
         .click();
       cy.get("input")
         .should("have.attr", "placeholder", "Search Occupant")
@@ -234,7 +242,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.contains(apartmentName).should("not.exist");
     });
 
-    xit("should create a new apartment in Singapore and show apartment profile", () => {
+    it.skip("should create a new apartment in Singapore and show apartment profile", () => {
       cy.get("h1").contains("Create New Apartment");
 
       fillOutApartmentForm(newApartment);
@@ -270,7 +278,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("span").contains(/Active/i);
     });
 
-    xit("should create a new apartment in Thailand and show apartment profile", () => {
+    it.skip("should create a new apartment in Thailand and show apartment profile", () => {
       cy.get("h1").contains("Create New Apartment");
 
       fillOutApartmentForm(newApartment2);
@@ -323,7 +331,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  xdescribe("Assign occupant to apartment", () => {
+  describe.skip("Assign occupant to apartment", () => {
     const checkInDate = moment(new Date()).subtract(1, "months");
     const checkoutDate = moment(new Date()).add(1, "days");
 
@@ -420,7 +428,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  xdescribe("Change apartment status", () => {
+  describe.skip("Change apartment status", () => {
     it("should show an error message if status of apartment with an occupant is changed to inactive", () => {
       cy.get('a[href="/apartments"]').click();
       cy.get("[data-testid=Apartment__searchBar]").type(apartmentName);
@@ -440,7 +448,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  xdescribe("Remove occupant stay from history", () => {
+  describe.skip("Remove occupant stay from history", () => {
     it("be able to cancel occupant stay deletion", () => {
       cy.get('a[href="/apartments"]').click();
 
@@ -466,7 +474,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     });
   });
 
-  xdescribe("Edit apartment details", () => {
+  describe.skip("Edit apartment details", () => {
     it("should be able to edit apartment status to inactive", () => {
       cy.get('a[href="/apartments"]').click();
 
@@ -559,7 +567,10 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.reload();
       cy.get("h1").contains("Occupants");
 
-      cy.get('a[href="/newOccupant"]').click();
+      cy.get('a[href="/occupants"]').click();
+      cy.get("button")
+        .contains("+ Add Occupant")
+        .click();
       cy.reload();
       cy.get("h1").contains("Create New Occupant");
 
