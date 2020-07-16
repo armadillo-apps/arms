@@ -23,7 +23,9 @@ const AdminRoute = ({ component: Component, ...rest }) => {
       render={props =>
         user?.isAuthenticated && user.role === "admin" ? (
           <Component {...props} />
-        ) : null
+        ) : (
+          <NoMatchPage />
+        )
       }
     ></Route>
   );
@@ -36,9 +38,12 @@ const ManagerRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        user?.isAuthenticated && user.role !== "guest" ? (
+        user?.isAuthenticated &&
+        (user.role === "manager" || user.role === "admin") ? (
           <Component {...props} />
-        ) : null
+        ) : (
+          <NoMatchPage />
+        )
       }
     ></Route>
   );
