@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useToasts } from "react-toast-notifications";
-
+import { useHistory } from "react-router-dom";
 import Input from "../Input/Input";
-
+import routes from "../../router/RouterPaths";
 import { loginUser } from "../../api/api";
 import { LOGIN_USER, LOGOUT_USER } from "../../reducer/userReducer";
 import { useUserContext } from "../../context/UserContext";
 import styles from "./LoginForm.module.css";
 
 const LoginForm = () => {
+  const history = useHistory();
   const { dispatch } = useUserContext();
   const [formInputs, setFormInputs] = useState({ email: "", password: "" });
   const { addToast } = useToasts();
@@ -27,6 +28,7 @@ const LoginForm = () => {
         autoDismiss: true
       });
       dispatch({ type: LOGIN_USER, payload: user });
+      history.push(routes.APARTMENTS);
     } catch (err) {
       dispatch({
         type: LOGOUT_USER

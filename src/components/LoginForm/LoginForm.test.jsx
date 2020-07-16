@@ -7,6 +7,11 @@ import { render, fireEvent, waitFor } from "@testing-library/react";
 import LoginForm from "./LoginForm";
 import * as data from "../../api/api";
 
+const mockHistory = jest.fn();
+jest.mock("react-router-dom", () => ({
+  useHistory: () => ({ push: mockHistory })
+}));
+
 const postSpy = jest.spyOn(data, "loginUser");
 const LoginFormWithContext = (
   <ToastProvider>
@@ -15,6 +20,10 @@ const LoginFormWithContext = (
 );
 
 describe("Login Form", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should have title on page ", () => {
     const { getByText } = render(LoginFormWithContext);
     expect(getByText("ARMS")).toBeInTheDocument();
@@ -53,57 +62,56 @@ describe("Login Form", () => {
     expect(userPassword.value).toBe("pass1234");
   });
 
-  describe("Notification", () => {
-    it("should show error notification when user submits an invalid email or password", async () => {
-      postSpy.mockRejectedValueOnce({});
-      jest.spyOn(UserContext, "useUserContext").mockImplementation(() => ({
-        dispatch: jest.fn()
-      }));
+  it("should show error notification when user submits an invalid email or password", async () => {
+    postSpy.mockRejectedValueOnce({});
+    jest.spyOn(UserContext, "useUserContext").mockImplementation(() => ({
+      dispatch: jest.fn()
+    }));
 
-      const { getByText, getByLabelText } = render(LoginFormWithContext);
-      const userEmail = getByLabelText("email");
+    const { getByText, getByLabelText } = render(LoginFormWithContext);
+    const userEmail = getByLabelText("email");
 
-      fireEvent.change(userEmail, {
-        target: { value: "invalid" }
-      });
-      const userPassword = getByLabelText("password");
-      fireEvent.change(userPassword, { target: { value: "invalid" } });
-
-      const loginButton = getByText(/login/i, {
-        selector: "input[type=submit]"
-      });
-      fireEvent.click(loginButton);
-
-      const loginErrorNotification = await waitFor(() =>
-        getByText("Invalid email or password")
-      );
-
-      expect(loginErrorNotification).toBeInTheDocument();
+    fireEvent.change(userEmail, {
+      target: { value: "invalid" }
     });
+    const userPassword = getByLabelText("password");
+    fireEvent.change(userPassword, { target: { value: "invalid" } });
 
-    it("should show success notification when user successfully logs in", async () => {
-      const user = {
-        email: "test@email.com",
-        role: "admin"
-      };
-      postSpy.mockReturnValue(user);
-
-      jest.spyOn(UserContext, "useUserContext").mockImplementation(() => ({
-        state: user,
-        dispatch: jest.fn()
-      }));
-
-      const { getByText } = render(LoginFormWithContext);
-
-      const loginButton = getByText(/login/i, {
-        selector: "input[type=submit]"
-      });
-      fireEvent.click(loginButton);
-
-      const loginSuccessMessage = await waitFor(() =>
-        getByText("Welcome back!")
-      );
-      expect(loginSuccessMessage).toBeInTheDocument();
+    const loginButton = getByText(/login/i, {
+      selector: "input[type=submit]"
     });
+    fireEvent.click(loginButton);
+
+    const loginErrorNotification = await waitFor(() =>
+      getByText("Invalid email or password")
+    );
+
+    expect(loginErrorNotification).toBeInTheDocument();
+  });
+
+  it("should redirect to apartment page when user successfully logs in", async () => {
+    const user = {
+      email: "test@email.com",
+      role: "admin"
+    };
+    postSpy.mockReturnValue(user);
+
+    jest.spyOn(UserContext, "useUserContext").mockImplementation(() => ({
+      state: user,
+      dispatch: jest.fn()
+    }));
+
+    const { getByText } = render(LoginFormWithContext);
+
+    const loginButton = getByText(/login/i, {
+      selector: "input[type=submit]"
+    });
+    fireEvent.click(loginButton);
+
+    const loginSuccessMessage = await waitFor(() => getByText("Welcome back!"));
+    expect(loginSuccessMessage).toBeInTheDocument();
+
+    expect(mockHistory).toBeCalledTimes(1);
+    expect(mockHistory).toBeCalledWith("/apartments");
   });
 });
