@@ -1,10 +1,9 @@
 import React, { useReducer, useEffect } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
 import { userReducer } from "./reducer/userReducer";
 import { fetchUser } from "./actions/userActions";
-import ArmsRouter from "./components/ArmsRouter/ArmsRouter";
 import { ToastProvider } from "react-toast-notifications";
+import Routes from "./components/Routes/Routes";
 
 const App = () => {
   let [state, dispatch] = useReducer(userReducer, {});
@@ -18,9 +17,7 @@ const App = () => {
   ) : (
     <ToastProvider autoDismissTimeout={3000}>
       <UserProvider user={state}>
-        <Router>
-          <ArmsRouter dispatch={dispatch} />
-        </Router>
+        <Routes />
       </UserProvider>
     </ToastProvider>
   );
