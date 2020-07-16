@@ -29,6 +29,8 @@ function renderMain(user, history) {
 }
 
 describe("Main", () => {
+  const history = createBrowserHistory();
+
   const guestUser = {
     isAuthenticated: true,
     role: "guest"
@@ -65,9 +67,8 @@ describe("Main", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  describe("Navigation", () => {
+  describe("Guest User Navigation", () => {
     it("should redirect authenticated user to apartments page", () => {
-      const history = createBrowserHistory();
       const apartmentUrl = routes.APARTMENTS;
       history.push(apartmentUrl);
 
@@ -78,7 +79,6 @@ describe("Main", () => {
     });
 
     it("should redirect authenticated user to occupants page", () => {
-      const history = createBrowserHistory();
       const occupantsUrl = routes.OCCUPANTS;
       history.push(occupantsUrl);
 
@@ -89,7 +89,6 @@ describe("Main", () => {
     });
 
     it("should redirect authenticated user to change password page", () => {
-      const history = createBrowserHistory();
       const changePasswordUrl = routes.CHANGE_PASSWORD;
       history.push(changePasswordUrl);
 
@@ -99,30 +98,7 @@ describe("Main", () => {
       expect(getByText(/existing password/i)).toBeInTheDocument();
     });
 
-    it("should redirect manager to new apartment page", () => {
-      const history = createBrowserHistory();
-      const newApartmentUrl = routes.NEW_APARTMENT;
-      history.push(newApartmentUrl);
-
-      const { getByText } = renderMain(managerUser, history);
-
-      expect(history.location.pathname).toBe(newApartmentUrl);
-      expect(getByText(/create new apartment/i)).toBeInTheDocument();
-    });
-
-    it("should redirect admin to new apartment page", () => {
-      const history = createBrowserHistory();
-      const newApartmentUrl = routes.NEW_APARTMENT;
-      history.push(newApartmentUrl);
-
-      const { getByText } = renderMain(adminUser, history);
-
-      expect(history.location.pathname).toBe(newApartmentUrl);
-      expect(getByText(/create new apartment/i)).toBeInTheDocument();
-    });
-
     it("should not redirect guest user to new apartment page", () => {
-      const history = createBrowserHistory();
       const newApartmentUrl = routes.NEW_APARTMENT;
       history.push(newApartmentUrl);
 
@@ -130,32 +106,9 @@ describe("Main", () => {
 
       expect(history.location.pathname).toBe(newApartmentUrl);
       expect(getByText(/path does not exist!/i)).toBeInTheDocument();
-    });
-
-    it("should redirect manager to new occupant page", async () => {
-      const history = createBrowserHistory();
-      const newOccupantUrl = routes.NEW_OCCUPANT;
-      history.push(newOccupantUrl);
-
-      const { getByText } = renderMain(managerUser, history);
-
-      expect(history.location.pathname).toBe(newOccupantUrl);
-      expect(getByText(/create new occupant/i)).toBeInTheDocument();
-    });
-
-    it("should redirect admin to new occupant page", async () => {
-      const history = createBrowserHistory();
-      const newOccupantUrl = routes.NEW_OCCUPANT;
-      history.push(newOccupantUrl);
-
-      const { getByText } = renderMain(adminUser, history);
-
-      expect(history.location.pathname).toBe(newOccupantUrl);
-      expect(getByText(/create new occupant/i)).toBeInTheDocument();
     });
 
     it("should not redirect guest user to new occupant page", () => {
-      const history = createBrowserHistory();
       const newOccupantUrl = routes.NEW_OCCUPANT;
       history.push(newOccupantUrl);
 
@@ -165,8 +118,91 @@ describe("Main", () => {
       expect(getByText(/path does not exist!/i)).toBeInTheDocument();
     });
 
+    it("should not redirect guest to new user page", async () => {
+      const newUserUrl = routes.NEW_USER;
+      history.push(newUserUrl);
+
+      const { getByText } = renderMain(guestUser, history);
+
+      expect(history.location.pathname).toBe(newUserUrl);
+      expect(getByText(/path does not exist!/i)).toBeInTheDocument();
+    });
+
+    it("should not redirect guest to user management page", async () => {
+      const userUrl = routes.USERS;
+      history.push(userUrl);
+
+      const { getByText } = renderMain(guestUser, history);
+
+      expect(history.location.pathname).toBe(userUrl);
+      expect(getByText(/path does not exist!/i)).toBeInTheDocument();
+    });
+  });
+
+  describe("Manager Navigation", () => {
+    it("should redirect manager to new apartment page", () => {
+      const newApartmentUrl = routes.NEW_APARTMENT;
+      history.push(newApartmentUrl);
+
+      const { getByText } = renderMain(managerUser, history);
+
+      expect(history.location.pathname).toBe(newApartmentUrl);
+      expect(getByText(/create new apartment/i)).toBeInTheDocument();
+    });
+
+    it("should redirect manager to new occupant page", async () => {
+      const newOccupantUrl = routes.NEW_OCCUPANT;
+      history.push(newOccupantUrl);
+
+      const { getByText } = renderMain(managerUser, history);
+
+      expect(history.location.pathname).toBe(newOccupantUrl);
+      expect(getByText(/create new occupant/i)).toBeInTheDocument();
+    });
+
+    it("should not redirect manager to new user page", async () => {
+      const newUserUrl = routes.NEW_USER;
+      history.push(newUserUrl);
+
+      const { getByText } = renderMain(managerUser, history);
+
+      expect(history.location.pathname).toBe(newUserUrl);
+      expect(getByText(/path does not exist!/i)).toBeInTheDocument();
+    });
+
+    it("should not redirect manager to user management page", async () => {
+      const userUrl = routes.USERS;
+      history.push(userUrl);
+
+      const { getByText } = renderMain(managerUser, history);
+
+      expect(history.location.pathname).toBe(userUrl);
+      expect(getByText(/path does not exist!/i)).toBeInTheDocument();
+    });
+  });
+
+  describe("Admin Navigation", () => {
+    it("should redirect admin to new apartment page", () => {
+      const newApartmentUrl = routes.NEW_APARTMENT;
+      history.push(newApartmentUrl);
+
+      const { getByText } = renderMain(adminUser, history);
+
+      expect(history.location.pathname).toBe(newApartmentUrl);
+      expect(getByText(/create new apartment/i)).toBeInTheDocument();
+    });
+
+    it("should redirect admin to new occupant page", async () => {
+      const newOccupantUrl = routes.NEW_OCCUPANT;
+      history.push(newOccupantUrl);
+
+      const { getByText } = renderMain(adminUser, history);
+
+      expect(history.location.pathname).toBe(newOccupantUrl);
+      expect(getByText(/create new occupant/i)).toBeInTheDocument();
+    });
+
     it("should redirect admin to new user page", async () => {
-      const history = createBrowserHistory();
       const newUserUrl = routes.NEW_USER;
       history.push(newUserUrl);
 
@@ -176,30 +212,7 @@ describe("Main", () => {
       expect(getByText(/create new user/i)).toBeInTheDocument();
     });
 
-    it("should not redirect manager to new user page", async () => {
-      const history = createBrowserHistory();
-      const newUserUrl = routes.NEW_USER;
-      history.push(newUserUrl);
-
-      const { getByText } = renderMain(managerUser, history);
-
-      expect(history.location.pathname).toBe(newUserUrl);
-      expect(getByText(/path does not exist!/i)).toBeInTheDocument();
-    });
-
-    it("should not redirect guest to new user page", async () => {
-      const history = createBrowserHistory();
-      const newUserUrl = routes.NEW_USER;
-      history.push(newUserUrl);
-
-      const { getByText } = renderMain(guestUser, history);
-
-      expect(history.location.pathname).toBe(newUserUrl);
-      expect(getByText(/path does not exist!/i)).toBeInTheDocument();
-    });
-
     it("should redirect admin to user management page", async () => {
-      const history = createBrowserHistory();
       const userUrl = routes.USERS;
       history.push(userUrl);
 
@@ -208,38 +221,16 @@ describe("Main", () => {
       expect(history.location.pathname).toBe(userUrl);
       expect(getByText(/role/i)).toBeInTheDocument();
     });
+  });
 
-    it("should not redirect manager to user management page", async () => {
-      const history = createBrowserHistory();
-      const userUrl = routes.USERS;
-      history.push(userUrl);
+  it("should show error message when landing on a bad page", () => {
+    const history = createBrowserHistory();
+    const badRoute = "/badRoute";
+    history.push(badRoute);
 
-      const { getByText } = renderMain(managerUser, history);
+    const { getByText } = renderMain(guestUser, history);
 
-      expect(history.location.pathname).toBe(userUrl);
-      expect(getByText(/path does not exist!/i)).toBeInTheDocument();
-    });
-
-    it("should not redirect guest to user management page", async () => {
-      const history = createBrowserHistory();
-      const userUrl = routes.USERS;
-      history.push(userUrl);
-
-      const { getByText } = renderMain(guestUser, history);
-
-      expect(history.location.pathname).toBe(userUrl);
-      expect(getByText(/path does not exist!/i)).toBeInTheDocument();
-    });
-
-    it("should show error message when landing on a bad page", () => {
-      const history = createBrowserHistory();
-      const badRoute = "/badRoute";
-      history.push(badRoute);
-
-      const { getByText } = renderMain(guestUser, history);
-
-      expect(history.location.pathname).toBe(badRoute);
-      expect(getByText("Path does not exist!")).toBeInTheDocument();
-    });
+    expect(history.location.pathname).toBe(badRoute);
+    expect(getByText("Path does not exist!")).toBeInTheDocument();
   });
 });
