@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 
 import SearchBar from "../../components/SearchBar/SearchBar";
+import { useUserContext } from "../../context/UserContext";
 import styles from "./index.module.scss";
 import { fetchOccupants } from "../../api/api";
 import { useHistory } from "react-router-dom";
 import OccupantDetail from "./OccupantDetail";
 import { useFetch } from "../../hooks/useFetch";
+import routes from "../../router/RouterPaths";
 
 const Occupants = () => {
   const history = useHistory();
   const [filteredOccupants, setFilteredOccupants] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const { data: occupants } = useFetch(fetchOccupants);
+  const { state } = useUserContext();
+  const userRole = state.role;
 
   useEffect(() => {
     if (occupants?.length > 0) {
@@ -60,7 +64,17 @@ const Occupants = () => {
     <div className={styles.container} data-testid="occupants">
       <div className={styles.occupantsList}>
         <h1 className={styles.heading1}>Occupants</h1>
-        <SearchBar handleChange={handleNewInput} placeholder="Occupant" />
+        <div className={styles.topBarContainer}>
+          <SearchBar handleChange={handleNewInput} placeholder="Occupant" />
+          {userRole !== "guest" && (
+            <button
+              className={styles.addOccupantButton}
+              onClick={() => history.push(routes.NEW_OCCUPANT)}
+            >
+              + Add Occupant
+            </button>
+          )}
+        </div>
         <table className={styles.table} cellSpacing="0" cellPadding="0">
           <thead className={styles.heading2}>
             <tr>

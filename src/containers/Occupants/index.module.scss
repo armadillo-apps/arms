@@ -32,3 +32,14 @@
 .table th {
   font-weight: bold;
 }
+
+.topBarContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addOccupantButton {
+  font-size: 1.5rem;
+  background-color: var(--main-bg-color);
+  padding-top: 5px;
+}
