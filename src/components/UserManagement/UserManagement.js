@@ -4,8 +4,11 @@ import { fetchUsers, removeUser, editUserRole } from "../../api/api";
 import DeleteUserModal from "../Modal/DeleteUserModal";
 import EditUserModal from "../Modal/EditUserModal";
 import styles from "./UserManagement.module.css";
+import { useFetch } from "../../hooks/useFetch";
+import { isEmpty } from "../../utils/utils";
 
 const UserManagement = ({ history }) => {
+  const { data: users } = useFetch(fetchUsers);
   const [usersList, setUsersList] = useState([]);
   const [userToDelete, setUserToDelete] = useState("");
   const [userToEdit, setUserToEdit] = useState("");
@@ -14,21 +17,11 @@ const UserManagement = ({ history }) => {
     isEditUserModalOpen: false
   });
   const { addToast } = useToasts();
-  const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      let users;
-      try {
-        users = await fetchUsers();
-        setUsersList(users);
-      } catch (err) {
-        setSuccess(false);
-      }
-    };
-    fetchData();
-  }, []);
+    setUsersList(isEmpty(users) ? [] : users);
+  }, [users]);
 
   const openModal = id => {
     setDialogOpen({ [id]: true });
@@ -103,7 +96,6 @@ const UserManagement = ({ history }) => {
           closeModal={() => closeModal("isEditUserModalOpen")}
           editUser={editUser}
           contentLabel="EditUserModal"
-          success={success}
           message={message}
         />
       </div>
