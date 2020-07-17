@@ -15,7 +15,7 @@ describe("Login", () => {
     cy.get("input[type=submit]").click();
     cy.wait("@GetRequest");
 
-    cy.contains(/logout/i);
+    cy.contains(/apartments/i);
   });
 
   it("should display error message when password is wrong", () => {
