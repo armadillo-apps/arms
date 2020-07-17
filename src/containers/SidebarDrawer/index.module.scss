@@ -1,14 +1,14 @@
 .container {
-  width: 20vw;
+  width: 25vw;
   height: 100vh;
   background: var(--sidebar-bg-color);
-  display: flex;
-  border-right: 1px;
   transition: 0.1s;
 }
 
 .containerCollapsed {
   width: 5vw;
+  height: 100vh;
+  background: var(--sidebar-bg-color);
   transition: 0.1s;
 }
 
@@ -50,6 +50,5 @@
 }
 
 .linkTextHidden {
-  // display: none;
-  visibility: hidden;
+  display: none;
 }
