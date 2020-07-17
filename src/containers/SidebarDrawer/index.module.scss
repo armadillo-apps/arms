@@ -1,5 +1,5 @@
 .container {
-  width: 25vw;
+  width: 18vw;
   height: 100vh;
   background: var(--sidebar-bg-color);
   transition: 0.1s;
@@ -21,6 +21,7 @@
 .linksContainer img {
   width: 20px;
   height: 20px;
+  padding-top: 3px;
   background-size: cover;
   margin-right: 10px;
   overflow: visible;
@@ -47,8 +48,4 @@
   transition: 0.8s;
   border-left: 3px solid;
   border-color: #2349cf;
-}
-
-.linkTextHidden {
-  display: none;
 }
