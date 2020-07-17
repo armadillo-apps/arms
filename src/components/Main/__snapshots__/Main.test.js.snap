@@ -32,11 +32,7 @@ exports[`Main renders correctly 1`] = `
           alt="apartments"
           src="apartments.svg"
         />
-        <span
-          className="linkTextHidden"
-        >
-          Apartments
-        </span>
+        
       </a>
       <a
         aria-current={null}
@@ -49,11 +45,7 @@ exports[`Main renders correctly 1`] = `
           alt="occupants"
           src="occupants.svg"
         />
-        <span
-          className="linkTextHidden"
-        >
-          Occupants
-        </span>
+        
       </a>
       <a
         aria-current={null}
@@ -66,11 +58,7 @@ exports[`Main renders correctly 1`] = `
           alt="change password"
           src="edit.svg"
         />
-        <span
-          className="linkTextHidden"
-        >
-          Change Password
-        </span>
+        
       </a>
       
       <a
@@ -84,11 +72,7 @@ exports[`Main renders correctly 1`] = `
           alt="logout"
           src="logout.svg"
         />
-        <span
-          className="linkTextHidden"
-        >
-          Logout
-        </span>
+        
       </a>
     </div>
   </div>

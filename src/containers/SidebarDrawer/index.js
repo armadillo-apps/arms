@@ -48,9 +48,7 @@ const SidebarDrawer = () => {
             data-testid={`sideBar-${menuItem.imgAlt}`}
           >
             <img src={menuItem.imgUrl} alt={menuItem.imgAlt} />
-            <span className={visible ? null : styles.linkTextHidden}>
-              {menuItem.text}
-            </span>
+            {visible ? menuItem.text : ""}
           </NavLink>
         ))}
         {userRole === "admin" ? (
@@ -62,16 +60,14 @@ const SidebarDrawer = () => {
             data-testid="sideBar-users"
           >
             <img src={UsersLogo} alt="user management" />
-            <span className={visible ? null : styles.linkTextHidden}>
-              User Management
-            </span>
+            {visible ? "User Management" : ""}
           </NavLink>
         ) : (
           ""
         )}
         <NavLink className={styles.links} to="/" onClick={onLogout}>
           <img src={LogoutLogo} alt="logout" />
-          <span className={visible ? null : styles.linkTextHidden}>Logout</span>
+          {visible ? "Logout" : ""}
         </NavLink>
       </div>
     </div>
