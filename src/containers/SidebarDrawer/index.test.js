@@ -39,12 +39,12 @@ describe("Sidebar", () => {
 
       expect(queryByText(/change password/i)).not.toBeInTheDocument();
 
-      fireEvent.mouseOver(getByAltText(/change password/));
-      fireEvent.mouseEnter(getByAltText(/change password/));
+      fireEvent.mouseOver(getByAltText(/change password/i));
+      fireEvent.mouseEnter(getByAltText(/change password/i));
       expect(getByText(/change password/i)).toBeInTheDocument();
 
-      fireEvent.mouseOver(getByAltText(/change password/));
-      fireEvent.mouseLeave(getByAltText(/change password/));
+      fireEvent.mouseOver(getByAltText(/change password/i));
+      fireEvent.mouseLeave(getByAltText(/change password/i));
       expect(queryByText(/change password/i)).not.toBeInTheDocument();
     });
 
@@ -71,7 +71,7 @@ describe("Sidebar", () => {
         </Router>
       );
 
-      const logoutLink = getByAltText(/logout/);
+      const logoutLink = getByAltText(/logout/i);
       expect(logoutLink).toBeInTheDocument();
       fireEvent.click(logoutLink);
       expect(mockLogout).toHaveBeenCalledTimes(1);
@@ -96,8 +96,8 @@ describe("Sidebar", () => {
       fireEvent.mouseEnter(getByAltText(/user management/i));
       expect(getByText(/user management/i)).toBeInTheDocument();
 
-      fireEvent.mouseOver(getByAltText(/user management/));
-      fireEvent.mouseLeave(getByAltText(/user management/));
+      fireEvent.mouseOver(getByAltText(/user management/i));
+      fireEvent.mouseLeave(getByAltText(/user management/i));
       expect(queryByText(/user management/i)).not.toBeInTheDocument();
     });
   });
