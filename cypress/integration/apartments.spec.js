@@ -140,6 +140,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("td")
         .contains(modName)
         .click();
+      cy.wait("@GetRequest");
       cy.get("h1").contains(modName);
       cy.get("h2").contains(modEmployeeId);
       cy.get("h2").contains(gender);
