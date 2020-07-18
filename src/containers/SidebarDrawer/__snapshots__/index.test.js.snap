@@ -47,7 +47,7 @@ exports[`Sidebar Public renders correctly 1`] = `
     <a
       aria-current={null}
       className="links"
-      data-testid="sideBar-change password"
+      data-testid="sideBar-changepassword"
       href="/changePassword"
       onClick={[Function]}
     >
