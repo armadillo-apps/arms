@@ -45,7 +45,7 @@ const SidebarDrawer = () => {
             exact
             to={menuItem.pathname}
             activeClassName={styles.active}
-            data-testid={`sideBar-${menuItem.imgAlt}`}
+            data-testid={`sideBar-${menuItem.imgAlt.replace(/\s/g, "")}`}
           >
             <img src={menuItem.imgUrl} alt={menuItem.imgAlt} />
             {visible ? menuItem.text : ""}
