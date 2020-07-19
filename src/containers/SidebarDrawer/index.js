@@ -7,7 +7,7 @@ import { logoutUser } from "../../api/api";
 
 import UsersLogo from "../../assets/userManagement.svg";
 import LogoutLogo from "../../assets/logout.svg";
-import { PUBLIC_MENU } from "./constants";
+import { sidebarLinks } from "./constants";
 
 const SidebarDrawer = () => {
   const { state, dispatch } = useUserContext();
@@ -38,7 +38,7 @@ const SidebarDrawer = () => {
         >
           {visible ? "ARMS" : "A"}
         </NavLink>
-        {PUBLIC_MENU.map((menuItem, index) => (
+        {sidebarLinks.map((menuItem, index) => (
           <NavLink
             key={index}
             className={styles.links}

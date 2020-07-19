@@ -2,7 +2,7 @@ import ApartmentsLogo from "../../assets/apartments.svg";
 import OccupantsLogo from "../../assets/occupants.svg";
 import ChangePasswordLogo from "../../assets/edit.svg";
 
-export const PUBLIC_MENU = [
+export const sidebarLinks = [
   {
     pathname: "/apartments",
     text: "Apartments",

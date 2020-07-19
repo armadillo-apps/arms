@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import { fireEvent } from "@testing-library/dom";
 import { mockUserContext } from "../../../test/utils/mockUserContext";
-import { PUBLIC_MENU } from "./constants";
+import { sidebarLinks } from "./constants";
 import "@testing-library/jest-dom/extend-expect";
 import { BrowserRouter as Router } from "react-router-dom";
 import SidebarDrawer from "./index";
@@ -36,8 +36,8 @@ describe("Sidebar", () => {
       expect(queryByText(/change password/i)).not.toBeInTheDocument();
     });
 
-    it("should render all public menu links", () => {
-      const menuAltTexts = PUBLIC_MENU.map(item => item.imgAlt);
+    it("should render all sidebar links", () => {
+      const sidebarLinksAltTexts = sidebarLinks.map(item => item.imgAlt);
 
       const { getByAltText } = render(
         <Router>
@@ -45,7 +45,7 @@ describe("Sidebar", () => {
         </Router>
       );
 
-      menuAltTexts.forEach(item => {
+      sidebarLinksAltTexts.forEach(item => {
         expect(getByAltText(item)).toBeInTheDocument();
       });
     });
