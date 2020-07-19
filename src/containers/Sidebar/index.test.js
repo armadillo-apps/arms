@@ -5,7 +5,7 @@ import { mockUserContext } from "../../../test/utils/mockUserContext";
 import { sidebarLinks } from "./constants";
 import "@testing-library/jest-dom/extend-expect";
 import { BrowserRouter as Router } from "react-router-dom";
-import SidebarDrawer from "./index";
+import Sidebar from "./index";
 
 import * as data from "../../api/api";
 
@@ -21,7 +21,7 @@ describe("Sidebar", () => {
     it("should toggle collapse on hover", () => {
       const { queryByText, getByAltText, getByText } = render(
         <Router>
-          <SidebarDrawer />
+          <Sidebar />
         </Router>
       );
 
@@ -41,7 +41,7 @@ describe("Sidebar", () => {
 
       const { getByAltText } = render(
         <Router>
-          <SidebarDrawer />
+          <Sidebar />
         </Router>
       );
 
@@ -55,7 +55,7 @@ describe("Sidebar", () => {
 
       const { getByAltText } = render(
         <Router>
-          <SidebarDrawer />
+          <Sidebar />
         </Router>
       );
 
@@ -72,7 +72,7 @@ describe("Sidebar", () => {
       mockUserContext(adminUser);
       const { getByAltText, queryByText, getByText } = render(
         <Router>
-          <SidebarDrawer />
+          <Sidebar />
         </Router>
       );
 

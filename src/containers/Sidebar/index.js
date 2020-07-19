@@ -9,7 +9,7 @@ import UsersLogo from "../../assets/userManagement.svg";
 import LogoutLogo from "../../assets/logout.svg";
 import { sidebarLinks } from "./constants";
 
-const SidebarDrawer = () => {
+const Sidebar = () => {
   const { state, dispatch } = useUserContext();
   const [visible, setVisible] = useState(false);
   const userRole = state.role;
@@ -74,4 +74,4 @@ const SidebarDrawer = () => {
   );
 };
 
-export default SidebarDrawer;
+export default Sidebar;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import SidebarDrawer from "../../containers/SidebarDrawer";
+import Sidebar from "../../containers/Sidebar";
 import routes from "../../router/RouterPaths";
 import styles from "./Main.module.scss";
 import { useUserContext } from "../../context/UserContext";
@@ -56,7 +56,7 @@ const NoMatchPage = () => {
 const Main = () => {
   return (
     <section className={styles.app}>
-      <SidebarDrawer />
+      <Sidebar />
       <Switch>
         <Route exact path={routes.APARTMENTS} component={Apartment} />
         <Route exact path={routes.MAIN}>
