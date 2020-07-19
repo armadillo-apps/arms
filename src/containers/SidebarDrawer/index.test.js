@@ -1,7 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { fireEvent } from "@testing-library/dom";
-import renderer from "react-test-renderer";
 import { mockUserContext } from "../../../test/utils/mockUserContext";
 import { PUBLIC_MENU } from "./constants";
 import "@testing-library/jest-dom/extend-expect";
@@ -17,17 +16,6 @@ describe("Sidebar", () => {
     beforeEach(() => {
       const guestUser = { role: "guest" };
       mockUserContext(guestUser);
-    });
-
-    it("renders correctly", () => {
-      const tree = renderer
-        .create(
-          <Router>
-            <SidebarDrawer />
-          </Router>
-        )
-        .toJSON();
-      expect(tree).toMatchSnapshot();
     });
 
     it("should toggle collapse on hover", () => {

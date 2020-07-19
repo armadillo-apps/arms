@@ -1,12 +1,11 @@
 import React from "react";
-import { MemoryRouter, Router } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { render } from "@testing-library/react";
 import Main from "./Main";
 import * as UserContext from "../../context/UserContext";
 import routes from "../../router/RouterPaths";
 import "@testing-library/jest-dom/extend-expect";
-import renderer from "react-test-renderer";
 import { useFetch } from "../../hooks/useFetch";
 
 jest.mock("../../hooks/useFetch");
@@ -49,22 +48,6 @@ describe("Main", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     useFetch.mockReturnValue({ data: {} });
-  });
-
-  it("renders correctly", () => {
-    jest.spyOn(UserContext, "useUserContext").mockImplementation(() => ({
-      state: guestUser,
-      dispatch: jest.fn()
-    }));
-
-    const tree = renderer
-      .create(
-        <MemoryRouter initialEntries={["/"]}>
-          <Main />
-        </MemoryRouter>
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
   });
 
   describe("Guest User Navigation", () => {
