@@ -15,32 +15,14 @@ import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
 import UserManagement from "../UserManagement/UserManagement";
 import { roles } from "../../constants/roles";
 
-const AdminRoute = ({ component: Component, ...rest }) => {
+const RestrictedRoute = ({ component: Component, allowedRoles, ...rest }) => {
   const { state: user } = useUserContext();
 
   return (
     <Route
       {...rest}
       render={props =>
-        user?.isAuthenticated && user.role === roles.ADMIN ? (
-          <Component {...props} />
-        ) : (
-          <NoMatchPage />
-        )
-      }
-    ></Route>
-  );
-};
-
-const ManagerRoute = ({ component: Component, ...rest }) => {
-  const { state: user } = useUserContext();
-
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        user?.isAuthenticated &&
-        (user.role === roles.MANAGER || user.role === roles.ADMIN) ? (
+        user?.isAuthenticated && allowedRoles.includes(user.role) ? (
           <Component {...props} />
         ) : (
           <NoMatchPage />
@@ -77,18 +59,30 @@ const Main = () => {
           path={routes.CHANGE_PASSWORD}
           component={ChangePasswordForm}
         />
-        <ManagerRoute
+        <RestrictedRoute
           exact
           path={routes.NEW_APARTMENT}
+          allowedRoles={[roles.ADMIN, roles.MANAGER]}
           component={NewApartmentForm}
         />
-        <ManagerRoute
+        <RestrictedRoute
           exact
           path={routes.NEW_OCCUPANT}
+          allowedRoles={[roles.ADMIN, roles.MANAGER]}
           component={NewOccupantForm}
         />
-        <AdminRoute exact path={routes.USERS} component={UserManagement} />
-        <AdminRoute exact path={routes.NEW_USER} component={NewUserForm} />
+        <RestrictedRoute
+          exact
+          path={routes.USERS}
+          allowedRoles={[roles.ADMIN]}
+          component={UserManagement}
+        />
+        <RestrictedRoute
+          exact
+          path={routes.NEW_USER}
+          allowedRoles={[roles.ADMIN]}
+          component={NewUserForm}
+        />
         <Route component={NoMatchPage} />
       </Switch>
     </section>
