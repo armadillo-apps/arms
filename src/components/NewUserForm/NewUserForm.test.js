@@ -88,11 +88,11 @@ describe("New User Form", () => {
       );
       const role = getByLabelText("User Role");
       fireEvent.change(role, { target: { value: "manager" } });
-      expect(getByDisplayValue("Manager")).toBeInTheDocument();
+      expect(getByDisplayValue(/manager/i)).toBeInTheDocument();
       fireEvent.change(role, { target: { value: "admin" } });
-      expect(getByDisplayValue("Admin")).toBeInTheDocument();
+      expect(getByDisplayValue(/admin/i)).toBeInTheDocument();
       fireEvent.change(role, { target: { value: "guest" } });
-      expect(getByDisplayValue("Guest")).toBeInTheDocument();
+      expect(getByDisplayValue(/guest/i)).toBeInTheDocument();
     });
   });
   describe("Confirmation", () => {

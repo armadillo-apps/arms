@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import styles from "./ConfirmationModal.module.css";
+import { roles } from "../../constants/roles";
 
 Modal.setAppElement("body");
 
@@ -49,9 +50,13 @@ const EditUserModal = ({ modalIsOpen, closeModal, editUser, newRole }) => {
             data-testid="roleSelector"
           >
             <option value="">Select role</option>
-            <option value="admin">Admin</option>
-            <option value="manager">Manager</option>
-            <option value="guest">Guest</option>
+            {Object.values(roles).map((role, index) => {
+              return (
+                <option key={index} value={role}>
+                  {role}
+                </option>
+              );
+            })}
           </select>
         </section>
         <div className={styles.modalButtons}>

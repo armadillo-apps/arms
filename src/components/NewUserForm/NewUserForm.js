@@ -3,6 +3,7 @@ import { useToasts } from "react-toast-notifications";
 import Input from "../Input/Input";
 import { createNewUser } from "../../api/api";
 import styles from "./NewUserForm.module.css";
+import { roles } from "../../constants/roles";
 
 const NewUserForm = () => {
   const emptyForm = {
@@ -92,9 +93,13 @@ const NewUserForm = () => {
             type="text"
           >
             <option value="">Select Role...</option>
-            <option value="admin">Admin</option>
-            <option value="manager">Manager</option>
-            <option value="guest">Guest</option>
+            {Object.values(roles).map((role, index) => {
+              return (
+                <option key={index} value={role}>
+                  {role}
+                </option>
+              );
+            })}
           </select>
         </section>
       </div>
