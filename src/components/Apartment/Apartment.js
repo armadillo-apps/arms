@@ -2,6 +2,7 @@ import ApartmentDetail from "../ApartmentDetail/ApartmentDetail";
 import React, { useState } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import { useUserContext } from "../../context/UserContext";
+import { roles } from "../../constants/roles";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import styles from "./Apartment.module.css";
@@ -87,7 +88,7 @@ export const Apartment = () => {
           <SearchBar handleChange={handleNewInput} placeholder="Apartment" />
           <div className={styles.dateRangeContainer}>
             <div>
-              {userRole === "admin" && (
+              {userRole === roles.ADMIN && (
                 <button
                   className={styles.addApartmentButton}
                   onClick={() => history.push(routes.NEW_APARTMENT)}

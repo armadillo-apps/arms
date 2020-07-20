@@ -13,6 +13,7 @@ import NewApartmentForm from "../NewApartmentForm/NewApartmentForm";
 import NewUserForm from "../NewUserForm/NewUserForm";
 import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm";
 import UserManagement from "../UserManagement/UserManagement";
+import { roles } from "../../constants/roles";
 
 const AdminRoute = ({ component: Component, ...rest }) => {
   const { state: user } = useUserContext();
@@ -21,7 +22,7 @@ const AdminRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        user?.isAuthenticated && user.role === "admin" ? (
+        user?.isAuthenticated && user.role === roles.ADMIN ? (
           <Component {...props} />
         ) : (
           <NoMatchPage />
@@ -39,7 +40,7 @@ const ManagerRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={props =>
         user?.isAuthenticated &&
-        (user.role === "manager" || user.role === "admin") ? (
+        (user.role === roles.MANAGER || user.role === roles.ADMIN) ? (
           <Component {...props} />
         ) : (
           <NoMatchPage />

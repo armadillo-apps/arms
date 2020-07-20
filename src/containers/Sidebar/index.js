@@ -8,6 +8,7 @@ import { logoutUser } from "../../api/api";
 import UsersLogo from "../../assets/userManagement.svg";
 import LogoutLogo from "../../assets/logout.svg";
 import { sidebarLinks } from "./constants";
+import { roles } from "../../constants/roles";
 
 const Sidebar = () => {
   const { state, dispatch } = useUserContext();
@@ -48,10 +49,10 @@ const Sidebar = () => {
             data-testid={`sideBar-${menuItem.imgAlt.replace(/\s/g, "")}`}
           >
             <img src={menuItem.imgUrl} alt={menuItem.imgAlt} />
-            {visible ? menuItem.text : ""}
+            {visible && menuItem.text}
           </NavLink>
         ))}
-        {userRole === "admin" ? (
+        {userRole === roles.ADMIN && (
           <NavLink
             className={styles.links}
             exact
@@ -62,8 +63,6 @@ const Sidebar = () => {
             <img src={UsersLogo} alt="user management" />
             {visible ? "User Management" : ""}
           </NavLink>
-        ) : (
-          ""
         )}
         <NavLink className={styles.links} to="/" onClick={onLogout}>
           <img src={LogoutLogo} alt="logout" />
