@@ -28,6 +28,11 @@ export const Apartment = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
+  const hasAllowedRole = () => {
+    const allowedRoles = [roles.ADMIN, roles.MANAGER];
+    return allowedRoles.includes(userRole);
+  };
+
   const handleNewInput = event => {
     setSearchInput(event.target.value);
   };
@@ -88,7 +93,7 @@ export const Apartment = () => {
           <SearchBar handleChange={handleNewInput} placeholder="Apartment" />
           <div className={styles.dateRangeContainer}>
             <div>
-              {userRole === roles.ADMIN && (
+              {hasAllowedRole() && (
                 <button
                   className={styles.addApartmentButton}
                   onClick={() => history.push(routes.NEW_APARTMENT)}
