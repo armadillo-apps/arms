@@ -28,7 +28,7 @@ const RestrictedRoute = ({ component: Component, allowedRoles, ...rest }) => {
           <NoMatchPage />
         )
       }
-    ></Route>
+    />
   );
 };
 
