@@ -18,7 +18,7 @@ Create a `cypress.env.json` and add the following to test cypress locally.
 {
   "BASE_URL": "http://localhost:3000",
   "BACKEND_URL": "http://localhost:3005",
-  "TEST_ADMIN_PASSWORD": "testPassword1"
+  "TEST_ADMIN_PASSWORD": "adminPw1"
 }
 ```
 
