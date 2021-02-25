@@ -55,10 +55,10 @@ jobs:
     steps:
       - run:
           name: Drop test database
-          command: mongo "mongodb+srv://$HEROKU_TEST_DB_USER:$HEROKU_TEST_DB_PASSWORD@mongocluster1.h9mmd.mongodb.net/$HEROKU_TEST_DB?retryWrites=true&w=majority" --eval "db.dropDatabase()"
+          command: mongo "mongodb+srv://mongocluster1.h9mmd.mongodb.net/$HEROKU_TEST_DB" --username $HEROKU_TEST_DB_USER --password $HEROKU_TEST_DB_PASSWORD --eval "db.dropDatabase()"
       - run:
           name: Insert superAdmin in test database
-          command: mongo "mongodb+srv://$HEROKU_TEST_DB_USER:$HEROKU_TEST_DB_PASSWORD@mongocluster1.h9mmd.mongodb.net/$HEROKU_TEST_DB?retryWrites=true&w=majority" --eval "db.users.insertOne({email:'admin@email.com',password:'\$2a\$10\$cDEW/.7uFsDuDVdFtbyCA.aTJg4XNiwAHSC8o6fZ7WdKMq8tb3YMq',role:'admin'})"
+          command: mongo "mongodb+srv://mongocluster1.h9mmd.mongodb.net/$HEROKU_TEST_DB" --username $HEROKU_TEST_DB_USER --password $HEROKU_TEST_DB_PASSWORD --eval "db.users.insertOne({email:'admin@email.com',password:'\$2a\$10\$cDEW/.7uFsDuDVdFtbyCA.aTJg4XNiwAHSC8o6fZ7WdKMq8tb3YMq',role:'admin'})"
   uiTest:
     docker:
       - image: cypress/base:10
