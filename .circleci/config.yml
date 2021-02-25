@@ -55,10 +55,10 @@ jobs:
     steps:
       - run:
           name: Drop test database
-          command: mongo $HEROKU_TEST_DB -u $HEROKU_TEST_DB_USER -p $HEROKU_TEST_DB_PASSWORD --eval "db.dropDatabase()"
+          command: mongo "mongodb+srv://$HEROKU_TEST_DB_USER:$HEROKU_TEST_DB_PASSWORD@mongocluster1.h9mmd.mongodb.net/$HEROKU_TEST_DB?retryWrites=true&w=majority" --eval "db.dropDatabase()"
       - run:
           name: Insert superAdmin in test database
-          command: mongo $HEROKU_TEST_DB -u $HEROKU_TEST_DB_USER -p $HEROKU_TEST_DB_PASSWORD --eval "db.users.insertOne({email:'baqa@thoughtworks.com',password:'\$2a\$10\$IGceut2T1G1A8/celqCEFOJw4a2Gen1ljz0fKwPtBJL/OHc75ORlu',role:'admin'})"
+          command: mongo "mongodb+srv://$HEROKU_TEST_DB_USER:$HEROKU_TEST_DB_PASSWORD@mongocluster1.h9mmd.mongodb.net/$HEROKU_TEST_DB?retryWrites=true&w=majority" --eval "db.users.insertOne({email:'admin@email.com',password:'\$2a\$10\$cDEW/.7uFsDuDVdFtbyCA.aTJg4XNiwAHSC8o6fZ7WdKMq8tb3YMq',role:'admin'})"
   uiTest:
     docker:
       - image: cypress/base:10
@@ -94,7 +94,7 @@ jobs:
       - checkout
       - run:
           name: Deploy to test frontend on Heroku
-          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+          command: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
       - run:
           name: Check test deployment
           command: curl --fail https://$HEROKU_APP_NAME.herokuapp.com/
