@@ -22,7 +22,11 @@ const LoginForm = () => {
   const onSubmit = async event => {
     try {
       event.preventDefault();
-      const user = await loginUser(formInputs.email, formInputs.password);
+      const { accessToken, user } = await loginUser(
+        formInputs.email,
+        formInputs.password
+      );
+      localStorage.setItem("token", accessToken);
       addToast("Welcome back!", {
         appearance: "success",
         autoDismiss: true

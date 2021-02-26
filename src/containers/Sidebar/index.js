@@ -17,6 +17,7 @@ const Sidebar = () => {
 
   const onLogout = async () => {
     dispatch({ type: LOGOUT_USER });
+    localStorage.removeItem("token");
     await logoutUser();
   };
 

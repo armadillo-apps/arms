@@ -50,7 +50,13 @@ describe("Sidebar", () => {
       });
     });
 
-    it("should render logout link", () => {
+    it("should render logout link and logout user when clicked", () => {
+      Object.defineProperty(window, "localStorage", {
+        value: {
+          removeItem: jest.fn(() => null)
+        },
+        writable: true
+      });
       mockLogout.mockReturnValue("");
 
       const { getByAltText } = render(
@@ -63,6 +69,8 @@ describe("Sidebar", () => {
       expect(logoutLink).toBeInTheDocument();
       fireEvent.click(logoutLink);
       expect(mockLogout).toHaveBeenCalledTimes(1);
+      expect(window.localStorage.removeItem).toBeCalledTimes(1);
+      expect(window.localStorage.removeItem).toBeCalledWith("token");
     });
   });
 

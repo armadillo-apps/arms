@@ -1,5 +1,6 @@
 import {
   authenticateUser,
+  axiosConfig,
   createNewApartment,
   createNewOccupant,
   createNewUser,
@@ -57,18 +58,14 @@ describe("GET routes", () => {
   it("should authenticate user and return user info", async () => {
     const output = await authenticateUser();
 
-    expect(spyGet).toHaveBeenCalledWith("/users/authenticate", {
-      withCredentials: true
-    });
+    expect(spyGet).toHaveBeenCalledWith("/users/authenticate", axiosConfig);
     expect(output).toEqual({ expected: "output" });
   });
 
   it("should get apartments data", async () => {
     const output = await fetchApartments();
 
-    expect(spyGet).toHaveBeenCalledWith("/apartments", {
-      withCredentials: true
-    });
+    expect(spyGet).toHaveBeenCalledWith("/apartments", axiosConfig);
     expect(output).toEqual({ expected: "output" });
   });
 
@@ -76,17 +73,16 @@ describe("GET routes", () => {
     const { apartmentId } = testInput;
     const output = await fetchApartmentById(apartmentId);
 
-    expect(spyGet).toHaveBeenCalledWith(`/apartments/${apartmentId}`, {
-      withCredentials: true
-    });
+    expect(spyGet).toHaveBeenCalledWith(
+      `/apartments/${apartmentId}`,
+      axiosConfig
+    );
     expect(output).toEqual({ expected: "output" });
   });
   it("should get occupants data", async () => {
     const output = await fetchOccupants();
 
-    expect(spyGet).toHaveBeenCalledWith("/occupants", {
-      withCredentials: true
-    });
+    expect(spyGet).toHaveBeenCalledWith("/occupants", axiosConfig);
     expect(output).toEqual({ expected: "output" });
   });
 
@@ -94,18 +90,17 @@ describe("GET routes", () => {
     const { occupantId } = testInput;
     const output = await fetchOccupantById(occupantId);
 
-    expect(spyGet).toHaveBeenCalledWith(`/occupants/${occupantId}`, {
-      withCredentials: true
-    });
+    expect(spyGet).toHaveBeenCalledWith(
+      `/occupants/${occupantId}`,
+      axiosConfig
+    );
     expect(output).toEqual({ expected: "output" });
   });
 
   it("should get users data", async () => {
     const output = await fetchUsers();
 
-    expect(spyGet).toHaveBeenCalledWith("/users", {
-      withCredentials: true
-    });
+    expect(spyGet).toHaveBeenCalledWith("/users", axiosConfig);
     expect(output).toEqual({ expected: "output" });
   });
 
@@ -118,18 +113,14 @@ describe("GET routes", () => {
     const userEmail = "user@email.com";
     const userId = await getUserId(userEmail);
 
-    expect(mockGet).toHaveBeenCalledWith("/users", {
-      withCredentials: true
-    });
+    expect(mockGet).toHaveBeenCalledWith("/users", axiosConfig);
     expect(userId).toBe("id123");
   });
 
   it("should get stays data", async () => {
     const output = await fetchStays();
 
-    expect(spyGet).toHaveBeenCalledWith("/stays?", {
-      withCredentials: true
-    });
+    expect(spyGet).toHaveBeenCalledWith("/stays?", axiosConfig);
     expect(output).toEqual({ expected: "output" });
   });
 
@@ -139,9 +130,7 @@ describe("GET routes", () => {
 
     expect(spyGet).toHaveBeenCalledWith(
       `/stays/apartmentProfileHistory/${apartmentId}`,
-      {
-        withCredentials: true
-      }
+      axiosConfig
     );
     expect(output).toEqual({ expected: "output" });
   });
@@ -162,9 +151,7 @@ describe("POST routes", () => {
     const input = { input: "body" };
     const output = await createNewApartment(input);
 
-    expect(spyPost).toHaveBeenCalledWith("/apartments", input, {
-      withCredentials: true
-    });
+    expect(spyPost).toHaveBeenCalledWith("/apartments", input, axiosConfig);
     expect(output).toEqual("Success message");
   });
 
@@ -183,9 +170,7 @@ describe("POST routes", () => {
     expect(spyPost).toHaveBeenCalledWith(
       "/occupants",
       { name, employeeId, gender, remarks, homeOffice, status },
-      {
-        withCredentials: true
-      }
+      axiosConfig
     );
     expect(output).toEqual("Success message");
   });
@@ -197,9 +182,7 @@ describe("POST routes", () => {
     expect(spyPost).toHaveBeenCalledWith(
       "/users/new",
       { name, email, password, role },
-      {
-        withCredentials: true
-      }
+      axiosConfig
     );
     expect(output).toEqual("Success message");
   });
@@ -223,9 +206,7 @@ describe("POST routes", () => {
     expect(spyPost).toHaveBeenCalledWith(
       "/stays",
       { occupantId, apartmentId, checkInDate, checkOutDate, leaseId },
-      {
-        withCredentials: true
-      }
+      axiosConfig
     );
     expect(output).toEqual("Success message");
   });
@@ -237,9 +218,7 @@ describe("POST routes", () => {
     expect(spyPost).toHaveBeenCalledWith(
       "/users/login",
       { email, password },
-      {
-        withCredentials: true
-      }
+      axiosConfig
     );
     expect(output).toEqual("Success message");
   });
@@ -247,13 +226,7 @@ describe("POST routes", () => {
   it("should logout user", async () => {
     const output = await logoutUser({});
 
-    expect(spyPost).toHaveBeenCalledWith(
-      "/users/logout",
-      {},
-      {
-        withCredentials: true
-      }
-    );
+    expect(spyPost).toHaveBeenCalledWith("/users/logout", {}, axiosConfig);
     expect(output).toEqual("Success message");
   });
 });
@@ -300,9 +273,7 @@ describe("PUT routes", () => {
         homeOffice,
         status
       },
-      {
-        withCredentials: true
-      }
+      axiosConfig
     );
     expect(output).toEqual("Success message");
   });
@@ -346,9 +317,7 @@ describe("PUT routes", () => {
         landlord,
         remarks
       },
-      {
-        withCredentials: true
-      }
+      axiosConfig
     );
     expect(output).toEqual("Success message");
   });
@@ -372,9 +341,7 @@ describe("PATCH routes", () => {
     expect(spyPatch).toHaveBeenCalledWith(
       `/users/${userId}`,
       { role },
-      {
-        withCredentials: true
-      }
+      axiosConfig
     );
     expect(output).toEqual("Success message");
   });
@@ -386,9 +353,7 @@ describe("PATCH routes", () => {
     expect(spyPatch).toHaveBeenCalledWith(
       `/users/password/${userId}`,
       { password, newPassword },
-      {
-        withCredentials: true
-      }
+      axiosConfig
     );
     expect(output).toEqual("Success message");
   });
@@ -410,9 +375,7 @@ describe("DELETE routes", () => {
 
     const output = await removeStay(stayId);
 
-    expect(spyDelete).toHaveBeenCalledWith(`/stays/${stayId}`, {
-      withCredentials: true
-    });
+    expect(spyDelete).toHaveBeenCalledWith(`/stays/${stayId}`, axiosConfig);
     expect(output).toEqual("Success message");
   });
 
@@ -421,9 +384,7 @@ describe("DELETE routes", () => {
 
     const output = await removeUser(userId);
 
-    expect(spyDelete).toHaveBeenCalledWith(`/users/${userId}`, {
-      withCredentials: true
-    });
+    expect(spyDelete).toHaveBeenCalledWith(`/users/${userId}`, axiosConfig);
     expect(output).toEqual("Success message");
   });
 });

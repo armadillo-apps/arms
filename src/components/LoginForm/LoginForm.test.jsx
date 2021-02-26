@@ -22,6 +22,13 @@ const LoginFormWithContext = (
 describe("Login Form", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    Object.defineProperty(window, "localStorage", {
+      value: {
+        getItem: jest.fn(() => null),
+        setItem: jest.fn(() => null)
+      },
+      writable: true
+    });
   });
 
   it("should have title on page ", () => {
@@ -86,6 +93,7 @@ describe("Login Form", () => {
       getByText("Invalid email or password")
     );
 
+    expect(window.localStorage.setItem).not.toBeCalled();
     expect(loginErrorNotification).toBeInTheDocument();
   });
 
@@ -94,7 +102,8 @@ describe("Login Form", () => {
       email: "test@email.com",
       role: "admin"
     };
-    postSpy.mockReturnValue(user);
+    const accessToken = "someToken";
+    postSpy.mockReturnValue({ accessToken, user });
 
     jest.spyOn(UserContext, "useUserContext").mockImplementation(() => ({
       state: user,
@@ -111,6 +120,8 @@ describe("Login Form", () => {
     const loginSuccessMessage = await waitFor(() => getByText("Welcome back!"));
     expect(loginSuccessMessage).toBeInTheDocument();
 
+    expect(window.localStorage.setItem).toBeCalledTimes(1);
+    expect(window.localStorage.setItem).toBeCalledWith("token", accessToken);
     expect(mockHistory).toBeCalledTimes(1);
     expect(mockHistory).toBeCalledWith("/apartments");
   });
