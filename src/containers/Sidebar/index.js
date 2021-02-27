@@ -9,6 +9,7 @@ import UsersLogo from "../../assets/userManagement.svg";
 import LogoutLogo from "../../assets/logout.svg";
 import { sidebarLinks } from "./constants";
 import { roles } from "../../constants/roles";
+import { removeToken } from "../../utils/token";
 
 const Sidebar = () => {
   const { state, dispatch } = useUserContext();
@@ -17,7 +18,7 @@ const Sidebar = () => {
 
   const onLogout = async () => {
     dispatch({ type: LOGOUT_USER });
-    localStorage.removeItem("token");
+    removeToken();
     await logoutUser();
   };
 

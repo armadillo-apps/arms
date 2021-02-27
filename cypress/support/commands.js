@@ -37,3 +37,14 @@ Cypress.Commands.add("visitHome", () => {
 Cypress.Commands.add("logout", () => {
   cy.request("POST", `${Cypress.env("BACKEND_URL")}/users/logout`);
 });
+
+// This is a hack to persist token from localStorage in cookies where Cypress allows control of
+Cypress.Commands.add("persistSession", () => {
+  cy.setCookie("token", localStorage.getItem("token"));
+});
+
+Cypress.Commands.add("restoreSession", () => {
+  cy.getCookie("token").then(token => {
+    localStorage.setItem("token", token.value);
+  });
+});

@@ -7,6 +7,7 @@ import { loginUser } from "../../api/api";
 import { LOGIN_USER, LOGOUT_USER } from "../../reducer/userReducer";
 import { useUserContext } from "../../context/UserContext";
 import styles from "./LoginForm.module.css";
+import { setToken } from "../../utils/token";
 
 const LoginForm = () => {
   const history = useHistory();
@@ -26,7 +27,7 @@ const LoginForm = () => {
         formInputs.email,
         formInputs.password
       );
-      localStorage.setItem("token", accessToken);
+      setToken(accessToken);
       addToast("Welcome back!", {
         appearance: "success",
         autoDismiss: true

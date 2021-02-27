@@ -7,11 +7,13 @@ import { fillOutApartmentForm } from "../actions/apartmentActions";
 describe("Apartments, Occupant, and ApartmentAssign", () => {
   before(() => {
     cy.loginAdmin();
+    cy.persistSession();
     cy.visitHome();
   });
 
   beforeEach(() => {
     Cypress.Cookies.preserveOnce("token");
+    cy.restoreSession();
     cy.server();
     cy.route("/**").as("GetRequest");
   });
@@ -75,9 +77,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     landlordName,
     accountNumber,
     leaseStart: "2019-07-01",
-    leaseEnd: moment(new Date())
-      .add(1, "months")
-      .format("YYYY-MM-DD"),
+    leaseEnd: moment(new Date()).add(1, "months").format("YYYY-MM-DD"),
     monthlyRent,
     currency: "SGD",
     capacity: 1,
@@ -122,9 +122,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       const gender = "female";
 
       cy.get('a[href="/occupants"]').click();
-      cy.get("button")
-        .contains("+ Add Occupant")
-        .click();
+      cy.get("button").contains("+ Add Occupant").click();
 
       cy.get("h1").contains("Create New Occupant");
       cy.get("input[name=name]").type(modName);
@@ -137,9 +135,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.wait("@GetRequest");
       cy.get("[data-testid=Occupant__searchBar]").type(modName);
       cy.get(".react-toast-notifications__toast__dismiss-icon > path").click();
-      cy.get("td")
-        .contains(modName)
-        .click();
+      cy.get("td").contains(modName).click();
       cy.wait("@GetRequest");
       cy.get("h1").contains(modName);
       cy.get("h2").contains(modEmployeeId);
@@ -151,22 +147,12 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
     it("should be able to edit the occupant details", () => {
       cy.get('a[href="/occupants"]').click();
 
-      cy.get("td")
-        .contains(modEmployeeId)
-        .click();
-      cy.get("button")
-        .contains(/edit/i)
-        .click();
-      cy.get("input[name=name]")
-        .clear()
-        .type(name);
-      cy.get("input[name=employeeId]")
-        .clear()
-        .type(employeeId);
+      cy.get("td").contains(modEmployeeId).click();
+      cy.get("button").contains(/edit/i).click();
+      cy.get("input[name=name]").clear().type(name);
+      cy.get("input[name=employeeId]").clear().type(employeeId);
       cy.get("select[name=gender]").select("male");
-      cy.get("textarea[name=remarks]")
-        .clear()
-        .type("testing");
+      cy.get("textarea[name=remarks]").clear().type("testing");
       cy.get("select[name=homeOffice]").select("Singapore, Singapore");
       cy.get("select[name=status]").select("Unallocated");
       cy.get("input[type=submit]").click();
@@ -188,9 +174,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       const newOccupantname = "Bob";
 
       cy.get('a[href="/occupants"]').click();
-      cy.get("button")
-        .contains("+ Add Occupant")
-        .click();
+      cy.get("button").contains("+ Add Occupant").click();
 
       cy.get("h1").contains("Create New Occupant");
       cy.get("input[name=name]").type(newOccupantname);
@@ -210,9 +194,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   describe("Create, edit, and view Apartment", () => {
     beforeEach(() => {
       cy.visitHome();
-      cy.get("button")
-        .contains("+ Add Apartment")
-        .click();
+      cy.get("button").contains("+ Add Apartment").click();
     });
 
     it("should be unable to create a new apartment with -ve inputs", () => {
@@ -255,24 +237,16 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .type(apartmentName);
 
       const vacancy = 1;
-      cy.get("tbody tr")
-        .contains("tr", apartmentName)
-        .contains("td", vacancy);
+      cy.get("tbody tr").contains("tr", apartmentName).contains("td", vacancy);
 
       const status = "active";
       cy.get("td").contains(status);
 
-      cy.get("td")
-        .contains(apartmentName)
-        .click();
+      cy.get("td").contains(apartmentName).click();
       cy.get("h1").contains(apartmentName);
 
-      cy.get("div")
-        .should("have.class", "address")
-        .contains(address);
-      cy.get("div")
-        .should("have.class", "country")
-        .contains("Singapore");
+      cy.get("div").should("have.class", "address").contains(address);
+      cy.get("div").should("have.class", "country").contains("Singapore");
       cy.get("table")
         .should("have.class", "apartmentProfile__leases")
         .contains(monthlyRentSgdFormatted);
@@ -291,24 +265,16 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
         .type(apartmentName2);
 
       const vacancy = 1;
-      cy.get("tbody tr")
-        .contains("tr", apartmentName2)
-        .contains("td", vacancy);
+      cy.get("tbody tr").contains("tr", apartmentName2).contains("td", vacancy);
 
       const status = "active";
       cy.get("td").contains(status);
 
-      cy.get("td")
-        .contains(apartmentName2)
-        .click();
+      cy.get("td").contains(apartmentName2).click();
       cy.get("h1").contains(apartmentName2);
 
-      cy.get("div")
-        .should("have.class", "address")
-        .contains(address);
-      cy.get("div")
-        .should("have.class", "country")
-        .contains("Thailand");
+      cy.get("div").should("have.class", "address").contains(address);
+      cy.get("div").should("have.class", "country").contains("Thailand");
       cy.get("table")
         .should("have.class", "apartmentProfile__leases")
         .contains(monthlyRentThbFormatted);
@@ -340,9 +306,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get('a[href="/apartments"]').click();
 
       cy.contains(apartmentName).click();
-      cy.get("button")
-        .contains("+")
-        .click();
+      cy.get("button").contains("+").click();
       cy.get("input[id=occupantToAssign]").type(name);
       cy.contains("Select").click();
       cy.get("input[id=checkInDate]").type("2000-01-01");
@@ -362,9 +326,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get('a[href="/apartments"]').click();
 
       cy.contains(apartmentName).click();
-      cy.get("button")
-        .contains("+")
-        .click();
+      cy.get("button").contains("+").click();
       cy.get("input[id=occupantToAssign]").type(name);
       cy.contains("Select").click();
       cy.get("input[id=checkInDate]").type(checkInDate.format("YYYY-MM-DD"));
@@ -395,24 +357,18 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get('a[href="/apartments"]').click();
 
       cy.contains(apartmentName).click();
-      cy.get("button")
-        .contains("+")
-        .click();
+      cy.get("button").contains("+").click();
       cy.get("input[id=occupantToAssign]").type(name);
       cy.contains("Select").click();
       cy.get("input[id=checkInDate]").type("2016-05-01");
       cy.get("input[id=checkOutDate]").type("2016-10-01");
-      cy.get("button")
-        .contains("Cancel")
-        .click();
+      cy.get("button").contains("Cancel").click();
       cy.get("input").should(
         "have.attr",
         "placeholder",
         "Search occupants here..."
       );
-      cy.get("button[class=modalCloseButton]")
-        .contains("X")
-        .click();
+      cy.get("button[class=modalCloseButton]").contains("X").click();
       cy.contains("Occupant");
     });
 
@@ -435,9 +391,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("[data-testid=Apartment__searchBar]").type(apartmentName);
       cy.contains(apartmentName).click();
 
-      cy.get("button")
-        .contains("Edit")
-        .click();
+      cy.get("button").contains("Edit").click();
 
       cy.get("select[name=status]").select("Inactive");
       cy.contains(
@@ -456,9 +410,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("[data-testid=Apartment__searchBar]").type(apartmentName);
       cy.contains(apartmentName).click();
       cy.get('button[id="isConfirmationModalOpen"]').click();
-      cy.get("button")
-        .contains("Cancel")
-        .click();
+      cy.get("button").contains("Cancel").click();
       cy.contains(name);
     });
 
@@ -467,9 +419,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
 
       cy.contains(apartmentName).click();
       cy.get('button[id="isConfirmationModalOpen"]').click();
-      cy.get("button")
-        .contains("Delete")
-        .click();
+      cy.get("button").contains("Delete").click();
       cy.contains(name).should("not.exist");
       cy.contains("No occupants yet!");
     });
@@ -480,9 +430,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get('a[href="/apartments"]').click();
 
       cy.contains(apartmentName).click();
-      cy.get("button")
-        .contains("Edit")
-        .click();
+      cy.get("button").contains("Edit").click();
 
       cy.get("select[name=status]").select("inactive");
       cy.get("[data-testid=editApartmentForm__updateButton]").click();
@@ -491,60 +439,34 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get('a[href="/apartments"]').click();
 
       const status = "inactive";
-      cy.get("tbody tr")
-        .contains("tr", apartmentName)
-        .contains("td", status);
+      cy.get("tbody tr").contains("tr", apartmentName).contains("td", status);
     });
 
     it("should be able to edit apartment details", () => {
       cy.get('a[href="/apartments"]').click();
 
       cy.contains(apartmentName).click();
-      cy.get("button")
-        .contains("Edit")
-        .click();
+      cy.get("button").contains("Edit").click();
 
       cy.get("[data-testid=editApartmentForm]").should("exist");
       cy.get("[data-testid=editApartmentForm__cancelButton]").scrollIntoView();
       cy.get("[data-testid=editApartmentForm__cancelButton]").click();
       cy.get("[data-testid=editApartmentForm]").should("not.exist");
 
-      cy.get("button")
-        .contains("Edit")
-        .click();
-      cy.get("input[id=name]")
-        .clear()
-        .type("The Beacon");
-      cy.get("input[id=address]")
-        .clear()
-        .type("Fake street 11");
-      cy.get("input[id=bedrooms]")
-        .clear()
-        .type("10");
-      cy.get("input[id=capacity]")
-        .clear()
-        .type("10");
+      cy.get("button").contains("Edit").click();
+      cy.get("input[id=name]").clear().type("The Beacon");
+      cy.get("input[id=address]").clear().type("Fake street 11");
+      cy.get("input[id=bedrooms]").clear().type("10");
+      cy.get("input[id=capacity]").clear().type("10");
       cy.get("select[id=country]").select("Thailand");
       cy.get("select[id=status]").select("Inactive");
-      cy.get("input[id=leaseStart]")
-        .clear()
-        .type("2020-11-12");
-      cy.get("input[id=leaseEnd]")
-        .clear()
-        .type("2020-12-12");
-      cy.get("input[id=monthlyRent]")
-        .clear()
-        .type("8000");
+      cy.get("input[id=leaseStart]").clear().type("2020-11-12");
+      cy.get("input[id=leaseEnd]").clear().type("2020-12-12");
+      cy.get("input[id=monthlyRent]").clear().type("8000");
       cy.get("select[id=currency]").select("THB");
-      cy.get("input[id=landlordName]")
-        .clear()
-        .type("Tony Stark");
-      cy.get("input[id=landlordAccountNumber]")
-        .clear()
-        .type("12345");
-      cy.get("textarea[id=remarks]")
-        .clear()
-        .type("Awesome");
+      cy.get("input[id=landlordName]").clear().type("Tony Stark");
+      cy.get("input[id=landlordAccountNumber]").clear().type("12345");
+      cy.get("textarea[id=remarks]").clear().type("Awesome");
       cy.get("[data-testid=editApartmentForm__updateButton]").click();
       cy.contains("Successfully updated apartment: The Beacon");
       cy.get("button[class=editApartmentForm__closeButton]").click();
@@ -558,9 +480,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("h1").contains("Apartments");
 
       cy.visitHome();
-      cy.get("button")
-        .contains("+ Add Apartment")
-        .click();
+      cy.get("button").contains("+ Add Apartment").click();
       cy.reload();
       cy.get("h1").contains("Create New Apartment");
 
@@ -569,9 +489,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("h1").contains("Occupants");
 
       cy.get('a[href="/occupants"]').click();
-      cy.get("button")
-        .contains("+ Add Occupant")
-        .click();
+      cy.get("button").contains("+ Add Occupant").click();
       cy.reload();
       cy.get("h1").contains("Create New Occupant");
 

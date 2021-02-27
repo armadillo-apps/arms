@@ -8,8 +8,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "./index";
 
 import * as data from "../../api/api";
+import { removeToken } from "../../utils/token";
 
 const mockLogout = jest.spyOn(data, "logoutUser");
+jest.mock("../../utils/token");
 
 describe("Sidebar", () => {
   describe("Public", () => {
@@ -51,12 +53,6 @@ describe("Sidebar", () => {
     });
 
     it("should render logout link and logout user when clicked", () => {
-      Object.defineProperty(window, "localStorage", {
-        value: {
-          removeItem: jest.fn(() => null)
-        },
-        writable: true
-      });
       mockLogout.mockReturnValue("");
 
       const { getByAltText } = render(
@@ -69,8 +65,7 @@ describe("Sidebar", () => {
       expect(logoutLink).toBeInTheDocument();
       fireEvent.click(logoutLink);
       expect(mockLogout).toHaveBeenCalledTimes(1);
-      expect(window.localStorage.removeItem).toBeCalledTimes(1);
-      expect(window.localStorage.removeItem).toBeCalledWith("token");
+      expect(removeToken).toBeCalledTimes(1);
     });
   });
 

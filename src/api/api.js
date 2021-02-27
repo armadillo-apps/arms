@@ -1,37 +1,38 @@
 import axios from "./axios";
 import queryString from "query-string";
+import { getToken } from "../utils/token";
 
-export const axiosConfig = {
-  headers: { Authorization: localStorage.getItem("token") }
-};
+export const axiosConfig = () => ({
+  headers: { Authorization: getToken() }
+});
 
 export const authenticateUser = async () => {
-  const response = await axios.get("/users/authenticate", axiosConfig);
+  const response = await axios.get("/users/authenticate", axiosConfig());
   return response.data;
 };
 
 export const fetchApartments = async () => {
-  const response = await axios.get("/apartments", axiosConfig);
+  const response = await axios.get("/apartments", axiosConfig());
   return response.data;
 };
 
 export const fetchApartmentById = async apartmentId => {
-  const response = await axios.get(`/apartments/${apartmentId}`, axiosConfig);
+  const response = await axios.get(`/apartments/${apartmentId}`, axiosConfig());
   return response.data;
 };
 
 export const fetchOccupants = async () => {
-  const response = await axios.get("/occupants", axiosConfig);
+  const response = await axios.get("/occupants", axiosConfig());
   return response.data;
 };
 
 export const fetchOccupantById = async occupantId => {
-  const response = await axios.get(`/occupants/${occupantId}`, axiosConfig);
+  const response = await axios.get(`/occupants/${occupantId}`, axiosConfig());
   return response.data;
 };
 
 export const fetchUsers = async () => {
-  const response = await axios.get("/users", axiosConfig);
+  const response = await axios.get("/users", axiosConfig());
   return response.data;
 };
 
@@ -43,20 +44,20 @@ export const getUserId = async email => {
 
 export const fetchStays = async queryParams => {
   const query = queryString.stringify(queryParams);
-  const response = await axios.get(`/stays?${query}`, axiosConfig);
+  const response = await axios.get(`/stays?${query}`, axiosConfig());
   return response.data;
 };
 
 export const getApartmentProfileHistory = async apartmentId => {
   const response = await axios.get(
     `/stays/apartmentProfileHistory/${apartmentId}`,
-    axiosConfig
+    axiosConfig()
   );
   return response.data;
 };
 
 export const createNewApartment = async input => {
-  const response = await axios.post("/apartments", input, axiosConfig);
+  const response = await axios.post("/apartments", input, axiosConfig());
   return response.data;
 };
 
@@ -76,7 +77,7 @@ export const createNewOccupant = async (
     homeOffice,
     status
   };
-  const response = await axios.post("/occupants", requestBody, axiosConfig);
+  const response = await axios.post("/occupants", requestBody, axiosConfig());
   return response.data;
 };
 
@@ -87,7 +88,7 @@ export const createNewUser = async (name, email, password, role) => {
     password,
     role
   };
-  const response = await axios.post("/users/new", requestBody, axiosConfig);
+  const response = await axios.post("/users/new", requestBody, axiosConfig());
   return response.data;
 };
 
@@ -105,18 +106,18 @@ export const createStay = async (
     checkOutDate: checkOutDate,
     leaseId: leaseId
   };
-  const response = await axios.post("/stays", requestBody, axiosConfig);
+  const response = await axios.post("/stays", requestBody, axiosConfig());
   return response.data;
 };
 
 export const loginUser = async (email, password) => {
   const loginDetails = { email, password };
-  const login = await axios.post("/users/login", loginDetails, axiosConfig);
+  const login = await axios.post("/users/login", loginDetails, axiosConfig());
   return login.data;
 };
 
 export const logoutUser = async () => {
-  const logout = await axios.post("/users/logout", {}, axiosConfig);
+  const logout = await axios.post("/users/logout", {}, axiosConfig());
   return logout.data;
 };
 
@@ -142,7 +143,7 @@ export const updateOccupant = async ({
   const response = await axios.put(
     `/occupants/${_id}`,
     requestBody,
-    axiosConfig
+    axiosConfig()
   );
   return response.data;
 };
@@ -174,7 +175,7 @@ export const updateApartment = async (
   const response = await axios.put(
     `/apartments/${apartmentId}`,
     requestBody,
-    axiosConfig
+    axiosConfig()
   );
   return response.data;
 };
@@ -186,7 +187,7 @@ export const editUserRole = async (userId, role) => {
   const response = await axios.patch(
     `/users/${userId}`,
     requestBody,
-    axiosConfig
+    axiosConfig()
   );
   return response.data;
 };
@@ -197,17 +198,17 @@ export const updatePassword = async (userEmail, password, newPassword) => {
   const response = await axios.patch(
     `/users/password/${userEmail}`,
     requestBody,
-    axiosConfig
+    axiosConfig()
   );
   return response.data;
 };
 
 export const removeStay = async stayId => {
-  const response = await axios.delete(`/stays/${stayId}`, axiosConfig);
+  const response = await axios.delete(`/stays/${stayId}`, axiosConfig());
   return response.data;
 };
 
 export const removeUser = async userId => {
-  const response = await axios.delete(`/users/${userId}`, axiosConfig);
+  const response = await axios.delete(`/users/${userId}`, axiosConfig());
   return response.data;
 };
