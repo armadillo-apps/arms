@@ -1,8 +1,7 @@
 /* eslint-disable jest/expect-expect */
 describe("Login", () => {
   beforeEach(() => {
-    cy.server();
-    cy.route("/**").as("GetRequest");
+    cy.intercept("/**").as("GetRequest");
     cy.logout();
     cy.visitHome();
     cy.get("input[name=email]").type(`${Cypress.env("TEST_ADMIN_USER")}`);

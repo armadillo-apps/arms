@@ -3,8 +3,7 @@ describe("Sidebar", () => {
   beforeEach(() => {
     cy.loginAdmin();
     cy.visitHome();
-    cy.server();
-    cy.route("/**").as("GetRequest");
+    cy.intercept("/**").as("GetRequest");
   });
 
   afterEach(() => {

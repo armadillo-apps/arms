@@ -14,8 +14,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
   beforeEach(() => {
     Cypress.Cookies.preserveOnce("token");
     cy.restoreSession();
-    cy.server();
-    cy.route("/**").as("GetRequest");
+    cy.intercept("/**").as("GetRequest");
   });
 
   const apartmentName = faker.company.companyName();
