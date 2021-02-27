@@ -157,6 +157,7 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("select[name=status]").select("Unallocated");
       cy.get("input[type=submit]").click();
       cy.wait("@GetRequest");
+      cy.wait("@GetRequest");
       cy.contains(`Successfully updated occupant: ${name}`);
       cy.contains(name);
       cy.get("h2").contains(employeeId);
