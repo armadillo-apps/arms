@@ -136,11 +136,11 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get(".react-toast-notifications__toast__dismiss-icon > path").click();
       cy.get("td").contains(modName).click();
       cy.wait("@GetRequest");
-      cy.get("h1").contains(modName);
-      cy.get("h2").contains(modEmployeeId);
-      cy.get("h2").contains(gender);
-      cy.get("h2").contains(/Home Office: Australia, Melbourne/i);
-      cy.get("span").contains(status);
+      cy.contains("h1", modName);
+      cy.contains("h2", modEmployeeId);
+      cy.contains("h2", gender);
+      cy.contains("h2", /Home Office: Australia, Melbourne/i);
+      cy.contains("span", status);
     });
 
     it("should be able to edit the occupant details", () => {
@@ -155,7 +155,6 @@ describe("Apartments, Occupant, and ApartmentAssign", () => {
       cy.get("select[name=homeOffice]").select("Singapore, Singapore");
       cy.get("select[name=status]").select("Unallocated");
       cy.get("input[type=submit]").click();
-      cy.wait("@GetRequest");
       cy.wait("@GetRequest");
       cy.contains(`Successfully updated occupant: ${name}`);
       cy.contains(name);
